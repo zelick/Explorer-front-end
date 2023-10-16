@@ -1,0 +1,39 @@
+<h2>Clubs</h2>
+    <div>
+        <table>
+            <tr>
+                <th> Id </th>
+                <th> Name </th>
+                <th> Description </th>
+                <th> Image </th>
+                <th> Owner </th>
+                <th> Edit </th>
+                <th> Delte </th>
+            </tr>
+            <tr *ngFor="let c of club">
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.description}}</td>
+                <img [src]="c.image" alt="Club Image" style="max-width: 100px; max-height: 100px;">
+                <td>{{c.touristId}}</td>
+                <td>
+                    <button *ngIf="isCurrentUserOwner(c)" (click)="onEditClicked(c)" color="primary" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    <button *ngIf="isCurrentUserOwner(c)" (click)="deleteClub(c.id)" color="accent" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <xp-club-form *ngIf="shouldAdd || shouldEdit" (clubUpdated)="getClub()" [club]="selectedClub" [shouldEdit]="shouldEdit"></xp-club-form>
+    </div>
