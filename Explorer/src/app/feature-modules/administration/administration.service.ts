@@ -4,6 +4,7 @@ import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ClubMemebrshipRequest } from './model/club-membership-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,7 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+  getClubMembershipRequests(): Observable<PagedResults<ClubMemebrshipRequest>> {
+    return this.http.get<PagedResults<ClubMemebrshipRequest>>(environment.apiHost + 'request')
+  }
 }
