@@ -1,0 +1,31 @@
+<div id="reported-issues">
+    <p>Reported issues</p>
+    <hr>
+    <div id="reported-issues-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Time</th>
+                    <th>Tour</th>
+                    <th>Tourist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ri of reportedIssues">
+                    <td>{{ri.category}}</td>
+                    <td>{{ri.description}}</td>
+                    <td>{{ri.priority}}</td>
+                    <td>{{ri.time}}</td>
+                    <td>{{ri.tourId}}</td>
+                    <td>{{ri.touristId}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
