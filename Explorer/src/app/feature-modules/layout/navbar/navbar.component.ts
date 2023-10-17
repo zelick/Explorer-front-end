@@ -22,4 +22,10 @@ export class NavbarComponent implements OnInit {
   onLogout(): void {
     this.authService.logout();
   }
+
+  //izmena - uzmi od Ane
+  //da li ulogovani user nalazi u Club -> ClubOwnerId
+  isUserClubOwner(user: User | undefined): boolean{
+    return user?.username !== '';
+  }
 }

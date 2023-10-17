@@ -29,7 +29,13 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+  //club membership requests
   getClubMembershipRequests(): Observable<PagedResults<ClubMemebrshipRequest>> {
     return this.http.get<PagedResults<ClubMemebrshipRequest>>(environment.apiHost + 'request')
   }
+  
+  deleteClubMembershipRequest(id: number): Observable<ClubMemebrshipRequest> {
+    return this.http.delete<ClubMemebrshipRequest>(environment.apiHost + 'request/deleteRequest/' + id);
+  }
+
 }
