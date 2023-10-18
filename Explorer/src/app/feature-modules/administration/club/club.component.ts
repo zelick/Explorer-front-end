@@ -46,6 +46,11 @@ export class ClubComponent implements OnInit {
         this.shouldEdit = false;
     }
 
+    onCloseClicked(): void {
+      this.shouldAdd = false;
+      this.shouldEdit = false;
+    }
+
     isCurrentUserOwner(club: Club): boolean {
       return this.currentUserTouristId === club.touristId;
     }
@@ -57,5 +62,4 @@ export class ClubComponent implements OnInit {
         },
       })
     }
-
 }

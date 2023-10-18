@@ -33,7 +33,6 @@ export class ClubFormComponent implements OnChanges  {
     image: new FormControl('', [Validators.required])
   })
 
-
   addClub(): void {
     // Dohvati najnovije podatke pre nego što generišeš novi ID
 
@@ -44,7 +43,7 @@ export class ClubFormComponent implements OnChanges  {
 
         // Generiši ID
         const club: Club = {
-          id: generateId(this.clubs),
+          //id: generateId(this.clubs),
           name: this.clubForm.value.name || "",
           description: this.clubForm.value.description || "",
           image: this.clubForm.value.image || "",
@@ -66,7 +65,7 @@ export class ClubFormComponent implements OnChanges  {
 
   updateClub(): void {
     const club: Club = {
-      id: generateId(this.clubs),
+      //id: generateId(this.clubs),
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       image: this.clubForm.value.image || "",
@@ -82,7 +81,7 @@ export class ClubFormComponent implements OnChanges  {
 
 }
 
-function generateId(existingClubs: Club[]): number {
+/*function generateId(existingClubs: Club[]): number {
 
   if (existingClubs.length === 0) {
     return 1; 
@@ -91,6 +90,7 @@ function generateId(existingClubs: Club[]): number {
   const maxId = Math.max(...existingClubs.map(club => club.id));
   return maxId + 1;
 }
+*/
 
 function findLoggedUser(authService: AuthService): number {
   let userId: number | null = null;
@@ -98,15 +98,10 @@ function findLoggedUser(authService: AuthService): number {
   const subscription = authService.user$.subscribe(user => {
     if (user) {
       userId = user.id;
-      // Ovde možeš dodati bilo kakav kod koji zavisi od userId
     }
   });
 
-  // Neki dodatni kod ako ti je potreban
-
-  // Ne zaboravi se odjaviti od observable-a kad ne treba više
   subscription.unsubscribe();
 
-  // Vrati userId ili nešto drugo što ti je potrebno
-  return userId ?? 999;  // Ako userId ostane null, možeš vratiti neku podrazumevanu vrednost
+  return userId ?? 999;  
 }
