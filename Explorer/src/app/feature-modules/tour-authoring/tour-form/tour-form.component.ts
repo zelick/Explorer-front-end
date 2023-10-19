@@ -31,6 +31,8 @@ export class TourFormComponent implements OnChanges,OnInit{
       }
       else{
         this.tags=[];
+
+
       }
     });
 
@@ -55,7 +57,7 @@ export class TourFormComponent implements OnChanges,OnInit{
   tourForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    demandignessLevel: new FormControl('Easy'),
+    demandignessLevel:new FormControl('Easy'),
     price: new FormControl(0) 
   });
 
