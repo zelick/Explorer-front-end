@@ -8,7 +8,7 @@
     </div>
     <br>
     <div>
-        <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
+        <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
     </div>
     <br>
     <div *ngIf="shouldRenderCheckpointList">

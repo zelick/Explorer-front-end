@@ -13,7 +13,7 @@ export class CheckpointFormComponent implements OnChanges{
   @Output() checkpointUpdated = new EventEmitter<null>();
   @Input() selectedCheckpoint: Checkpoint;
   @Input() shouldEdit: boolean = false;
-  @Input() tourID: number;
+  @Input() tourID: number = 0;
 
   constructor(private service: TourAuthoringService) {
   }
@@ -26,7 +26,7 @@ export class CheckpointFormComponent implements OnChanges{
   }
 
   checkpointForm = new FormGroup({
-    tourID: new FormControl(0, [Validators.required]),
+    tourID: new FormControl(this.tourID, [Validators.required]),
     orderNumber: new FormControl(0, [Validators.required]),
     longitude: new FormControl(0, [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
