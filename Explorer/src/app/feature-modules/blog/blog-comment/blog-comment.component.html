@@ -9,8 +9,8 @@
     </div>
     <div class="comment-text">{{ comment.text }}</div>
     <div class="comment-metadata">
-      <span class="comment-time">Created: {{ comment.creationTime }} </span>
-      <span class="comment-time" *ngIf="comment.modificationTime !== '00:00:00'">Last modified: {{ comment.modificationTime }}</span>
+      <span class="comment-time">Created: {{ comment.creationTime | date: 'HH:mm dd.MM.yyyy'}} </span>
+      <span class="comment-time" *ngIf="comment.modificationTime !== null">Last modified: {{ comment.modificationTime | date: 'HH:mm dd.MM.yyyy'}}</span>
     </div>
   </div>
   <div>

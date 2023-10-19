@@ -34,15 +34,16 @@ export class BlogCommentFormComponent implements OnChanges{
   });
 
   addComment(): void {
-    const creationTime = this.getCurrentTime();
+    const currentDateTime = new Date();
+
+    console.log(currentDateTime);
     const blogComment: BlogComment =  {
-      blogPostId: 0, 
+      blogPostId: 1, 
       userId: this.user.id,
-      creationTime: creationTime,
-      modificationTime: "00:00:00",
+      creationTime: new Date(),
       text: this.blogCommentForm.value.text || ""
     }
-
+    console.log(blogComment);
     this.service.addBlogComment(blogComment).subscribe({
       next: (_) => {
         this.blogCommentsUpdated.emit()
@@ -51,13 +52,11 @@ export class BlogCommentFormComponent implements OnChanges{
   }
 
   updateBlogComment(): void {
-    const modificationTime = this.getCurrentTime();
-
     const blogComment: BlogComment =  {
       blogPostId: this.blogComment.blogPostId, 
       userId: this.blogComment.userId,
       creationTime: this.blogComment.creationTime,
-      modificationTime: modificationTime,
+      modificationTime: new Date(),
       text: this.blogCommentForm.value.text || ""
     }
     blogComment.id = this.blogComment.id;
@@ -68,12 +67,5 @@ export class BlogCommentFormComponent implements OnChanges{
       }
     })
   }
-
-  getCurrentTime(): string {
-    const currentDateTime = new Date();
-    const hours = currentDateTime.getHours().toString().padStart(2, '0');
-    const minutes = currentDateTime.getMinutes().toString().padStart(2, '0');
-    const seconds = currentDateTime.getSeconds().toString().padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
-  }
+  
 }
