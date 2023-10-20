@@ -7,12 +7,16 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { PreferenceComponent } from 'src/app/feature-modules/marketplace/preference/preference/preference.component';
 import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/preference-form/preference-form/preference-form.component';
+import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
+import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
+  {path: 'tour', component: TourComponent,canActivate:[AuthGuard]}
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]}
 ];
