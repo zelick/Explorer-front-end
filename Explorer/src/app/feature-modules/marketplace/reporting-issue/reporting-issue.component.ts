@@ -6,6 +6,7 @@ import { Validators } from '@angular/forms';
 import { ReportedIssue } from '../model/reported-issue.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class ReportingIssueComponent implements OnChanges {
     touristId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
   });
 
-  constructor(private service: MarketplaceService) {}
+  constructor(private service: MarketplaceService, private authService: AuthService) {}
 
   ngOnChanges(): void {
     this.reportingIssueForm.reset();
@@ -38,19 +39,16 @@ export class ReportingIssueComponent implements OnChanges {
     if(this.reportingIssueForm.value.tourId){
       tourIdValue = +this.reportingIssueForm.value.tourId;
     }
-    let touristIdValue = 0;
-    if(this.reportingIssueForm.value.touristId){
-      touristIdValue = +this.reportingIssueForm.value.touristId;
-    }
+    const user = this.authService.user$.getValue();
 
-    if (priorityValue !== null && tourIdValue !== null && touristIdValue !== null) {
+    if (priorityValue !== null && tourIdValue !== null && user !== null) {
       const reportedIssue: ReportedIssue = {
         category: this.reportingIssueForm.value.category || "",
         description: this.reportingIssueForm.value.description || "",
         priority: +priorityValue || 0,
         time: this.reportingIssueForm.value.time || new Date(),
         tourId: +tourIdValue || 0,
-        touristId: +touristIdValue || 0,
+        touristId: +user.id || 0,
       };
 
       this.service.addReportedIssue(reportedIssue).subscribe({
