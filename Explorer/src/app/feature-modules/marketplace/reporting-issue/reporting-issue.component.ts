@@ -48,7 +48,7 @@ export class ReportingIssueComponent implements OnChanges {
         priority: +priorityValue || 0,
         time: this.reportingIssueForm.value.time || new Date(),
         tourId: +tourIdValue || 0,
-        touristId: +user.id || 0,
+        touristId: +user.id || 0
       };
 
       this.service.addReportedIssue(reportedIssue).subscribe({
