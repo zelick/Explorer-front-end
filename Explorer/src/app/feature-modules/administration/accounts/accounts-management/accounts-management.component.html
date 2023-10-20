@@ -8,6 +8,7 @@
                 <tr>
                     <th>Username</th>
                     <th>Role</th>
+                    <th>Email</th>
                     <th>Is active</th>
                     <th></th>
                 </tr>
@@ -16,6 +17,7 @@
                 <tr *ngFor="let a of accounts">
                     <td>{{a.username}}</td>
                     <td>{{getRoleString(a.role)}}</td>
+                    <td>{{a.email}}</td>
                     <td>{{a.isActive}}</td>
                     <td><input type="button" *ngIf="a.isActive" (click)="blockAccount(a.id)" value="Block"/></td>
                 </tr>

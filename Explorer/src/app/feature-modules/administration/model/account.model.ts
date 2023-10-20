@@ -9,4 +9,5 @@ export interface Account {
     username: string;
     role: Role;
     isActive: boolean;
+    email: string;
 }
