@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
-  {path: 'tour', component: TourComponent,canActivate:[AuthGuard]}
+  {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]}
 ];
