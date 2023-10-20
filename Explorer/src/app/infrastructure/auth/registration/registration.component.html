@@ -30,11 +30,9 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Profile Picture</mat-label>
-        <input type="file" (change)="onProfilePictureSelected($event)" style="display: none;" />
-        <label for="profilePicture" class="custom-file-upload">
-          Choose File
-        </label>
-      </mat-form-field>                 
+        <input matInput type="text" [readonly]="true" formControlName="profilePictureUrl" />
+        <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
+      </mat-form-field>                            
       <mat-form-field>
         <mat-label>Role</mat-label>
         <mat-select formControlName="role">

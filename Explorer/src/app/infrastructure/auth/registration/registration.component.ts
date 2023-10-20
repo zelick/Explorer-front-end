@@ -55,22 +55,12 @@ export class RegistrationComponent {
     const file = event?.target?.files[0]; // Optional chaining za event.target
   
     if (this.registrationForm) {
-      const control = this.registrationForm.get('profilePictureUrl');
-      if (control) {
-        const reader = new FileReader();
-    
-        reader.onload = (e) => {
-          const imageAsBase64 = e.target?.result as string; // Koristimo as string za asertaciju
-    
-          if (imageAsBase64) {
-            // Ako imageAsBase64 nije null ili undefined, postavite ga u formu
-            control.setValue(imageAsBase64);
-          }
-        };
-    
+      const controlUrl = this.registrationForm.get('profilePictureUrl');
+  
+      if (controlUrl) {
         if (file) {
-          // Ako file nije null ili undefined, čitajte sliku kao Base64
-          reader.readAsDataURL(file);
+          // Postavite ime datoteke u polje profilePictureUrl
+          controlUrl.setValue(file.name);
         }
       }
     }
