@@ -9,7 +9,7 @@ import { PreferenceComponent } from 'src/app/feature-modules/marketplace/prefere
 import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/preference-form/preference-form/preference-form.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
-import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component
+import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component;
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 
 const routes: Routes = [
