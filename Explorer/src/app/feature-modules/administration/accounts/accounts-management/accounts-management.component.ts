@@ -35,7 +35,7 @@ export class AccountsManagementComponent implements OnInit {
   getAccounts(): void {
     this.service.getAccounts().subscribe({
       next: (result: PagedResults<Account>) => {
-        this.accounts = result.results.filter((account) => account.id !== this.loggedInUserId);
+        this.accounts = result.results.filter((account) => account.role != Role.Administrator);
       },
       error: () => {
       }
