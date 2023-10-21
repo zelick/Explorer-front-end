@@ -15,12 +15,11 @@ export class RegistrationComponent {
     private authService: AuthService,
     private router: Router
   ) {}
-
   
   registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     role: new FormControl('Author', [Validators.required]),
@@ -52,14 +51,13 @@ export class RegistrationComponent {
   }
 
   onProfilePictureSelected(event: any) {
-    const file = event?.target?.files[0]; // Optional chaining za event.target
+    const file = event?.target?.files[0]; 
   
     if (this.registrationForm) {
       const controlUrl = this.registrationForm.get('profilePictureUrl');
   
       if (controlUrl) {
         if (file) {
-          // Postavite ime datoteke u polje profilePictureUrl
           controlUrl.setValue(file.name);
         }
       }

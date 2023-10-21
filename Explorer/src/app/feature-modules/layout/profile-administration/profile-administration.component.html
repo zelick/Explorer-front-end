@@ -1,1 +1,35 @@
-<p>profile-administration works!</p>
+<form [formGroup]="profileInfoForm" (ngSubmit)="edit()">
+    <div>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" [readonly]="!isEditing"/>
+        <mat-error *ngIf="profileInfoForm.get('name')?.hasError('pattern')">Name should start with an uppercase letter</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Surname</mat-label>
+        <input matInput formControlName="surname" type="text" [readonly]="!isEditing"/>
+        <mat-error *ngIf="profileInfoForm.get('surname')?.hasError('pattern')">Surname should start with an uppercase letter</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="text" [readonly]="!isEditing"/>
+        <mat-error *ngIf="profileInfoForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Biography</mat-label>
+        <input matInput formControlName="biography" type="text" [readonly]="!isEditing"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Motto</mat-label>
+        <input matInput formControlName="motto" type="text" [readonly]="!isEditing"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Profile Picture</mat-label>
+        <input matInput type="text" formControlName="profilePictureUrl" [readonly]="true" />
+        <input *ngIf="isEditing" type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
+      </mat-form-field>                                    
+      <button *ngIf="!isEditing" color="primary" mat-raised-button (click)="startEditing()">Edit</button>
+      <button *ngIf="isEditing" color="primary" mat-raised-button (click)="saveChanges()">Save</button>
+    </div>
+</form>
+  

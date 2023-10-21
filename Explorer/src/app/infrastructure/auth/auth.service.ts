@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   getAccessToken(): string | null {
-    const token = localStorage.getItem('access_token'); 
+    const token = this.tokenStorage.getAccessToken(); 
   
     return token || null;
   }

@@ -5,17 +5,25 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { RouterModule } from '@angular/router';
 import { ProfileAdministrationComponent } from './profile-administration/profile-administration.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent
+    ProfileAdministrationComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
