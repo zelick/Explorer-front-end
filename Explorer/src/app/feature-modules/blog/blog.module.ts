@@ -1,26 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogPostComponent } from './blog-post/blog-post.component';
-import { BlogPostFormComponent } from './blog-post-form/blog-post-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { BlogPostFormComponent } from './blog-post-form/blog-post-form.component';
+import { BlogCommentComponent } from './blog-comment/blog-comment.component';
+import { BlogCommentFormComponent } from './blog-comment-form/blog-comment-form.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     BlogPostComponent,
-    BlogPostFormComponent
+    BlogPostFormComponent,
+    BlogCommentComponent,
+    BlogCommentFormComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
+    MatIconModule,
     MatSelectModule
   ],
   exports: [
     BlogPostComponent,
-    BlogPostFormComponent
+    BlogPostFormComponent,
+    BlogCommentComponent,
+    BlogCommentFormComponent
   ]
 })
+
 export class BlogModule { }

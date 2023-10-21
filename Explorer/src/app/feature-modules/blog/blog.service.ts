@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BlogComment } from './model/blogComment.model';
 import { BlogPost } from './model/blog-post.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { BlogComment } from './model/blogComment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +36,21 @@ export class BlogService {
 
   closeBlog(id: number): Observable<BlogPost> {
     return this.http.patch<BlogPost>(environment.apiHost + `blogging/blog-post/${id}/close`, null);
+  }
+  
+    addBlogComment(blogComment: BlogComment): Observable<BlogComment> {
+    return this.http.post<BlogComment>(environment.apiHost + 'blogging/blog-comment/', blogComment);
+  }
+
+  getBlogComments(): Observable<PagedResults<BlogComment>> {
+    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'blogging/blog-comment/')
+  }
+
+  deleteBlogComment(id: number): Observable<BlogComment> {
+    return this.http.delete<BlogComment>(environment.apiHost + 'blogging/blog-comment/' + id);
+  }
+
+  updateBlogComment(blogComment: BlogComment): Observable<BlogComment> {
+    return this.http.put<BlogComment>(environment.apiHost + 'blogging/blog-comment/' + blogComment.id, blogComment);
   }
 }
