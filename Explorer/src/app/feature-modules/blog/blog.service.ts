@@ -6,7 +6,6 @@ import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { BlogComment } from './model/blogComment.model';
 
 @Injectable({
   providedIn: 'root'
