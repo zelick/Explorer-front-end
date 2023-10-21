@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Account } from '../../model/account.model';
 import { AdministrationService } from '../../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 export enum Role {
   Administrator = 0,
@@ -14,24 +15,31 @@ export enum Role {
   templateUrl: './accounts-management.component.html',
   styleUrls: ['./accounts-management.component.css']
 })
-export class AccountsManagementComponent implements OnInit{
+export class AccountsManagementComponent implements OnInit {
   accounts: Account[] = [];
   selectedAccount: Account;
+  loggedInUserId: number;
 
-  constructor(private service: AdministrationService) { }
+  constructor(
+    private service: AdministrationService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void{
-    this.getAccounts();
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user) => {
+      this.loggedInUserId = user.id;
+      this.getAccounts();
+    });
   }
 
   getAccounts(): void {
     this.service.getAccounts().subscribe({
       next: (result: PagedResults<Account>) => {
-        this.accounts = result.results;
+        this.accounts = result.results.filter((account) => account.id !== this.loggedInUserId);
       },
       error: () => {
       }
-    })
+    });
   }
 
   getRoleString(role: Role): string {
@@ -60,6 +68,4 @@ export class AccountsManagementComponent implements OnInit{
       });
     }
   }
-  
-  
 }
