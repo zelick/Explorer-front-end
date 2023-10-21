@@ -10,6 +10,7 @@ import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/pre
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
+import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
-  {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]}
+  {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
+  {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
