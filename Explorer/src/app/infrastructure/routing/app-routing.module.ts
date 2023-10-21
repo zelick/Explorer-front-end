@@ -9,6 +9,7 @@ import { PreferenceComponent } from 'src/app/feature-modules/marketplace/prefere
 import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/preference-form/preference-form/preference-form.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
+import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
-  {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]}
+  {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
+  {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({
