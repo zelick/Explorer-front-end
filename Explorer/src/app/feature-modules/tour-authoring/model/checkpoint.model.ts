@@ -1,10 +1,10 @@
 export interface Checkpoint{
     id?: number,
-    tourID: number,
+    tourId: number,
     orderNumber: number,
     longitude: number,
     latitude: number,
     name: string,
     description: string,
-    picture: string
+    pictures: string[]
 }

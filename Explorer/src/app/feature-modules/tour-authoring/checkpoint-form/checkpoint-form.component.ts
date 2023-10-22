@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, NgModel, NgForm } from '@angular/forms';
 import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 
@@ -14,6 +14,8 @@ export class CheckpointFormComponent implements OnChanges{
   @Input() selectedCheckpoint: Checkpoint;
   @Input() shouldEdit: boolean = false;
   @Input() tourID: number = 0;
+  picture: string = '';
+  pictures: string[] = [];
 
   constructor(private service: TourAuthoringService) {
   }
@@ -22,6 +24,8 @@ export class CheckpointFormComponent implements OnChanges{
     this.checkpointForm.reset();
     if(this.shouldEdit) {
       this.checkpointForm.patchValue(this.selectedCheckpoint);
+      this.pictures = this.selectedCheckpoint.pictures;
+      this.tourID = this.selectedCheckpoint.tourId;
     }
   }
 
@@ -31,19 +35,21 @@ export class CheckpointFormComponent implements OnChanges{
     longitude: new FormControl(0, [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    picture: new FormControl('', [Validators.required])
+    description: new FormControl('', [Validators.required])
+  });
+  pictureForm = new FormGroup({
+    picture: new FormControl(this.picture, [Validators.required])
   });
 
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
-      tourID: this.tourID,
+      tourId: this.tourID,
       orderNumber: this.checkpointForm.value.orderNumber || 0,
       longitude: this.checkpointForm.value.longitude || 0,
       latitude: this.checkpointForm.value.latitude || 0,
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
-      picture: this.checkpointForm.value.picture || "",
+      pictures: this.pictures || "",
     };
     this.service.addCheckpoint(checkpoint).subscribe({
       next: () => { this.checkpointUpdated.emit() }
@@ -52,13 +58,13 @@ export class CheckpointFormComponent implements OnChanges{
 
   updateCheckpoint(): void {
     const checkpoint: Checkpoint = {
-      tourID: this.tourID,
+      tourId: this.tourID,
       orderNumber: this.checkpointForm.value.orderNumber || 0,
       longitude: this.checkpointForm.value.longitude || 0,
       latitude: this.checkpointForm.value.latitude || 0,
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
-      picture: this.checkpointForm.value.picture || "",
+      pictures: this.pictures || "",
     };
     checkpoint.id = this.selectedCheckpoint.id;
     this.service.updateCheckpoint(checkpoint).subscribe({
@@ -66,4 +72,14 @@ export class CheckpointFormComponent implements OnChanges{
     });
   }
 
+  addPicture(): void{
+    this.picture = this.pictureForm.value.picture || '';
+    if(this.picture != '')
+      this.pictures.push(this.picture);
+    this.pictureForm.reset();
+  }
+
+  deletePicture(i: number): void{
+    this.pictures.splice(i, 1);
+  }
 }

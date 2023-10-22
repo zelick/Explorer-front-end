@@ -22,14 +22,14 @@
                 <th>Picture</th>
             </tr>
             <tr *ngFor="let c of checkpoints">
-                <td>{{c.tourID}}</td>
+                <td>{{c.tourId}}</td>
                 <td>{{c.orderNumber}}</td>
                 <td>{{c.latitude}}, {{c.longitude}}</td>
                 <td>{{c.name}}</td>
                 <td>{{c.description}}</td>
                 <td>
                     <picture>
-                        <img [src]="c.picture" alt="Checkpoint image" width="100" height="100">
+                        <img [src]="c.pictures[0]" alt="Checkpoint image" width="100" height="100">
                     </picture>
                 </td>
                 <td>
