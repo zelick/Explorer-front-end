@@ -16,31 +16,40 @@ export class ClubMembershipRequestComponent implements OnInit{
 
   ngOnInit(): void {
       this.getClubMembershipRequests();
-      
   }
 
   getClubMembershipRequests(): void {
     this.service.getClubMembershipRequests().subscribe({
       next: (result: PagedResults<ClubMemebrshipRequest>) => {
-        this.requests = result.results;
+
+        const requestsOnProcessing: ClubMemebrshipRequest[] = [];
+
+        for (let i = 0; i < result.results.length; i++) {
+          if (result.results[i].status === 'Processing') {
+            requestsOnProcessing.push(result.results[i]);
+          }
+        }
+        this.requests = requestsOnProcessing;
       },
       error: () => {
       }
     })
   }
 
-  //ovo ne radi - proveriti, delete zahtev 404 error
-  rejectRequest(id: number): void {
-    this.service.deleteClubMembershipRequest(id).subscribe({
+  rejectRequest(r: ClubMemebrshipRequest): void {
+    this.service.rijectRequest(r).subscribe({
       next: () => {
         this.getClubMembershipRequests();
       },
     })
   }
 
-  //ovo dodati, uvezi da turista koji salje zahtev, toruristId je clan kluba, clubId
   acceptRequest(r: ClubMemebrshipRequest): void {
-    
+    this.service.acceptRequest(r).subscribe({
+      next: () => {
+        this.getClubMembershipRequests(); //azuriraj tabelu
+      },
+    })
   }
   
   //pronadji turistu koji salje zahtev iz liste svih turista(usera)

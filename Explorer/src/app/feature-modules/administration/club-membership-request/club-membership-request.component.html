@@ -14,7 +14,7 @@
                 <tr *ngFor="let r of requests">
                     <td>Membership Request from {{r.touristId}}</td>
                     <td>
-                        <button mat-icon-button class="cancel-button" (click)="rejectRequest(r.id)">
+                        <button mat-icon-button class="cancel-button" (click)="rejectRequest(r)">
                             <mat-icon>cancel</mat-icon>
                         </button>
                         <button  mat-icon-button class="accept-button" (click)="acceptRequest(r)">
