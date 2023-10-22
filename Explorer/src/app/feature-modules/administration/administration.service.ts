@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ClubMemebrshipRequest } from './model/club-membership-request.model';
 import { UserClub } from './model/user-club.model';
+import { Club } from './model/club.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdministrationService {
+  [x: string]: any;
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +32,7 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+
   //club membership requests
   getClubMembershipRequests(): Observable<PagedResults<ClubMemebrshipRequest>> {
     return this.http.get<PagedResults<ClubMemebrshipRequest>>('https://localhost:44333/api/request')
@@ -48,6 +51,22 @@ export class AdministrationService {
   rijectRequest(r: ClubMemebrshipRequest): Observable<ClubMemebrshipRequest> {
     r.status = "Rijected";
     return this.http.put<ClubMemebrshipRequest>(environment.apiHost + 'request/update/' + r.id, r);
+  }
+
+  getClub(): Observable<PagedResults<Club>> {
+    return this.http.get<PagedResults<Club>>('https://localhost:44333/api/club');
+  }
+
+  addClub(club: Club): Observable<Club> {
+    return this.http.post<Club>('https://localhost:44333/api/club', club);
+  }
+
+  updateClub(club: Club): Observable<Club> {
+    return this.http.put<Club>('https://localhost:44333/api/club/' + club.id, club);
+  }
+
+  deleteClub(id: number): Observable<Club> {
+    return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
 
 }

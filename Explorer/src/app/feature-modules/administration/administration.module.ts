@@ -5,6 +5,8 @@ import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClubMembershipRequestComponent } from './club-membership-request/club-membership-request.component';
+import { ClubComponent } from './club/club.component';
+import { ClubFormComponent } from './club-form/club-form.component';
 
 
 
@@ -13,6 +15,8 @@ import { ClubMembershipRequestComponent } from './club-membership-request/club-m
     EquipmentFormComponent,
     EquipmentComponent,
     ClubMembershipRequestComponent
+    ClubComponent,
+    ClubFormComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,7 @@ import { ClubMembershipRequestComponent } from './club-membership-request/club-m
     EquipmentComponent,
     EquipmentFormComponent,
     ClubMembershipRequestComponent
+    ClubComponent
   ]
 })
 export class AdministrationModule { }
