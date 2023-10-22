@@ -5,6 +5,7 @@ import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Account } from './model/account.model';
+import { ReportedIssue } from './model/reported-issue.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class AdministrationService {
 
   block(id: number): Observable<PagedResults<Account>> {
     return this.http.put<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement/block/' + id, null);
+  }
+  
+  getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
   }
 }
