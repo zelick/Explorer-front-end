@@ -10,7 +10,7 @@ import { Equipment } from '../model/equipment.model';
   styleUrls: ['./tour-details.component.css']
 })
 export class TourDetailsComponent implements OnInit{
-  tour:Tour;
+  tour: Tour;
   equipment: Equipment;
   isVisible: boolean = false;
   showButtonText: string = 'Show equipment';
@@ -18,20 +18,16 @@ export class TourDetailsComponent implements OnInit{
   constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-   this.activatedRoute.params.subscribe(params=>{
+   this.activatedRoute.params.subscribe(params => {
     let id=params['id'];
     this.getTour(id);
    })
   }
 
-  getTour(id:number): void {
-    this.service.get(id).subscribe({
-      next: (result: Tour) => {
-        this.tour = result;
-      },
-      error: () => {
-      }
-    })
+  getTour(id: number): void {
+    this.service.get(id).subscribe((result: Tour) => {
+      this.tour = result;
+    });
   }
 
   removeEquipment(tourId?: number, equipmentId?: number): void {

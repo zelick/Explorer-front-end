@@ -1,4 +1,4 @@
-<div id="tour-details">
+<div id="tour-details" *ngIf="tour">
     <p id="tour-title">{{tour.name}}</p>
 
     <table id="tour-details-table">
@@ -50,9 +50,7 @@
                         <td>{{e.name}}</td>
                         <td>{{e.description}}</td>
                         <td>
-                            <button color="accent" (click)="removeEquipment(tour.id, e.id)" mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
+                            <button id="delete-equipment-button" (click)="removeEquipment(tour.id, e.id)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
