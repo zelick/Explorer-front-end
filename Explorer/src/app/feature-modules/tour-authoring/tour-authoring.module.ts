@@ -5,13 +5,18 @@ import { CheckpointComponent } from './checkpoint/checkpoint.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { TourFormComponent } from './tour-form/tour-form.component';
+import { TourComponent } from './tour/tour.component';
+import { TourDetailsComponent } from './tour-details/tour-details.component';
 
 
 @NgModule({
   declarations: [
     CheckpointComponent,
-    CheckpointFormComponent
+    CheckpointFormComponent,
+    TourFormComponent,
+    TourComponent,
+    TourDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +27,9 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     CheckpointComponent,
-    CheckpointFormComponent
+    CheckpointFormComponent,
+    RouterModule,
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }
