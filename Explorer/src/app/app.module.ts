@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
     AuthModule,
     HttpClientModule,
     MatInputModule
+    AdministrationModule
   ],
   providers: [
     {

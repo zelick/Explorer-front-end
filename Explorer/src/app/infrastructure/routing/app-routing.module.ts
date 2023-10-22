@@ -12,12 +12,12 @@ import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-f
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
+import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
@@ -25,6 +25,8 @@ const routes: Routes = [
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
   {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'club', component: ClubComponent}
 ];
 
 @NgModule({
