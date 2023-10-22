@@ -35,7 +35,8 @@
         <mat-label>Profile Picture</mat-label>
         <input matInput type="text" [readonly]="true" formControlName="profilePictureUrl" />
         <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
-      </mat-form-field>                            
+      </mat-form-field>                   
+      <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" />         
       <mat-form-field>
         <mat-label>Role</mat-label>
         <mat-select formControlName="role">
@@ -43,7 +44,7 @@
           <mat-option value="Tourist">Tourist</mat-option>
         </mat-select>
       </mat-form-field>      
-      <button color="primary" type="submit" mat-raised-button>Edit</button>
+      <button color="primary" type="submit" mat-raised-button>Register</button>
     </div>
 </form>
   

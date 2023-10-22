@@ -50,17 +50,24 @@ export class RegistrationComponent {
     }
   }
 
+  selectedImage: string | null = null;
+
   onProfilePictureSelected(event: any) {
-    const file = event?.target?.files[0]; 
+    const file = event?.target?.files[0];
   
-    if (this.registrationForm) {
+    if (file) {
       const controlUrl = this.registrationForm.get('profilePictureUrl');
-  
       if (controlUrl) {
-        if (file) {
-          controlUrl.setValue(file.name);
-        }
+        controlUrl.setValue(file.name);
       }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedImage = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.selectedImage = null; 
     }
   }
 }

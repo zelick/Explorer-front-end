@@ -43,6 +43,8 @@ export class ProfileAdministrationComponent implements OnInit{
         biography: user.biography,
         motto: user.motto,
       });
+
+      this.selectedImage = user.profilePictureUrl;
     });
   }
   
@@ -78,17 +80,24 @@ export class ProfileAdministrationComponent implements OnInit{
     }
   }
 
+  selectedImage: string | null = null;
+
   onProfilePictureSelected(event: any) {
-    const file = event?.target?.files[0]; 
+    const file = event?.target?.files[0];
   
-    if (this.profileInfoForm) {
+    if (file) {
       const controlUrl = this.profileInfoForm.get('profilePictureUrl');
-  
       if (controlUrl) {
-        if (file) {
-          controlUrl.setValue(file.name);
-        }
+        controlUrl.setValue(file.name);
       }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedImage = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.selectedImage = null; 
     }
   }
 }

@@ -27,7 +27,8 @@
         <mat-label>Profile Picture</mat-label>
         <input matInput type="text" formControlName="profilePictureUrl" [readonly]="true" />
         <input *ngIf="isEditing" type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
-      </mat-form-field>                                    
+      </mat-form-field>    
+      <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" />                                
       <button *ngIf="!isEditing" color="primary" mat-raised-button (click)="startEditing()">Edit</button>
       <button *ngIf="isEditing" color="primary" mat-raised-button (click)="saveChanges()">Save</button>
     </div>
