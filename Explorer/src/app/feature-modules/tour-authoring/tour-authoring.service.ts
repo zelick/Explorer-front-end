@@ -20,14 +20,19 @@ export class TourAuthoringService {
   }
 
   getTour(id: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/'+id)
+    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/by-author/' + id)
   }
 
   deleteTour(id: number): Observable<Tour> {
     return this.http.delete<Tour>(environment.apiHost + 'administration/tour/' + id);
   }
 
-  get(id:number):Observable<Tour>{
+  get(id:number): Observable<Tour>{
     return this.http.get<Tour>(environment.apiHost + 'administration/tour/details/' + id);
   }
+
+  removeEquipment(tourId: number, equipmentId: number): Observable<Tour>{
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/remove/' + tourId + '/' + equipmentId, null);
+  }
+
 }
