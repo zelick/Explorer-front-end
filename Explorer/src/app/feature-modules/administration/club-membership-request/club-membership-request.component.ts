@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClubMemebrshipRequest } from '../model/club-membership-request.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'xp-club-membership-request',
@@ -12,24 +13,31 @@ export class ClubMembershipRequestComponent implements OnInit{
 
   requests: ClubMemebrshipRequest[] = [];
   touristName: string;
-  constructor(private service: AdministrationService) { }
+  clubId: number;
+
+  constructor(private service: AdministrationService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-      this.getClubMembershipRequests();
+    const urlClubId = this.route.snapshot.paramMap.get('id') || 0;
+    this.clubId = urlClubId ? parseInt(urlClubId, 10) : 0; //parsiraj u number
+    this.getRequestsOnProcessing();
   }
 
   getClubMembershipRequests(): void {
     this.service.getClubMembershipRequests().subscribe({
       next: (result: PagedResults<ClubMemebrshipRequest>) => {
+        this.requests = result.results
+      },
+      error: () => {
+      }
+    })
+  }
 
-        const requestsOnProcessing: ClubMemebrshipRequest[] = [];
-
-        for (let i = 0; i < result.results.length; i++) {
-          if (result.results[i].status === 'Processing') {
-            requestsOnProcessing.push(result.results[i]);
-          }
-        }
-        this.requests = requestsOnProcessing;
+  getRequestsOnProcessing(): void {
+    this.service.getClubMembershipRequests().subscribe({
+      next: (result: PagedResults<ClubMemebrshipRequest>) => {
+        this.requests = result.results
+        .filter(request => request.status === 'Processing' && request.clubId === this.clubId);
       },
       error: () => {
       }
@@ -39,7 +47,7 @@ export class ClubMembershipRequestComponent implements OnInit{
   rejectRequest(r: ClubMemebrshipRequest): void {
     this.service.rijectRequest(r).subscribe({
       next: () => {
-        this.getClubMembershipRequests();
+       this.requests = this.requests.filter(request => request !== r);
       },
     })
   }

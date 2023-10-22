@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'clubMembershipRequests', component: ClubMembershipRequestComponent},
+  {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'club', component: ClubComponent}
 ];
 

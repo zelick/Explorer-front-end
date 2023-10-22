@@ -14,7 +14,7 @@ import { ClubFormComponent } from './club-form/club-form.component';
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
-    ClubMembershipRequestComponent
+    ClubMembershipRequestComponent,
     ClubComponent,
     ClubFormComponent
   ],
@@ -26,7 +26,7 @@ import { ClubFormComponent } from './club-form/club-form.component';
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-    ClubMembershipRequestComponent
+    ClubMembershipRequestComponent,
     ClubComponent
   ]
 })
