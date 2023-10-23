@@ -106,10 +106,6 @@
     }
   },
   "cli": {
-<<<<<<< HEAD
-    "analytics": "77be92c5-30a2-46ac-a42a-0e0f3c2be090"
-=======
     "analytics": false
->>>>>>> development
   }
 }
