@@ -40,9 +40,11 @@ export class TourDetailsComponent implements OnInit{
   }
 
   getAvailableEquipment(currentEquipmentIds: number[]): void{
-    this.service.getAvailableEquipment(currentEquipmentIds).subscribe((result: Equipment[]) => {
-      this.availableEquipment = result;
-    })
+    if(this.tour.id !== undefined){
+      this.service.getAvailableEquipment(currentEquipmentIds, this.tour.id).subscribe((result: Equipment[]) => {
+        this.availableEquipment = result;
+      })
+    }
   }
 
   removeEquipment(tourId?: number, equipmentId?: number): void {

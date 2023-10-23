@@ -40,8 +40,8 @@ export class TourAuthoringService {
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/add/' + tourId + '/' + equipmentId, null);
   }
 
-  getAvailableEquipment(currentEquipmentIds: number[]): Observable<Equipment[]> {
-    return this.http.post<Equipment[]>(environment.apiHost + 'manipulation/equipment/get-available', currentEquipmentIds);
+  getAvailableEquipment(currentEquipmentIds: number[], tourId: number): Observable<Equipment[]> {
+    return this.http.post<Equipment[]>(environment.apiHost + 'manipulation/equipment/get-available/' + tourId, currentEquipmentIds);
   }
 
 }
