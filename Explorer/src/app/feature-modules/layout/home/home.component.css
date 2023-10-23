@@ -1,25 +1,69 @@
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Set the overflow to hidden to remove the horizontal scroll bar */
-  }
-  
-  .video-container {
-    margin-top: 0%;
-    width: 100%; /* Set the container width to 200% of the viewport width (5:2 aspect ratio) */
-    height: 82vh; /* Set the container height to half of the viewport height */
-  }
-  
-  video {
-    width: 100%; /* Set the video width to 100% of the container's width */
-    height: 100%; /* Set the video height to 100% of the container's height */
-    object-fit: cover; /* Maintain the video's aspect ratio while covering the container */
-  }
-  
-  .content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    color: #fff;
-    /* Add your content styles here */
-  }
+  margin: 0;
+  padding: 0;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 82vh; /* Set the video container's height to the viewport height */
+}
+
+video {
+  width: 100%;
+  height: 90%; /* Set the video's height to 100% of the container's height */
+  object-fit: cover;
+  margin-top: 3%;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  margin-top: 100vh; /* Push the content below the video */
+}
+
+.tour-cards-container {
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  padding: 5%;
+  display: flex;
+  flex-wrap: wrap; /* Allow tour cards to wrap to the next line */
+  justify-content: space-between;
+}
+
+.tour-card {
+  flex: 0 0 0 0 calc(33.33% - 20%); /* Adjust the card width as needed with margin */
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent card background */
+  border: 1px solid #fff;
+  color: #000;
+  text-align: center;
+  margin: 2.28vh; /* Add margin between the tour cards */
+  border-radius: 20px;
+  width: 20%;
+  height: 45vh;
+  /* Add more styles for the tour cards as needed */
+}
+
+.tour-card img {
+  width: 94%;
+  height: 62%;
+  border-radius: 20px;
+  object-fit: cover; /* Maintain the aspect ratio and fit the image within the 40x40px box */
+}
+
+.card-header{
+  margin-top: 7%;
+}
+
+.card-location-header{
+  margin-right: 72%;
+  font-size: medium;
+  background-color: darkslategrey;
+  color: rgb(165, 216, 207);
+  border-radius: 10px;
+  padding: 1% 2.5%; 
+}
