@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TourPreference } from './model/preference.model';
+import { TourRating } from './model/tour-rating.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +27,39 @@ export class MarketplaceService {
 
   deleteTourPreference(id: number): Observable<TourPreference> {
     return this.http.delete<TourPreference>(environment.apiHost + 'tourism/preference/' + id);
+  }
+
+  getTourRating(userType: string): Observable<PagedResults<TourRating>> {
+    let url: string;
+    // Construct the URL based on the user type
+    switch (userType) {
+      case '0':
+        //TODO tourRating-> tour-rating
+        url = 'administration/tourRating'; 
+        break;
+      case '1':
+        //TODO tourRating-> tour-rating
+        url = 'author/tourRating';
+        break;
+      case '2':
+        //TODO tourRating-> tour-rating
+        //TODO tourist -> tourism
+        url = 'tourist/tourRating';
+        break;
+      default:
+        throw new Error('Invalid user type');
+    }
+
+    return this.http.get<PagedResults<TourRating>>(environment.apiHost + url);
+  }
+
+  deleteTourRating(id: number): Observable<TourRating> {    
+    return this.http.delete<TourRating>(environment.apiHost + 'administration/tourRating/' + id);
+    //TODO tourRating-> tour-rating
+  }
+
+  addTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.post<TourRating>(environment.apiHost + 'tourist/tourRating', rating);
+    //TODO tourRating-> tour-rating
   }
 }

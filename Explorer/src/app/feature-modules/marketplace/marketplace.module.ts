@@ -4,13 +4,15 @@ import { PreferenceComponent } from './preference/preference/preference.componen
 import { PreferenceFormComponent } from './preference-form/preference-form/preference-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TourRatingComponent } from './tour-rating/tour-rating.component';
 
 
 
 @NgModule({
   declarations: [
     PreferenceComponent,
-    PreferenceFormComponent
+    PreferenceFormComponent,
+    TourRatingComponent
   ],
   imports: [
     CommonModule,

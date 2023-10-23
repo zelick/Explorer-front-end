@@ -12,6 +12,7 @@ import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-f
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
+import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
   {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
+  {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
