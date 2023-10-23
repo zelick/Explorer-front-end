@@ -15,7 +15,7 @@ video {
   width: 100%;
   height: 90%; /* Set the video's height to 100% of the container's height */
   object-fit: cover;
-  margin-top: 3%;
+  
 }
 
 .content {
@@ -28,7 +28,6 @@ video {
 
 .tour-cards-container {
   background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-  padding: 5%;
   display: flex;
   flex-wrap: wrap; /* Allow tour cards to wrap to the next line */
   justify-content: space-between;
@@ -67,3 +66,66 @@ video {
   border-radius: 10px;
   padding: 1% 2.5%; 
 }
+  
+  .video-container {
+    margin-top: 0%;
+    position: relative;
+    width: 100%; /* Set the container width to 200% of the viewport width (5:2 aspect ratio) */
+    height: 82vh; /* Set the container height to half of the viewport height */
+  }
+  
+  video {
+    width: 100%; /* Set the video width to 100% of the container's width */
+    height: 100%; /* Set the video height to 100% of the container's height */
+    object-fit: cover; /* Maintain the video's aspect ratio while covering the container */
+  }
+  
+  .text-overlay {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+    font-size: 350%;
+    font-weight: 600;
+    color: #fff; /* Text color */
+    z-index: 2; /* Set a higher z-index to ensure the text appears above the video */
+    text-shadow: -1px -1px 0 #253B34, 1px -1px 0 #253B34, -1px 1px 0 #253B34, 1px 1px 0 #253B34; /* Black border around the text */
+}
+
+.text-field-container {
+    position: absolute;
+    top: 43%; /* Adjust this value to place the text field/button vertically */
+    left: 50%;
+    width: 40%;
+    background-color: #253B34;
+    padding: 12px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    display: flex; /* Use flexbox to align items horizontally */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+.text-field {
+    padding: 10px;
+    width: 80%; /* Set the text field width to 50% of the container */
+    font-size: 120%;
+    border: 1px solid #253B34;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.button {
+    padding: 0px 10px;
+    font-size: 120%;
+    color:#fff;
+    background-color: #FF5722;
+    border: 1px solid #253B34;
+    border-radius: 10px;
+    cursor: pointer;
+}
+

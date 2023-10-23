@@ -1,4 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+    --primary-color: #3B846B; /* Set your custom primary color here */
+    --accent-color: #FF5722;  /* Set your custom accent color here */
+  }
+  
+  /* Update primary and accent colors */
+  .mat-primary, .mat-accent {
+    background-color: var(--primary-color) !important;
+  }
+  
+  /* Update text color for primary and accent elements */
+  .mat-primary-text, .mat-accent-text {
+    color: var(--accent-color) !important;
+  }
+  
+  
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Poppins', sans-serif; }
