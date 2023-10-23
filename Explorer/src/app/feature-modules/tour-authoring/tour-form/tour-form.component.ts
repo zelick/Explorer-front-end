@@ -108,7 +108,7 @@ export class TourFormComponent implements OnChanges,OnInit{
       authorId : this.user.id,
       tags : this.tour.tags,
       status:"Draft",
-      equipment: this.tour.equipment
+      equipment: []
     };
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({
