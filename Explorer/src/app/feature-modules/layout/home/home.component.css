@@ -1,5 +1,25 @@
-p {
-    margin-left: 10px;
-    margin-top: 10px;
-    font-size: 20px;
-}
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Set the overflow to hidden to remove the horizontal scroll bar */
+  }
+  
+  .video-container {
+    margin-top: 0%;
+    width: 100%; /* Set the container width to 200% of the viewport width (5:2 aspect ratio) */
+    height: 82vh; /* Set the container height to half of the viewport height */
+  }
+  
+  video {
+    width: 100%; /* Set the video width to 100% of the container's width */
+    height: 100%; /* Set the video height to 100% of the container's height */
+    object-fit: cover; /* Maintain the video's aspect ratio while covering the container */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+    /* Add your content styles here */
+  }
