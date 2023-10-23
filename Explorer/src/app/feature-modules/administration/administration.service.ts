@@ -50,9 +50,18 @@ export class AdministrationService {
 
   rijectRequest(r: ClubMemebrshipRequest): Observable<ClubMemebrshipRequest> {
     r.status = "Rijected";
-    return this.http.put<ClubMemebrshipRequest>(environment.apiHost + 'request/update/' + r.id, r);
+    return this.http.put<ClubMemebrshipRequest>('https://localhost:44333/api/request/' + r.id, r);
   }
 
+  createRequest(newClubRequest: ClubMemebrshipRequest): Observable<ClubMemebrshipRequest> {
+    return this.http.post<ClubMemebrshipRequest>('https://localhost:44333/api/request', newClubRequest);
+  }
+
+  deleteRequest(id: number): Observable<ClubMemebrshipRequest> {
+    return this.http.delete<ClubMemebrshipRequest>('https://localhost:44333/api/request/deleteRequest/' + id);
+  }
+
+  //club
   getClub(): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>('https://localhost:44333/api/club');
   }
@@ -69,4 +78,13 @@ export class AdministrationService {
     return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
 
+  getClubWithUsers(clubId : number): Observable<Club> {
+    return this.http.get<Club>('https://localhost:44333/api/club/' + clubId);
+  }
+
+  
+  getUserClubs(userId: number): Observable<Club[]> {
+    return this.http.get<Club[]>('https://localhost:44333/api/user-club/user/' + userId);
+  }
+  
 }

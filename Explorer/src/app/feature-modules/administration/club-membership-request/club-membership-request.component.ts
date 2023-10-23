@@ -47,7 +47,7 @@ export class ClubMembershipRequestComponent implements OnInit{
   rejectRequest(r: ClubMemebrshipRequest): void {
     this.service.rijectRequest(r).subscribe({
       next: () => {
-       this.requests = this.requests.filter(request => request !== r);
+      // this.requests = this.requests.filter(request => request !== r);
       },
     })
   }

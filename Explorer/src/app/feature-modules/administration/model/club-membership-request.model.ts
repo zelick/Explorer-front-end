@@ -1,5 +1,5 @@
 export interface ClubMemebrshipRequest {
-    id: number;
+    id?: number;
     clubId: number;
     touristId: number;
     status: string;
