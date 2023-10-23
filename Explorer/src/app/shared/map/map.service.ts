@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocationResponse } from '../model/location-response';
+import { ElevationResponse } from '../model/elevation-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapService {
-  private mapboxAccessToken = 'pk.eyJ1IjoibWF0aWphcHN3IiwiYSI6ImNsbzIxcWVqaDA2eG4yaW13ODI3ejY0Y3gifQ.1ZAt45LlVgZVOE9E1O4kyQ';
   constructor(private http: HttpClient) { }
 
   search(street: string): Observable<LocationResponse[]> {
@@ -22,11 +22,9 @@ export class MapService {
     );
   }
 
-  getElevation(latitude: number, longitude: number): Observable<any> {
-    const location = `${latitude},${longitude}`;
-    const url = `https://api.open-elevation.com/api/v1/lookup?locations=${location}`;
-    //const url = `https://cors-anywhere.herokuapp.com/api.open-elevation.com/api/v1/lookup?locations=${location}`;
-    return this.http.get(url);
+  getElevation(lat: number, lon: number): Observable<ElevationResponse> {
+    return this.http.get<ElevationResponse>(
+      `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}d`
+    );
   }
-
 }

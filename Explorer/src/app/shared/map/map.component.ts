@@ -3,6 +3,9 @@ import * as L from 'leaflet';
 import { MapService } from './map.service';
 import { LocationResponse } from '../model/location-response';
 import { Observable, catchError, map, of, tap } from 'rxjs';
+import { MAPBOX_API_KEY } from '../constants';
+import { RouteResponse } from '../model/RouteResponse';
+import { ElevationResponse } from '../model/elevation-response';
 
 @Component({
   selector: 'xp-map',
@@ -34,8 +37,6 @@ export class MapComponent implements AfterViewInit {
       }
     );
     tiles.addTo(this.map);
-    //ovde smo pozvali funkciju za rutiranje koja iscrtava neku rutu u Svedskoj
-    this.setRoute();
     this.registerOnClick();
   }
 
@@ -73,14 +74,17 @@ export class MapComponent implements AfterViewInit {
     );
   }
 
-  getElevationForLocation(latitude: number, longitude: number): void {
-    this.mapService.getElevation(latitude, longitude).subscribe(
-      (elevationData) => {
-        console.log('Elevation data:', elevationData);
-      },
-      (error) => {
-        console.error('Error fetching elevation data:', error);
-      }
+  getElevation(lat: number, lon: number): Observable<number> {
+
+    return this.mapService.getElevation(lat, lon).pipe(
+      map((response) => response.results[0].elevation),
+      tap((elevation) => {
+        console.log('Elevation:', elevation);
+      }),
+      catchError((error) => {
+        console.error('Error in elevation fetch:', error);
+        throw error;
+      })
     );
   }
 
@@ -93,9 +97,6 @@ export class MapComponent implements AfterViewInit {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       this.mapClick.emit({ lat, lon: lng });
-      //primer poziva za nadmorsku
-      //ima CORS error koji treba nekako resiti :/
-      console.log(this.getElevationForLocation(lat, lng));
     });
   }
 
@@ -108,19 +109,28 @@ export class MapComponent implements AfterViewInit {
     this.initMap();
   }
 
-  setRoute(): void {
-    const routeControl = L.Routing.control({
-      waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
-      router: L.routing.mapbox('pk.eyJ1IjoibWF0aWphcHN3IiwiYSI6ImNsbzIxcWVqaDA2eG4yaW13ODI3ejY0Y3gifQ.1ZAt45LlVgZVOE9E1O4kyQ', {profile: 'mapbox/walking'})
-    }).addTo(this.map);
+  setRoute(startCoords: { lat: number, lon: number }, endCoords: { lat: number, lon: number }, profile: string): Observable<RouteResponse> {
+    const startLatLng = L.latLng(startCoords.lat, startCoords.lon);
+    const endLatLng = L.latLng(endCoords.lat, endCoords.lon);
 
-    routeControl.on('routesfound', function(e) {
-      var routes = e.routes;
-      var summary = routes[0].summary;
-      alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+    return new Observable((observer) => {
+      const routeControl = L.Routing.control({
+        waypoints: [startLatLng, endLatLng],
+        router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` })
+      }).addTo(this.map);
+
+      routeControl.on('routesfound', function (e) {
+        var routes = e.routes;
+        var summary = routes[0].summary;
+        const routeResponse: RouteResponse = {
+          totalDistanceMeters: summary.totalDistance,
+          totalTimeMinutes: Math.round(summary.totalTime / 60)
+        };
+        console.log('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+
+        observer.next(routeResponse);
+        observer.complete();
+      });
     });
   }
-
-
-
 }
