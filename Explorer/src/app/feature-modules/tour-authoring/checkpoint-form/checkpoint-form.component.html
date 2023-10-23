@@ -5,14 +5,6 @@
             <input matInput type="number" formControlName="orderNumber">
         </mat-form-field>
         <mat-form-field>
-            <label>Longitude:</label>
-            <input matInput type="number" formControlName="longitude">
-        </mat-form-field>
-        <mat-form-field>
-            <label>Latitude:</label>
-            <input matInput type="number" formControlName="latitude">
-        </mat-form-field>
-        <mat-form-field>
             <label>Name:</label>
             <input matInput type="text" formControlName="name">
         </mat-form-field>
@@ -21,6 +13,21 @@
             <input matInput type="text" formControlName="description">
         </mat-form-field>
         <br>
+        <p>Input address or choose on map  </p>
+        <input matInput type="text" formControlName="address">
+        <button (click)="onAddAddressClick()">Add address</button>
+        <br>
+        <br>
+        <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        <br>
+        <mat-form-field>
+            <label>Longitude:</label>
+            <input matInput type="number" formControlName="longitude">
+        </mat-form-field>
+        <mat-form-field>
+            <label>Latitude:</label>
+            <input matInput type="number" formControlName="latitude">
+        </mat-form-field>
         <form [formGroup]="pictureForm">
             <mat-form-field>
                 <label>Picture URL:</label>
@@ -44,3 +51,4 @@
                 </table>
     </div>
 </form>
+        

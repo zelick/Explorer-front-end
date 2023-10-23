@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourComponent } from './tour/tour.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     CheckpointFormComponent,
     TourFormComponent,
     TourComponent,
-    TourDetailsComponent
+    TourDetailsComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent
+    TourFormComponent,
+    MapComponent
   ]
 })
 export class TourAuthoringModule { }
