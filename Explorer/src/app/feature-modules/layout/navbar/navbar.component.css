@@ -4,6 +4,10 @@ div {
     gap: 10px;
 }
 
+.frame{
+    border-bottom: 2px solid #253B34;
+}
+
 #buttons {
     width: auto;
     margin-left: auto;
