@@ -3,6 +3,7 @@ import { AdministrationService } from '../administration.service';
 import { Club } from '../model/club.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-club',
@@ -17,7 +18,7 @@ export class ClubComponent implements OnInit {
   shouldAdd: boolean = false;
   currentUserTouristId: number = 0; //
 
-  constructor(private authService: AuthService, private service: AdministrationService) { }
+  constructor(private authService: AuthService, private service: AdministrationService, private router: Router) { }
 
   ngOnInit(): void {
     this.getClub();
@@ -61,5 +62,9 @@ export class ClubComponent implements OnInit {
           this.getClub();
         },
       })
+    }
+
+    navigateToManageMembers(clubId : number): void{
+      this.router.navigate(['/club-members', clubId]);
     }
 }

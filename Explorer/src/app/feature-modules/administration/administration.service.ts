@@ -5,6 +5,8 @@ import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Club } from './model/club.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { UserClub } from './model/user-club.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,4 +48,16 @@ export class AdministrationService {
     return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
 
+  /*getUsersForClub(id: number): Observable<Club>{
+    return this.http.get<Club>('https://localhost:44333/api/club/' + id);
+  }*/
+
+  getUsersForClub(id: number): Observable<Club> {
+    return this.http.get<Club>('https://localhost:44333/api/club/' + id);
+  }
+
+  removeMemberFromClub(memberId: number, clubId: number): Observable<Club> {
+    return this.http.put<Club>('https://localhost:44333/remove-from/' + clubId + '/' + memberId, null);
+  }
+  
 }

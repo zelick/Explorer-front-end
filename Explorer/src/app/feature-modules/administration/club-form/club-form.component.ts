@@ -47,7 +47,8 @@ export class ClubFormComponent implements OnChanges  {
           name: this.clubForm.value.name || "",
           description: this.clubForm.value.description || "",
           image: this.clubForm.value.image || "",
-          touristId: findLoggedUser(this.authService)
+          touristId: findLoggedUser(this.authService),
+          users: []
         };
         
         // Dodaj klub
@@ -69,7 +70,8 @@ export class ClubFormComponent implements OnChanges  {
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       image: this.clubForm.value.image || "",
-      touristId: findLoggedUser(this.authService)
+      touristId: findLoggedUser(this.authService),
+      users: []
     };
     club.id = this.club.id;
     this.service.updateClub(club).subscribe({

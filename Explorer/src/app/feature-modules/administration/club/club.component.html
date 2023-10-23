@@ -11,7 +11,8 @@
                     <th> Image </th>
                     <th> Owner </th>
                     <th> Edit </th>
-                    <th> Delte </th>
+                    <th> Delete </th>
+                    <th> Options </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,9 @@
                         <button *ngIf="isCurrentUserOwner(c)" (click)="deleteClub(c.id || 0)" color="accent" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
+                    </td>
+                    <td>
+                        <button *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
                     </td>
                 </tr>
                 <tr>

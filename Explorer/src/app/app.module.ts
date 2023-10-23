@@ -33,7 +33,7 @@ import { MatInputModule } from '@angular/material/input';
     TourExecutionModule,
     AuthModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
     AdministrationModule
   ],
   providers: [

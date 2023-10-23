@@ -1,0 +1,30 @@
+<div id="club">
+    <p>Club</p>
+    <hr>
+    <div id="club-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th> Username </th>
+                    <th> Remove member </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of users">
+                    <td>{{u.username}}</td>
+                    <td>
+                        <button color="accent" (click)="removeMember(u.id)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <br>
+    <div>
+        
+    </div>
+</div>
