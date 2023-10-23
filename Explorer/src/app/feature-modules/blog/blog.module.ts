@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApplicationGradeComponent } from './application-grade/application-grade.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    ApplicationGradeComponent
+    
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule 
   ],
   exports: [
-    ApplicationGradeComponent
+    
   ]
 })
 export class BlogModule { }

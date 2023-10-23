@@ -7,6 +7,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
+import { ApplicationGradeComponent } from 'src/app/feature-modules/administration/application-grade-form/application-grade.component';
+import { GradeReviewComponent } from 'src/app/feature-modules/administration/application-grade-review/grade-review/grade-review.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
-  {path: 'tour', component: TourComponent,canActivate:[AuthGuard]}
+  {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
+  {path: 'application-grade', component: ApplicationGradeComponent},
+  {path: 'grade-review', component: GradeReviewComponent}
 
 ];
 

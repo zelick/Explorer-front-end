@@ -1,4 +1,3 @@
-<!-- application-grade.component.html -->
 <h1>Rate the Application</h1>
 <form [formGroup]="applicationGradeForm">
   <div>
@@ -29,8 +28,7 @@
         <td> 
         </td>
         <td>
-          <button type="submit" color="primary">Ocijeni</button>
-          <!--<input type="submit" value="Submit">-->
+          <button type="submit" color="primary" (click)="noteTheRate()">Ocijeni</button>
         </td>
       </tr>
     </table>
