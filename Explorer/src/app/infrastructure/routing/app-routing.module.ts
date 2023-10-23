@@ -14,6 +14,7 @@ import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tou
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
 import { ClubMembersComponent } from 'src/app/feature-modules/administration/club-members/club-members.component';
+import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -28,7 +29,8 @@ const routes: Routes = [
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
-  {path: 'club-members/:id', component: ClubMembersComponent}
+  {path: 'club-members/:id', component: ClubMembersComponent},
+  {path: 'invitations', component: ClubInvitationsComponent}
 ];
 
 @NgModule({

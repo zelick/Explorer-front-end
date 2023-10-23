@@ -6,6 +6,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Club } from '../model/club.model';
+import { ClubInvitation } from '../model/club-invitation.model';
 
 @Component({
   selector: 'xp-club-members',
@@ -16,10 +17,15 @@ export class ClubMembersComponent implements OnInit{
   users: User[] = [];
   club: Club;
   clubId: number = 0; //
+  currentUserTouristId: number = 0;
 
   constructor(private service: AdministrationService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.currentUserTouristId = user?.id || 0;
+    });
+
     this.route.params.subscribe(params => {
       this.clubId = params['id']; 
     });
@@ -44,5 +50,19 @@ export class ClubMembersComponent implements OnInit{
 
       }
     })
+  }
+
+  inviteMember(memberId: number): void{
+    const clubInvitation: ClubInvitation = {
+      ownerId: this.currentUserTouristId,
+      memberId: memberId,
+      clubId: this.clubId,
+      status: "Processing"
+    };
+    
+    this.service.addClubInvitation(clubInvitation).subscribe({
+      next: () => { 
+      }
+    });
   }
 }

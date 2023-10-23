@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 
 
 
@@ -16,7 +17,8 @@ import { ClubMembersComponent } from './club-members/club-members.component';
     EquipmentComponent,
     ClubComponent,
     ClubFormComponent,
-    ClubMembersComponent
+    ClubMembersComponent,
+    ClubInvitationsComponent
   ],
   imports: [
     CommonModule,

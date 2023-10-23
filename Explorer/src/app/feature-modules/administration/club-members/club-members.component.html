@@ -1,6 +1,5 @@
 <div id="club">
-    <p>Club</p>
-    <hr>
+    <p>Manage members of club</p>
     <div id="club-details">
     <div>
         <table>
@@ -24,7 +23,27 @@
         </div>
     </div>
     <br>
-    <div>
-        
-    </div>
+    <p>Invite new members</p><br>
+    <div id="club-details">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Username </th>
+                        <th> Invite member </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of users">
+                        <td>{{u.username}}</td>
+                        <td>
+                            <button color="accent" (click)="inviteMember(u.id)" mat-icon-button>
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
 </div>
