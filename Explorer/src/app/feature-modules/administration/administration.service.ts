@@ -40,12 +40,7 @@ export class AdministrationService {
   
   acceptRequest(r: ClubMemebrshipRequest): Observable<ClubMemebrshipRequest> {
     r.status = "Accepted";
-    const userClub: UserClub = {
-       clubId: r.clubId,
-       userId: r.touristId
-     };
-    this.http.post<ClubMemebrshipRequest>(environment.apiHost + 'user-club', userClub);
-    return this.http.put<ClubMemebrshipRequest>(environment.apiHost + 'request/update/' + r.id, r);
+    return this.http.put<ClubMemebrshipRequest>('https://localhost:44333/api/request/' + r.id, r);
   }
 
   rijectRequest(r: ClubMemebrshipRequest): Observable<ClubMemebrshipRequest> {
@@ -86,5 +81,10 @@ export class AdministrationService {
   getUserClubs(userId: number): Observable<Club[]> {
     return this.http.get<Club[]>('https://localhost:44333/api/user-club/user/' + userId);
   }
+
+  //userClub 
+  joinUserToClub(memberId: number, clubId: number): Observable<Club> {
+    return this.http.put<Club>('https://localhost:44333/add-to/' + clubId + '/' + memberId, null);
+  } 
   
 }

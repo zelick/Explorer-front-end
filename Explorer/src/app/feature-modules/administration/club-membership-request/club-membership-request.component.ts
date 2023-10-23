@@ -47,15 +47,22 @@ export class ClubMembershipRequestComponent implements OnInit{
   rejectRequest(r: ClubMemebrshipRequest): void {
     this.service.rijectRequest(r).subscribe({
       next: () => {
-      // this.requests = this.requests.filter(request => request !== r);
+        this.requests = this.requests.filter(request => request.id !== r.id);
       },
     })
-  }
+  }result: ClubMemebrshipRequest
 
   acceptRequest(r: ClubMemebrshipRequest): void {
     this.service.acceptRequest(r).subscribe({
-      next: () => {
-        this.getClubMembershipRequests(); //azuriraj tabelu
+      next: (result: ClubMemebrshipRequest) => {
+        
+        this.service.joinUserToClub(r.touristId, r.clubId).subscribe({
+          next: () => {
+            this.requests = this.requests.filter(request => request.id !== r.id);
+          },
+        });
+
+        //this.requests = this.requests.filter(request => request.id !== r.id);
       },
     })
   }
