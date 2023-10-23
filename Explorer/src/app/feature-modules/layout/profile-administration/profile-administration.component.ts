@@ -43,7 +43,7 @@ export class ProfileAdministrationComponent implements OnInit{
         biography: user.biography,
         motto: user.motto,
       });
-
+      
       this.selectedImage = user.profilePictureUrl;
     });
   }
