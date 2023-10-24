@@ -6,6 +6,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
+import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
+import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 
 
 
@@ -15,6 +17,8 @@ import { ClubFormComponent } from './club-form/club-form.component';
     EquipmentComponent,
     ClubComponent,
     ClubFormComponent
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +29,8 @@ import { ClubFormComponent } from './club-form/club-form.component';
     EquipmentComponent,
     EquipmentFormComponent,
     ClubComponent
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ]
 })
 export class AdministrationModule { }
