@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ViewChild  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapObject } from '../model/map-object.model';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @Component({
   selector: 'xp-map-object-form',
@@ -12,6 +13,7 @@ export class MapObjectFormComponent implements OnChanges {
   @Output() mapObjectUpdated = new EventEmitter<void>();
   @Input() selectedMapObject: MapObject;
   @Input() shouldEdit: boolean = false;
+  @ViewChild(MapComponent) mapComponent: MapComponent;
 
   mapObjectForm = new FormGroup({
     longitude: new FormControl(0, [Validators.required]),
@@ -23,6 +25,30 @@ export class MapObjectFormComponent implements OnChanges {
   });
 
   constructor(private service: TourAuthoringService) {}
+
+  onMapClick(event: { lat: number; lon: number }) {
+    this.searchByCoord(event.lat, event.lon);
+    this.mapObjectForm.patchValue({
+      longitude: event.lon,
+      latitude: event.lat,
+    });
+  }
+
+  private searchByCoord(lat: number, lon: number) {
+    this.mapComponent.reverseSearch(lat, lon).subscribe({
+      next: (location) => {
+        const foundLocation = location;
+        console.log('Found Location Lat:', foundLocation.lon);
+        console.log('Found Location Lon:', foundLocation.lon);
+        console.log('Found Location Name:', foundLocation.display_name);
+
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      },
+    });
+  }
+  
 
   ngOnChanges(): void {
     this.mapObjectForm.reset();

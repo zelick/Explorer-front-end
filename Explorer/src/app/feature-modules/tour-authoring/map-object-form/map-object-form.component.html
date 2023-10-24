@@ -28,6 +28,7 @@
         <button *ngIf="!shouldEdit" (click)="addMapObject()">Add MapObject</button>
         <button *ngIf="shouldEdit" (click)="updateMapObject()">Update</button>
         <br>
+        <xp-map (mapClick)="onMapClick($event)"></xp-map>
         
     </div>
 </form>
