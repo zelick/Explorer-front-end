@@ -4,6 +4,7 @@ export interface TourRating {
     comment?: string;
     touristId: number;
     tourId: number;
-    date: string;
+    //tourDate: Date
+    creationDate: Date;
     pictures?: string;
 }

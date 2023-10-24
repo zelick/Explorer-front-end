@@ -5,6 +5,7 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
+import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
 
 
 
@@ -12,7 +13,8 @@ import { TourRatingComponent } from './tour-rating/tour-rating.component';
   declarations: [
     PreferenceComponent,
     PreferenceFormComponent,
-    TourRatingComponent
+    TourRatingComponent,
+    TourRatingFormComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { TourRatingComponent } from './tour-rating/tour-rating.component';
     ReactiveFormsModule
   ],
   exports:[
-    PreferenceFormComponent
+    PreferenceFormComponent, 
+    TourRatingFormComponent
   ]
 
 })

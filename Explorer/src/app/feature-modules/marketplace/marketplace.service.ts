@@ -33,15 +33,15 @@ export class MarketplaceService {
     let url: string;
     // Construct the URL based on the user type
     switch (userType) {
-      case '0':
+      case 'administrator': 
         //TODO tourRating-> tour-rating
         url = 'administration/tourRating'; 
         break;
-      case '1':
+      case 'author': 
         //TODO tourRating-> tour-rating
         url = 'author/tourRating';
         break;
-      case '2':
+      case 'tourist':
         //TODO tourRating-> tour-rating
         //TODO tourist -> tourism
         url = 'tourist/tourRating';

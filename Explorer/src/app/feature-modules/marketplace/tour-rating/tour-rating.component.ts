@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MarketplaceService } from '../marketplace.service';
 import { TourRating } from '../model/tour-rating.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-//import { User } from './infrastructure/auth/model/user.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-rating',
@@ -16,25 +17,26 @@ export class TourRatingComponent  implements OnInit {
   shouldEdit: boolean = false;
   shouldDelete: boolean = false;
   shouldAdd: boolean = false;
-  userType: string
+  user: User;
   
-  constructor(private service: MarketplaceService)  { }
+  constructor(private service: MarketplaceService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    //TODO -> get userType of the user that is logged on
-    this.userType='0'; 
-    this.showElements(this.userType);
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+    this.showElements(this.user);
     this.getTourRating();
   }
 
-  showElements(userType: string): void{
-    switch (userType) {
-      case '0': { // admin
+  showElements(user: User): void{
+    switch (user.role) {
+      case 'administrator': {
         this.shouldDelete = true;
         this.shouldAdd = false;
         break;
       }
-      case '1': { // author
+      case 'author': {
         this.shouldDelete = false;
         this.shouldAdd = false;
         break;
@@ -56,7 +58,7 @@ export class TourRatingComponent  implements OnInit {
   }
 
   getTourRating(): void {
-    this.service.getTourRating(this.userType).subscribe({
+    this.service.getTourRating(this.user.role).subscribe({
       next: (result: PagedResults<TourRating>) => {
         this.ratings = result.results;
         },
