@@ -11,7 +11,9 @@ import { TourAuthoringService } from '../tour-authoring.service';
 })
 export class MapObjectComponent {
   mapObjects: MapObject[] = [];
+  shouldRenderMapObjectForm: boolean = false;
   selectedMapObject: MapObject;
+  shouldEdit: boolean = false;
 
   constructor(private service: TourAuthoringService) { }
 
@@ -27,5 +29,39 @@ export class MapObjectComponent {
       }
     });
   }
+
+  onAddClick(): void {
+    
+    this.shouldRenderMapObjectForm = true;
+    this.shouldEdit = false;
+
+
+  }
+
+  onUpdate(): void {
+    
+    this.shouldRenderMapObjectForm = false;
+    this.shouldEdit = false;
+    this.ngOnInit();
+    
+
+  }
+
+  onEdit(mapObject: MapObject): void {
+    
+    this.shouldEdit = true;
+    this.selectedMapObject = mapObject;
+    this.shouldRenderMapObjectForm = true;
+
+  }
+
+  onDelete(id: number): void {
+    this.service.deleteMapObject(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+      },
+    });
+  }
+
    
 }

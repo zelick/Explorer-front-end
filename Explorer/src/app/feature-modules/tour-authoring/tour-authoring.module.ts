@@ -9,6 +9,7 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourComponent } from './tour/tour.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
 import { MapObjectComponent } from './map-object/map-object.component';
+import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MapObjectComponent } from './map-object/map-object.component';
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapObjectComponent
+    MapObjectComponent,
+    MapObjectFormComponent
   ],
   imports: [
     CommonModule,

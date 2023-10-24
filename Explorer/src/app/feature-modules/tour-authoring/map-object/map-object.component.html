@@ -1,38 +1,54 @@
-<div id="map-object">
-    <div id="tour">
-        <p>Choose tour by id</p><br>
-    </div>
-    <br>
-    <br>
-    <div >
-        <table>
-            <tr>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Picture</th>
-            </tr>
-            <tr *ngFor="let mapObject of mapObjects">
-                <td>{{mapObject.latitude}}</td>
-                <td>{{mapObject.longitude}}</td>
-                <td>{{mapObject.name}}</td>
-                <td>{{mapObject.category}}</td>
-                <td>{{mapObject.description}}</td>
-                <td>
-                    <picture>
-                        <img [src]="mapObject.pictureURL" alt="Map Object image" width="100" height="100">
-                    </picture>
-                </td>
-                <td>
-                    <button color="primary">EDIT</button>
-                </td>
-                <td>
-                    <button color="primary" >DELETE</button>
-                </td>
-            </tr>
-        </table>
+<div id="map-objects">
+    <p>Map Objects</p>
+    <hr>
+    <div id="map-object-details">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Picture</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mapObject of mapObjects">
+                        <td>{{ mapObject.name }}</td>
+                        <td>{{ mapObject.latitude }}</td>
+                        <td>{{ mapObject.longitude }}</td>
+                        <td>{{ mapObject.category }}</td>
+                        <td>{{ mapObject.description }}</td>
+                        <td>
+                            <picture>
+                                <img [src]="mapObject.pictureURL" alt="Map Object image" width="100" height="100">
+                            </picture>
+                        </td>
+                        <td>
+                            <button color="accent" (click)="onDelete(mapObject.id || 0)" mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button color="primary" (click)="onEdit(mapObject)" mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <button color="primary" (click)="onAddClick()" mat-icon-button>
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <br>
+            <xp-map-object-form *ngIf="shouldRenderMapObjectForm" (mapObjectUpdated)="onUpdate()" [selectedMapObject] = "selectedMapObject" [shouldEdit] = "shouldEdit"></xp-map-object-form>
+        </div>
     </div>
 </div>
-
