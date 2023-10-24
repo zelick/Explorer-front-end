@@ -16,6 +16,7 @@ import { ClubComponent } from 'src/app/feature-modules/administration/club/club.
 import { ClubMembersComponent } from 'src/app/feature-modules/administration/club-members/club-members.component';
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 
+
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -27,7 +28,7 @@ const routes: Routes = [
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
   {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'club', component: ClubComponent},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent}
