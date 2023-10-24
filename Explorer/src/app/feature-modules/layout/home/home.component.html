@@ -8,19 +8,24 @@
       <source src="assets/landing_page/backgroundv.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+    <div class="background"></div>
     <div class="text-overlay">
       <p>Let's Make Memories</p>
     </div>
-    <div class="text-field-container">
-        <input class="text-field" type="text" placeholder="Where is your next stop?">
-        <button mat-raised-button class="button">Search</button>
+    <div class="search-field-container">
+        <input class="search-field" type="text" placeholder="Where is your next stop?">
+        <button mat-raised-button class="button">
+          <div class="search-button">
+            <mat-icon>search</mat-icon>
+            <p>Search</p>
+          </div>
+        </button>
     </div>
   </div>
 
   <div class="content">
     <p class="subtitle">Travelers choice</p><br>
     <div class="tour-cards-container">
-        
       <div class="tour-card">
         <img src="assets/landing_page/jahorina.jpg" alt="Image1" class="img">
         <label class="card-location-header">Jahorina</label>
