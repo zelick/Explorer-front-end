@@ -29,6 +29,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "./node_modules/leaflet/dist/leaflet.css",
               "./node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
@@ -106,6 +107,7 @@
     }
   },
   "cli": {
+    "analytics": "5e685c1d-46d7-46de-831c-105f7a0c4fcd"
     "analytics": false
   }
 }

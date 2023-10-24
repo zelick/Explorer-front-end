@@ -9,6 +9,10 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourComponent } from './tour/tour.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { MapObjectComponent } from './map-object/map-object.component';
+import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 @NgModule({
@@ -18,14 +22,17 @@ import { MapComponent } from 'src/app/shared/map/map.component';
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapComponent
+    MapComponent,
+    MapObjectComponent,
+    MapObjectFormComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [
     CheckpointComponent,

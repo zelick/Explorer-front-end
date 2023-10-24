@@ -22,7 +22,7 @@ export class ReportedIssuesComponent implements OnInit{
     this.getReportedIssues();
   }
   getReportedIssues(): void{
-    this.service.getReportedIssues().subscribe({
+    this.service['getReportedIssues']().subscribe({
       next:(result:PagedResults<ReportedIssue>)=>{
         this.reportedIssues = result.results;
       },
