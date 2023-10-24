@@ -20,7 +20,7 @@ export class MapComponent implements AfterViewInit {
   
   private map: any;
   private routeControl: any;
-  marker: L.Marker;
+
 
   constructor(private mapService: MapService) { }
 
@@ -53,7 +53,7 @@ export class MapComponent implements AfterViewInit {
       map((result) => result[0]),
       tap((location) => {
         console.log('Location:', location);
-        this.marker = L.marker([location.lat, location.lon])
+        L.marker([location.lat, location.lon])
           .addTo(this.map)
           .bindPopup(location.display_name)
           .openPopup();
@@ -75,7 +75,7 @@ export class MapComponent implements AfterViewInit {
       map((result) => result),
       tap((location) => {
         console.log('Location:', location);
-        this.marker = L.marker([location.lat, location.lon])
+       L.marker([location.lat, location.lon])
           .addTo(this.map)
           .bindPopup(location.display_name)
           .openPopup();
@@ -140,11 +140,5 @@ export class MapComponent implements AfterViewInit {
         alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
       });
     };
-
-    clearMarkers(): void
-    {
-      if(this.marker)
-      L.layerGroup().removeLayer(this.marker);
-    }
   }
 

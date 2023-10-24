@@ -5,8 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Checkpoint } from '../model/checkpoint.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { Component, OnInit} from '@angular/core';
-import { Tour } from '../model/tour.model';
 import { Equipment } from '../model/equipment.model';
 
 @Component({
@@ -20,7 +18,6 @@ export class TourDetailsComponent implements OnInit{
   checkpoints: Array<Checkpoint> = [];
   profiles: string[] = ['walking', 'cycling', 'driving'];
   profile: string = this.profiles[0];
-  tour: Tour;
   availableEquipment: Equipment[];
   currentEquipmentIds: number[] = [];
   isVisibleEquipment: boolean = false;
@@ -44,7 +41,7 @@ export class TourDetailsComponent implements OnInit{
       } 
       }
    });
-  }
+  })
 }
   route(): void{
     let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
@@ -65,11 +62,10 @@ export class TourDetailsComponent implements OnInit{
        });
        this.mapComponent.setRoute(coords, 'walking');
   }
-  
+}
   getTour(id: number): void {
     this.service.get(id).subscribe((result: Tour) => {
       this.tour = result;
-  
       // Once this.tour is defined, you can safely access its equipment
       this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
   
