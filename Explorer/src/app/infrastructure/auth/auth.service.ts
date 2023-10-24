@@ -87,5 +87,20 @@ export class AuthService {
     };
     this.user$.next(user);
   }
+
+  getPersonIdFromToken(): string | null {
+    const token = this.getAccessToken(); 
+    if (token) {
+      const decodedToken: any = jwt_decode(token); 
+      return decodedToken.personId; 
+    }
+    return null;
+  }
+
+  getAccessToken(): string | null {
+    const token = this.tokenStorage.getAccessToken(); 
+  
+    return token || null;
+  }
 }
 
