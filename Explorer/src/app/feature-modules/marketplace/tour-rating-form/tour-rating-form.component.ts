@@ -38,8 +38,7 @@ export class TourRatingFormComponent implements OnChanges {
     rating: new FormControl(0, [Validators.required]),
     comment: new FormControl(''),
     tourId: new FormControl(0, [Validators.required]),
-    tourDate: new FormControl(new Date())
-    //tourDate: new FormControl(new Date(), [Validators.required])
+    tourDate: new FormControl(new Date(), [Validators.required])
   });
 
   picturesForm = new FormGroup({
