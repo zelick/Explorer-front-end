@@ -22,13 +22,13 @@ export class AuthService {
     private router: Router) { }
 
 
-  getPersonIdFromToken(): number {
+  getPersonIdFromToken(): string {
     const token = this.getAccessToken(); 
     if (token) {
       const decodedToken: any = jwt_decode(token); 
-      return decodedToken.personId; 
+      return decodedToken.id; 
     }
-    return -1;
+    return '';
   }
 
   getAccessToken(): string | null {

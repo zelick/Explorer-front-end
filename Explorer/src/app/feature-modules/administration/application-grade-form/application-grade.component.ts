@@ -17,19 +17,14 @@ export class ApplicationGradeComponent implements OnInit {
               private authService: AuthService) { }
   
   ngOnInit(): void {
-    this.service.getAllGrades().subscribe({
     
-      error: (err:any) => {
-        console.log(err);
-      }
-    })
   }
   
   applicationGradeForm = new FormGroup({
     Rating: new FormControl(1, [Validators.required]),
     Comment: new FormControl(''),
     Created: new FormControl(),
-    UserId: new FormControl(-1)
+    UserId: new FormControl('')
   })
 
   noteTheRate(): void {
@@ -38,7 +33,7 @@ export class ApplicationGradeComponent implements OnInit {
     this.service.noteTheRate({
       rating: formData.Rating || 1,
       comment: formData.Comment || "",
-      //created: formData.Created,
+      created: formData.Created,
       userId: this.authService.getPersonIdFromToken()
     }).subscribe({
       next: (_) => {

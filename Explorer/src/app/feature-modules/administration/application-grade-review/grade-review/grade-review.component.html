@@ -5,14 +5,16 @@
         <table>
             <thead>
                 <tr>
-                    <th>Ocjena</th>
-                    <th>Komentar</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Created date</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let gr of grades">
                     <td>{{gr.rating}}</td>
                     <td>{{gr.comment}}</td>
+                    <td>{{gr.created}}</td>
                 </tr>
             </tbody>
         </table>
