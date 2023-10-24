@@ -28,12 +28,34 @@
                     cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>
 
-            <!-- TODO -> upload a picture -->
-            <mat-form-field>
-                <mat-label>Pictures</mat-label>
-                <input matInput formControlName="pictures" type="text"/>
-            </mat-form-field>
-            
+            <!-- TODO -> upload a picture file -->
+            <form [formGroup]="picturesForm">
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <mat-form-field id="picture">
+                                    <mat-label>Picture</mat-label>
+                                    <input matInput formControlName="picture" type="text"/>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <button id="picture"  color="primary" type="submit" (click)="addPicture()" mat-raised-button>+</button>
+                            </td>
+                        </tr>
+                    </table>
+                    Added pictures:
+                    <table>
+                        <tr *ngFor="let p of newPictures">
+                            <td>{{p}}</td>
+                            <td>
+                                <button id="picture" color="lightBlue" (click)="removePicture(p)" mat-raised-button>✖️</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+                        
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
         </div>
     </form>

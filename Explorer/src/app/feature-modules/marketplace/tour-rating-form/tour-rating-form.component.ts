@@ -24,7 +24,9 @@ export class TourRatingFormComponent implements OnChanges {
   
   constructor(private service: MarketplaceService, private authService: AuthService) { 
     this.authService.user$.subscribe(user => {
-      this.user = user; });
+      this.user = user;
+      this.newPictures=[];
+     });
   }
 
   ngOnChanges(): void {
@@ -40,7 +42,10 @@ export class TourRatingFormComponent implements OnChanges {
     tourId: new FormControl(0, [Validators.required]),
     //TODO add tourDate
     //tourDate: new FormControl('', [Validators.required]),
-    pictures: new FormControl(this.newPictures)
+  });
+
+  picturesForm = new FormGroup({
+    picture: new FormControl<string>("", {nonNullable: true})
   });
 
   addTourRating(): void {
@@ -52,7 +57,7 @@ export class TourRatingFormComponent implements OnChanges {
       //TODO add tourDate 
       //tourDate: new Date(),
       creationDate: new Date(),
-      pictures: this.tourRatingForm.value.pictures || []
+      pictures: this.newPictures
     };
     
     console.log(rating)
@@ -60,5 +65,30 @@ export class TourRatingFormComponent implements OnChanges {
     this.service.addTourRating(rating).subscribe({
       next: () => { this.ratingUpdated.emit() }
     });
+    this.newPictures=[];
+    this.picturesForm.reset();
+    this.tourRatingForm.reset();
+  }
+
+  addPicture():void{   
+    if(this.picturesForm.getRawValue().picture!=""){
+      if(this.isExistingPicture(this.picturesForm.getRawValue().picture)===false){
+      this.newPictures.push(this.picturesForm.getRawValue().picture);
+      this.picturesForm.reset();
+      }
+    }
+  }
+
+  isExistingPicture(pic:string):boolean{
+    let isExistingPicture=false;
+    this.newPictures.forEach(element => {
+      if(element.toLowerCase()==pic)
+      isExistingPicture=true;
+    });
+    return isExistingPicture;
+  }
+
+  removePicture(pic:string):void{
+    this.newPictures.splice(this.newPictures.indexOf(pic),1);
   }
 }

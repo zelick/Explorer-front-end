@@ -37,8 +37,6 @@
         </table>
     </div>
     <div>
-        <!--TODO del 
-            [tour-rating]="selectedRating" -->
         <xp-tour-rating-form *ngIf="shouldRenderTourRatingForm" [shouldEdit]="shouldEdit" [rating]="selectedRating" (ratingUpdated)="getTourRating()"></xp-tour-rating-form>
     </div>
     </div>
