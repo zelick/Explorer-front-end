@@ -41,9 +41,7 @@ export class ClubFormComponent implements OnChanges  {
         console.log(result);
         this.clubs = result.results;
 
-        // Generiši ID
         const club: Club = {
-          //id: generateId(this.clubs),
           name: this.clubForm.value.name || "",
           description: this.clubForm.value.description || "",
           image: this.clubForm.value.image || "",
@@ -65,7 +63,6 @@ export class ClubFormComponent implements OnChanges  {
 
   updateClub(): void {
     const club: Club = {
-      //id: generateId(this.clubs),
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       image: this.clubForm.value.image || "",
@@ -80,17 +77,6 @@ export class ClubFormComponent implements OnChanges  {
   }
 
 }
-
-/*function generateId(existingClubs: Club[]): number {
-
-  if (existingClubs.length === 0) {
-    return 1; 
-  }
-
-  const maxId = Math.max(...existingClubs.map(club => club.id));
-  return maxId + 1;
-}
-*/
 
 function findLoggedUser(authService: AuthService): number {
   let userId: number | null = null;
