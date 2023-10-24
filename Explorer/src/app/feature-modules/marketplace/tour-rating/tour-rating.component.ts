@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MarketplaceService } from '../marketplace.service';
 import { TourRating } from '../model/tour-rating.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -8,7 +9,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 @Component({
   selector: 'xp-tour-rating',
   templateUrl: './tour-rating.component.html',
-  styleUrls: ['./tour-rating.component.css']
+  styleUrls: ['./tour-rating.component.css'],
+  providers: [DatePipe]
 })
 export class TourRatingComponent  implements OnInit {
   ratings: TourRating[] = [];
@@ -71,10 +73,4 @@ export class TourRatingComponent  implements OnInit {
     this.shouldEdit = false;
     this.shouldRenderTourRatingForm = true;
   }
-
-  // onEditClicked(rating: TourRating): void {
-  //   this.selectedRating = rating;
-  //   this.shouldRenderTourRatingForm = true;
-  //   this.shouldEdit = true;
-  // }
 }

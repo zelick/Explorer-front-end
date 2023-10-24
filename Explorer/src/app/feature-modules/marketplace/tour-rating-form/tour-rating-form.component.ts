@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-//import { MatRadioModule } from '@angular/material/radio';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { MarketplaceService } from '../marketplace.service';
 import { TourRating } from '../model/tour-rating.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'xp-tour-rating-form',
@@ -19,7 +18,6 @@ export class TourRatingFormComponent implements OnChanges {
   @Input() rating: TourRating;
   @Input() shouldEdit: boolean = false;
   user: User;
-  //ratings: Number[] = [1, 2, 3, 4, 5];  //for radio buttons
   newPictures: string[]=[];
   
   constructor(private service: MarketplaceService, private authService: AuthService) { 
@@ -40,8 +38,8 @@ export class TourRatingFormComponent implements OnChanges {
     rating: new FormControl(0, [Validators.required]),
     comment: new FormControl(''),
     tourId: new FormControl(0, [Validators.required]),
-    //TODO add tourDate
-    //tourDate: new FormControl('', [Validators.required]),
+    tourDate: new FormControl(new Date())
+    //tourDate: new FormControl(new Date(), [Validators.required])
   });
 
   picturesForm = new FormGroup({
@@ -54,8 +52,7 @@ export class TourRatingFormComponent implements OnChanges {
       comment: this.tourRatingForm.value.comment || "",
       touristId: this.user.id,
       tourId: Number(this.tourRatingForm.value.tourId) || 0,
-      //TODO add tourDate 
-      //tourDate: new Date(),
+      tourDate: this.tourRatingForm.value.tourDate || new Date(),
       creationDate: new Date(),
       pictures: this.newPictures
     };

@@ -5,11 +5,20 @@
                 <mat-label>Tour Id</mat-label>
                 <input matInput formControlName="tourId" type="number" [defaultValue]="0" min="0" placeholder="0"/>
             </mat-form-field>
-            <!-- TODO add TourDate
             <mat-form-field>
                 <mat-label>Tour Date</mat-label>
-                <input matInput formControlName="tourDate" type="datetime-local" [min]="form.controls.date.value" placeholder="Select a date and time" />
-            </mat-form-field>   -->
+                <input matInput formControlName="tourDate" type="datetime"/>
+            </mat-form-field>
+            
+            <!-- TODO -> TourDate datepicker -->
+            <!-- <mat-form-field>
+                <mat-label>Choose a Tour Date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button mat-raised-button (click)="picker.open()">Open</button>
+            -->
             
             <mat-form-field>
                 <mat-label>Rating</mat-label>

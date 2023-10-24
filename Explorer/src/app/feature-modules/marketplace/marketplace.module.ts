@@ -23,7 +23,6 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
   ],
   exports:[
     PreferenceFormComponent, 
-    //TourRatingComponent,
     TourRatingFormComponent
   ]
 

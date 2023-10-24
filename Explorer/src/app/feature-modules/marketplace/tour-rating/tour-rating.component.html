@@ -11,7 +11,8 @@
                     <th>Comment</th>
                     <th>Tourist Id</th>
                     <th>Tour Id</th>
-                    <th>Date</th>
+                    <th>Tour Date</th>
+                    <th>Creation Date</th>
                     <!-- <th>Pictures</th> -->
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <td>{{rate.comment}}</td>
                     <td>{{rate.touristId}}</td>
                     <td>{{rate.tourId}}</td>
+                    <td>{{rate.tourDate | date: 'dd.MM.yyyy HH:mm'}}</td>
                     <td>{{rate.creationDate | date: 'dd.MM.yyyy HH:mm'}}</td>
                     <!-- <td>{{rate.pictures}}</td> -->
                     <td>
