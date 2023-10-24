@@ -16,7 +16,7 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
     EquipmentFormComponent,
     EquipmentComponent,
     ClubComponent,
-    ClubFormComponent
+    ClubFormComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent
   ],
@@ -28,7 +28,7 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-    ClubComponent
+    ClubComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent
   ]
