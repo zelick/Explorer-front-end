@@ -6,6 +6,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { MAPBOX_API_KEY } from '../constants';
 import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
+import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
 
 @Component({
   selector: 'xp-map',
@@ -18,6 +19,8 @@ export class MapComponent implements AfterViewInit {
   @Input() initialZoom: number = 13
   
   private map: any;
+  private routeControl: any;
+  marker: L.Marker;
 
   constructor(private mapService: MapService) { }
 
@@ -41,11 +44,16 @@ export class MapComponent implements AfterViewInit {
   }
 
   search(street: string): Observable<LocationResponse> {
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
     return this.mapService.search(street).pipe(
       map((result) => result[0]),
       tap((location) => {
         console.log('Location:', location);
-        L.marker([location.lat, location.lon])
+        this.marker = L.marker([location.lat, location.lon])
           .addTo(this.map)
           .bindPopup(location.display_name)
           .openPopup();
@@ -58,11 +66,16 @@ export class MapComponent implements AfterViewInit {
   }
 
   reverseSearch(lat: number, lon: number): Observable<LocationResponse> {
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
     return this.mapService.reverseSearch(lat, lon).pipe(
       map((result) => result),
       tap((location) => {
         console.log('Location:', location);
-        L.marker([location.lat, location.lon])
+        this.marker = L.marker([location.lat, location.lon])
           .addTo(this.map)
           .bindPopup(location.display_name)
           .openPopup();
@@ -89,6 +102,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   registerOnClick(): void {
+
     this.map.on('click', (e: any) => {
       const coord = e.latlng;
       const lat = coord.lat;
@@ -109,13 +123,10 @@ export class MapComponent implements AfterViewInit {
     this.initMap();
   }
 
-  setRoute(startCoords: { lat: number, lon: number }, endCoords: { lat: number, lon: number }, profile: string): Observable<RouteResponse> {
-    const startLatLng = L.latLng(startCoords.lat, startCoords.lon);
-    const endLatLng = L.latLng(endCoords.lat, endCoords.lon);
-
-    return new Observable((observer) => {
+  setRoute(coords: [{lat: number, lon: number}], profile: string): void {
+    const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
-        waypoints: [startLatLng, endLatLng],
+        waypoints: waypoints,
         router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` })
       }).addTo(this.map);
 
@@ -126,11 +137,14 @@ export class MapComponent implements AfterViewInit {
           totalDistanceMeters: summary.totalDistance,
           totalTimeMinutes: Math.round(summary.totalTime / 60)
         };
-        console.log('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
-
-        observer.next(routeResponse);
-        observer.complete();
+        alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
       });
-    });
+    };
+
+    clearMarkers(): void
+    {
+      if(this.marker)
+      L.layerGroup().removeLayer(this.marker);
+    }
   }
-}
+

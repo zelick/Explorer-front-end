@@ -8,9 +8,11 @@ import { RouterModule } from '@angular/router';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourComponent } from './tour/tour.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
+import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapObjectComponent } from './map-object/map-object.component';
 import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
+    MapComponent,
     MapObjectComponent,
     MapObjectFormComponent
   ],
@@ -35,7 +38,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent
+    TourFormComponent,
+    MapComponent
   ]
 })
 export class TourAuthoringModule { }
