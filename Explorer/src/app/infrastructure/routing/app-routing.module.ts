@@ -5,6 +5,7 @@ import { LoginComponent } from '../auth/login/login.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { ClubMembershipRequestComponent } from 'src/app/feature-modules/administration/club-membership-request/club-membership-request.component';
 import { ProfileAdministrationComponent } from 'src/app/feature-modules/layout/profile-administration/profile-administration.component';
 import { AccountsManagementComponent } from 'src/app/feature-modules/administration/accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from 'src/app/feature-modules/administration/reported-issues/reported-issues.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'club', component: ClubComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
