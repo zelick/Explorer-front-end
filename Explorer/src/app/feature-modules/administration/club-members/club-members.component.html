@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let u of users">
+                    <tr *ngFor="let u of usersToInvite">
                         <td>{{u.username}}</td>
                         <td>
                             <button color="accent" (click)="inviteMember(u.id)" mat-icon-button>

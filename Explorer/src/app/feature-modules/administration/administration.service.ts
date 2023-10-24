@@ -76,4 +76,8 @@ export class AdministrationService {
   updateClubInvitation(clubInvitation: ClubInvitation): Observable<ClubInvitation> {
     return this.http.put<ClubInvitation>('https://localhost:44333/api/club-invitation/' + clubInvitation.id, clubInvitation);
   }
+
+  getAllUsers(): Observable<PagedResults<User>> {
+    return this.http.get<PagedResults<User>>('https://localhost:44333/api/user');
+  }
 }
