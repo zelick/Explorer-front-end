@@ -5,7 +5,7 @@
                 <mat-label>Tour Id</mat-label>
                 <input matInput formControlName="tourId" type="number" [defaultValue]="0" min="0" placeholder="0"/>
             </mat-form-field>
-            <!-- TODO add TourDate              
+            <!-- TODO add TourDate
             <mat-form-field>
                 <mat-label>Tour Date</mat-label>
                 <input matInput formControlName="tourDate" type="datetime-local" [min]="form.controls.date.value" placeholder="Select a date and time" />
@@ -34,18 +34,6 @@
                 <input matInput formControlName="pictures" type="text"/>
             </mat-form-field>
             
-            <!-- TODO -> del touristId input -->
-            <!-- <mat-form-field>
-                <mat-label>Tourist Id</mat-label>
-                <input matInput formControlName="touristId" type="number" [defaultValue]="0" min="0" max="3" placeholder="0"/>
-            </mat-form-field> -->
-            
-            <!-- TODO -> del date input -->
-            <!-- <mat-form-field>
-                <mat-label>Date</mat-label>
-                <input matInput formControlName="date" type="datetime-local" />
-            </mat-form-field> -->
-
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
         </div>
     </form>

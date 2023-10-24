@@ -30,21 +30,17 @@ export class MarketplaceService {
   }
 
   getTourRating(userType: string): Observable<PagedResults<TourRating>> {
-    let url: string;
-    // Construct the URL based on the user type
+    let url: string;  // Construct the URL based on the user type
     switch (userType) {
       case 'administrator': 
-        //TODO tourRating-> tour-rating
-        url = 'administration/tourRating'; 
+        url = 'administration/tour-rating'; 
         break;
       case 'author': 
-        //TODO tourRating-> tour-rating
-        url = 'author/tourRating';
+        url = 'author/tour-rating';
         break;
       case 'tourist':
-        //TODO tourRating-> tour-rating
-        //TODO tourist -> tourism
-        url = 'tourist/tourRating';
+        //TODO tourist -> tourism ???
+        url = 'tourist/tour-rating';
         break;
       default:
         throw new Error('Invalid user type');
@@ -54,12 +50,10 @@ export class MarketplaceService {
   }
 
   deleteTourRating(id: number): Observable<TourRating> {    
-    return this.http.delete<TourRating>(environment.apiHost + 'administration/tourRating/' + id);
-    //TODO tourRating-> tour-rating
+    return this.http.delete<TourRating>(environment.apiHost + 'administration/tour-rating/' + id);
   }
 
   addTourRating(rating: TourRating): Observable<TourRating> {
-    return this.http.post<TourRating>(environment.apiHost + 'tourist/tourRating', rating);
-    //TODO tourRating-> tour-rating
+    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 }

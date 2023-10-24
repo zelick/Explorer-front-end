@@ -71,4 +71,10 @@ export class TourRatingComponent  implements OnInit {
     this.shouldEdit = false;
     this.shouldRenderTourRatingForm = true;
   }
+
+  // onEditClicked(rating: TourRating): void {
+  //   this.selectedRating = rating;
+  //   this.shouldRenderTourRatingForm = true;
+  //   this.shouldEdit = true;
+  // }
 }
