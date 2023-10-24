@@ -4,6 +4,8 @@
 :root {
     --primary-color: #3B846B; /* Set your custom primary color here */
     --accent-color: #FF5722;  /* Set your custom accent color here */
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
   }
   
   /* Update primary and accent colors */

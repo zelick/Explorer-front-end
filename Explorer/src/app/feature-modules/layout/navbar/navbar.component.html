@@ -1,7 +1,7 @@
 <div class="frame">
-<mat-toolbar color="primary">
-    <div>
-        <p>Explorer</p>
+    <mat-toolbar color="primary">
+      <div class="flex-container">
+        <img src="assets/explorerLogo.png">
         <div id="buttons">
             <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>

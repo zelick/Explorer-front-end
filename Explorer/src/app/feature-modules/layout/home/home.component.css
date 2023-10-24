@@ -1,6 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #253B34;
+  overflow-y: scroll;
 }
 
 .video-container {
@@ -20,27 +22,32 @@ video {
 
 .content {
   position: relative;
-  text-align: center;
+  text-align: left;
   color: #fff;
   padding: 20px;
-  margin-top: 100vh; /* Push the content below the video */
+  margin-top: 10vh; /* Push the content below the video */
+  margin-left: 4vh;
+  margin-right: 4vh;
+  margin-bottom: 16vh;
+  border-radius: 10px;
+  background-color: #F7F6DC;
 }
 
 .tour-cards-container {
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
   display: flex;
   flex-wrap: wrap; /* Allow tour cards to wrap to the next line */
   justify-content: space-between;
+  margin-bottom: 5vh;
 }
 
 .tour-card {
   flex: 0 0 0 0 calc(33.33% - 20%); /* Adjust the card width as needed with margin */
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent card background */
+  background-color: rgba(59, 132, 107, 0.7); /* Semi-transparent card background */
   border: 1px solid #fff;
   color: #000;
   text-align: center;
-  margin: 2.28vh; /* Add margin between the tour cards */
+  margin: 0vh; /* Add margin between the tour cards */
   border-radius: 20px;
   width: 20%;
   height: 45vh;
@@ -86,13 +93,14 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 20px;
-    font-size: 350%;
+    padding: 2vw; /* Adjust the padding as needed */
+    font-size: 4vw; /* Set the font size using vw units */
     font-weight: 600;
-    color: #fff; /* Text color */
-    z-index: 2; /* Set a higher z-index to ensure the text appears above the video */
-    text-shadow: -1px -1px 0 #253B34, 1px -1px 0 #253B34, -1px 1px 0 #253B34, 1px 1px 0 #253B34; /* Black border around the text */
+    color: #fff;
+    z-index: 2;
+    text-shadow: -1px -1px 0 #253B34, 1px -1px 0 #253B34, -1px 1px 0 #253B34, 1px 1px 0 #253B34;
 }
+
 
 .text-field-container {
     position: absolute;
@@ -114,7 +122,7 @@ video {
     padding: 10px;
     width: 80%; /* Set the text field width to 50% of the container */
     font-size: 120%;
-    border: 1px solid #253B34;
+    border: 1px solid hsl(161, 23%, 19%);
     border-radius: 10px;
     margin-right: 5px;
 }
@@ -127,5 +135,15 @@ video {
     border: 1px solid #253B34;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.subtitle{
+    margin-left: 3vh;
+    margin-right: auto;
+    justify-content: left;
+    font-size: 7vh;
+    color:#FF5722;
+    font-weight: 600;
+    margin: 10px;
 }
 
