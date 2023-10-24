@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
+import { MapObject } from './model/map-object.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,23 @@ export class TourAuthoringService {
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
     return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpoint.id, checkpoint);
   }
+
+  getMapObjects(): Observable<PagedResults<MapObject>> {
+    return this.http.get<PagedResults<MapObject>>(environment.apiHost + 'administration/mapObject');
+  }
+
+  deleteMapObject(id: number): Observable<MapObject> {
+    return this.http.delete<MapObject>(environment.apiHost + 'administration/mapobject/' + id);
+  }
+  
+  addMapObject(mapObject: MapObject): Observable<MapObject> {
+    return this.http.post<MapObject>(environment.apiHost + 'administration/mapobject', mapObject);
+  }
+  
+  updateMapObject(mapObject: MapObject): Observable<MapObject> {
+    return this.http.put<MapObject>(environment.apiHost + 'administration/mapobject/' + mapObject.id, mapObject);
+  }
+  
   
   addTour(tour: Tour): Observable<Tour> {
     return this.http.post<Tour>(environment.apiHost + 'administration/tour', tour);

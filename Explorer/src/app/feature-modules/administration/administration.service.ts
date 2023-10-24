@@ -48,7 +48,7 @@ export class AdministrationService {
     return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
 
-}
+
   getAccounts(): Observable<PagedResults<Account>> {
     return this.http.get<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement')
   }
