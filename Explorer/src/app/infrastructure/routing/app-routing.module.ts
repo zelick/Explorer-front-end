@@ -5,7 +5,6 @@ import { LoginComponent } from '../auth/login/login.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
-import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
 import { ProfileAdministrationComponent } from 'src/app/feature-modules/layout/profile-administration/profile-administration.component';
 import { AccountsManagementComponent } from 'src/app/feature-modules/administration/accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from 'src/app/feature-modules/administration/reported-issues/reported-issues.component';
@@ -19,6 +18,10 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { MapObjectComponent } from 'src/app/feature-modules/tour-authoring/map-object/map-object.component';
+import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
+import { ClubMembersComponent } from 'src/app/feature-modules/administration/club-members/club-members.component';
+import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
+
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -41,6 +44,10 @@ const routes: Routes = [
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
   {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  {path: 'club', component: ClubComponent},
+  {path: 'club-members/:id', component: ClubMembersComponent},
+  {path: 'invitations', component: ClubInvitationsComponent}
 ];
 
 @NgModule({
