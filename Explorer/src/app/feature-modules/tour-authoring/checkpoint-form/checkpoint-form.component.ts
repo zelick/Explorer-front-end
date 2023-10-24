@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators, NgModel, NgForm } from '@angular/fo
 import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { Tour } from '../model/tour.model';
 
 
 @Component({
@@ -27,6 +28,15 @@ export class CheckpointFormComponent implements OnChanges{
     this.checkpointForm.controls.longitude.disable();
   }
 
+  ngAfterViewInit(): void {
+    if(this.shouldEdit) {
+      this.latitude = this.selectedCheckpoint.latitude;
+      this.longitude=this.selectedCheckpoint.longitude;
+      this.searchByCoord(this.latitude, this.longitude);
+      this.searchByAddress(this.checkpointForm.controls.address.value || '');
+    }
+  }
+
   ngOnChanges(): void {
     this.checkpointForm.reset();
     if(this.shouldEdit) {
@@ -38,11 +48,10 @@ export class CheckpointFormComponent implements OnChanges{
 
   checkpointForm = new FormGroup({
     tourID: new FormControl(this.tourID, [Validators.required]),
-    orderNumber: new FormControl(0, [Validators.required]),
     longitude: new FormControl(0, [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
     address: new FormControl('')
   });
   pictureForm = new FormGroup({
@@ -52,22 +61,22 @@ export class CheckpointFormComponent implements OnChanges{
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
       tourId: this.tourID,
-      orderNumber: this.checkpointForm.value.orderNumber || 0,
       longitude: this.longitude || 0,
       latitude: this.latitude || 0,
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
     };
-    this.service.addCheckpoint(checkpoint).subscribe({
-      next: () => { this.checkpointUpdated.emit() }
-    });
+
+      this.service.addCheckpoint(checkpoint).subscribe({
+        next: () => { this.checkpointUpdated.emit();
+        location.reload(); }
+      });
   }
 
   updateCheckpoint(): void {
     const checkpoint: Checkpoint = {
       tourId: this.tourID,
-      orderNumber: this.checkpointForm.value.orderNumber || 0,
       longitude: this.longitude || 0,
       latitude: this.latitude || 0,
       name: this.checkpointForm.value.name || "",
@@ -76,7 +85,8 @@ export class CheckpointFormComponent implements OnChanges{
     };
     checkpoint.id = this.selectedCheckpoint.id;
     this.service.updateCheckpoint(checkpoint).subscribe({
-      next: () => { this.checkpointUpdated.emit();}
+      next: () => { this.checkpointUpdated.emit();
+      location.reload();}
     });
   }
 
@@ -97,9 +107,13 @@ export class CheckpointFormComponent implements OnChanges{
         // Handle the location data here 
         // eg. send it to back-end
         const foundLocation = location;
-        console.log('Found Location Lat:', foundLocation.lon);
+        console.log('Found Location Lat:', foundLocation.lat);
         console.log('Found Location Lon:', foundLocation.lon);
         console.log('Found Location Name:', foundLocation.display_name);
+        this.latitude = foundLocation.lat;
+        this.longitude = foundLocation.lon;
+        this.checkpointForm.controls.latitude.setValue(foundLocation.lat);
+        this.checkpointForm.controls.longitude.setValue(foundLocation.lon);
       },
       error: (error) => {
         console.error('Error:', error);
@@ -126,10 +140,10 @@ export class CheckpointFormComponent implements OnChanges{
       next: (location) => {
         // Handle the location data here
         const foundLocation = location;
-        console.log('Found Location Lat:', foundLocation.lon);
+        console.log('Found Location Lat:', foundLocation.lat);
         console.log('Found Location Lon:', foundLocation.lon);
         console.log('Found Location Name:', foundLocation.display_name);
-        this.latitude = foundLocation.lon;
+        this.latitude = foundLocation.lat;
         this.longitude = foundLocation.lon;
         this.checkpointForm.controls.latitude.setValue(this.latitude);
         this.checkpointForm.controls.longitude.setValue(this.longitude);

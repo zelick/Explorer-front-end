@@ -42,7 +42,7 @@ export class TourAuthoringService {
   }
 
   getTour(id: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/'+id)
+    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/by-author/'+id)
   }
 
   deleteTour(id: number): Observable<Tour> {
