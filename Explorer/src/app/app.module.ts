@@ -15,6 +15,7 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { FormsModule } from '@angular/forms';
     TourExecutionModule,
     AuthModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AdministrationModule,
+    MatInputModule
   ],
   providers: [
     {

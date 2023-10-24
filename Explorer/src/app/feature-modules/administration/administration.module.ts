@@ -6,6 +6,10 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationGradeComponent } from './application-grade-form/application-grade.component';
 import { GradeReviewComponent } from './application-grade-review/grade-review/grade-review.component';
+import { ClubComponent } from './club/club.component';
+import { ClubFormComponent } from './club-form/club-form.component';
+import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
+import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 
 
 
@@ -15,6 +19,10 @@ import { GradeReviewComponent } from './application-grade-review/grade-review/gr
     EquipmentComponent,
     ApplicationGradeComponent,
     GradeReviewComponent
+    ClubComponent,
+    ClubFormComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +32,10 @@ import { GradeReviewComponent } from './application-grade-review/grade-review/gr
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-    ApplicationGradeComponent
+    ApplicationGradeComponent,
+    ClubComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ]
 })
 export class AdministrationModule { }

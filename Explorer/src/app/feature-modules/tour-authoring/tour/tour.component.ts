@@ -3,6 +3,7 @@ import { Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour',
@@ -15,9 +16,10 @@ export class TourComponent implements OnInit{
   shouldRenderTourForm: boolean = false;
   shouldEdit: boolean = false;
   user: User;
+  id:number;
 
   
-  constructor(private service: TourAuthoringService,private authService: AuthService) { }
+  constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -54,4 +56,8 @@ export class TourComponent implements OnInit{
     this.shouldEdit = false;
     this.shouldRenderTourForm = true;
   }
+  openDetails(t:Tour): void {
+    this.router.navigate([`tour-details/${t.id}`]);
+  }
+
 }
