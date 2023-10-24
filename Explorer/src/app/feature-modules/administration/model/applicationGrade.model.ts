@@ -1,5 +1,7 @@
 export interface ApplicationGrade {
     id?: number,
     rating: number,
-    comment: string
+    comment: string,
+    //created: Date,
+    userId: number
 }
