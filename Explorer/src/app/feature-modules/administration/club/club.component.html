@@ -11,8 +11,8 @@
                     <th> Image </th>
                     <th> Owner </th>
                     <th> Edit </th>
-                    <th> Delte </th>
-                    <th> Options</th>
+                    <th> Delete </th>
+                    <th> Options </th>
                 </tr>
             </thead>
             <tbody>
@@ -32,9 +32,12 @@
                         </button>
                     </td>
                     <td>
+
                         <button *ngIf="isCurrentUserOwner(c)"   mat-raised-button  color="primary"  (click)="navigateToClubMembershipRequests(c.id!)"> Manage requests</button>
                         <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && !isRequestSent(c.id || 0)"  mat-raised-button  color="primary" (click)="sendClubMembershiprequest(c.id || 0)">Join club</button>
                         <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && isRequestSent(c.id || 0)"  mat-raised-button   color="primary"  (click)="deleteRequest(c)">Decline request</button>
+
+          
                     </td>
                 </tr>
                 <tr>

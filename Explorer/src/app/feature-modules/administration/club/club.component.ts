@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router'; 
 import { ClubMemebrshipRequest } from '../model/club-membership-request.model';
 
+
 @Component({
   selector: 'xp-club',
   templateUrl: './club.component.html',
@@ -30,7 +31,6 @@ export class ClubComponent implements OnChanges, OnInit{
     this.authService.user$.subscribe(user => {
       this.currentUserTouristId = user?.id || 0;
     });
-
     //dodala
     this.getUserClubs();
     this.getRequests();
@@ -107,6 +107,7 @@ export class ClubComponent implements OnChanges, OnInit{
         },
       })
     }
+
 
     navigateToClubMembershipRequests(clubId : number): void {
       this.router.navigate(['/clubMembershipRequests', clubId]);

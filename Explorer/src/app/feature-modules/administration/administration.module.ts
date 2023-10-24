@@ -7,7 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClubMembershipRequestComponent } from './club-membership-request/club-membership-request.component';
 import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
-
+import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
+import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
+import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 
 
 @NgModule({
@@ -16,7 +19,11 @@ import { ClubFormComponent } from './club-form/club-form.component';
     EquipmentComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
-    ClubFormComponent
+    ClubFormComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent,
+    ClubMembersComponent,
+    ClubInvitationsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +34,9 @@ import { ClubFormComponent } from './club-form/club-form.component';
     EquipmentComponent,
     EquipmentFormComponent,
     ClubMembershipRequestComponent,
-    ClubComponent
+    ClubComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ]
 })
 export class AdministrationModule { }
