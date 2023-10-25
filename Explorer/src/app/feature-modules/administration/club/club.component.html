@@ -36,7 +36,7 @@
                         <button *ngIf="isCurrentUserOwner(c)"   mat-raised-button  color="primary"  (click)="navigateToClubMembershipRequests(c.id!)"> Manage requests</button>
                         <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && !isRequestSent(c.id || 0)"  mat-raised-button  color="primary" (click)="sendClubMembershiprequest(c.id || 0)">Join club</button>
                         <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && isRequestSent(c.id || 0)"  mat-raised-button   color="primary"  (click)="deleteRequest(c)">Decline request</button>
-
+                        <button *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
           
                     </td>
                 </tr>

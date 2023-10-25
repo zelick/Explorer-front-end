@@ -156,4 +156,7 @@ export class ClubComponent implements OnChanges, OnInit{
         },
       })
     }
+    navigateToManageMembers(clubId : number): void{
+      this.router.navigate(['/club-members', clubId]);
+    }
 }
