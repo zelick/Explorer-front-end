@@ -11,10 +11,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
   providedIn: 'root'
 })
 export class BlogService {
-
-  constructor(private http: HttpClient) { }
-
-}
+  
   userId: number;
 
   constructor(private http: HttpClient, private authService: AuthService) { 

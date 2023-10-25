@@ -39,6 +39,7 @@ export class AdministrationService {
 
   noteTheRate(grade: ApplicationGrade): Observable<ApplicationGrade> {
     return this.http.post<ApplicationGrade>(environment.apiHost + 'tour/applicationGrade', grade);
+  }
 
   getClub(): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>('https://localhost:44333/api/club');
@@ -56,7 +57,6 @@ export class AdministrationService {
     return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
 
-}
   getAccounts(): Observable<PagedResults<Account>> {
     return this.http.get<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement')
   }

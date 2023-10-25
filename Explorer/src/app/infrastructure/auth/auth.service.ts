@@ -9,7 +9,7 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -21,22 +21,6 @@ export class AuthService {
     private tokenStorage: TokenStorage,
     private router: Router) { }
 
-
-  getPersonIdFromToken(): string {
-    const token = this.getAccessToken(); 
-    if (token) {
-      const decodedToken: any = jwt_decode(token); 
-      return decodedToken.id; 
-    }
-    return '';
-  }
-
-  getAccessToken(): string | null {
-    const token = this.tokenStorage.getAccessToken(); 
-  
-    return token || null;
-  }
-    
   login(login: Login): Observable<AuthenticationResponse> {
     return this.http
       .post<AuthenticationResponse>(environment.apiHost + 'users/login', login)
@@ -103,4 +87,3 @@ export class AuthService {
     return token || null;
   }
 }
-

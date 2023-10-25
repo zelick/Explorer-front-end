@@ -18,7 +18,7 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
     EquipmentFormComponent,
     EquipmentComponent,
     ApplicationGradeComponent,
-    GradeReviewComponent
+    GradeReviewComponent,
     ClubComponent,
     ClubFormComponent,
     AccountsManagementComponent,
