@@ -22,7 +22,8 @@ import { MapObjectComponent } from 'src/app/feature-modules/tour-authoring/map-o
 import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
 import { ClubMembersComponent } from 'src/app/feature-modules/administration/club-members/club-members.component';
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
-
+import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
+import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -49,7 +50,9 @@ const routes: Routes = [
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'club', component: ClubComponent},
   {path: 'club-members/:id', component: ClubMembersComponent},
-  {path: 'invitations', component: ClubInvitationsComponent}
+  {path: 'invitations', component: ClubInvitationsComponent},
+  {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
