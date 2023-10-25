@@ -2,20 +2,8 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 :root {
-    --primary-color: #3B846B; /* Set your custom primary color here */
-    --accent-color: #E67840;  /* Set your custom accent color here */
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
-  }
-  
-  /* Update primary and accent colors */
-  .mat-primary, .mat-accent {
-    background-color: var(--primary-color) !important;
-  }
-  
-  /* Update text color for primary and accent elements */
-  .mat-primary-text, .mat-accent-text {
-    color: var(--accent-color) !important;
   }
   
   

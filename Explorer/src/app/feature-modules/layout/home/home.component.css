@@ -107,14 +107,9 @@ video {
 .content {
   position: relative;
   text-align: left;
-  color: #fff;
   padding: 20px;
-  margin-top: 10vh; 
-  margin-left: 4vh;
-  margin-right: 4vh;
   margin-bottom: 16vh;
-  border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #F7F6DC;
 }
 
 .subtitle{
@@ -122,6 +117,7 @@ video {
   font-size: 7vh;
   color:#E67840;
   font-weight: 600;
+  margin-top: 6vh;
 }
 
 .tour-cards-container {
