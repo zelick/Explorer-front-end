@@ -118,6 +118,8 @@ video {
   color:#E67840;
   font-weight: 600;
   margin-top: 6vh;
+  margin-left: 2vh;
+  margin-bottom: 1vh;
 }
 
 .tour-cards-container {
@@ -163,6 +165,12 @@ video {
   color: white;
 }
 
+.travelers-div {
+  background-color:  #B6D4AF;
+  height: auto; 
+  width: 100%;
+}
+
 .container {
   display: flex;
   flex: 0 0 0 0 calc(33.33% - 20%); 
@@ -179,11 +187,20 @@ video {
 
 .left_div {
   flex: 1;
-  padding: 10px; /* Optional styling */
+  padding: 10px; 
 }
 
 .right_div {
-  padding: 10px; /* Optional styling */
+  padding: 5% 2.5%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.right_div img {
+  max-width: 80%; 
+  height: auto; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px #3b846b15;
 }
 
 .popular-destination-header{
@@ -282,7 +299,7 @@ video {
   align-items: center;
   text-align: justify;
   padding: 0px 4px;
-  width: 110px;
+  width: 140px;
   font-size: 100%;
   color:#fff;
   background-color: #E67840;
@@ -297,9 +314,11 @@ video {
 
 .filter-button p {
   margin-top: 5px;
+  margin-bottom: 5px;
   margin-right: 3px;
+  margin-left: 3px;
   text-align: center;
-  
+  width: auto; 
 } 
 
 .reset-filter-button {
