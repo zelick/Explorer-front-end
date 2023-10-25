@@ -1,9 +1,9 @@
-export interface Checkpoint{
+export interface MapObject{
     id?: number,
-    tourId: number,
     longitude: number,
     latitude: number,
     name: string,
+    category: string,
     description: string,
-    pictures: string[]
+    pictureURL: string
 }

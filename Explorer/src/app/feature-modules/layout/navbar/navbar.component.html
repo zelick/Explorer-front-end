@@ -12,12 +12,18 @@
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['reported-issues']">Reported issues</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['reporting-issues']">Report an issue</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['checkpoint']">Manage checkpoints</button>
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['map-object']">Manage map objects</button>
             <button *ngIf="user && (user.role === 'author' || user.role === 'tourist')"color="primary" mat-raised-button [routerLink]="['blog-comments']">Blog comments</button>
             <button *ngIf="user && (user.role === 'author' || user.role === 'tourist')"color="primary" mat-raised-button [routerLink]="['blog-post']">Manage blogs</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['preference']">Manage preference</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['tour']">Tours</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['application-grade']">Rate the app</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['grade-review']">Grade review</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['club']">Clubs</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['invitations']">Invitations</button>
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
+            <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
         </div>
     </div>
 </mat-toolbar>

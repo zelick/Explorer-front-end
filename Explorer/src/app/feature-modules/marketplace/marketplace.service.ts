@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ReportedIssue } from './model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
+import { TourRating } from './model/tour-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,33 @@ export class MarketplaceService {
 
   deleteTourPreference(id: number): Observable<TourPreference> {
     return this.http.delete<TourPreference>(environment.apiHost + 'tourism/preference/' + id);
+  }
+
+  getTourRating(userType: string): Observable<PagedResults<TourRating>> {
+    let url: string;  // Construct the URL based on the user type
+    switch (userType) {
+      case 'administrator': 
+        url = 'administration/tour-rating'; 
+        break;
+      case 'author': 
+        url = 'author/tour-rating';
+        break;
+      case 'tourist':
+        //TODO tourist -> tourism ???
+        url = 'tourist/tour-rating';
+        break;
+      default:
+        throw new Error('Invalid user type');
+    }
+
+    return this.http.get<PagedResults<TourRating>>(environment.apiHost + url);
+  }
+
+  deleteTourRating(id: number): Observable<TourRating> {    
+    return this.http.delete<TourRating>(environment.apiHost + 'administration/tour-rating/' + id);
+  }
+
+  addTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 }

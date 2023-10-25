@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Checkpoint } from '../model/checkpoint.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { NgModel, NgForm } from '@angular/forms';
+import { CheckpointFormComponent } from '../checkpoint-form/checkpoint-form.component';
+import { Tour } from '../model/tour.model';
 
 @Component({
   selector: 'xp-checkpoint',
@@ -10,6 +12,7 @@ import { NgModel, NgForm } from '@angular/forms';
   styleUrls: ['./checkpoint.component.css']
 })
 export class CheckpointComponent{
+    @ViewChild(CheckpointFormComponent) checkpointFormComponent: CheckpointFormComponent;
     checkpoints: Checkpoint[] = [];
     shouldRenderCheckpointForm: boolean = false;
     shouldEdit: boolean = false;
@@ -20,7 +23,20 @@ export class CheckpointComponent{
     constructor(private service: TourAuthoringService) { }
 
     onAddCheckpoint(): void{
-      this.shouldRenderCheckpointForm = true;
+      let tour: Tour;
+      this.service.get(this.tourID).subscribe({
+        next: (result: Tour) => {
+          tour = result;
+          if(tour != null)
+          {
+            this.shouldRenderCheckpointForm = true;
+          }else{
+            alert("No Tour with that id");
+          }
+        },
+        error: () => {
+        }
+      })
     }
 
     onSeeCheckpoint(): void{

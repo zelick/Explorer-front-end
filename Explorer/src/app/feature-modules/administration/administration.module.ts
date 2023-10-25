@@ -6,11 +6,13 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationGradeComponent } from './application-grade-form/application-grade.component';
 import { GradeReviewComponent } from './application-grade-review/grade-review/grade-review.component';
+import { ClubMembershipRequestComponent } from './club-membership-request/club-membership-request.component';
 import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
-
+import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 
 
 @NgModule({
@@ -19,10 +21,13 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
     EquipmentComponent,
     ApplicationGradeComponent,
     GradeReviewComponent,
+    ClubMembershipRequestComponent,
     ClubComponent,
     ClubFormComponent,
     AccountsManagementComponent,
-    ReportedIssuesComponent
+    ReportedIssuesComponent,
+    ClubMembersComponent,
+    ClubInvitationsComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +38,7 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
     EquipmentComponent,
     EquipmentFormComponent,
     ApplicationGradeComponent,
+    ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent

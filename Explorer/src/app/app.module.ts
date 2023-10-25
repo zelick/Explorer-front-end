@@ -27,7 +27,6 @@ import { MatInputModule } from '@angular/material/input';
     LayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AdministrationModule,
     BlogModule,
     MarketplaceModule,
     TourAuthoringModule,
