@@ -15,13 +15,17 @@ export class RegistrationComponent {
     private authService: AuthService,
     private router: Router
   ) {}
-
+  
   registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    role: new FormControl('Author', [Validators.required]),
+    profilePictureUrl: new FormControl('', [Validators.required]),
+    biography: new FormControl('', [Validators.required]),
+    motto: new FormControl('', [Validators.required])
   });
 
   register(): void {
@@ -31,6 +35,10 @@ export class RegistrationComponent {
       email: this.registrationForm.value.email || "",
       username: this.registrationForm.value.username || "",
       password: this.registrationForm.value.password || "",
+      role: this.registrationForm.value.role || "Author",
+      profilePictureUrl: this.registrationForm.value.profilePictureUrl || "",
+      biography: this.registrationForm.value.biography || "",
+      motto: this.registrationForm.value.motto || ""
     };
 
     if (this.registrationForm.valid) {
@@ -39,6 +47,27 @@ export class RegistrationComponent {
           this.router.navigate(['home']);
         },
       });
+    }
+  }
+
+  selectedImage: string | null = null;
+
+  onProfilePictureSelected(event: any) {
+    const file = event?.target?.files[0];
+  
+    if (file) {
+      const controlUrl = this.registrationForm.get('profilePictureUrl');
+      if (controlUrl) {
+        controlUrl.setValue(file.name);
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedImage = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.selectedImage = null; 
     }
   }
 }

@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BlogComment } from './model/blogComment.model';
-import { BlogPost } from './model/blog-post.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { BlogComment } from './model/blogComment.model';
+import { BlogPost } from './model/blog-post.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
+  
   userId: number;
 
   constructor(private http: HttpClient, private authService: AuthService) { 
