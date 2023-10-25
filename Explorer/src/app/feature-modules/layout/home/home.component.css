@@ -162,3 +162,150 @@ video {
   margin-left: 11px;
   color: white;
 }
+
+.container {
+  display: flex;
+  flex: 0 0 0 0 calc(33.33% - 20%); 
+  background-color: #3B846B; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px #3b846b15;
+  color: #000;
+  text-align: left;
+  margin: 10px; 
+  border-radius: 5px;
+  width: 80%;
+  height: 68vh;  
+}
+
+.left_div {
+  flex: 1;
+  padding: 10px; /* Optional styling */
+}
+
+.right_div {
+  padding: 10px; /* Optional styling */
+}
+
+.popular-destination-header{
+  font-size: x-large;
+  color: white;
+  padding: 1% 2.5%; 
+  background-color: #1b332b8e;
+  display: flex;
+  text-align: center;
+  width: auto;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 20%;
+  border-radius: 5px;
+}
+.popular-destination-text{
+  font-size: medium;
+  color: white;
+  display: flex;
+  text-align: left;
+  width: auto;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 20%;
+  border-radius: 5px;
+}
+
+.tags-div{
+  display: flex;
+}
+
+.transportation{
+  flex: 0 0 0 0 calc(33.33% - 20%); 
+  background-color:  #B6D4AF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px #3b846b15;
+  color: #000;
+  text-align: left;
+  margin: 10px; 
+  border-radius: 5px;
+  height: 50%;
+  width: 70px;
+}
+.transportation img{
+  height: 70px;
+  width: 70px;
+  border-radius: 5px;
+  object-fit: cover; 
+}
+
+.tags{
+  font-size: medium;
+  color: white;
+  padding: 1% 2.5%; 
+  background-color: #1b332b8e;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+}
+
+.filter {
+  flex: 0 0 0 0 calc(33.33% - 20%); 
+  background-color: #3B846B; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px #3b846b15;
+  color: #000;
+  text-align: left;
+  margin: 10px; 
+  border-radius: 5px;
+  width: 20%;
+  height: 60vh;
+}
+
+.filter-field-container {
+  position: relative;
+  right: -50%;
+  top: 5%;
+  display: flex; 
+  justify-content: right; 
+  width: 250px;
+  height: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid hsla(0, 0%, 63%, 0.288);
+  padding: 12px;
+  border-radius: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  
+  align-items: center; 
+  margin-top: 20px;
+  margin-right: 5px;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  padding: 0px 4px;
+  width: 110px;
+  font-size: 100%;
+  color:#fff;
+  background-color: #E67840;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.filter-button mat-icon {
+  margin-right: 2px;
+}
+
+.filter-button p {
+  margin-top: 5px;
+  margin-right: 3px;
+  text-align: center;
+  
+} 
+
+.reset-filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}

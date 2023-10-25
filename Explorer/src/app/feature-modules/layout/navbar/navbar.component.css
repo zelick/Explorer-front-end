@@ -3,11 +3,13 @@
   }
   
 .flex-container {
+  margin-left: 2vh;
+  margin-right: 2vh;
   display: flex;
   align-items: center;
   vertical-align: middle;
   justify-content: space-between;
-  width: 100%;
+  width: auto;
 }
   
 .frame img.logo {
