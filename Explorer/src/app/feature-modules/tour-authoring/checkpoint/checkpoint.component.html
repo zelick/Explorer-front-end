@@ -1,0 +1,48 @@
+<div id="checkpoint">
+    <div id="tour">
+        <p>Choose tour by id</p><br>
+        <input type="number" name="tourID" [(ngModel)]="tourID">
+        <button color="primary" (click) = "onAddCheckpoint()">Add checkpoints</button>
+        <br>
+        <button color="primary" (click)="onSeeCheckpoint()">See all checkpoints</button>
+    </div>
+    <br>
+    <div>
+        <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
+    </div>
+    <br>
+    <div *ngIf="shouldRenderCheckpointList">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tour</th>
+                    <th>Location</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Picture</th>
+                </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of checkpoints">
+                <td>{{c.tourId}}</td>
+                <td>{{c.latitude}}, {{c.longitude}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.description}}</td>
+                <td>
+                    <picture>
+                        <img [src]="c.pictures[0]" alt="Checkpoint image" width="100" height="100">
+                    </picture>
+                </td>
+                <td>
+                    <button color="primary" (click)="onEdit(c)">EDIT</button>
+                </td>
+                <td>
+                    <button color="primary" (click)="onDelete(c.id || 0)">DELETE</button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    
+
+</div>

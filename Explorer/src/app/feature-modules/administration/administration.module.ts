@@ -4,13 +4,26 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ClubMembershipRequestComponent } from './club-membership-request/club-membership-request.component';
+import { ClubComponent } from './club/club.component';
+import { ClubFormComponent } from './club-form/club-form.component';
+import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
+import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
+import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 
 
 @NgModule({
   declarations: [
     EquipmentFormComponent,
-    EquipmentComponent
+    EquipmentComponent,
+    ClubMembershipRequestComponent,
+    ClubComponent,
+    ClubFormComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent,
+    ClubMembersComponent,
+    ClubInvitationsComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +32,11 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     EquipmentComponent,
-    EquipmentFormComponent
+    EquipmentFormComponent,
+    ClubMembershipRequestComponent,
+    ClubComponent,
+    AccountsManagementComponent,
+    ReportedIssuesComponent
   ]
 })
 export class AdministrationModule { }
