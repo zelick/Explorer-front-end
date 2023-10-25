@@ -4,6 +4,8 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApplicationGradeComponent } from './application-grade-form/application-grade.component';
+import { GradeReviewComponent } from './application-grade-review/grade-review/grade-review.component';
 import { ClubMembershipRequestComponent } from './club-membership-request/club-membership-request.component';
 import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
@@ -17,6 +19,8 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
+    ApplicationGradeComponent,
+    GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
     ClubFormComponent,
@@ -33,6 +37,7 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
+    ApplicationGradeComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,

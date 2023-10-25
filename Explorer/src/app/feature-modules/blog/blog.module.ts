@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogPostFormComponent } from './blog-post-form/blog-post-form.component';
 import { BlogCommentComponent } from './blog-comment/blog-comment.component';
@@ -9,6 +9,7 @@ import { BlogCommentFormComponent } from './blog-comment-form/blog-comment-form.
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
+    
 @NgModule({
   declarations: [
     BlogPostComponent,

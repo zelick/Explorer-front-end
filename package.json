@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@angular/common": "^16.2.10",
+    "@angular/core": "^16.2.10",
+    "jwt-decode": "^3.1.2"
+  }
+}

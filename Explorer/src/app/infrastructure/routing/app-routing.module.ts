@@ -16,6 +16,8 @@ import { PreferenceComponent } from 'src/app/feature-modules/marketplace/prefere
 import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/preference-form/preference-form/preference-form.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
+import { ApplicationGradeComponent } from 'src/app/feature-modules/administration/application-grade-form/application-grade.component';
+import { GradeReviewComponent } from 'src/app/feature-modules/administration/application-grade-review/grade-review/grade-review.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { MapObjectComponent } from 'src/app/feature-modules/tour-authoring/map-object/map-object.component';
@@ -30,25 +32,23 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'club', component: ClubComponent},
-  {path: 'profile-info', component: ProfileAdministrationComponent},
+  {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
   {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint', component: CheckpointComponent, canActivate: [AuthGuard]},
   {path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard]},
   {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
+  {path: 'application-grade', component: ApplicationGradeComponent},
+  {path: 'grade-review', component: GradeReviewComponent},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
   {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
   {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
-  {path: 'club', component: ClubComponent},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
