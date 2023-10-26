@@ -1,10 +1,38 @@
-div {
-    width: 100%;
-    display: flex;
-    gap: 10px;
+.frame {
+    height: 70px;
+  }
+  
+.flex-container {
+  margin-left: 2vh;
+  margin-right: 2vh;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: space-between;
+  width: auto;
+}
+  
+.frame img.logo {
+  max-height: 12vh;
+  margin-top: -10px;
 }
 
 #buttons {
-    width: auto;
-    margin-left: auto;
+  padding: 10px;
+  margin-left: 20px;
 }
+  
+.frame .button {
+  width: auto;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  padding: 0px 10px;
+  width: 90px;
+  font-size: 100%; 
+  color:#fff;
+  background-color: #E67840;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
+}
+  
