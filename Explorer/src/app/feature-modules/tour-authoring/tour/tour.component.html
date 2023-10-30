@@ -34,6 +34,7 @@
                         <button color="primary" (click)="openDetails(t)" mat-icon-button>
                             <mat-icon>details</mat-icon>
                         </button>
+                        <button *ngIf="t.status == 'Draft'" color="primary" (click)="publishTour(t)" >publish</button>
                     </td>
                 </tr>
                 <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>

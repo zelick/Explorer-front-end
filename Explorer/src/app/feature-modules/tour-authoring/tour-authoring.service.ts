@@ -84,4 +84,7 @@ export class TourAuthoringService {
     return this.http.post<Equipment[]>(environment.apiHost + 'manipulation/equipment/get-available/' + tourId, currentEquipmentIds);
   }
 
+  publishTour(tourId: number){
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
+  }
 }
