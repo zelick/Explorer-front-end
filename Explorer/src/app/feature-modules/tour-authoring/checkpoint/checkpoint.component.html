@@ -1,10 +1,8 @@
 <div id="checkpoint">
     <div id="tour">
-        <p>Choose tour by id</p><br>
-        <input type="number" name="tourID" [(ngModel)]="tourID">
         <button color="primary" (click) = "onAddCheckpoint()">Add checkpoints</button>
         <br>
-        <button color="primary" (click)="onSeeCheckpoint()">See all checkpoints</button>
+        <button color="primary" (click)="onSeeCheckpoint()">See added checkpoints</button>
     </div>
     <br>
     <div>
@@ -43,6 +41,6 @@
         </tbody>
         </table>
     </div>
-    
+    <button (click)="onBack()">Back</button>
 
 </div>

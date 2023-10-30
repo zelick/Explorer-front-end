@@ -4,6 +4,9 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../model/tour.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'xp-tour-form',
@@ -18,12 +21,16 @@ export class TourFormComponent implements OnChanges,OnInit{
 
   user: User;
   tags:string[]=[];
+  id:number;
+  shouldNext:boolean=false;
 
 
-  constructor(private service: TourAuthoringService,private authService: AuthService){
+  constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router,private activatedRoute:ActivatedRoute){
   }
 
   ngOnInit(): void {
+    
+
     this.authService.user$.subscribe(user => {
       this.user = user;
       if(this.shouldEdit){
@@ -36,7 +43,15 @@ export class TourFormComponent implements OnChanges,OnInit{
       }
     });
 
-
+    this.activatedRoute.params.subscribe(params=>{
+      this.id=params['id'];
+      if(this.id>0)
+      {
+        this.shouldEdit=true;
+        this.getTour(this.id);
+        console.log(this.shouldEdit)
+      }
+    })
 
   }
   ngOnChanges(): void {
@@ -70,15 +85,21 @@ export class TourFormComponent implements OnChanges,OnInit{
       authorId : this.user.id,
       tags : this.tags,
       status: "Draft",
-      equipment: []
+      equipment: [],
+      checkpoints:[],
+      distance:0
     };
-    this.service.addTour(tour).subscribe({
-      next: () => { this.tourUpdated.emit() }
-    });
+    this.service.addTour(tour).subscribe(
+    (response:Tour)=>{
+      this.id=response.id||0;
+      this.tourUpdated.emit();
+      this.shouldNext=true;
+    }
+    );
     this.tags=[];
     this.tourForm.reset();
     this.tagForm.reset();
-
+   
   }
 
   addTag():void{   
@@ -111,12 +132,37 @@ export class TourFormComponent implements OnChanges,OnInit{
       equipment: []
     };
     tour.id = this.tour.id;
+    tour.checkpoints=this.tour.checkpoints;
+    tour.distance=this.tour.distance;
     this.service.updateTour(tour).subscribe({
-      next: () => { this.tourUpdated.emit();}
+      next: () => 
+      { 
+        this.tourUpdated.emit();
+      }
+      
     });
   }
 
   removeTag(tag:string):void{
     this.tags.splice(this.tags.indexOf(tag),1);
+  }
+
+  showEquipment():void{
+    this.router.navigate([`tour-equipment/${this.id}`]);
+
+  }
+
+  getTour(id: number): void {
+    this.service.get(id).subscribe((result: Tour) => {
+      this.tour = result;
+      console.log(this.tour);
+      this.tourForm.patchValue(this.tour);
+      this.tags=this.tour.tags;
+    });
+  }
+
+  showTours():void{
+    this.router.navigate([`tour`]);
+
   }
 }

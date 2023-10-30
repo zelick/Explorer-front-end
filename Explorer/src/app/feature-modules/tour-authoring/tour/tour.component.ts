@@ -50,11 +50,15 @@ export class TourComponent implements OnInit{
     this.selectedTour = tour;
     this.shouldRenderTourForm = true;
     this.shouldEdit = true;
+    this.router.navigate([`tour-form/${tour.id}`]);
+
   }
 
   onAddClicked(): void {
     this.shouldEdit = false;
     this.shouldRenderTourForm = true;
+    this.router.navigate([`tour-form/-1`]);
+
   }
   openDetails(t:Tour): void {
     this.router.navigate([`tour-details/${t.id}`]);

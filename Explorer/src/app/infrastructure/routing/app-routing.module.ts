@@ -26,7 +26,7 @@ import { ClubMembersComponent } from 'src/app/feature-modules/administration/clu
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
-
+import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -38,9 +38,9 @@ const routes: Routes = [
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
   {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
-  {path: 'checkpoint', component: CheckpointComponent, canActivate: [AuthGuard]},
+  {path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard]},
   {path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard]},
-  {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
+  {path: 'tour-form/:id', component: TourFormComponent,canActivate:[AuthGuard]},
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'application-grade', component: ApplicationGradeComponent},
   {path: 'grade-review', component: GradeReviewComponent},
@@ -52,7 +52,9 @@ const routes: Routes = [
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
-  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]}
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
+
 ];
 
 @NgModule({

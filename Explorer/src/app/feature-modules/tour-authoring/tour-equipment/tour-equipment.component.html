@@ -1,0 +1,64 @@
+<div>
+<div id="equipment-div">
+
+    <div id="show-button-div">
+        <button id="show-equipment-button" (click)="onShowEquipmentClick()">{{showButtonText}}</button>
+    </div>
+
+    <table id="equipment-details-table">
+        <div id="table-equipment-div" *ngIf="isVisibleEquipment">
+            <caption id="equipment-title">Equipment</caption>
+            <thead>
+                <th class="equipment-th">Name</th>
+                <th class="equipment-th">Description</th>
+                <th class="equipment-th"></th>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let e of tour.equipment">
+                    <td>{{e.name}}</td>
+                    <td>{{e.description}}</td>
+                    <td>
+                        <button id="delete-equipment-button" (click)="removeEquipment(tour.id, e.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+
+<!-- Available equipments -->
+<div id="equipment-div">
+
+    <div id="show-button-div">
+        <button id="show-available-equipment-button" (click)="onShowAvailableEquipmenClick()">{{showAvailableButtonText}}</button>
+    </div>
+
+    <table id="equipment-details-table">
+        <div id="table-equipment-div" *ngIf="isVisibleAvailableEquipment">
+            <caption id="equipment-title">Equipment</caption>
+            <thead>
+                <th class="equipment-th">Name</th>
+                <th class="equipment-th">Description</th>
+                <th class="equipment-th"></th>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let e of availableEquipment">
+                    <td>{{e.name}}</td>
+                    <td>{{e.description}}</td>
+                    <td>
+                        <button id="delete-equipment-button" (click)="addEquipment(tour.id, e.id)">Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </table>
+    
+</div>
+<span>
+    <button (click)="showCheckpoints()">Next</button>
+    <button (click)="showTours()">Back</button>
+
+</span>
+</div>

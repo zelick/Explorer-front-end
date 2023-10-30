@@ -62,7 +62,11 @@
         </form>
     <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTour()" mat-raised-button>Done</button>
     <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTour()" mat-raised-button>Done</button>
+    <span>
+        <button *ngIf="shouldNext || shouldEdit"  (click)="showEquipment()">Next</button>
+        <button *ngIf="shouldNext || shouldEdit"  (click)="showTours()">Back</button>
 
+    </span>
     </div>
 </form>
 

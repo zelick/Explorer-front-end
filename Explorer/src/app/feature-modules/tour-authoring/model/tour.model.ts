@@ -1,3 +1,4 @@
+import { Checkpoint } from "./checkpoint.model";
 import { Equipment } from "./equipment.model";
 
 export interface Tour {
@@ -10,4 +11,6 @@ export interface Tour {
     authorId : number;
     status:string;
     equipment: Equipment[];
+    checkpoints?: Checkpoint[];
+    distance?:number;
 }
