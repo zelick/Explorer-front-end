@@ -11,7 +11,8 @@
                     <th> Image </th>
                     <th> Owner </th>
                     <th> Edit </th>
-                    <th> Delte </th>
+                    <th> Delete </th>
+                    <th> Options </th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,14 @@
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
+                    <td>
+
+                        <button *ngIf="isCurrentUserOwner(c)"   mat-raised-button  color="primary"  (click)="navigateToClubMembershipRequests(c.id!)"> Manage requests</button>
+                        <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && !isRequestSent(c.id || 0)"  mat-raised-button  color="primary" (click)="sendClubMembershiprequest(c.id || 0)">Join club</button>
+                        <button *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && isRequestSent(c.id || 0)"  mat-raised-button   color="primary"  (click)="deleteRequest(c)">Decline request</button>
+                        <button *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
+          
+                    </td>
                 </tr>
                 <tr>
                     <button (click)="onAddClicked()" color="primary" mat-icon-button>
@@ -40,7 +49,7 @@
                     <button *ngIf="shouldAdd || shouldEdit" (click)="onCloseClicked()" color="warn" mat-icon-button>
                         <mat-icon>remove</mat-icon>
                     </button>
-                  </tr>
+                </tr>
             </tbody>
         </table>
         </div>

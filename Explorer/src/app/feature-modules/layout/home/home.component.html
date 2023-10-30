@@ -1,1 +1,134 @@
-<p><b>Home component</b></p>
+<html>
+<head>
+ 
+</head>
+<body>
+  <div class="video-container">
+    <video autoplay muted loop id="background-video">
+      <source src="assets/landing_page/backgroundv.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="background"></div>
+    <div class="text-overlay">
+      <p>Let's Make Memories</p>
+    </div>
+    <div class="search-field-container">
+        <input class="search-field" type="text" placeholder="Where is your next stop?">
+        <button mat-raised-button class="button">
+          <div class="search-button">
+            <mat-icon>search</mat-icon>
+            <p>Search</p>
+          </div>
+        </button>
+    </div>
+  </div>
+
+  
+  <div class="content" >
+    <p class="subtitle">Travelers choice</p><br>
+    <div class="travelers-div">
+      <div class="tour-cards-container">
+        <div class="tour-card">
+          <img src="assets/landing_page/jahorina.jpg" alt="Image1" class="img">
+          <label class="card-location-header">Jahorina</label>
+          <h2 class="card-header">3-Hour Tour on the Olympic Mountain Jahorina</h2>
+        </div>
+        <div class="tour-card">
+          <img src="assets/landing_page/perast.jpg" alt="Image2">
+          <label class="card-location-header">Perast</label>
+          <h2 class="card-header">Visit the most beautiful city in the world</h2>
+        </div>
+        <div class="tour-card">
+          <img src="assets/landing_page/novisad.jpg" alt="Image3">
+          <label class="card-location-header">Novi Sad</label>
+          <h2 class="card-header">The city of culture</h2>
+        </div>
+        <div class="tour-card">
+          <img src="assets/landing_page/bali.jpg" alt="Image4">
+          <label class="card-location-header">Bali</label>
+          <h2 class="card-header">Enjoy at the most exotic destinations</h2>
+        </div>
+      </div>
+
+      <!-- <div class="filter">
+        <div class="tags-div">
+          <h2 class="card-header">Filters</h2>
+          <div class="filter-field-container">
+            <input class="search-field" type="text" placeholder="Input your location">
+            <button mat-raised-button class="button">
+              <div class="search-button">
+                <mat-icon>search</mat-icon>
+                <p>Filter</p>
+              </div>
+            </button>
+          </div>
+          <div class="filter-field-container">
+            <input class="search-field" type="text" placeholder="Input transportation">
+            <button mat-raised-button class="button">
+              <div class="search-button">
+                <mat-icon>search</mat-icon>
+                <p>Filter</p>
+              </div>
+            </button>
+          </div>
+          <div class="filter-field-container">
+            <input class="search-field" type="text" placeholder="Input tags">
+            <button mat-raised-button class="button">
+              <div class="search-button">
+                <mat-icon>search</mat-icon>
+                <p>Filter</p>
+              </div>
+            </button>
+          </div>
+          <div class="reset-filter-button"> 
+            <button mat-raised-button class="filter-button">
+              <mat-icon>close</mat-icon>
+              <p>Reset filter</p>
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div >
+      <br><br>
+      <p class="subtitle">Popular destionation</p><br>
+
+      <div class="tags-div">
+        <div class="container">
+          <div class="left_div">
+            <label class="popular-destination-header">Novi Sad</label>
+            <label class="popular-destination-text">Novi Sad is one of our most popular destinations. It is rich with culturally significant places but it's also the youth center of Serbia. You can see many interesting places, meet fun people and try some delicious food!</label>
+            
+            <div class="tags-div">
+              <div class="transportation">
+                <img src="assets/landing_page/walk-100.png" alt="transportation1" class="img">
+              </div>
+              <div class="transportation">
+                <img src="assets/landing_page/car-100.png" alt="transportation1" class="img">
+              </div>
+              <div class="transportation">
+                <img src="assets/landing_page/bike-88.png" alt="transportation1" class="img">
+              </div>
+            </div>
+
+            <div class="tags-div">
+              <button class="tags">#novisad</button>
+              <button class="tags">#tvrdjava</button>
+              <button class="tags">#exit</button>
+              <button class="tags">#indeks_sendvic</button>
+            </div>
+          </div>
+          <div class="right_div">
+            <img src="assets/landing_page/novisad.jpg" alt="Image3">
+          </div>
+        </div>
+
+        
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

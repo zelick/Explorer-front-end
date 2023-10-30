@@ -1,0 +1,29 @@
+<div id="requests">
+    <p>Manage club membership requests</p>
+    <hr>
+    <div id="requests-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Request from</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of requests">
+                    <td>Membership Request from {{r.touristId}}</td>
+                    <td>
+                        <button mat-icon-button class="cancel-button" (click)="rejectRequest(r)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button  mat-icon-button class="accept-button" (click)="acceptRequest(r)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -7,6 +7,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent implements OnInit {
 
   user: User | undefined;
@@ -22,4 +23,5 @@ export class NavbarComponent implements OnInit {
   onLogout(): void {
     this.authService.logout();
   }
+
 }

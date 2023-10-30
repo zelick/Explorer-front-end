@@ -1,0 +1,45 @@
+<div id="tour-rating">
+    <p>Tour Rating</p>
+    <hr>
+    <div id="tour-rating-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Rate</th>
+                    <th>Comment</th>
+                    <th>Tourist Id</th>
+                    <th>Tour Id</th>
+                    <th>Tour Date</th>
+                    <th>Creation Date</th>
+                    <!-- <th>Pictures</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let rate of ratings">
+                    <td>{{rate.id}}</td>
+                    <td>{{rate.rating}}</td>
+                    <td>{{rate.comment}}</td>
+                    <td>{{rate.touristId}}</td>
+                    <td>{{rate.tourId}}</td>
+                    <td>{{rate.tourDate | date: 'dd.MM.yyyy HH:mm'}}</td>
+                    <td>{{rate.creationDate | date: 'dd.MM.yyyy HH:mm'}}</td>
+                    <!-- <td>{{rate.pictures}}</td> -->
+                    <td>
+                        <button *ngIf="shouldDelete" color="accent" (click)="deleteTourRating(rate.id || 0)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr><button *ngIf="shouldAdd" color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <xp-tour-rating-form *ngIf="shouldRenderTourRatingForm" [shouldEdit]="shouldEdit" [rating]="selectedRating" (ratingUpdated)="getTourRating()"></xp-tour-rating-form>
+    </div>
+    </div>
+</div>

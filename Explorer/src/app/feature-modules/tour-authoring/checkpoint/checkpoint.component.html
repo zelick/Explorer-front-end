@@ -13,17 +13,18 @@
     <br>
     <div *ngIf="shouldRenderCheckpointList">
         <table>
-            <tr>
-                <th>Tour</th>
-                <th>Order number</th>
-                <th>Location</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Picture</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Tour</th>
+                    <th>Location</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Picture</th>
+                </tr>
+        </thead>
+        <tbody>
             <tr *ngFor="let c of checkpoints">
                 <td>{{c.tourId}}</td>
-                <td>{{c.orderNumber}}</td>
                 <td>{{c.latitude}}, {{c.longitude}}</td>
                 <td>{{c.name}}</td>
                 <td>{{c.description}}</td>
@@ -39,6 +40,7 @@
                     <button color="primary" (click)="onDelete(c.id || 0)">DELETE</button>
                 </td>
             </tr>
+        </tbody>
         </table>
     </div>
     
