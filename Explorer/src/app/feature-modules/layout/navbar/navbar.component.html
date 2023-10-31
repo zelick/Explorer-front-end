@@ -23,6 +23,7 @@
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
             <button class="button" *ngIf="user && user.role === 'administrator'" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart</button>
         </div>
     </div>
 </div>

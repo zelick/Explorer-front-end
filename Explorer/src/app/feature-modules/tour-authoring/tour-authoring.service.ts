@@ -7,6 +7,8 @@ import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
 import { MapObject } from './model/map-object.model';
+import { OrderItem } from './model/order-item.model';
+import { ShoppingCart } from './model/shopping-cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +84,26 @@ export class TourAuthoringService {
 
   getAvailableEquipment(currentEquipmentIds: number[], tourId: number): Observable<Equipment[]> {
     return this.http.post<Equipment[]>(environment.apiHost + 'manipulation/equipment/get-available/' + tourId, currentEquipmentIds);
+  }
+
+  checkShoppingCart(touristId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'tourist/shopping-cart/checkShoppingCart/' + touristId);
+  }
+
+  addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.post<OrderItem>(environment.apiHost + 'tourist/order-item', orderItem);
+  }
+
+  getShoppingCart(touristId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/getShoppingCart/' + touristId);
+  }
+
+  addShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.post<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart', shoppingCart);
+  }
+
+  updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart', shoppingCart);
   }
 
 }

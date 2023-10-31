@@ -34,6 +34,9 @@
                         <button color="primary" (click)="openDetails(t)" mat-icon-button>
                             <mat-icon>details</mat-icon>
                         </button>
+                        <button *ngIf="user && user.role === 'tourist'" color="primary" (click)="addToCart(t)" mat-icon-button>
+                            Add to cart
+                        </button>
                     </td>
                 </tr>
                 <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
