@@ -7,6 +7,7 @@ import { CheckpointFormComponent } from '../checkpoint-form/checkpoint-form.comp
 import { Tour } from '../model/tour.model';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 
 @Component({
@@ -16,11 +17,13 @@ import { Router } from '@angular/router';
 })
 export class CheckpointComponent implements OnInit{
     @ViewChild(CheckpointFormComponent) checkpointFormComponent: CheckpointFormComponent;
+    @ViewChild(MapComponent) mapComponent: MapComponent;
+    @Output() tourUpdated = new EventEmitter<null>();
     checkpoints: Checkpoint[] = [];
     shouldRenderCheckpointForm: boolean = false;
     shouldEdit: boolean = false;
-    shouldRenderCheckpointList: boolean = false;
     tourID: number;
+    tour: Tour;
     selectedCheckpoint: Checkpoint;
 
     constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
@@ -28,8 +31,35 @@ export class CheckpointComponent implements OnInit{
     ngOnInit(): void {
       this.activatedRoute.params.subscribe(params=>{
        this.tourID=params['id'];
-     })
+       this.service.get(this.tourID).subscribe((result: Tour) => {
+        this.tour = result;
+        this.checkpoints = this.tour.checkpoints || [];
+        this.route();
+       });
+     });
    }
+
+   route(): void{
+    let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
+    this.checkpoints.forEach(e => {
+        if(e != this.checkpoints[0])
+          coords.push({lat:e.latitude, lon:e.longitude});
+    });
+    this.mapComponent.setRoute(coords, 'walking');
+  }
+
+   ngAfterViewInit(): void {
+    if(this.checkpoints != null)
+    {
+       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
+       this.checkpoints.forEach(e => {
+           if(e != this.checkpoints[0])
+             coords.push({lat:e.latitude, lon:e.longitude});
+       });
+       this.mapComponent.setRoute(coords, 'walking');
+  }
+}
+
     onAddCheckpoint(): void{
       let tour: Tour;
       this.service.get(this.tourID).subscribe({
@@ -47,19 +77,6 @@ export class CheckpointComponent implements OnInit{
       })
     }
 
-    onSeeCheckpoint(): void{
-      this.shouldRenderCheckpointList = true;
-      if(this.tourID != null)
-      {
-        this.service.getCheckpointsByTour(this.tourID).subscribe({
-          next: (result: PagedResults<Checkpoint>) => {
-            this.checkpoints = result.results;
-          },
-          error: () => {
-          }
-        })
-      }
-    }
 
     getCheckpoints(): void{
       this.service.getCheckpoints().subscribe({
@@ -74,19 +91,27 @@ export class CheckpointComponent implements OnInit{
       this.selectedCheckpoint = c;
       this.shouldRenderCheckpointForm = true;
       this.shouldEdit = true;
-      this.shouldRenderCheckpointList = false;
     }
 
     onDelete(id: number): void{
       this.service.deleteCheckpoint(id).subscribe({
         next: () => {
-          this.onSeeCheckpoint();
         },
       })
     }
 
     onBack():void{
       this.router.navigate([`tour-equipment/${this.tourID}`]);
+    }
 
+    updateTour(event: {distance: number}): void{
+      this.tour.distance = event.distance;
+      this.service.updateTour(this.tour).subscribe({
+        next: () => 
+        { 
+          this.tourUpdated.emit();
+        }
+        
+      });
     }
 }
