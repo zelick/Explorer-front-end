@@ -123,7 +123,7 @@ export class MapComponent implements AfterViewInit {
     this.initMap();
   }
 
-  setRoute(coords: [{lat: number, lon: number}], profile: string): void {
+  setRoute(coords: [{lat: number, lon: number}], profile: string): void{
     const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
         waypoints: waypoints,
