@@ -26,7 +26,7 @@ import { ClubMembersComponent } from 'src/app/feature-modules/administration/clu
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
-
+import { AllToursComponent } from 'src/app/feature-modules/marketplace/all-tours/all-tours.component';
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -53,7 +53,8 @@ const routes: Routes = [
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
-  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]}
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'all-tours', component: AllToursComponent}
 ];
 
 @NgModule({

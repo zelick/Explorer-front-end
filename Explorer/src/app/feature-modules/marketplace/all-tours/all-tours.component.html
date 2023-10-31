@@ -13,7 +13,6 @@
                     <th>Tags</th>
                     <th>Status</th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,25 +24,13 @@
                     <td>{{t.tags}}</td>
                     <td>{{t.status}}</td>
                     <td>
-                        <button color="accent" (click)="deleteTour(t.id || 0)" mat-icon-button>
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button color="primary" (click)="onEditClicked(t)" mat-icon-button>
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button color="primary" (click)="openDetails(t)" mat-icon-button>
-                            <mat-icon>details</mat-icon>
+                        <button color="primary" (click)="addToCart(t)" mat-icon-button>
+                            Add to cart
                         </button>
                     </td>
                 </tr>
-                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button></tr>
             </tbody>
         </table>
-    </div>
-    <div>
-        <xp-tour-form *ngIf="shouldRenderTourForm" [shouldEdit]="shouldEdit" [tour]="selectedTour" (tourUpdated)="getTour()"></xp-tour-form>
     </div>
     </div>
 </div>

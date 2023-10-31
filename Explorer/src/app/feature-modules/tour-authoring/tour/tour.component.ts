@@ -4,8 +4,6 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Router } from '@angular/router';
-import { OrderItem } from '../model/order-item.model';
-import { ShoppingCart } from '../model/shopping-cart.model';
 
 @Component({
   selector: 'xp-tour',
@@ -62,40 +60,6 @@ export class TourComponent implements OnInit{
   }
 
 
-  addToCart(t: Tour): void{
-    const orderItem: OrderItem = {
-      tourId: t.id || 0,
-      tourName: t.name,
-      price: t.price,
-    };
-
-    this.service.addOrderItem(orderItem).subscribe({
-      next: (result: OrderItem) => {
-        this.addItemToCart(orderItem, t);
-      },
-      error: () => {
-      }
-    })
-  }
-
-  addItemToCart(orderItem: OrderItem, tour: Tour): void{
-    this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
-      if (cartExists) {
-        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => {
-          shoppingCart.items.push(orderItem);
-          this.service.updateShoppingCart(shoppingCart).subscribe(() => {
-          });
-        });
-      } else {
-        const newShoppingCart: ShoppingCart = {
-          touristId: this.user.id,
-          price: orderItem.price,
-          items: [orderItem],
-        };
-        this.service.addShoppingCart(newShoppingCart).subscribe(() => {
-        });
-      }
-    });
-  }
+  
 
 }
