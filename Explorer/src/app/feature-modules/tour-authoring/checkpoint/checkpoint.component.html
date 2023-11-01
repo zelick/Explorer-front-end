@@ -3,19 +3,31 @@
         <button color="primary" (click) = "onAddCheckpoint()">Add checkpoints</button>
         <br>
     </div>
+
+    <xp-tour-transport-form (savedTransports)="updateProfiles()"></xp-tour-transport-form>
     <br>
     <div>
         <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
     </div>
     <br>
     <div>
-        <label>Total distance: </label><label (ngModel)="tour.distance"></label>
+        <br>
+            <label>Choose transportation:    </label>
+            <select [(ngModel)]="profile" (change)="onTransportationChanged($event)">
+                <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
+            </select>
+        <br>
+        <label>Total distance: </label><input type="text" disabled [ngModel]="distance">
+        <br>
+        <br>
+        <label>Total required time for all checkpoints: </label><input type="text" disabled [ngModel]="calculateTimeForCheckpoints()">
         <table>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Location</th>
+                    <th>Required time</th>
                     <th>Picture</th>
                 </tr>
         </thead>
@@ -24,6 +36,7 @@
                 <td>{{c.name}}</td>
                 <td>{{c.description}}</td>
                 <td>{{c.latitude}}, {{c.longitude}}</td>
+                <td>{{c.requiredTimeInSeconds}}</td>
                 <td>
                     <picture>
                         <img [src]="c.pictures[0]" alt="Checkpoint image" width="100" height="100">
@@ -38,7 +51,7 @@
             </tr>
         </tbody>
         </table>
-        <xp-map></xp-map>
+        <xp-map (timeAndDistance) ="getTimeAndDistance($event)"></xp-map>
     </div>
     <button (click)="onBack()">Back</button>
 

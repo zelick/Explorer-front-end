@@ -6,7 +6,6 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { MAPBOX_API_KEY } from '../constants';
 import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
-import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
 
 @Component({
   selector: 'xp-map',
@@ -17,6 +16,10 @@ export class MapComponent implements AfterViewInit {
   @Output() mapClick: EventEmitter<any> = new EventEmitter();
   @Input() initialCenter: [number, number] = [45.2396, 19.8227];
   @Input() initialZoom: number = 13
+  @Output() timeAndDistance: EventEmitter<any> = new EventEmitter<Observable<number>>();
+  dist: number = 0;
+  time: number = 0;
+  profile: string = '';
   
   private map: any;
   private routeControl: any;
@@ -124,13 +127,20 @@ export class MapComponent implements AfterViewInit {
   }
 
   setRoute(coords: [{lat: number, lon: number}], profile: string): void{
+
     const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
         waypoints: waypoints,
-        router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` })
+        collapsible: true,
+        router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` }),
+        lineOptions: {
+          styles: [{ color: this.setRouteColor(profile), opacity: 1, weight: 5 }],
+          extendToWaypoints: true,
+          missingRouteTolerance: 50
+        }
       }).addTo(this.map);
 
-      routeControl.on('routesfound', function (e) {
+      routeControl.on('routesfound', (e) => {
         var routes = e.routes;
         var summary = routes[0].summary;
         const routeResponse: RouteResponse = {
@@ -138,7 +148,26 @@ export class MapComponent implements AfterViewInit {
           totalTimeMinutes: Math.round(summary.totalTime / 60)
         };
         alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+        this.dist = summary.totalDistance;
+        this.profile = profile;
+        this.time = summary.totalTime;
+        this.getTimeAndDistance();
       });
     };
+
+    setRouteColor(profile: string): string
+    {
+      if(profile == 'walking')
+        return 'red';
+      if(profile == 'cycling')
+        return 'blue';
+      if(profile == 'driving')
+        return 'green';
+      return 'red';
+    }
+
+    getTimeAndDistance(): void{
+      this.timeAndDistance.emit({d: this.dist});
+    }
   }
 

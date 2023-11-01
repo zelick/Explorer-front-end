@@ -1,13 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Checkpoint } from '../model/checkpoint.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { NgModel, NgForm } from '@angular/forms';
 import { CheckpointFormComponent } from '../checkpoint-form/checkpoint-form.component';
 import { Tour } from '../model/tour.model';
+import { TourTime } from '../model/tourTime.model';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { Observable } from 'rxjs';
+import { TourTransportFormComponent } from '../tour-transport-form/tour-transport-form.component';
+import { TourTimes } from '../model/tourTimes.model';
 
 
 @Component({
@@ -18,23 +22,33 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 export class CheckpointComponent implements OnInit{
     @ViewChild(CheckpointFormComponent) checkpointFormComponent: CheckpointFormComponent;
     @ViewChild(MapComponent) mapComponent: MapComponent;
+    @ViewChild(TourTransportFormComponent) transportComponent: TourTransportFormComponent;
     @Output() tourUpdated = new EventEmitter<null>();
+
     checkpoints: Checkpoint[] = [];
     shouldRenderCheckpointForm: boolean = false;
     shouldEdit: boolean = false;
     tourID: number;
     tour: Tour;
     selectedCheckpoint: Checkpoint;
+    distance: number;
+    time: number;
+    profiles: string[] = [];
+    profile: string = this.profiles[0];
+
 
     constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
 
     ngOnInit(): void {
       this.activatedRoute.params.subscribe(params=>{
        this.tourID=params['id'];
-       this.service.get(this.tourID).subscribe((result: Tour) => {
-        this.tour = result;
-        this.checkpoints = this.tour.checkpoints || [];
-        this.route();
+       this.service.get(this.tourID).subscribe((result: Tour) => {  
+          this.tour = result;
+          if(!this.tour.tourTimes)
+              this.tour.tourTimes = []
+          this.checkpoints = this.tour.checkpoints || [];
+          this.fillProfiles();
+          this.route();
        });
      });
    }
@@ -45,7 +59,10 @@ export class CheckpointComponent implements OnInit{
         if(e != this.checkpoints[0])
           coords.push({lat:e.latitude, lon:e.longitude});
     });
-    this.mapComponent.setRoute(coords, 'walking');
+    if(coords.length >= 2)
+    {
+      this.mapComponent.setRoute(coords, this.profile.toString());
+    }
   }
 
    ngAfterViewInit(): void {
@@ -56,7 +73,7 @@ export class CheckpointComponent implements OnInit{
            if(e != this.checkpoints[0])
              coords.push({lat:e.latitude, lon:e.longitude});
        });
-       this.mapComponent.setRoute(coords, 'walking');
+       this.mapComponent.setRoute(coords, this.profile.toString());
   }
 }
 
@@ -96,6 +113,8 @@ export class CheckpointComponent implements OnInit{
     onDelete(id: number): void{
       this.service.deleteCheckpoint(id).subscribe({
         next: () => {
+          this.tourUpdated.emit();
+          location.reload();
         },
       })
     }
@@ -104,14 +123,60 @@ export class CheckpointComponent implements OnInit{
       this.router.navigate([`tour-equipment/${this.tourID}`]);
     }
 
-    updateTour(event: {distance: number}): void{
-      this.tour.distance = event.distance;
-      this.service.updateTour(this.tour).subscribe({
-        next: () => 
-        { 
-          this.tourUpdated.emit();
-        }
-        
+    updateTour(): void{
+        var tourTime: TourTime = {timeInSeconds: this.time, distance: this.distance, transportation: this.profile};
+        this.tour.tourTimes?.push(tourTime);
+        var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes}
+        this.service.addTourTransportation(this.tourID, tourTimes).subscribe({
+          next: () => 
+          { 
+            this.tourUpdated.emit();
+          }
+        });
+    }
+
+    calculateTimeForCheckpoints(): number{
+      let sum = 0;
+      for(let c of this.checkpoints)
+        sum += c.requiredTimeInSeconds || 0;
+
+      return sum + (this.time || 0);
+    }
+
+    onTransportationChanged($event: any): void{
+      this.route();
+    }
+
+    updateProfiles(): void{
+      this.addProfiles(this.transportComponent.selectedTransports);
+      this.tour.tourTimes = [];
+      this.profile = this.profiles[0];
+      this.profiles.forEach(p => {
+        this.profile = p;
+        this.route();
+      });
+    }
+
+    getTimeAndDistance(event: {d: number}): void{
+      this.time = this.mapComponent.time;
+      this.distance = this.mapComponent.dist;
+      this.profile = this.mapComponent.profile;
+      this.updateTour();
+    }
+
+    fillProfiles(): void{
+      this.profiles = [];
+      this.tour.tourTimes?.forEach(e => {
+        this.profiles.push(e.transportation);
+      });
+    }
+
+    addProfiles(selectedProfiles: string[]): void{
+      this.profiles = [];
+      selectedProfiles.forEach(element => {
+        if (this.profiles.indexOf(element) == -1) {
+          this.profiles.push(element);
+        }    
       });
     }
 }

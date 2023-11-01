@@ -9,6 +9,12 @@
             <input matInput type="text" formControlName="description">
         </mat-form-field>
         <br>
+        <mat-form-field>
+            <label>Required time: (hours and minutes)</label>
+            <input matInput type="number" min="0" max="12" step="1" formControlName="hours" required>
+            <input matInput type="number" min="0" max="60" step="5" formControlName="minutes" required>
+        </mat-form-field>
+        <br>
         <p>Input address or choose on map  </p>
         <input matInput type="text" formControlName="address">
         <button (click)="onAddAddressClick()">Add address</button>

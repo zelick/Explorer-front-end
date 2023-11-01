@@ -7,6 +7,9 @@ import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
 import { MapObject } from './model/map-object.model';
+import { TourTime } from './model/tourTime.model';
+import { TourTimes } from './model/tourTimes.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +89,9 @@ export class TourAuthoringService {
 
   publishTour(tourId: number){
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
+  }
+
+  addTourTransportation(tourId: number, tour: TourTimes){
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/tourTime/' + tourId, tour);
   }
 }

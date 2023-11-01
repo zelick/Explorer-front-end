@@ -4,6 +4,7 @@ import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Tour } from '../model/tour.model';
+import { Time } from '@angular/common';
 
 
 @Component({
@@ -52,7 +53,9 @@ export class CheckpointFormComponent implements OnChanges{
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    address: new FormControl('')
+    address: new FormControl(''),
+    hours: new FormControl(0, [Validators.required]),
+    minutes: new FormControl(0, [Validators.required])
   });
   pictureForm = new FormGroup({
     picture: new FormControl(this.picture, [Validators.required])
@@ -66,6 +69,7 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60
     };
 
       this.service.addCheckpoint(checkpoint).subscribe({
