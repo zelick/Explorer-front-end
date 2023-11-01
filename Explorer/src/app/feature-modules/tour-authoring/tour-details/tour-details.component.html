@@ -1,7 +1,10 @@
 
-<div id="tour-details">
-    <p id="tour-title">{{tour.name}}</p>
-
+<div class="tour-details">
+    <br>
+    <p >{{tour.name}}</p>
+    <br>
+    <br>
+    <p class="subtitle">Information</p>
     <table id="tour-details-table">
         <tr>
             <th>Description:</th>
@@ -20,6 +23,10 @@
             <td>{{tour.demandignessLevel}}</td>
         </tr>
         <tr>
+            <th>Distance:</th>
+            <td>{{tour.distance}}</td>
+        </tr>
+        <tr>
             <th>Tags:</th>
             <td>
                 <table>
@@ -31,19 +38,13 @@
         </tr>
     </table>
 
-    <div id="equipment-div">
-
-        <div id="show-button-div">
-            <button id="show-equipment-button" (click)="onShowEquipmentClick()">{{showButtonText}}</button>
-        </div>
-
-        <table id="equipment-details-table">
-            <div id="table-equipment-div" *ngIf="isVisibleEquipment">
-                <caption id="equipment-title">Equipment</caption>
+    <br>
+    <p class="subtitle">Added equipment</p>
+    <table>
+            
                 <thead>
-                    <th class="equipment-th">Name</th>
-                    <th class="equipment-th">Description</th>
-                    <th class="equipment-th"></th>
+                    <th >Name</th>
+                    <th >Description</th>
                 </thead>
                 
                 <tbody>
@@ -53,9 +54,53 @@
 
                     </tr>
                 </tbody>
-            </div>
+          
         </table>
-    </div>
+    <br>
+    <p class="subtitle">Added checkpoints</p>
+    <table>
+        <tbody>
+            <tr *ngFor="let e of tour.checkpoints">
+                <td class="cpp">
+                    <div class="cardcp">
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
+                            <br>
+                            <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
+                            <br>
+                        </span>
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
+
+                            <br>
+                            <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
+                            <br>
+                        </span>
+                    </div>
+                  
+                </td>
+             
+                <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
+            </tr>
+        </tbody>
+  
+</table>
+    <div class="mapa">
     <xp-map></xp-map>
-    <button (click)="onEdit()">Edit</button>
+    <br>
+    <div class="routingButton">
+        <div>
+            <button mat-raised-button class="buttonBack" (click)="onBack()">Back</button>
+        </div>
+        <div>
+            <button mat-raised-button class="buttonDelete" (click)="onDelete()">Delete🗑️</button>
+        </div>
+        <div>
+            <button mat-raised-button class="buttonEdit" (click)="onEdit()">Edit✏️</button>
+        </div>
+        </div>
+    </div>
 </div>
+

@@ -22,8 +22,77 @@ div {
 
 select{
     height: 50px;
-    width : 260px;
+    width : 210px;
     background-color: #f3f3f3;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
+option:checked{
+    background-color: #E67840;
+}
+
+.button{
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.buttonPlus{
+    width: auto;
+    
+    margin-top: 10px;
+    
+    width: 30px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.subtitle{
+    font-size: 2vh;
+  color:#E67840;
+  font-style: bold;
+  text-align: left;
+
+}
+.demandignessLevel{
+    font-size: 2vh;
+    color:#E67840;
+    font-style: bold;
+    margin-top: 10px;
+}
+
+#tour-form{
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.routingButton{
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+  
+}
+
 

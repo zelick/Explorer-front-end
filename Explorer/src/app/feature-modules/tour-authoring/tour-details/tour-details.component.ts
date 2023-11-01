@@ -67,70 +67,24 @@ export class TourDetailsComponent implements OnInit{
   getTour(id: number): void {
     this.service.get(id).subscribe((result: Tour) => {
       this.tour = result;
-      // Once this.tour is defined, you can safely access its equipment
-      this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
+      console.log(this.tour.checkpoints);
+   
   
-      // Now, call the method that depends on this.tour and its equipment
-      this.getAvailableEquipment(this.currentEquipmentIds);
     });
   }
 
-  getAvailableEquipment(currentEquipmentIds: number[]): void{
-    if(this.tour.id !== undefined){
-      this.service.getAvailableEquipment(currentEquipmentIds, this.tour.id).subscribe((result: Equipment[]) => {
-        this.availableEquipment = result;
-      })
-    }
+  onDelete():void{
+    let id=this.tour.id||0;
+    this.service.deleteTour(id).subscribe({
+      next: () => {
+        this.router.navigate([`tour`]);
+      },
+    })
   }
 
-  removeEquipment(tourId?: number, equipmentId?: number): void {
-    if(tourId !== undefined && equipmentId !== undefined){
-      this.service.removeEquipment(tourId, equipmentId).subscribe({
-        next: (result: Tour) => {
-          this.tour = result;
-          this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
-          this.getAvailableEquipment(this.currentEquipmentIds);
-        },
-        error: () => {
-        }
-      })
-    }
-  }
+  onBack():void{
+    this.router.navigate([`tour`]);
 
-  addEquipment(tourId?: number, equipmentId?: number): void {
-    if(tourId !== undefined && equipmentId !== undefined){
-      this.service.addEquipment(tourId, equipmentId).subscribe({
-        next: (result: Tour) => {
-          this.tour = result;
-          this.currentEquipmentIds = this.tour.equipment.map(e => e.id as number);
-          this.getAvailableEquipment(this.currentEquipmentIds);
-        },
-        error: () => {
-        }
-      })
-    }
-  }
-
-  onShowEquipmentClick(): void {
-    if(this.isVisibleEquipment){
-      this.isVisibleEquipment = false;
-      this.showButtonText = 'Show equipment';
-    }
-    else{
-      this.isVisibleEquipment = true;
-      this.showButtonText = 'Hide equipment';
-    }
-  }
-
-  onShowAvailableEquipmenClick(): void {
-    if(this.isVisibleAvailableEquipment){
-      this.isVisibleAvailableEquipment = false;
-      this.showAvailableButtonText = 'Show available equipment';
-    }
-    else{
-      this.isVisibleAvailableEquipment = true;
-      this.showAvailableButtonText = 'Hide available equipment';
-    }
   }
 
   onEdit():void{

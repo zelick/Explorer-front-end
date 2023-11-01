@@ -11,6 +11,6 @@ export interface Tour {
     authorId : number;
     status:string;
     equipment: Equipment[];
-    checkpoints?: Checkpoint[];
+    checkpoints: Checkpoint[];
     distance?:number;
 }

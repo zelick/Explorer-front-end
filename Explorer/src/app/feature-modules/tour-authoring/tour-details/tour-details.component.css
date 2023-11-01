@@ -1,26 +1,84 @@
-*{
-    font-family: sans-serif;
+
+.tour-details {
+    width: 680px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
-#tour-details-table {
-    border-collapse: collapse;
-    font-size: 20px;
-    min-width: auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    text-align: left;
+
+th{
+    width: 340px;
+    text-align: center;
+    background-color: #E67840;
+    color: white;
 }
 
-th, td{
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.buttonEdit{
+    width: auto;
+    margin-left: 0px;
+    margin-bottom: 50px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
 }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
+.buttonBack{
+    width: auto;
+    margin-left: 0px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
 }
 
+.buttonDelete{
+    width: auto;
+    margin-left: 170px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+td{
+    width: 340px;
+    text-align: center;
+
+}
+.cardcp{
+    width: 600px;
+    display:flex;
+    column-gap: 150px;
+    flex-direction: row;
+    justify-content:justify;
+    background-color: #B6D4AF;
+
+}
+
+.cps2{
+font-weight: 1000;
+}
+
+.cps1{
+    width: 150px;
+}
 #tour-title{
     font-size: 24px;
     font-weight: bold;
@@ -31,58 +89,47 @@ tr:nth-child(even) {
     padding-left: 25px;
 }
 
-#equipment-div{
-    padding-top: 10px;
+
+
+
+.mapa{
+    width: 680px;
+    height: 400px;
 }
 
-#table-equipment-div{
-    padding-top: 10px;
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+  
 }
 
-#show-equipment-button{
-    border-radius: 3px;
-    border-color: transparent;
-    background-color: #3f51b5;
-    color: #ffffff;
-    font-size: 16px;
-    height: 30px;
-    width: 160px;
+.subtitle{
+    font-size: 2vh;
+  color:#E67840;
+  font-style: bold;
+
 }
 
-.equipment-th{
-    background-color: #dddddd;
-}
-
-#equipment-title{
-    padding-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#equipment-details-table{
-    border-collapse: collapse;
-    font-size: 16px;
-    min-width: auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+.cppi{
+    width: 80px;
+    height: 90px;
     text-align: left;
+    border: 2px solid #3B846B;
+
 }
 
-#delete-equipment-button{
-    border-radius: 3px;
-    border-color: transparent;
-    background-color: #3f51b5;
-    color: #ffffff;
-    font-size: 14px;
-    height: 30px;
-    width: 60px;
+.cpp{
+    width: 200px;
+    text-align: left;
+ 
+}
+.routingButton{
+    width: 680px;
+    display:flex;
+    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-#show-available-equipment-button{
-    border-radius: 3px;
-    border-color: transparent;
-    background-color: #3f51b5;
-    color: #ffffff;
-    font-size: 16px;
-    height: 42px;
-    width: 160px;
-}
