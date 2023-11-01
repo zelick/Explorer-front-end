@@ -10,6 +10,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
 import { AllToursComponent } from './all-tours/all-tours.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AllToursComponent } from './all-tours/all-tours.component';
     PreferenceFormComponent,
     TourRatingComponent,
     TourRatingFormComponent,
-    AllToursComponent
+    AllToursComponent,
+    ShoppingCartComponent
   ],
   imports: [
     CommonModule,
