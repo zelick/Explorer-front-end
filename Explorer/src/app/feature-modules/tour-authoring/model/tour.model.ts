@@ -1,5 +1,6 @@
 import { Checkpoint } from "./checkpoint.model";
 import { Equipment } from "./equipment.model";
+import { PublishedTour } from "./publishedTour.model";
 import { TourTime } from "./tourTime.model";
 
 export interface Tour {
@@ -12,6 +13,7 @@ export interface Tour {
     authorId : number;
     status:string;
     equipment: Equipment[];
-    checkpoints?: Checkpoint[];
-    tourTimes?: TourTime[];
+    checkpoints: Checkpoint[];
+    publishedTours: PublishedTour[];
+    tourTimes: TourTime[];
 }

@@ -4,7 +4,7 @@
         <br>
     </div>
 
-    <xp-tour-transport-form (savedTransports)="updateProfiles()"></xp-tour-transport-form>
+    <xp-tour-transport-form (changedSelection)="updateProfiles($event)" [tourID]="tourID"></xp-tour-transport-form>
     <br>
     <div>
         <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
@@ -13,9 +13,9 @@
     <div>
         <br>
             <label>Choose transportation:    </label>
-            <select [(ngModel)]="profile" (change)="onTransportationChanged($event)">
+            <select [(ngModel)]="profile">
                 <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
-            </select>
+            </select><button (click)="route()">See route</button>
         <br>
         <label>Total distance: </label><input type="text" disabled [ngModel]="distance">
         <br>

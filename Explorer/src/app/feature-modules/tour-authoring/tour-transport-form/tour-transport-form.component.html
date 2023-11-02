@@ -1,8 +1,26 @@
-<div>
-        <label>Choose transportation for this tour</label>
-        <p *ngFor="let t of transports">
-            <input name="checkboxInput" type="checkbox" (change)="onChange(t)" value="t" > {{t}}
-        </p> 
+<div id="transportation-div">
+    <table>
+        <thead>Types of transportation:</thead>
+        <tbody>
+            <tr *ngFor="let a of availableProfiles">
+                <td>{{a}}</td>
+                <td>
+                    <button class="button" (click)="onAdd(a)">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <br>
-    <button (click)="save()">Save</button>
+    <table>
+        <thead>Chosen transportation:</thead>
+        <tbody>
+            <tr *ngFor="let a of chosenProfiles">
+                <td>{{a}}</td>
+                <td>
+                    <button  class="button" (click)="onDelete(a)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button  class="buttonSave" (click)="onSave()">Save changes</button>
 </div>

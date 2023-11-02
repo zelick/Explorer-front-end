@@ -14,7 +14,13 @@
                             <div>
                                <span class="cinfo"> Distance:</span>
                                 <br>
-                                {{t.distance}}
+                                <table>
+                                    <tr *ngFor="let tt in t.tourTimes">
+                                        <td>{{tt.transportation}}</td>
+                                        <td>{{tt.distance/1000}} km</td>
+                                        <td>{{tt.timeInSeconds/3600}} h</td>
+                                    </tr>
+                                </table>
                             </div>
                             <div>
                                <span class="cinfo">Price:</span>

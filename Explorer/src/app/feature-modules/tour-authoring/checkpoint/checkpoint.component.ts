@@ -35,6 +35,7 @@ export class CheckpointComponent implements OnInit{
     time: number;
     profiles: string[] = [];
     profile: string = this.profiles[0];
+    tourTimes: TourTime[];
 
 
     constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
@@ -44,11 +45,9 @@ export class CheckpointComponent implements OnInit{
        this.tourID=params['id'];
        this.service.get(this.tourID).subscribe((result: Tour) => {  
           this.tour = result;
-          if(!this.tour.tourTimes)
-              this.tour.tourTimes = []
           this.checkpoints = this.tour.checkpoints || [];
+          this.tourTimes = this.tour.tourTimes;
           this.fillProfiles();
-          this.route();
        });
      });
    }
@@ -62,11 +61,12 @@ export class CheckpointComponent implements OnInit{
     if(coords.length >= 2)
     {
       this.mapComponent.setRoute(coords, this.profile.toString());
+      this.fillProfiles();
     }
   }
 
    ngAfterViewInit(): void {
-    if(this.checkpoints != null)
+    if(this.checkpoints != null && this.checkpoints.length > 0)
     {
        let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
        this.checkpoints.forEach(e => {
@@ -74,8 +74,9 @@ export class CheckpointComponent implements OnInit{
              coords.push({lat:e.latitude, lon:e.longitude});
        });
        this.mapComponent.setRoute(coords, this.profile.toString());
+       this.fillProfiles();
+    }
   }
-}
 
     onAddCheckpoint(): void{
       let tour: Tour;
@@ -125,7 +126,8 @@ export class CheckpointComponent implements OnInit{
 
     updateTour(): void{
         var tourTime: TourTime = {timeInSeconds: this.time, distance: this.distance, transportation: this.profile};
-        this.tour.tourTimes?.push(tourTime);
+        this.tour.tourTimes.push(tourTime);
+        this.tourTimes = this.tour.tourTimes || [];
         var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes}
         this.service.addTourTransportation(this.tourID, tourTimes).subscribe({
           next: () => 
@@ -143,17 +145,14 @@ export class CheckpointComponent implements OnInit{
       return sum + (this.time || 0);
     }
 
-    onTransportationChanged($event: any): void{
-      this.route();
-    }
-
-    updateProfiles(): void{
-      this.addProfiles(this.transportComponent.selectedTransports);
-      this.tour.tourTimes = [];
+    updateProfiles($event : any): void{
+      this.profiles = this.transportComponent.chosenProfiles;
+      this.fillTourTimes();
       this.profile = this.profiles[0];
+      this.tour.tourTimes = [];
       this.profiles.forEach(p => {
         this.profile = p;
-        this.route();
+        this.route()
       });
     }
 
@@ -166,17 +165,18 @@ export class CheckpointComponent implements OnInit{
 
     fillProfiles(): void{
       this.profiles = [];
-      this.tour.tourTimes?.forEach(e => {
+      this.tourTimes.forEach(e => {
+        if(!this.profiles.includes(e.transportation))
         this.profiles.push(e.transportation);
       });
     }
 
-    addProfiles(selectedProfiles: string[]): void{
-      this.profiles = [];
-      selectedProfiles.forEach(element => {
-        if (this.profiles.indexOf(element) == -1) {
-          this.profiles.push(element);
-        }    
+    fillTourTimes(): void{
+      var times: TourTime[] = this.tourTimes;
+      this.tourTimes = [];
+      times.forEach(e => {
+        if(this.transportComponent.chosenProfiles.includes(e.transportation))
+          this.tourTimes.push(e);
       });
     }
 }

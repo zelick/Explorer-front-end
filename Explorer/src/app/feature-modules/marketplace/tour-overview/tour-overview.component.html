@@ -14,7 +14,13 @@
                             <div>
                                <span class="cinfo"> Distance:</span>
                                 <br>
-                                {{t.distance}}
+                                <table>
+                                    <tr *ngFor="let tt in t.tourTimes">
+                                        <td>{{tt.transportation}}</td>
+                                        <td>{{tt.distance/1000}} km</td>
+                                        <td>{{tt.timeInSeconds/3600}} h</td>
+                                    </tr>
+                                </table>
                             </div>
                             <div>
                                <span class="cinfo">Price:</span>
@@ -26,10 +32,10 @@
                                  <br>
                                  {{t.checkpoints[0].name}}
                              </div>
-                            <div *ngIf="t.checkpoints.length>0">
+                            <div *ngIf="t.checkpoints.length > 0">
                                 <img  [src]="t.checkpoints[0].pictures[0]" width="100" height="100">
                             </div>
-                            <div *ngIf="t.checkpoints.length==0"> <img  [src]="" width="100" height="100">
+                            <div *ngIf="t.checkpoints.length == 0"> <img  [src]="" width="100" height="100">
                                 <img  [src]="picture" width="100" height="100">
                             </div>
                         </div>                       

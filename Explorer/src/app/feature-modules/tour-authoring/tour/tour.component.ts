@@ -41,6 +41,9 @@ export class TourComponent implements OnInit{
     this.service.getTour(this.user.id).subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
+        this.tours.forEach(element => {
+          element.checkpoints = element.checkpoints || [];
+        });
         console.log(this.tours);
       },
       error: () => {

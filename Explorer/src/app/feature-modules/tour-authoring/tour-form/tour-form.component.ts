@@ -37,8 +37,6 @@ export class TourFormComponent implements OnChanges,OnInit{
       }
       else{
         this.tags=[];
-
-
       }
     });
 
@@ -85,7 +83,9 @@ export class TourFormComponent implements OnChanges,OnInit{
       tags : this.tags,
       status: "Draft",
       equipment: [],
-      checkpoints:[]
+      checkpoints:[],
+      publishedTours: [],
+      tourTimes: []
     };
     this.service.addTour(tour).subscribe(
     (response:Tour)=>{
@@ -124,9 +124,11 @@ export class TourFormComponent implements OnChanges,OnInit{
       price: Number(this.tourForm.value.price) || 0,
       authorId : this.user.id,
       tags : this.tour.tags,
-      status:"Draft",
-      equipment: [],
-      checkpoints:this.tour.checkpoints
+      status: this.tour.status,
+      equipment: this.tour.equipment,
+      checkpoints:this.tour.checkpoints,
+      publishedTours: this.tour.publishedTours,
+      tourTimes: this.tour.tourTimes
     };
     tour.id = this.tour.id;
     tour.checkpoints=this.tour.checkpoints;

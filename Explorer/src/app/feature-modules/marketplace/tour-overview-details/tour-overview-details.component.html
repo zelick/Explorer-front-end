@@ -18,9 +18,9 @@
             <th>Demandigness level:</th>
             <td>{{tour.demandignessLevel}}</td>
         </tr>
-        <tr>
-            <th>Distance:</th>
-            <td>{{tour.distance}}</td>
+        <tr *ngFor="let tt of tour.tourTimes">
+            <th>{{tt.transportation}}</th>
+            <td>{{tt.distance}}</td>
         </tr>
         <tr>
             <th>Tags:</th>

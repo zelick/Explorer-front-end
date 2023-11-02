@@ -52,7 +52,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     getPublishedTour(id: number): void {
       this.service.getPublishedTour(id).subscribe((result: Tour) => {
         this.tour = result;
-        this.checkpoints=this.tour.checkpoints;
+        this.checkpoints=this.tour.checkpoints || [];
         if(this.checkpoints != null)
         { 
           this.route();
