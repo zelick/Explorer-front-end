@@ -9,6 +9,7 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
+import { SimulatorComponent } from './simulator/simulator.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
     PreferenceComponent,
     PreferenceFormComponent,
     TourRatingComponent,
-    TourRatingFormComponent
+    TourRatingFormComponent,
+    SimulatorComponent
   ],
   imports: [
     CommonModule,
