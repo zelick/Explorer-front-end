@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
@@ -18,24 +18,36 @@ export class BlogService {
     this.userId = authService.user$.value.id;
   }
 
-  getBlogPosts(): Observable<PagedResults<BlogPost>> {
-    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-post/user/${this.userId}`)
+  getBlogPosts(page: number, pageSize: number): Observable<PagedResults<BlogPost>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts`, { params })
+  }
+
+  getBlogPost(id: number): Observable<BlogPost> {
+    return this.http.get<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`)
+  }
+
+  getBlogPostsByUser(): Observable<PagedResults<BlogPost>> {
+    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts/user/${this.userId}`)
   }
 
   addBlogPost(blogPost: BlogPost): Observable<BlogPost> {
-    return this.http.post<BlogPost>(environment.apiHost + 'blogging/blog-post', blogPost);
+    return this.http.post<BlogPost>(environment.apiHost + 'blogging/blog-posts', blogPost);
   }
 
   deleteBlogPost(id: number): Observable<BlogPost> {
-    return this.http.delete<BlogPost>(environment.apiHost + `blogging/blog-post/${id}`);
+    return this.http.delete<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`);
   }
 
   updateBlogPost(blogPost: BlogPost): Observable<BlogPost> {
-    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-post/${blogPost.id}`, blogPost);
+    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${blogPost.id}`, blogPost);
   }
 
   closeBlog(id: number): Observable<BlogPost> {
-    return this.http.patch<BlogPost>(environment.apiHost + `blogging/blog-post/${id}/close`, null);
+    return this.http.patch<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}/close`, null);
   }
   
     addBlogComment(blogComment: BlogComment): Observable<BlogComment> {

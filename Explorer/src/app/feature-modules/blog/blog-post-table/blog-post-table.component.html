@@ -1,0 +1,43 @@
+<div id="blog-posts">
+    <hr>
+    <div id="blog-post-details">
+        <div>
+            <table mat-table class="mat-elevation-z8" [dataSource]="blogPosts">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                    <td mat-cell *matCellDef="let blogPost" (click)="onRowSelected(blogPost)"  class="row-hover">
+                        {{ blogPost.title }}
+                    </td>
+                </ng-container>
+                <!-- TODO add author -->
+                <!-- <ng-container matColumnDef="skills">
+                    <th mat-header-cell *matHeaderCellDef>Skills</th>
+                    <td mat-cell *matCellDef="let blogPost">
+                        <ul>
+                            <li *ngFor="let skill of blogPost.skills">
+                                {{ skill }}
+                            </li>
+                        </ul>
+                    </td>
+                </ng-container> -->
+
+                <tr mat-header-row class="header-font" *matHeaderRowDef="['title']"></tr>
+
+                <tr mat-row *matRowDef="let row; columns: ['title']"></tr>
+            </table>
+
+            <mat-paginator [length]="totalBlogPosts" [pageSize]="pageSize"
+                (page)="onPageChange($event)"></mat-paginator>
+
+            <mat-form-field>
+                <mat-label>Blogs per page</mat-label>
+                <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="10">5</mat-option>
+                    <mat-option value="20">10</mat-option>
+                    <mat-option value="50">20</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
