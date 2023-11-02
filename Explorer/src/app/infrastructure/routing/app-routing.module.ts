@@ -27,6 +27,9 @@ import { ClubInvitationsComponent } from 'src/app/feature-modules/administration
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
+import { TourOverviewComponent } from 'src/app/feature-modules/marketplace/tour-overview/tour-overview.component';
+import { TourOverviewDetailsComponent } from 'src/app/feature-modules/marketplace/tour-overview-details/tour-overview-details.component';
+
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -54,6 +57,8 @@ const routes: Routes = [
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
+  {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
+  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]}
 
 ];
 

@@ -1,0 +1,100 @@
+
+<div class="tour-details">
+    <br>
+    <p >{{tour.name}}</p>
+    <br>
+    <br>
+    <p class="subtitle">Information</p>
+    <table id="tour-details-table">
+        <tr>
+            <th>Description:</th>
+            <td>{{tour.description}}</td>
+        </tr>
+        <tr>
+            <th>Price:</th>
+            <td>{{tour.price}}</td>
+        </tr>
+        <tr>
+            <th>Demandigness level:</th>
+            <td>{{tour.demandignessLevel}}</td>
+        </tr>
+        <tr>
+            <th>Distance:</th>
+            <td>{{tour.distance}}</td>
+        </tr>
+        <tr>
+            <th>Tags:</th>
+            <td>
+                <table>
+                    <tr *ngFor="let tag of tour.tags">
+                        <td>{{tag}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <p class="subtitle">Required equipment</p>
+    <table>
+            
+                <thead>
+                    <th >Name</th>
+                    <th >Description</th>
+                </thead>
+                
+                <tbody>
+                    <tr *ngFor="let e of tour.equipment">
+                        <td>{{e.name}}</td>
+                        <td>{{e.description}}</td>
+
+                    </tr>
+                </tbody>
+          
+        </table>
+    <br>
+    <p class="subtitle">Starting checkpoint</p>
+    <table>
+        <tbody>
+            <tr *ngFor="let e of tour.checkpoints">
+                <td class="cpp">
+                    <div class="cardcp">
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
+                            <br>
+                            <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
+                            <br>
+                        </span>
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
+
+                            <br>
+                            <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
+                            <br>
+                        </span>
+                    </div>
+                  
+                </td>
+             
+                <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
+            </tr>
+        </tbody>
+  
+</table>
+    <div class="mapa">
+    <xp-map></xp-map>
+    <br>
+    <div class="routingButton">
+        <div>
+            <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
+        </div>
+        <div>
+            <button mat-raised-button class="shopButton" (click)="onAddToCart()">Add to card🛒</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
