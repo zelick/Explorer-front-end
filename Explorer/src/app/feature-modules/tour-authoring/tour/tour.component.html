@@ -43,10 +43,13 @@
                                 <div class="cttags">{{t.tags}}</div>
                                 <div>
                                     <button *ngIf="t.status == 'Draft'" color="primary" (click)="publishTour(t)" >publish</button>
+                                </div>                     
+                                <div>
+                                    <button (click)="archive(t)">Archive</button>
                                 </div>
-                            </div>                      
-                    </div>
-                </td>
+                            </div>                       
+                        </div>
+                    </td>
                 </tr>
                 <tr><button style="color:#E67840" (click)="onAddClicked()" mat-icon-button>
                     <mat-icon>add</mat-icon>
