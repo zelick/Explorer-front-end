@@ -32,6 +32,9 @@
                             <div *ngIf="t.checkpoints.length==0">
                                 <img  [src]="picture" width="100" height="100">
                             </div>
+                            <div>
+                                <button (click)="archive(t)">Archive</button>
+                            </div>
                         </div>                       
                         <div class="cttags">{{t.tags}}</div>
                         </div>

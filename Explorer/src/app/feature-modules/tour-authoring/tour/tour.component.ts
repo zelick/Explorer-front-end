@@ -66,4 +66,12 @@ export class TourComponent implements OnInit{
     this.router.navigate([`tour-details/${t.id}`]);
   }
 
+  archive(t:Tour): void {
+    this.service.archiveTour(t).subscribe({
+      next: () => {
+        this.getTour();
+      },
+    })
+  }
+
 }

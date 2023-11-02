@@ -60,6 +60,10 @@ export class TourAuthoringService {
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/' + tour.id, tour);
   }
 
+  archiveTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/archivedTours/' + tour.id, tour);
+  }
+
   getTour(id: number): Observable<Tour[]> {
     return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/by-author/' + id)
   }
