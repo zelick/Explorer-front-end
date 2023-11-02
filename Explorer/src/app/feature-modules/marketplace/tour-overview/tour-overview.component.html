@@ -1,10 +1,10 @@
 <div >
     <div class="tour">
-        <h1>Tours</h1>
+        <h1>Tour offer</h1>
     <div>
         <table>
             <tbody>
-                <tr *ngFor="let t of tours">
+                <tr *ngFor="let t of publishedTours">
                 <td (click)="openDetails(t)">
                     <div>
                         <br>
@@ -22,29 +22,21 @@
                                 {{t.price}}
                             </div>
                             <div>
-                              <span class="cinfo">Status:</span>
-                                <br>
-                                {{t.status}}
-                            </div>
+                                <span class="cinfo">Start:</span>
+                                 <br>
+                                 {{t.checkpoints[0].name}}
+                             </div>
                             <div *ngIf="t.checkpoints.length>0">
                                 <img  [src]="t.checkpoints[0].pictures[0]" width="100" height="100">
                             </div>
-                            <div *ngIf="t.checkpoints.length==0">
+                            <div *ngIf="t.checkpoints.length==0"> <img  [src]="" width="100" height="100">
                                 <img  [src]="picture" width="100" height="100">
                             </div>
-                        </div> 
-                            <div class="cinfo">
-                                <div class="cttags">{{t.tags}}</div>
-                                <div>
-                                    <button *ngIf="t.status == 'Draft'" color="primary" (click)="publishTour(t)" >publish</button>
-                                </div>
-                            </div>                      
-                    </div>
+                        </div>                       
+                        <div class="cttags">{{t.tags}}</div>
+                        </div>
                 </td>
                 </tr>
-                <tr><button style="color:#E67840" (click)="onAddClicked()" mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button></tr>
             </tbody>
         </table>
     </div>

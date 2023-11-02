@@ -22,7 +22,6 @@ export class TourFormComponent implements OnChanges,OnInit{
   user: User;
   tags:string[]=[];
   id:number;
-  shouldNext:boolean=false;
 
 
   constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router,private activatedRoute:ActivatedRoute){
@@ -92,12 +91,10 @@ export class TourFormComponent implements OnChanges,OnInit{
     (response:Tour)=>{
       this.id=response.id||0;
       this.tourUpdated.emit();
-      this.shouldNext=true;
+      this.showEquipment();
+
     }
     );
-    this.tags=[];
-    this.tourForm.reset();
-    this.tagForm.reset();
    
   }
 
@@ -128,7 +125,8 @@ export class TourFormComponent implements OnChanges,OnInit{
       authorId : this.user.id,
       tags : this.tour.tags,
       status:"Draft",
-      equipment: []
+      equipment: [],
+      checkpoints:this.tour.checkpoints
     };
     tour.id = this.tour.id;
     tour.checkpoints=this.tour.checkpoints;
@@ -136,6 +134,7 @@ export class TourFormComponent implements OnChanges,OnInit{
       next: () => 
       { 
         this.tourUpdated.emit();
+        this.showEquipment();
       }
       
     });

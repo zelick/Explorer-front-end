@@ -15,10 +15,6 @@
             <td>{{tour.price}}</td>
         </tr>
         <tr>
-            <th>Status:</th>
-            <td>{{tour.status}}</td>
-        </tr>
-        <tr>
             <th>Demandigness level:</th>
             <td>{{tour.demandignessLevel}}</td>
         </tr>
@@ -39,7 +35,7 @@
     </table>
 
     <br>
-    <p class="subtitle">Added equipment</p>
+    <p class="subtitle">Required equipment</p>
     <table>
             
                 <thead>
@@ -57,7 +53,7 @@
           
         </table>
     <br>
-    <p class="subtitle">Added checkpoints</p>
+    <p class="subtitle">Starting checkpoint</p>
     <table>
         <tbody>
             <tr *ngFor="let e of tour.checkpoints">
@@ -92,15 +88,13 @@
     <br>
     <div class="routingButton">
         <div>
-            <button mat-raised-button class="buttonBack" (click)="onBack()">Back</button>
+            <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
         </div>
         <div>
-            <button mat-raised-button class="buttonDelete" (click)="onDelete()">Delete🗑️</button>
-        </div>
-        <div>
-            <button mat-raised-button class="buttonEdit" (click)="onEdit()">Edit✏️</button>
+            <button mat-raised-button class="shopButton" (click)="onAddToCart()">Add to card🛒</button>
         </div>
         </div>
     </div>
 </div>
+
 

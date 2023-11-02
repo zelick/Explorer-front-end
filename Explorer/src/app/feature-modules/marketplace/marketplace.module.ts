@@ -9,6 +9,9 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
+import { TourOverviewComponent } from './tour-overview/tour-overview.component';
+import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
+import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
 
 
 @NgModule({
@@ -17,7 +20,9 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
     PreferenceComponent,
     PreferenceFormComponent,
     TourRatingComponent,
-    TourRatingFormComponent
+    TourRatingFormComponent,
+    TourOverviewComponent,
+    TourOverviewDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -25,12 +30,12 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    TourAuthoringModule
   ],
   exports:[
     PreferenceFormComponent, 
-    TourRatingFormComponent
-  ]
+    TourRatingFormComponent  ]
 
 })
 export class MarketplaceModule { }

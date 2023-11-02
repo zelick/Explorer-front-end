@@ -17,6 +17,7 @@ export class TourComponent implements OnInit{
   shouldEdit: boolean = false;
   user: User;
   id:number;
+  picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
 
   
   constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router) { }
@@ -40,6 +41,7 @@ export class TourComponent implements OnInit{
     this.service.getTour(this.user.id).subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
+        console.log(this.tours);
       },
       error: () => {
       }
