@@ -19,12 +19,7 @@ export class TourDetailsComponent implements OnInit{
   checkpoints: Array<Checkpoint> = [];
   profiles: string[] = ['walking', 'cycling', 'driving'];
   profile: string = this.profiles[0];
-  availableEquipment: Equipment[];
-  currentEquipmentIds: number[] = [];
-  isVisibleEquipment: boolean = false;
-  isVisibleAvailableEquipment: boolean = false;
-  showButtonText: string = 'Show equipment';
-  showAvailableButtonText: string = 'Show available equipment';
+
 
   constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
   tourID:number;
