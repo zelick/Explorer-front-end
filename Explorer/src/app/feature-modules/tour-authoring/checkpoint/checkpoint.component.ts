@@ -124,23 +124,24 @@ export class CheckpointComponent implements OnInit{
       this.router.navigate([`tour-equipment/${this.tourID}`]);
     }
 
-    updateTour(): void{
+    updateTour(): void{ 
         var tourTime: TourTime = {timeInSeconds: this.time, distance: this.distance, transportation: this.profile};
         if(this.tour.tourTimes.length == 0)
           this.tour.tourTimes.push(tourTime);
 
         this.tour.tourTimes.forEach(e => {
           if(tourTime.transportation == e.transportation)
-            this.tour.tourTimes[this.tour.tourTimes.indexOf(e)] = tourTime
+            this.tour.tourTimes[this.tour.tourTimes.indexOf(e)] = tourTime;
           else
             this.tour.tourTimes.push(tourTime);
         });
         this.tourTimes = this.tour.tourTimes || [];
-        var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes}
+        var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes};
         this.service.addTourTransportation(this.tourID, tourTimes).subscribe({
-          next: () => 
+          next: (result: Tour) => 
           { 
             this.tourUpdated.emit();
+            this.tour = result;
           }
         });
     }
@@ -155,13 +156,24 @@ export class CheckpointComponent implements OnInit{
 
     updateProfiles($event : any): void{
       this.profiles = this.transportComponent.chosenProfiles;
-      this.fillTourTimes();
-      this.profile = this.profiles[0];
       this.tour.tourTimes = [];
-      this.profiles.forEach(p => {
-        this.profile = p;
-        this.route()
-      });
+      if(this.profiles.length > 0)
+      {
+        this.profiles.forEach(p => {
+          this.profile = p;
+          this.route()
+        });
+      }
+      else{
+        this.tour.tourTimes = [];
+        this.service.updateTour(this.tour).subscribe({
+          next: (result: Tour) => 
+          { 
+            this.tourUpdated.emit();
+            this.tour = result;
+          }
+        });
+      }
     }
 
     getTimeAndDistance(event: {d: number}): void{
@@ -186,5 +198,9 @@ export class CheckpointComponent implements OnInit{
         if(this.transportComponent.chosenProfiles.includes(e.transportation))
           this.tourTimes.push(e);
       });
+    }
+
+    onNext(): void{
+      this.router.navigate([`tour-details/` + this.tourID]);
     }
 }

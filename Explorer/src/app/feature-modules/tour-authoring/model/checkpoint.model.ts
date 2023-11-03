@@ -6,5 +6,5 @@ export interface Checkpoint{
     name: string,
     description: string,
     pictures: string[],
-    requiredTimeInSeconds?: number
+    requiredTimeInSeconds: number
 }
