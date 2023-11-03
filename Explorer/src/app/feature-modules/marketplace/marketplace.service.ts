@@ -6,11 +6,18 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ReportedIssue } from './model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
+import { Tour } from '../tour-authoring/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketplaceService {
+  getCheckpointsByTour(tourId: number) {
+      throw new Error('Method not implemented.');
+  }
+  getCheckpoints() {
+      throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) { }
 
   addReportedIssue(reportedIssue: ReportedIssue): Observable<ReportedIssue> {
@@ -60,4 +67,9 @@ export class MarketplaceService {
   addTourRating(rating: TourRating): Observable<TourRating> {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
+
+  getCustomersPurchasedTours(id: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'customer/cutomersPurchasedTours/'+ id)
+  }
+
 }
