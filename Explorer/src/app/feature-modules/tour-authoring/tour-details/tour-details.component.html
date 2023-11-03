@@ -1,42 +1,42 @@
-
-<div class="tour-details">
+<div class="tour-div">
+    <div class="tour-details">
     <br>
     <p >{{tour.name}}</p>
     <br>
     <br>
-    <p class="subtitle">Information</p>
-    <table id="tour-details-table">
-        <tr>
-            <th>Description:</th>
-            <td>{{tour.description}}</td>
-        </tr>
-        <tr>
-            <th>Price:</th>
-            <td>{{tour.price}}</td>
-        </tr>
-        <tr>
-            <th>Status:</th>
-            <td>{{tour.status}}</td>
-        </tr>
-        <tr>
-            <th>Demandigness level:</th>
-            <td>{{tour.demandignessLevel}}</td>
-        </tr>
-        <tr *ngFor="let tt of tour.tourTimes">
-            <th>{{tt.transportation}}</th>
-            <td>{{tt.distance}}</td>
-        </tr>
-        <tr>
-            <th>Tags:</th>
-            <td>
-                <table>
-                    <tr *ngFor="let tag of tour.tags">
-                        <td>{{tag}}</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+            <p class="subtitle">Information</p>
+        <table id="tour-details-table">
+            <tr>
+                <th>Description:</th>
+                <td>{{tour.description}}</td>
+            </tr>
+            <tr>
+                <th>Price:</th>
+                <td>{{tour.price}}</td>
+            </tr>
+            <tr>
+                <th>Status:</th>
+                <td>{{tour.status}}</td>
+            </tr>
+            <tr>
+                <th>Demandigness level:</th>
+                <td>{{tour.demandignessLevel}}</td>
+            </tr>
+            <tr *ngFor="let tt of tour.tourTimes">
+                <th>{{tt.transportation}}</th>
+                <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+            </tr>
+            <tr>
+                <th>Tags:</th>
+                <td>
+                    <table>
+                        <tr *ngFor="let tag of tour.tags">
+                            <td>#{{tag}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
     <br>
     <p class="subtitle">Added equipment</p>
@@ -57,36 +57,43 @@
           
         </table>
     <br>
-    <p class="subtitle">Added checkpoints</p>
-    <table>
-        <tbody>
-            <tr *ngFor="let e of tour.checkpoints">
-                <td class="cpp">
-                    <div class="cardcp">
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
-                            <br>
-                            <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
+    <div class="checkpoint-div">
+    <div>
+        <p class="subtitle">Added checkpoints</p>
+        <table>
+            <tbody>
+                <tr *ngFor="let e of tour.checkpoints">
+                    <td class="cpp">
+                        <div class="cardcp">
+                            <span class="cps1">
+                                <br>
+                                <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
+                                <br>
+                                <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
+                                <br>
+                            </span>
+                            <span class="cps1">
+                                <br>
+                                <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
 
-                            <br>
-                            <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
-                            <br>
-                        </span>
-                    </div>
-                  
-                </td>
-             
-                <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
-            </tr>
-        </tbody>
-  
-</table>
+                                <br>
+                                <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
+                                <br>
+                            </span>
+                        </div>  
+                    </td>
+                    <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+            <div class="managing-transport-div">
+                <p class="subtitle">Choose transportation</p>
+                <select [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
+                    <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
+                </select>
+            </div>
+        </div>
     <div class="mapa">
     <xp-map></xp-map>
     <br>
@@ -103,4 +110,21 @@
         </div>
     </div>
 </div>
-
+<div class="managing-tour-div">
+    <table>
+        <thead class="subtitle">Manage tour</thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button *ngIf="tour.status != 'Published'" class="buttonEdit" (click)="publishTour()" >Publish 🚀</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button *ngIf="tour.status == 'Published'" class="buttonEdit" (click)="archive()">Archive ✏</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

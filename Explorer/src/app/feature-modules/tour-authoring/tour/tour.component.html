@@ -15,10 +15,10 @@
                                <span class="cinfo"> Distance:</span>
                                 <br>
                                 <table>
-                                    <tr *ngFor="let tt in t.tourTimes">
+                                    <tr *ngFor="let tt of t.tourTimes">
                                         <td>{{tt.transportation}}</td>
-                                        <td>{{tt.distance/1000}} km</td>
-                                        <td>{{tt.timeInSeconds/3600}} h</td>
+                                        <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+                                        <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
                                     </tr>
                                 </table>
                             </div>
@@ -40,13 +40,7 @@
                             </div>
                         </div> 
                             <div class="cinfo">
-                                <div class="cttags">{{t.tags}}</div>
-                                <div>
-                                    <button *ngIf="t.status == 'Draft'" color="primary" (click)="publishTour(t)" >publish</button>
-                                </div>                     
-                                <div>
-                                    <button (click)="archive(t)">Archive</button>
-                                </div>
+                                <div *ngIf="t.tags.length > 0" class="cttags">#{{t.tags}}</div>
                             </div>                       
                         </div>
                     </td>

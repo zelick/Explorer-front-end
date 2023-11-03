@@ -17,14 +17,14 @@ export class TourDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
   tour:Tour;
   checkpoints: Array<Checkpoint> = [];
-  profiles: string[] = ['walking', 'cycling', 'driving'];
-  profile: string = this.profiles[0];
   availableEquipment: Equipment[];
   currentEquipmentIds: number[] = [];
   isVisibleEquipment: boolean = false;
   isVisibleAvailableEquipment: boolean = false;
   showButtonText: string = 'Show equipment';
   showAvailableButtonText: string = 'Show available equipment';
+  profiles: string[] = [];
+  profile: string = this.profiles[0];
 
   constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
   tourID:number;
@@ -36,10 +36,15 @@ export class TourDetailsComponent implements OnInit{
     this.service.getCheckpointsByTour(this.tourID).subscribe({
       next: (result: PagedResults<Checkpoint>) => {
         this.checkpoints = result.results;
+        this.profiles = [];
+        this.tour.tourTimes.forEach(e => {
+          this.profiles.push(e.transportation);
+        });
+        this.profile = this.profiles[0];
         if(this.checkpoints != null)
-      { 
-        this.route();
-      } 
+        { 
+          this.route();
+        } 
       }
    });
   })
@@ -61,7 +66,7 @@ export class TourDetailsComponent implements OnInit{
            if(e != this.checkpoints[0])
              coords.push({lat:e.latitude, lon:e.longitude});
        });
-       this.mapComponent.setRoute(coords, 'walking');
+       this.mapComponent.setRoute(coords, this.profile);
   }
 }
   getTour(id: number): void {
@@ -91,4 +96,23 @@ export class TourDetailsComponent implements OnInit{
     this.router.navigate([`tour-form/${this.tourID}`]);
   }
 
+  publishTour(): void{
+    this.service.publishTour(this.tour.id || 0).subscribe({
+      next: (result: Tour) => {
+        this.tour = result;
+      }
+    });
+  }
+
+  archive(): void {
+    this.service.archiveTour(this.tour).subscribe({
+      next: (result: Tour) => {
+        this.tour = result;
+      },
+    })
+  }
+
+  profileChanged($event: any): void{
+    this.route();
+  }
 }
