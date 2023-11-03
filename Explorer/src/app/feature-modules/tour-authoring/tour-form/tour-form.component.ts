@@ -84,7 +84,6 @@ export class TourFormComponent implements OnChanges,OnInit{
       status: "Draft",
       equipment: [],
       checkpoints:[],
-      publishedTours: [],
       tourTimes: []
     };
     this.service.addTour(tour).subscribe(
@@ -127,7 +126,6 @@ export class TourFormComponent implements OnChanges,OnInit{
       status: this.tour.status,
       equipment: this.tour.equipment,
       checkpoints:this.tour.checkpoints,
-      publishedTours: this.tour.publishedTours,
       tourTimes: this.tour.tourTimes
     };
     tour.id = this.tour.id;

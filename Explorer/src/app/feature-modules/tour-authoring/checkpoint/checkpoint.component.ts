@@ -126,7 +126,15 @@ export class CheckpointComponent implements OnInit{
 
     updateTour(): void{
         var tourTime: TourTime = {timeInSeconds: this.time, distance: this.distance, transportation: this.profile};
-        this.tour.tourTimes.push(tourTime);
+        if(this.tour.tourTimes.length == 0)
+          this.tour.tourTimes.push(tourTime);
+
+        this.tour.tourTimes.forEach(e => {
+          if(tourTime.transportation == e.transportation)
+            this.tour.tourTimes[this.tour.tourTimes.indexOf(e)] = tourTime
+          else
+            this.tour.tourTimes.push(tourTime);
+        });
         this.tourTimes = this.tour.tourTimes || [];
         var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes}
         this.service.addTourTransportation(this.tourID, tourTimes).subscribe({
