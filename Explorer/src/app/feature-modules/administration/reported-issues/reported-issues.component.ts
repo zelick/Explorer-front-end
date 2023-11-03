@@ -31,4 +31,16 @@ export class ReportedIssuesComponent implements OnInit{
       }
     })
   }
+  isUnresolvedAndOlderThan5Days(ri: ReportedIssue): boolean {
+    if (ri.resolved) {
+      return false; // Return false for resolved issues
+    }
+    const currentTime = new Date().getTime();
+    const issueTime = new Date(ri.time).getTime();
+    const fiveDaysInMillis = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
+    return currentTime - issueTime > fiveDaysInMillis;
+  }
+  
+  
+  
 }

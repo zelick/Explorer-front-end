@@ -1,3 +1,6 @@
+import { TourIssueComment } from "../../tour-authoring/model/tour-issue-comment";
+import { Tour } from "../../tour-authoring/model/tour.model";
+
 export interface ReportedIssue {
     id?: number;
     category: string;
@@ -6,4 +9,7 @@ export interface ReportedIssue {
     time: Date;
     tourId: number;
     touristId: number;
+    resolved: boolean;
+    tour: Tour;
+    comments: TourIssueComment[];
 }

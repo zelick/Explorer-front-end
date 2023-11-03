@@ -15,15 +15,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ri of reportedIssues">
+                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri)}">
                     <td>{{ri.category}}</td>
                     <td>{{ri.description}}</td>
                     <td>{{ri.priority}}</td>
                     <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
-                    <td>{{ri.tourId}}</td>
+                    <td>{{ri.tour.name}}</td>
                     <td>{{ri.touristId}}</td>
-
                 </tr>
+                           
+                                   
             </tbody>
         </table>
     </div>
