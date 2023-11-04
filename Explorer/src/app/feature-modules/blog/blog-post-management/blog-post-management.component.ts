@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-blog-post-management',
@@ -16,16 +17,21 @@ export class BlogPostManagementComponent implements OnInit {
   selectedBlogPost: BlogPost;
   shouldRenderBlogPostForm: boolean = false;
   shouldEdit: boolean = false;
+  userId: number;
 
-  constructor(private service: BlogService) {
-  }
+  constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      if (user) {
+        this.userId = user.id;
+      }
+    });
     this.getBlogPosts();
   }
 
   getBlogPosts(): void {
-    this.service.getBlogPostsByUser().subscribe({
+    this.service.getBlogPostsByUser(this.userId).subscribe({
       next: (result: PagedResults<BlogPost>) => {
         this.blogPosts = result.results
       },

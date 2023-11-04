@@ -12,11 +12,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 })
 export class BlogService {
   
-  userId: number;
-
-  constructor(private http: HttpClient, private authService: AuthService) { 
-    this.userId = authService.user$.value.id;
-  }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getBlogPosts(page: number, pageSize: number, status?: BlogPostStatus): Observable<PagedResults<BlogPost>> {
     let params = new HttpParams()
@@ -34,8 +30,8 @@ export class BlogService {
     return this.http.get<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`)
   }
 
-  getBlogPostsByUser(): Observable<PagedResults<BlogPost>> {
-    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts/user/${this.userId}`)
+  getBlogPostsByUser(userId: number): Observable<PagedResults<BlogPost>> {
+    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts/user/${userId}`)
   }
 
   addBlogPost(blogPost: BlogPost): Observable<BlogPost> {
