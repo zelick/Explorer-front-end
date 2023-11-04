@@ -14,6 +14,12 @@ import { Tour } from '../tour-authoring/model/tour.model';
   providedIn: 'root'
 })
 export class MarketplaceService {
+  getCheckpointsByTour(tourId: number) {
+      throw new Error('Method not implemented.');
+  }
+  getCheckpoints() {
+      throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) { }
 
   addReportedIssue(reportedIssue: ReportedIssue): Observable<ReportedIssue> {
@@ -87,4 +93,8 @@ export class MarketplaceService {
   getTours(): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(environment.apiHost + 'administration/tour');
   }
+  getCustomersPurchasedTours(id: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'customer/cutomersPurchasedTours/'+ id)
+  }
+
 }

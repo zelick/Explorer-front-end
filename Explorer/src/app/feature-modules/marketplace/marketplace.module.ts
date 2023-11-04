@@ -11,7 +11,7 @@ import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
 import { AllToursComponent } from './all-tours/all-tours.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-
+import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     TourRatingComponent,
     TourRatingFormComponent,
     AllToursComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    PurchasedToursComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +34,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
   ],
   exports:[
     PreferenceFormComponent, 
-    TourRatingFormComponent
+    TourRatingFormComponent,
+    PurchasedToursComponent
   ]
 
 })
