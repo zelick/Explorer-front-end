@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { BlogComment } from './model/blogComment.model';
 import { BlogPost, BlogPostStatus } from './model/blog-post.model';
+import { BlogRating } from './model/blog-rating.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Injectable({
@@ -49,8 +50,12 @@ export class BlogService {
   closeBlog(id: number): Observable<BlogPost> {
     return this.http.patch<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}/close`, null);
   }
+
+  rateBlogPost(id: number, blogRating: BlogRating): Observable<BlogPost> {
+    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}/ratings`, blogRating);
+  }
   
-    addBlogComment(blogComment: BlogComment): Observable<BlogComment> {
+  addBlogComment(blogComment: BlogComment): Observable<BlogComment> {
     return this.http.post<BlogComment>(environment.apiHost + 'blogging/blog-comment/', blogComment);
   }
 
