@@ -7,6 +7,7 @@ import { ReportedIssue } from './model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
 import { Tour } from '../tour-authoring/model/tour.model';
+import { TourPreview } from './model/tour-preview';
 
 @Injectable({
   providedIn: 'root'
@@ -62,11 +63,11 @@ export class MarketplaceService {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 
-  getPublishedTours():Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'tourist/shopping')
+  getPublishedTours():Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
   }
 
-  getPublishedTour(id:number): Observable<Tour> {
-    return this.http.get<Tour>(environment.apiHost + 'tourist/shopping/details/' + id);
+  getPublishedTour(id:number): Observable<TourPreview> {
+    return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
   }
 }

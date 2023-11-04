@@ -1,3 +1,4 @@
+import { TourRating } from "../../marketplace/model/tour-rating.model";
 import { Checkpoint } from "./checkpoint.model";
 import { Equipment } from "./equipment.model";
 import { TourTime } from "./tourTime.model";
@@ -14,4 +15,5 @@ export interface Tour {
     equipment: Equipment[];
     checkpoints: Checkpoint[];
     tourTimes: TourTime[];
+    tourRatings: TourRating[];
 }
