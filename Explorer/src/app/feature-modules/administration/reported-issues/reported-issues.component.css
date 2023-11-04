@@ -70,7 +70,6 @@ tbody tr.active-row {
     margin-right: 20px;
     margin-left: 10px;
     width: 40%;
-    height: 70vh;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -160,7 +159,8 @@ tbody tr.active-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-bottom: 1px;
+    margin-top: 20px;
     font-family: 'Poppins', sans-serif;
   }
   

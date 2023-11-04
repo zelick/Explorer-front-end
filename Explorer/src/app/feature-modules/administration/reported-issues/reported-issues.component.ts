@@ -18,10 +18,12 @@ export class ReportedIssuesComponent implements OnInit{
   reportedIssues: ReportedIssue[] = [];
   selectedReportedIssue: ReportedIssue;
   shouldRenderAllAgain: boolean = false;
+  user:any;
   newCommentString: string='';
   newComment: TourIssueComment;
 
   constructor(private service: AdministrationService, private authservice: AuthService) {
+    this.user = authservice.user$.value;
     this.newComment = {
       creationTime: new Date(),
       creatorId: 0, 
@@ -38,15 +40,40 @@ export class ReportedIssuesComponent implements OnInit{
   }
   
   getReportedIssues(): void{
-    this.service.getReportedIssues().subscribe({
-      next:(result:PagedResults<ReportedIssue>)=>{
-        this.reportedIssues = result.results;
-        this.selectedReportedIssue = this.reportedIssues[0];
-      },
-      error: ()=>{
-
-      }
-    })
+    if(this.user.role==='administrator'){
+      this.service.getReportedIssues().subscribe({
+        next:(result:PagedResults<ReportedIssue>)=>{
+          this.reportedIssues = result.results;
+          this.selectedReportedIssue = this.reportedIssues[0];
+        },
+        error: ()=>{
+  
+        }
+      })
+    }
+    else if(this.user.role==='author'){
+        this.service.getAuthorsReportedIssues(this.user.id).subscribe({
+          next:(result:PagedResults<ReportedIssue>)=>{
+            this.reportedIssues = result.results;
+            this.selectedReportedIssue = this.reportedIssues[0];
+          },
+          error: ()=>{
+    
+          }
+        })
+    }
+    else if(this.user.role==='tourist'){
+        this.service.getTouristsReportedIssues(this.user.id).subscribe({
+          next:(result:PagedResults<ReportedIssue>)=>{
+            this.reportedIssues = result.results;
+            this.selectedReportedIssue = this.reportedIssues[0];
+          },
+          error: ()=>{
+    
+          }
+        })
+    }
+    
   }
   isUnresolvedAndOlderThan5Days(ri: ReportedIssue): boolean {
     if (ri.resolved) {
@@ -61,17 +88,48 @@ export class ReportedIssuesComponent implements OnInit{
   addComment() {
     if (this.selectedReportedIssue && this.selectedReportedIssue.id) {
       if (this.newCommentString.trim() !== '') {
-        this.newComment.creationTime = new Date();
-        this.newComment.creatorId = this.authservice.user$.value.id;
-        this.newComment.text = this.newCommentString;
-        this.service.addCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
-          (result: ReportedIssue) => {
-            this.selectedReportedIssue = result;
-          },
-          (error) => {
-            alert("nista");
-          }
-        );
+        if(this.user.role==='administrator'){
+          this.newComment.creationTime = new Date();
+          this.newComment.creatorId = this.user.id;
+          this.newComment.text = this.newCommentString;
+          this.service.addAdministratorCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
+            (result: ReportedIssue) => {
+              this.selectedReportedIssue = result;
+              this.newCommentString = '';
+            },
+            (error) => {
+              alert("nista");
+            }
+          );
+        }
+        else if(this.user.role==='author'){
+          this.newComment.creationTime = new Date();
+          this.newComment.creatorId = this.user.id;
+          this.newComment.text = this.newCommentString;
+          this.service.addAuthorCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
+            (result: ReportedIssue) => {
+              this.selectedReportedIssue = result;
+              this.newCommentString = '';
+            },
+            (error) => {
+              alert("nista");
+            }
+          );
+        }
+        else if(this.user.role==='tourist'){
+          this.newComment.creationTime = new Date();
+          this.newComment.creatorId = this.user.id;
+          this.newComment.text = this.newCommentString;
+          this.service.addTouristCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
+            (result: ReportedIssue) => {
+              this.selectedReportedIssue = result;
+              this.newCommentString = '';
+            },
+            (error) => {
+              alert("nista");
+            }
+          );
+        }
       } else {
         alert("You can't publish an empty comment.");
       }

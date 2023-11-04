@@ -109,12 +109,27 @@ export class AdministrationService {
   }
   
   getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
-    let nesto = this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
-    return nesto;
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
   }
 
-  addCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+  getAuthorsReportedIssues(id:number): Observable<PagedResults<ReportedIssue>>{
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + `author/reported-issue-response/${id}`);
+  }
+
+  getTouristsReportedIssues(id:number): Observable<PagedResults<ReportedIssue>>{
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + `tourist/reportingIssue/${id}`);
+  }
+
+  addAdministratorCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
     return this.http.post<ReportedIssue>(`https://localhost:44333/api/administration/reportedIssues/comment/${id}`, comment);
+  }
+
+  addTouristCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + `tourist/reportingIssue/comment/${id}`, comment);
+  }
+
+  addAuthorCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + `author/reported-issue-response/response/${id}`, comment);
   }
   
 

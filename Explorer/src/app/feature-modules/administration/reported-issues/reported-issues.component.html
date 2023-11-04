@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri)}" (click)="selectReportedIssue(ri)">
+                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri) && user.role==='administrator'}" (click)="selectReportedIssue(ri)">
                     <td>{{ri.category}}</td>
                     <td>{{ri.priority}}</td>
                     <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
@@ -28,7 +28,7 @@
         </table>
     </div>
     </div>
-    <div class="post">
+    <div *ngIf="reportedIssues && reportedIssues.length > 0" class="post">
         <div style="display: flex; justify-content: space-between;">
             <p class="additionalInfo">{{selectedReportedIssue.tour.name}}</p>
             <p *ngIf="selectedReportedIssue.resolved" class="resolved">Resolved</p>
