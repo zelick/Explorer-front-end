@@ -6,10 +6,15 @@ export interface BlogPost {
     creationDate: Date;
     imageUrls: string[] | null;
     status: BlogPostStatus;
+    username?: string;
+    userFirstName?: string;
+    userLastName?: string;
 }
 
 export enum BlogPostStatus {
     Draft = 'DRAFT',
     Published = 'PUBLISHED',
     Closed = 'CLOSED',
+    Active = 'ACTIVE',
+    Famous = 'FAMOUS',
 }

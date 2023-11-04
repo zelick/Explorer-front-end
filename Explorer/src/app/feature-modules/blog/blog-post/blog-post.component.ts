@@ -1,68 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { BlogService } from '../blog.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { BlogPost } from '../model/blog-post.model';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'xp-blog-post',
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.css']
 })
-
 export class BlogPostComponent implements OnInit {
 
-  public BlogPostStatus = BlogPostStatus;
-  blogPosts: BlogPost[] = [];
-  selectedBlogPost: BlogPost;
-  shouldRenderBlogPostForm: boolean = false;
-  shouldEdit: boolean = false;
+  blogPost: BlogPost;
 
-  constructor(private service: BlogService) {
-  }
+  constructor(private service: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getBlogPosts();
-  }
-
-  getBlogPosts(): void {
-    this.service.getBlogPosts().subscribe({
-      next: (result: PagedResults<BlogPost>) => {
-        this.blogPosts = result.results
-      },
-      error: () => {
-      }
-    })
-  }
-
-  deleteBlogPost(id: number): void {
-    const result = window.confirm('Are you sure you want to delete this blog post?');
-    if (result) {
-      this.service.deleteBlogPost(id).subscribe({
-        next: () => {
-          this.getBlogPosts();
-        },
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = Number(params.get('id'));
+        return this.service.getBlogPost(id); 
       })
-    }
-  }
-
-  onEditClicked(blogPost: BlogPost): void {
-    this.selectedBlogPost = blogPost;
-    this.shouldRenderBlogPostForm = true;
-    this.shouldEdit = true;
-  }
-
-  onAddClicked(): void {
-    this.shouldEdit = false;
-    this.shouldRenderBlogPostForm = true;
-  }
-
-  onCloseClicked(blogPost: BlogPost): void {
-    if (blogPost.id) {
-      this.service.closeBlog(blogPost.id).subscribe({
-        next: () => {
-          this.getBlogPosts();
-        },
-      })
-    }
+    ).subscribe((blogPost: BlogPost) => {
+      this.blogPost = blogPost;
+    });
   }
 }
