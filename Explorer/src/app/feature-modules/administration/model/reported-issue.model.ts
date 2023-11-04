@@ -11,5 +11,7 @@ export interface ReportedIssue {
     touristId: number;
     resolved: boolean;
     tour: Tour;
+    closed?: boolean;
+    deadline?:boolean;
     comments: TourIssueComment[];
 }
