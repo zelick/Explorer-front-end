@@ -29,12 +29,13 @@
     </div>
     </div>
     <div *ngIf="reportedIssues && reportedIssues.length > 0" class="post">
-        <div style="display: flex; justify-content: space-between;">
-            <p class="additionalInfo">{{selectedReportedIssue.tour.name}}</p>
+        <div class="details">
+            <p class="additionalInfo" style="width: 35%;">{{selectedReportedIssue.tour.name}}</p>
             <p *ngIf="selectedReportedIssue.resolved" class="resolved">Resolved</p>
-            <p *ngIf="!selectedReportedIssue.resolved" class="unresolved">Unresolved</p>
-            <p class="additionalInfo">Category: {{selectedReportedIssue.category}}</p>
-        </div>
+            <p *ngIf="!selectedReportedIssue.resolved && user.role!=='tourist'" class="unresolved">Unresolved</p>
+            <button id="resolveButton" *ngIf="!selectedReportedIssue.resolved && user.role==='tourist'" (click)="resolve()">Mark as resolved</button>
+            <p class="additionalInfo" style="width: 35%; text-align: right;">Category: {{selectedReportedIssue.category}}</p>
+        </div>        
         <div class="user-info">
             <div class="user-avatar"></div>
             <div class="user-name">{{selectedReportedIssue.touristId}}</div>

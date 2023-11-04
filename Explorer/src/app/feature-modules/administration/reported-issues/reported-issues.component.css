@@ -181,3 +181,20 @@ tbody tr.active-row {
     cursor: pointer;
   }
   
+  #resolveButton{
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertically within the flex container */
+    }
+

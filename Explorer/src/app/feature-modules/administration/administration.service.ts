@@ -124,6 +124,10 @@ export class AdministrationService {
     return this.http.post<ReportedIssue>(`https://localhost:44333/api/administration/reportedIssues/comment/${id}`, comment);
   }
 
+  resolveReportedIssue(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + `tourist/reportingIssue/resolve/${id}`,null);
+  }
+
   addTouristCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
     return this.http.post<ReportedIssue>(environment.apiHost + `tourist/reportingIssue/comment/${id}`, comment);
   }

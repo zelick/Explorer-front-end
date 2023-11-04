@@ -84,7 +84,18 @@ export class ReportedIssuesComponent implements OnInit{
     const fiveDaysInMillis = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
     return currentTime - issueTime > fiveDaysInMillis;
   }
-  
+  resolve(){
+    if(this.selectedReportedIssue && this.selectedReportedIssue.id)
+    this.service.resolveReportedIssue(this.selectedReportedIssue?.id).subscribe(
+      (result: ReportedIssue) => {
+        this.selectedReportedIssue = result;
+        this.newCommentString = '';
+      },
+      (error) => {
+        alert("nista");
+      }
+    );
+  }
   addComment() {
     if (this.selectedReportedIssue && this.selectedReportedIssue.id) {
       if (this.newCommentString.trim() !== '') {
