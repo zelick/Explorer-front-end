@@ -6,13 +6,12 @@
             <h2>{{ blogPost.title }}</h2>
             <p>Created: {{ blogPost.creationDate | date:'HH:mm dd.MM.yyyy' }}</p>
             <p>Status: <i>{{ blogPost.status }}</i></p>
+            <p>Author: <i>{{ blogPost.username }}</i></p>
             <div>
                 <img *ngFor="let imageUrl of blogPost.imageUrls" [src]="imageUrl" alt="Image"
                     style="max-width: 200px; max-height: 200px;">
             </div>
             <div [innerHTML]="blogPost.description"></div>
-            <!-- Additional fields or content from the blog post -->
-            <!-- For example: {{ blogPost.author }}, {{ blogPost.tags }}, etc. -->
         </div>
     </div>
 </div>

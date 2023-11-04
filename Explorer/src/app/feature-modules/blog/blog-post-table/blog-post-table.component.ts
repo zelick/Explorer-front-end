@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPost } from '../model/blog-post.model';
+import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
@@ -12,7 +12,8 @@ import { PageEvent } from '@angular/material/paginator';
 export class BlogPostTableComponent implements OnInit {
 
   blogPosts: BlogPost[] = [];
-  pageSize = 1;
+  selectedStatus?: BlogPostStatus;
+  pageSize = 5;
   pageIndex = 1;
   totalBlogPosts = 0;
 
@@ -23,7 +24,7 @@ export class BlogPostTableComponent implements OnInit {
   }
 
   loadBlogPosts(): void {
-    this.service.getBlogPosts(this.pageIndex, this.pageSize).subscribe((result) => {
+    this.service.getBlogPosts(this.pageIndex, this.pageSize, this.selectedStatus).subscribe((result) => {
       this.blogPosts = result.results;
       this.totalBlogPosts = result.totalCount;
     });

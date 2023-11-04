@@ -4,7 +4,7 @@ import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { BlogComment } from './model/blogComment.model';
-import { BlogPost } from './model/blog-post.model';
+import { BlogPost, BlogPostStatus } from './model/blog-post.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Injectable({
@@ -18,12 +18,16 @@ export class BlogService {
     this.userId = authService.user$.value.id;
   }
 
-  getBlogPosts(page: number, pageSize: number): Observable<PagedResults<BlogPost>> {
-    const params = new HttpParams()
+  getBlogPosts(page: number, pageSize: number, status?: BlogPostStatus): Observable<PagedResults<BlogPost>> {
+    let params = new HttpParams()
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
-    
-    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts`, { params })
+
+    if (status !== undefined) {
+      params = params.set('status', status.toString());
+    }
+
+    return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts`, { params });
   }
 
   getBlogPost(id: number): Observable<BlogPost> {
