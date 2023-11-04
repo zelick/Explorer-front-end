@@ -5,7 +5,7 @@
             <tr *ngFor="let a of availableProfiles">
                 <td>{{a}}</td>
                 <td>
-                    <button class="button" (click)="onAdd(a)">Add</button>
+                    <button class="button" (click)="onAdd(a)" mat-raised-button>Add ➕</button>
                 </td>
             </tr>
         </tbody>
@@ -17,10 +17,10 @@
             <tr *ngFor="let a of chosenProfiles">
                 <td>{{a}}</td>
                 <td>
-                    <button  class="button" (click)="onDelete(a)">Delete</button>
+                    <button  class="button" (click)="onDelete(a)" mat-raised-button>Delete 🗑️</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button  class="buttonSave" (click)="onSave()">Save changes</button>
+    <button  class="buttonSave" (click)="onSave()" mat-raised-button>Save changes ✔</button>
 </div>

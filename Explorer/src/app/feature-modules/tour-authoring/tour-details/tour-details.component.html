@@ -89,7 +89,7 @@
             </div>
             <div class="managing-transport-div">
                 <p class="subtitle">Choose transportation</p>
-                <select [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
+                <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
                     <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
                 </select>
             </div>
@@ -116,12 +116,12 @@
         <tbody>
             <tr>
                 <td>
-                    <button *ngIf="tour.status != 'Published'" class="buttonEdit" (click)="publishTour()" >Publish 🚀</button>
+                    <button *ngIf="tour.status != 'Published'" mat-raised-button class="buttonEdit" (click)="publishTour()" >Publish 🚀</button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button *ngIf="tour.status == 'Published'" class="buttonEdit" (click)="archive()">Archive ✏</button>
+                    <button *ngIf="tour.status == 'Published'" mat-raised-button class="buttonEdit" (click)="archive()">Archive ✏</button>
                 </td>
             </tr>
         </tbody>

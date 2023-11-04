@@ -1,56 +1,67 @@
 <form [formGroup]="checkpointForm">
-    <div>
+    <div id="checkpoint">
+        <p class="subtitle">Create checkpoint</p>
+        <br>
         <mat-form-field>
-            <label>Name:</label>
+            <mat-label>Name:</mat-label>
             <input matInput type="text" formControlName="name">
         </mat-form-field>
         <mat-form-field>
-            <label>Description:</label>
+            <mat-label>Description:</mat-label>
             <input matInput type="text" formControlName="description">
         </mat-form-field>
-        <br>
-        <mat-form-field>
-            <label>Required time: (hours and minutes)</label>
-            <input matInput type="number" min="0" max="12" step="1" formControlName="hours" required>
-            <input matInput type="number" min="0" max="60" step="5" formControlName="minutes" required>
-        </mat-form-field>
-        <br>
-        <p>Input address or choose on map  </p>
-        <input matInput type="text" formControlName="address">
-        <button (click)="onAddAddressClick()">Add address</button>
-        <br>
-        <br>
-        <xp-map (mapClick)="onMapClick($event)"></xp-map>
-        <br>
-        <mat-form-field>
-            <label>Longitude:</label>
-            <input matInput type="number" formControlName="longitude">
-        </mat-form-field>
-        <mat-form-field>
-            <label>Latitude:</label>
-            <input matInput type="number" formControlName="latitude">
-        </mat-form-field>
-        <form [formGroup]="pictureForm">
+        <mat-label>Required time:</mat-label>
+        <div class="time">
             <mat-form-field>
-                <label>Picture URL:</label>
-                <input matInput type="text" name="picture" formControlName="picture">
-                <br>
+                <mat-label>hours</mat-label>
+                <input matInput type="number" min="0" step="1" formControlName="hours">
             </mat-form-field>
-            <button (click)="addPicture()">Add picture</button>
+            <mat-form-field>
+                <mat-label>minutes</mat-label>
+                <input matInput type="number" min="0" max="60" step="5" formControlName="minutes">
+            </mat-form-field>
+        </div>
+        <p>Input address or choose on map:</p>
+        <div class="address">
+            <mat-label>Address:     </mat-label>
+            <input matInput type="text" formControlName="address" class="adress-input">
+            <button class="buttonPlus" (click)="onAddAddressClick()" mat-raised-button>✔</button>
+        </div>
+        <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        <div class="location">
+            <mat-form-field>
+                <mat-label>Longitude:</mat-label>
+                <input matInput type="number" formControlName="longitude">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Latitude:</mat-label>
+                <input matInput type="number" formControlName="latitude">
+            </mat-form-field>
+        </div>
+        <form [formGroup]="pictureForm">
+            <div class="address">
+                <mat-form-field>
+                    <mat-label>Picture URL:  </mat-label>
+                    <input matInput type="text" name="picture" formControlName="picture">
+                </mat-form-field>
+                <button mat-raised-button class="buttonPlus" (click)="addPicture()">+</button>
+            </div>
         </form>
-        
-        <button *ngIf="!shouldEdit" (click)="addCheckpoint()">Add checkpoint</button>
-        <button *ngIf="shouldEdit" (click)="updateCheckpoint()">Update</button>
-        <br>
-        <p>Pictures:</p>
+        <p *ngIf="pictures.length > 0">Pictures preview:</p>
                 <table>
                     <tr *ngFor="let p of pictures; index as i">
                         <td><img [src]="p" alt="Checkpoint picture" width="200" height="150"></td>
                         <td>
-                            <button (click)="deletePicture(i)">DELETE</button>
+                            <button mat-raised-button class="buttonPlus" (click)="deletePicture(i)">-</button>
                         </td>
                     </tr>
                 </table>
+    </div>
+    <div class="routingButton">
+        <button (click)="onBack()" class="button" mat-raised-button>Back</button>
+        <button *ngIf="!shouldEdit" class="button" (click)="addCheckpoint()" mat-raised-button>Add checkpoint</button>
+        <button *ngIf="shouldEdit" class="button" (click)="updateCheckpoint()" mat-raised-button>Update</button>
+
     </div>
 </form>
         
