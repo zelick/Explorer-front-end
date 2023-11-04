@@ -1,13 +1,13 @@
 <div id="reported-issues">
     <p>Reported issues</p>
     <hr>
+    <div id="content">
     <div id="reported-issues-details">
     <div>
         <table>
             <thead>
                 <tr>
                     <th>Category</th>
-                    <th>Description</th>
                     <th>Priority</th>
                     <th>Time</th>
                     <th>Tour</th>
@@ -15,9 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri)}">
+                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri)}" (click)="selectReportedIssue(ri)">
                     <td>{{ri.category}}</td>
-                    <td>{{ri.description}}</td>
                     <td>{{ri.priority}}</td>
                     <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
                     <td>{{ri.tour.name}}</td>
@@ -27,6 +26,43 @@
                                    
             </tbody>
         </table>
+    </div>
+    </div>
+    <div class="post">
+        <div style="display: flex; justify-content: space-between;">
+            <p class="additionalInfo">{{selectedReportedIssue.tour.name}}</p>
+            <p *ngIf="selectedReportedIssue.resolved" class="resolved">Resolved</p>
+            <p *ngIf="!selectedReportedIssue.resolved" class="unresolved">Unresolved</p>
+            <p class="additionalInfo">Category: {{selectedReportedIssue.category}}</p>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar"></div>
+            <div class="user-name">{{selectedReportedIssue.touristId}}</div>
+        </div>
+        <div class="post-content">
+            {{selectedReportedIssue.description}}
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <p class="additionalInfo">{{ selectedReportedIssue.time | date: 'HH:mm, dd.MM.yyyy' }}</p>
+            <p class="additionalInfo">Priority: {{selectedReportedIssue.priority}}</p>
+        </div>
+        <div class="comments">
+            <div *ngFor="let ri of selectedReportedIssue.comments" class="comment">
+                <div class="comment-user-info">
+                    <div class="comment-avatar"></div>
+                    <div class="comment-name">{{ri.creatorId}}</div>
+                </div>
+                <div class="comment-content">
+                    {{ri.text}}
+                </div>
+                <p class="additionalInfo" style="text-align:right; margin-right: 5px;">{{ ri.creationTime | date: 'HH:mm, dd.MM.yyyy' }}</p>
+            </div>
+        </div>
+        <div class="comment-input">
+            <input type="text" placeholder="Enter your comment" [(ngModel)]="newCommentString" />
+            <button (click)="addComment()">Add Comment</button>
+        </div>
+          
     </div>
     </div>
 </div>

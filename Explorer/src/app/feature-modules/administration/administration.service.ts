@@ -12,6 +12,7 @@ import { ReportedIssue } from './model/reported-issue.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
+import { TourIssueComment } from '../tour-authoring/model/tour-issue-comment';
 
 @Injectable({
   providedIn: 'root'
@@ -108,8 +109,14 @@ export class AdministrationService {
   }
   
   getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
-    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
+    let nesto = this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
+    return nesto;
   }
+
+  addCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(`https://localhost:44333/api/administration/reportedIssues/comment/${id}`, comment);
+  }
+  
 
   getUsersForClub(id: number): Observable<Club> {
     return this.http.get<Club>('https://localhost:44333/api/club/' + id);

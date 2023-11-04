@@ -13,6 +13,7 @@ import { AccountsManagementComponent } from './accounts/accounts-management/acco
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     EquipmentComponent,
