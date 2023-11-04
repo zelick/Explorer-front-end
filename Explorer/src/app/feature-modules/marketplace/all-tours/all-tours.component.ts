@@ -15,7 +15,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class AllToursComponent implements OnInit{
   tours: Tour[] = [];
-  user: User;
+  user: User; //ulogovan 
   id:number;
   
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
@@ -41,30 +41,26 @@ export class AllToursComponent implements OnInit{
       price: t.price,
     };
 
-    this.service.addOrderItem(orderItem).subscribe({
-      next: (result: OrderItem) => {
-        this.addItemToCart(orderItem, t);
-      },
-      error: () => {
-      }
-    })
+    this.addItemToCart(orderItem, t);  
   }
 
   addItemToCart(orderItem: OrderItem, tour: Tour): void{
     this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
       if (cartExists) {
-        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => {
+        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => { 
           shoppingCart.items.push(orderItem);
+          console.log(shoppingCart);
+          shoppingCart.price = shoppingCart.price + orderItem.price;
           this.service.updateShoppingCart(shoppingCart).subscribe(() => {
           });
         });
       } else {
         const newShoppingCart: ShoppingCart = {
           touristId: this.user.id,
-          price: orderItem.price,
-          items: [orderItem],
+          price: orderItem.price, 
+          items: [orderItem], 
         };
-        this.service.addShoppingCart(newShoppingCart).subscribe(() => {
+        this.service.addShoppingCart(newShoppingCart).subscribe(() => { 
         });
       }
     });

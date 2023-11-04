@@ -81,7 +81,7 @@ export class MarketplaceService {
   }
 
   updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
-    return this.http.put<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart', shoppingCart);
+    return this.http.put<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/' + shoppingCart.id, shoppingCart);
   }
 
   getTours(): Observable<PagedResults<Tour>> {
