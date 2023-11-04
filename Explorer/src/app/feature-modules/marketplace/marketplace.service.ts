@@ -9,6 +9,7 @@ import { TourRating } from './model/tour-rating.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 import { Tour } from '../tour-authoring/model/tour.model';
+import { Customer } from './model/customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +96,10 @@ export class MarketplaceService {
   }
   getCustomersPurchasedTours(id: number): Observable<Tour[]> {
     return this.http.get<Tour[]>(environment.apiHost + 'customer/cutomersPurchasedTours/'+ id)
+  }
+
+  createCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(environment.apiHost + 'customer/create', customer);
   }
 
 }

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Customer } from '../model/customer.model';
 
 @Component({
   selector: 'xp-all-tours',
@@ -60,7 +61,16 @@ export class AllToursComponent implements OnInit{
           price: orderItem.price, 
           items: [orderItem], 
         };
-        this.service.addShoppingCart(newShoppingCart).subscribe(() => { 
+        this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => { 
+
+          const newCustomer: Customer = {
+              touristId: this.user.id,
+              purchaseTokens: [],
+              shoppingCartId: createdShoppingCart.id || 0
+          };
+          this.service.createCustomer(newCustomer).subscribe(() => { 
+          });
+
         });
       }
     });

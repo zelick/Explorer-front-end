@@ -4,4 +4,5 @@ export interface Customer {
     id?: number;
     touristId: number;
     purchaseTokens: TourPurchaseToken[];
+    shoppingCartId: number;
 }
