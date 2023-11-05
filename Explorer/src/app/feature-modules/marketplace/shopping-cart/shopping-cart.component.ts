@@ -17,6 +17,7 @@ export class ShoppingCartComponent implements OnInit{
   cart: ShoppingCart;
   user: User;
   orderItems: OrderItem[] = [];
+  cartItemCount : number;
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -33,4 +34,38 @@ export class ShoppingCartComponent implements OnInit{
       })
     });
   }
+
+  checkout() {
+    console.log('Checkout izvršen!');
+    
+    if (this.user && this.user.id !== undefined) {
+      this.service.shoppingCartCheckOut(this.user.id).subscribe(
+        () => {
+          console.log('Uspešno završena kupovina');
+  
+          if (this.cart && this.cart.id !== undefined) {
+            this.service.deleteOrderItems(this.cart.id).subscribe(
+              () => {
+                console.log('Sve stavke su uspešno obrisane iz korpe');
+                this.orderItems = [];
+                this.cart.price = 0;
+                this.cartItemCount = this.orderItems.length; //
+              },
+              (deleteOrderItemsError) => {
+                console.error('Greška prilikom brisanja stavki iz korpe:', deleteOrderItemsError);
+              }
+            );
+          } else {
+            console.error('Nemoguće pristupiti cart.id - nije definisano ili ima vrednost undefined.');
+          }
+        },
+        (error) => {
+          console.error('Greška prilikom završavanja kupovine:', error);
+        }
+      );
+    } else {
+      console.error('Nemoguće pristupiti user.id - nije definisano ili ima vrednost undefined.');
+    }
+  }
+
 }

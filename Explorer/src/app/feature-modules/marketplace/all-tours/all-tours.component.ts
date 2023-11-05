@@ -18,6 +18,7 @@ export class AllToursComponent implements OnInit{
   tours: Tour[] = [];
   user: User; //ulogovan 
   id:number;
+  cartItemCount: number;
   
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -48,11 +49,14 @@ export class AllToursComponent implements OnInit{
   addItemToCart(orderItem: OrderItem, tour: Tour): void{
     this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
       if (cartExists) {
-        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => { 
-          shoppingCart.items.push(orderItem);
+        this.service.getShoppingCart(this.user.id).subscribe((shoppingCart) => { 
+          //shoppingCart.items.push(orderItem);
+          this.cartItemCount = shoppingCart.items.length; 
           console.log(shoppingCart);
           shoppingCart.price = shoppingCart.price + orderItem.price;
           this.service.updateShoppingCart(shoppingCart).subscribe(() => {
+            this.cartItemCount = shoppingCart.items.length; 
+            //location.reload();
           });
         });
       } else {
@@ -70,6 +74,8 @@ export class AllToursComponent implements OnInit{
           };
           this.service.createCustomer(newCustomer).subscribe(() => { 
           });
+
+          this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu
 
         });
       }

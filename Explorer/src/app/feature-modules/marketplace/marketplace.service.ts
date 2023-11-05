@@ -102,4 +102,12 @@ export class MarketplaceService {
     return this.http.post<Customer>(environment.apiHost + 'customer/create', customer);
   }
 
+  shoppingCartCheckOut(id: number): Observable<Customer> {
+    return this.http.put<Customer>(environment.apiHost + 'customer/' + id, {});
+  }
+
+  deleteOrderItems(id: number): Observable<ShoppingCart> {
+    return this.http.delete<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/deleteOrderItems/' + id);
+  }
+
 }
