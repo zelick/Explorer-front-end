@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { DatePipe } from '@angular/common';
 import { TourIssueComment } from '../../tour-authoring/model/tour-issue-comment';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 
 @Component({
@@ -21,8 +22,10 @@ export class ReportedIssuesComponent implements OnInit{
   user:any;
   newCommentString: string='';
   newComment: TourIssueComment;
+  addDeadlineClicked = false;
+  selectedDateStr: string;
 
-  constructor(private service: AdministrationService, private authservice: AuthService) {
+  constructor(private service: AdministrationService, private authservice: AuthService, private datePipe: DatePipe) {
     this.user = authservice.user$.value;
     this.newComment = {
       creationTime: new Date(),
@@ -30,8 +33,60 @@ export class ReportedIssuesComponent implements OnInit{
       text: ''
     };
   }
-  
 
+  isTourClosed(tour: Tour){
+    return tour.closed;
+  }
+
+  addDeadline(issue: ReportedIssue, dateStr: string) {
+    if (issue && issue.id && dateStr) {
+      const date = new Date(dateStr);
+      this.service.addDeadline(issue.id, date).subscribe(
+        (result: ReportedIssue) => {
+          this.selectedReportedIssue = result;
+          this.addDeadlineClicked = false;
+          this.selectedDateStr = '';
+          this.getReportedIssues();
+        },
+        (error) => {
+          alert('Failed to add a deadline.');
+        }
+      );
+    }
+  }
+  
+  
+  
+  penalize(id: number) {
+    const confirmBlock = window.confirm("Are you sure you want to penalize this tour?");
+      if (confirmBlock) {
+      this.service.penalize(id).subscribe(
+        (result: ReportedIssue) => {
+          console.log('Penalize success:', result);
+          this.getReportedIssues();
+        },
+        (error) => {
+          console.error('Failed to penalize:', error);
+        }
+      );
+    }
+  }
+
+  closeReportedIssue(id: number) {
+    const confirmBlock = window.confirm("Are you sure you want to close this issue?");
+      if (confirmBlock) {
+      this.service.closeReportedIssue(id).subscribe(
+        (result: ReportedIssue) => {
+          console.log('Closing issue success:', result);
+          this.getReportedIssues();
+        },
+        (error) => {
+          console.error('Failed to close the issue:', error);
+        }
+      );
+    }
+  }
+  
   ngOnInit(): void{
     this.getReportedIssues();
   }

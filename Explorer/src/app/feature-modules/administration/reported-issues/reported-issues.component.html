@@ -6,31 +6,50 @@
     <div>
         <table>
             <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Priority</th>
-                    <th>Time</th>
-                    <th>Tour</th>
-                    <th>Tourist</th>
-                </tr>
+              <tr>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Time</th>
+                <th>Tour</th>
+                <th>Tourist</th>
+                <th>Deadline</th>
+                <th>Penalize</th>
+                <th>Close reported issue</th>
+              </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri) && user.role==='administrator'}" (click)="selectReportedIssue(ri)">
-                    <td>{{ri.category}}</td>
-                    <td>{{ri.priority}}</td>
-                    <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
-                    <td>{{ri.tour?.name}}</td>
-                    <td>{{ri.touristId}}</td>
-                </tr>
-                           
-                                   
+              <tr *ngFor="let ri of reportedIssues" [ngClass]="{'red-row': isUnresolvedAndOlderThan5Days(ri) && user.role==='administrator'}" (click)="selectReportedIssue(ri)">
+                <td>{{ri.category}}</td>
+                <td>{{ri.priority}}</td>
+                <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
+                <td>{{ri.tour.name}}</td>
+                <td>{{ri.touristId}}</td>
+                <td>
+                  <button *ngIf="!ri.deadline" (click)="addDeadlineClicked = !addDeadlineClicked; selectedReportedIssue = ri">Add Deadline</button>
+                  <input type="date" *ngIf="addDeadlineClicked && selectedReportedIssue === ri" [(ngModel)]="selectedDateStr">
+                  <span *ngIf="ri.deadline">Deadline: {{ ri.deadline | date: 'MM/dd/yyyy' }}</span>
+                  <button *ngIf="addDeadlineClicked && selectedReportedIssue === ri" (click)="addDeadline(selectedReportedIssue, selectedDateStr)">Save</button>
+                </td>
+                <td>
+                    <ng-container *ngIf="!isTourClosed(ri.tour); else closedTourText">
+                      <button (click)="penalize(ri.id)">Penalize</button>
+                    </ng-container>
+                    <ng-template #closedTourText>Penalized</ng-template>
+                </td>  
+                <td>
+                    <ng-container *ngIf="!ri.closed; else closedText">
+                      <button (click)="closeReportedIssue(ri.id)">Close</button>
+                    </ng-container>
+                    <ng-template #closedText>Closed</ng-template>
+                </td>                  
+              </tr>
             </tbody>
-        </table>
+          </table>
     </div>
     </div>
     <div *ngIf="reportedIssues && reportedIssues.length > 0" class="post">
         <div class="details">
-            <p class="additionalInfo" style="width: 35%;">{{selectedReportedIssue.tour?.name}}</p>
+            <p class="additionalInfo" style="width: 35%;">{{selectedReportedIssue.tour.name}}</p>
             <p *ngIf="selectedReportedIssue.resolved" class="resolved">Resolved</p>
             <p *ngIf="!selectedReportedIssue.resolved && user.role!=='tourist'" class="unresolved">Unresolved</p>
             <button id="resolveButton" *ngIf="!selectedReportedIssue.resolved && user.role==='tourist'" (click)="resolve()">Mark as resolved</button>
@@ -63,7 +82,6 @@
             <input type="text" placeholder="Enter your comment" [(ngModel)]="newCommentString" />
             <button (click)="addComment()">Add Comment</button>
         </div>
-          
     </div>
     </div>
 </div>

@@ -2,7 +2,7 @@ import { TourIssueComment } from "../../tour-authoring/model/tour-issue-comment"
 import { Tour } from "../../tour-authoring/model/tour.model";
 
 export interface ReportedIssue {
-    id?: number;
+    id: number;
     category: string;
     description: string;
     priority: number;
@@ -10,8 +10,8 @@ export interface ReportedIssue {
     tourId: number;
     touristId: number;
     resolved: boolean;
-    tour?: Tour|null;
+    tour: Tour;
     closed?: boolean;
-    deadline?:Date;
-    comments?: TourIssueComment[];
+    deadline?: Date;
+    comments: TourIssueComment[];
 }
