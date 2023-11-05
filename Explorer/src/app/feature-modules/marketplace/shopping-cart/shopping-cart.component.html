@@ -2,39 +2,25 @@
     <br>
     <br>
     <br>
-    <p>Order items</p>
-    <hr>
+    <div class="tours-heading">My shopping cart</div>
     <div id="tour-details">
     <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tour name</th>
-                    <th>Tour price</th>
-                    <th>Quantity</th>
-                    <th>Remove item</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of orderItems">
-                    <td>{{i.tourId}}</td>
-                    <td>{{i.price}}</td>
-                    <td>
-                        <div class="quantity-control">
-                            <button  class="qty qty-minus" (click)="decreaseQuantity(i)">-</button>
-                            <input type="numeric" [(ngModel)]="i.quantity" class="numeric-input" />
-                            <button  class="qty qty-plus" (click)="increaseQuantity(i)">+</button>
-                        </div>
-                    </td>
-                    <td>
-                        <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table><br>
-        <p>Total price: {{cart.price}}</p>
+        <div class="tour-card" *ngFor="let i of orderItems">
+            <div class="tour-info">
+                <p> IME TURE, {{i.price}} eur</p>
+                <div>
+                    <button  class="qty qty-minus" (click)="decreaseQuantity(i)">-</button>
+                    <input type="numeric" [(ngModel)]="i.quantity" class="numeric-input" />
+                    <button  class="qty qty-plus" (click)="increaseQuantity(i)">+</button>
+                    <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="quantity-control"> 
+            </div>
+        </div>
+        <div class="tours-heading">Total price: {{cart.price}}</div>
     </div>
     </div>
 </div>
