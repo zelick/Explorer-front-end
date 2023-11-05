@@ -49,7 +49,7 @@ export class BlogPostComponent implements OnInit {
   
       this.service.rateBlogPost(this.blogPost.id, rating).subscribe({
         next: () => {
-          this.upvoted = true;
+          this.upvoted = !this.upvoted;
           this.downvoted = false;
           this.getBlogPost();
         }
@@ -63,11 +63,11 @@ export class BlogPostComponent implements OnInit {
         userId: this.userId,
         rating: Rating.Downvote,
       };
-
+  
       this.service.rateBlogPost(this.blogPost.id, rating).subscribe({
         next: () => {
           this.upvoted = false;
-          this.downvoted = true;
+          this.downvoted = !this.downvoted;
           this.getBlogPost();
         }
       });
