@@ -33,4 +33,19 @@ export class ShoppingCartComponent implements OnInit{
       })
     });
   }
+
+  removeShopppingCartItem(tourId: number): void{
+    this.orderItems = this.orderItems.filter(item => item.tourId !== tourId);
+    this.cart.items = this.orderItems
+    this.cart.price = this.calculateTotalPrice();
+    this.service.updateShoppingCart(this.cart).subscribe(() => {});
+  };
+
+  calculateTotalPrice(): number {
+    let totalPrice = 0;
+    for (const item of this.cart.items) {
+      totalPrice += item.price;
+    }
+    return totalPrice;
+  }
 }

@@ -19,6 +19,9 @@
                     <td>{{i.tourName}}</td>
                     <td>{{i.price}}</td>
                     <td>
+                        <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>

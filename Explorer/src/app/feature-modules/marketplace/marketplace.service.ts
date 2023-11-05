@@ -101,5 +101,4 @@ export class MarketplaceService {
   createCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(environment.apiHost + 'customer/create', customer);
   }
-
 }
