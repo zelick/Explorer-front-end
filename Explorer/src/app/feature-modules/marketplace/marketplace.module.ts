@@ -10,29 +10,33 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
 import { SimulatorComponent } from './simulator/simulator.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
 
 
 @NgModule({
-  declarations: [
-    ReportingIssueComponent,
-    PreferenceComponent,
-    PreferenceFormComponent,
-    TourRatingComponent,
-    TourRatingFormComponent,
-    SimulatorComponent
-  ],
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule
-  ],
-  exports:[
-    PreferenceFormComponent, 
-    TourRatingFormComponent
-  ]
-
+    declarations: [
+        ReportingIssueComponent,
+        PreferenceComponent,
+        PreferenceFormComponent,
+        TourRatingComponent,
+        TourRatingFormComponent,
+        SimulatorComponent
+    ],
+    exports: [
+        PreferenceFormComponent,
+        TourRatingFormComponent,
+        SimulatorComponent
+    ],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        SharedModule,
+        TourAuthoringModule
+    ]
 })
 export class MarketplaceModule { }
