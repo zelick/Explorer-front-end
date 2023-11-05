@@ -45,12 +45,13 @@ export class ShoppingCartComponent implements OnInit{
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.cart.items) {
-      totalPrice += item.price * item.quantity;
+     // totalPrice += item.price * item.quantity;
+      totalPrice += item.price;
     }
     return totalPrice;
   }
 
-  increaseQuantity(item: OrderItem): void {
+/*  increaseQuantity(item: OrderItem): void {
     item.quantity++; 
     this.cart.price = this.calculateTotalPrice();
   }
@@ -61,5 +62,5 @@ export class ShoppingCartComponent implements OnInit{
       this.cart.price = this.calculateTotalPrice();
       //this.service.updateShoppingCart(this.cart).subscribe(() => {});           //treba mi ?
     }
-  }
+  }*/
 }

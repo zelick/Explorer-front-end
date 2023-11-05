@@ -65,7 +65,7 @@ tbody tr.active-row {
 
 /*Kolicina u korpi*/
 /* Stilizacija za elemente za promenu količine */
-.quantity-control {
+/*.quantity-control {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,7 +103,7 @@ tbody tr.active-row {
     text-align: center;
     width: 3em;
   }
-  
+  */
 .tours-heading{
     justify-content: left;
     font-size: 36px;

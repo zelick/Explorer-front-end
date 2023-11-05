@@ -9,9 +9,6 @@
             <div class="tour-info">
                 <p> IME TURE, {{i.price}} eur</p>
                 <div>
-                    <button  class="qty qty-minus" (click)="decreaseQuantity(i)">-</button>
-                    <input type="numeric" [(ngModel)]="i.quantity" class="numeric-input" />
-                    <button  class="qty qty-plus" (click)="increaseQuantity(i)">+</button>
                     <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>

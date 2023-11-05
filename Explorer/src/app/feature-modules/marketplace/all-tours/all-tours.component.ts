@@ -40,7 +40,7 @@ export class AllToursComponent implements OnInit{
       tourId: t.id || 0,
       tourName: t.name,
       price: t.price,
-      quantity: 1 //podesiti 
+     // quantity: 1 //podesiti 
     };
 
     this.addItemToCart(orderItem, t);  
