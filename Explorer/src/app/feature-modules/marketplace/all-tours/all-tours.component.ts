@@ -41,6 +41,7 @@ export class AllToursComponent implements OnInit{
       tourId: t.id || 0,
       tourName: t.name,
       price: t.price,
+     // quantity: 1 //podesiti 
     };
 
     this.addItemToCart(orderItem, t);  
@@ -53,13 +54,17 @@ export class AllToursComponent implements OnInit{
           //shoppingCart.items.push(orderItem);
           this.cartItemCount = shoppingCart.items.length; 
           console.log(shoppingCart);
+        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => { 
+          shoppingCart.items.push(orderItem);
+          //console.log(shoppingCart);
           shoppingCart.price = shoppingCart.price + orderItem.price;
           this.service.updateShoppingCart(shoppingCart).subscribe(() => {
             this.cartItemCount = shoppingCart.items.length; 
             //location.reload();
           });
         });
-      } else {
+      } 
+      else {
         const newShoppingCart: ShoppingCart = {
           touristId: this.user.id,
           price: orderItem.price, 
