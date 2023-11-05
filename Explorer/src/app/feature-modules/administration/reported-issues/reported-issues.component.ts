@@ -45,11 +45,8 @@ export class ReportedIssuesComponent implements OnInit{
       this.service.addDeadline(this.selectedReportedIssue.id, date).subscribe(
         (result: ReportedIssue) => {
           this.selectedDateStr = '';
-          this.getReportedIssues();
-          for(const issue of this.reportedIssues){
-            if(result.id===issue.id)
-              this.selectedReportedIssue = issue;
-          }
+          this.selectedReportedIssue = result;
+          this.update();
         },
         (error) => {
           alert('Failed to add a deadline.');
@@ -69,8 +66,8 @@ export class ReportedIssuesComponent implements OnInit{
       if (confirmBlock) {
       this.service.penalize(id).subscribe(
         (result: ReportedIssue) => {
-          console.log('Penalize success:', result);
-          this.getReportedIssues();
+          this.selectedReportedIssue = result;
+          this.update();
         },
         (error) => {
           console.error('Failed to penalize:', error);
@@ -84,8 +81,8 @@ export class ReportedIssuesComponent implements OnInit{
       if (confirmBlock) {
       this.service.closeReportedIssue(id).subscribe(
         (result: ReportedIssue) => {
-          console.log('Closing issue success:', result);
-          this.getReportedIssues();
+          this.selectedReportedIssue = result;
+          this.update();
         },
         (error) => {
           console.error('Failed to close the issue:', error);
@@ -93,10 +90,22 @@ export class ReportedIssuesComponent implements OnInit{
       );
     }
   }
+
+  update():void{
+    let index = -1;
+    for(let i=0; i<this.reportedIssues.length; i++){
+      if(this.reportedIssues[i].id==this.selectedReportedIssue.id) {
+        index = i;
+        break;
+      }
+    }
+    this.reportedIssues[index] = this.selectedReportedIssue;
+  }
   
   ngOnInit(): void{
     this.getReportedIssues();
   }
+
   selectReportedIssue(issue: any): void {
     let i = 0
     for(const iss of this.reportedIssues){
@@ -112,7 +121,7 @@ export class ReportedIssuesComponent implements OnInit{
         next:(result:PagedResults<ReportedIssue>)=>{
           this.reportedIssues = result.results;
           this.reportedIssues.sort((a, b) => a.id - b.id);
-          this.selectedReportedIssue = this.reportedIssues[this.lastLooked];
+          this.selectedReportedIssue = this.reportedIssues[0];
         },
         error: ()=>{
   
@@ -123,6 +132,7 @@ export class ReportedIssuesComponent implements OnInit{
         this.service.getAuthorsReportedIssues(this.user.id).subscribe({
           next:(result:PagedResults<ReportedIssue>)=>{
             this.reportedIssues = result.results;
+            this.reportedIssues.sort((a, b) => a.id - b.id);
             this.selectedReportedIssue = this.reportedIssues[0];
           },
           error: ()=>{
@@ -134,6 +144,7 @@ export class ReportedIssuesComponent implements OnInit{
         this.service.getTouristsReportedIssues(this.user.id).subscribe({
           next:(result:PagedResults<ReportedIssue>)=>{
             this.reportedIssues = result.results;
+            this.reportedIssues.sort((a, b) => a.id - b.id);
             this.selectedReportedIssue = this.reportedIssues[0];
           },
           error: ()=>{
@@ -157,6 +168,7 @@ export class ReportedIssuesComponent implements OnInit{
     this.service.resolveReportedIssue(this.selectedReportedIssue?.id).subscribe(
       (result: ReportedIssue) => {
         this.selectedReportedIssue = result;
+        this.update();
         this.newCommentString = '';
       },
       (error) => {
@@ -178,6 +190,7 @@ export class ReportedIssuesComponent implements OnInit{
           this.service.addAdministratorCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
             (result: ReportedIssue) => {
               this.selectedReportedIssue = result;
+              this.update();
               this.newCommentString = '';
             },
             (error) => {
@@ -192,6 +205,7 @@ export class ReportedIssuesComponent implements OnInit{
           this.service.addAuthorCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
             (result: ReportedIssue) => {
               this.selectedReportedIssue = result;
+              this.update();
               this.newCommentString = '';
             },
             (error) => {
@@ -206,6 +220,7 @@ export class ReportedIssuesComponent implements OnInit{
           this.service.addTouristCommentOnReportedIssue(this.selectedReportedIssue?.id, this.newComment).subscribe(
             (result: ReportedIssue) => {
               this.selectedReportedIssue = result;
+              this.update();
               this.newCommentString = '';
             },
             (error) => {
