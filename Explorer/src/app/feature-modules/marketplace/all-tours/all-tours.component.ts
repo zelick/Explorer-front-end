@@ -14,13 +14,13 @@ import { Customer } from '../model/customer.model';
   templateUrl: './all-tours.component.html',
   styleUrls: ['./all-tours.component.css']
 })
-export class AllToursComponent implements OnInit{
+export class AllToursComponent implements OnInit {
   tours: Tour[] = [];
-  user: User; //ulogovan 
-  id:number;
+  user: User; // ulogovan 
+  id: number;
   cartItemCount: number;
-  
-  constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
+
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -31,53 +31,53 @@ export class AllToursComponent implements OnInit{
       next: (result: PagedResults<Tour>) => {
         this.tours = result.results;
         console.log(this.tours);
-    },
-    })
+      },
+    });
   }
-  
 
-  addToCart(t: Tour): void{
+  addToCart(t: Tour): void {
     const orderItem: OrderItem = {
       tourId: t.id || 0,
       tourName: t.name,
       price: t.price,
-     // quantity: 1 //podesiti 
+      // quantity: 1 // podesiti 
     };
 
-    this.addItemToCart(orderItem, t);  
+    this.addItemToCart(orderItem, t);
   }
 
-  addItemToCart(orderItem: OrderItem, tour: Tour): void{
+  addItemToCart(orderItem: OrderItem, tour: Tour): void {
     this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
       if (cartExists) {
-        this.service.getShoppingCart(this.user.id).subscribe((shoppingCart) => { 
-          //shoppingCart.items.push(orderItem);
-          this.cartItemCount = shoppingCart.items.length; 
+        this.service.getShoppingCart(this.user.id).subscribe((shoppingCart) => {
+          // shoppingCart.items.push(orderItem);
+          this.cartItemCount = shoppingCart.items.length;
           console.log(shoppingCart);
-        this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => { 
-          shoppingCart.items.push(orderItem);
-          //console.log(shoppingCart);
-          shoppingCart.price = shoppingCart.price + orderItem.price;
-          this.service.updateShoppingCart(shoppingCart).subscribe(() => {
-            this.cartItemCount = shoppingCart.items.length; 
-            //location.reload();
+          this.service.getShoppingCart(tour.authorId).subscribe((tourShoppingCart) => {
+            tourShoppingCart.items.push(orderItem);
+            // console.log(shoppingCart);
+            tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
+            this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
+              this.cartItemCount = tourShoppingCart.items.length;
+              // location.reload();
+            });
           });
         });
-      } 
-      else {
+      } else {
         const newShoppingCart: ShoppingCart = {
           touristId: this.user.id,
-          price: orderItem.price, 
-          items: [orderItem], 
+          price: orderItem.price,
+          items: [orderItem],
         };
-        this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => { 
+        this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => {
 
           const newCustomer: Customer = {
-              touristId: this.user.id,
-              purchaseTokens: [],
-              shoppingCartId: createdShoppingCart.id || 0
+            touristId: this.user.id,
+            purchaseTokens: [],
+            shoppingCartId: createdShoppingCart.id || 0
           };
-          this.service.createCustomer(newCustomer).subscribe(() => { 
+          this.service.createCustomer(newCustomer).subscribe(() => {
+
           });
 
           this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu

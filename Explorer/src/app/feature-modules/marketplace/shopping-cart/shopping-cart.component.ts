@@ -69,8 +69,6 @@ export class ShoppingCartComponent implements OnInit{
     }
   }
 
-}
-
   removeShopppingCartItem(tourId: number): void{
     this.orderItems = this.orderItems.filter(item => item.tourId !== tourId);
     this.cart.items = this.orderItems
