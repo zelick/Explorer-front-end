@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { ReportedIssue } from './model/reported-issue.model';
+import { ReportedIssue } from '../administration/model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
 
@@ -13,8 +13,8 @@ import { TourRating } from './model/tour-rating.model';
 export class MarketplaceService {
   constructor(private http: HttpClient) { }
 
-  addReportedIssue(reportedIssue: ReportedIssue): Observable<ReportedIssue> {
-    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue', reportedIssue);
+  addReportedIssue(reportedIssue: string): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue/' + reportedIssue,null);
   }
 
   addTourPreference(preference: TourPreference): Observable<TourPreference> {

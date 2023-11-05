@@ -19,7 +19,7 @@
                     <td>{{ri.category}}</td>
                     <td>{{ri.priority}}</td>
                     <td>{{ ri.time | date: 'HH:mm, dd.MM.yyyy' }}</td>
-                    <td>{{ri.tour.name}}</td>
+                    <td>{{ri.tour?.name}}</td>
                     <td>{{ri.touristId}}</td>
                 </tr>
                            
@@ -30,7 +30,7 @@
     </div>
     <div *ngIf="reportedIssues && reportedIssues.length > 0" class="post">
         <div class="details">
-            <p class="additionalInfo" style="width: 35%;">{{selectedReportedIssue.tour.name}}</p>
+            <p class="additionalInfo" style="width: 35%;">{{selectedReportedIssue.tour?.name}}</p>
             <p *ngIf="selectedReportedIssue.resolved" class="resolved">Resolved</p>
             <p *ngIf="!selectedReportedIssue.resolved && user.role!=='tourist'" class="unresolved">Unresolved</p>
             <button id="resolveButton" *ngIf="!selectedReportedIssue.resolved && user.role==='tourist'" (click)="resolve()">Mark as resolved</button>

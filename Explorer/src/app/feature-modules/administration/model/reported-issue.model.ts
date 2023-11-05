@@ -10,8 +10,8 @@ export interface ReportedIssue {
     tourId: number;
     touristId: number;
     resolved: boolean;
-    tour: Tour;
+    tour?: Tour|null;
     closed?: boolean;
-    deadline?:boolean;
-    comments: TourIssueComment[];
+    deadline?:Date;
+    comments?: TourIssueComment[];
 }

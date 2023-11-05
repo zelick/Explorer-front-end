@@ -3,10 +3,11 @@ import { MarketplaceService } from '../marketplace.service';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ReportedIssue } from '../model/reported-issue.model';
+import { ReportedIssue } from '../../administration/model/reported-issue.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 
 @Component({
@@ -41,17 +42,24 @@ export class ReportingIssueComponent implements OnChanges {
     }
     const user = this.authService.user$.getValue();
 
-    if (priorityValue !== null && tourIdValue !== null && user !== null) {
-      const reportedIssue: ReportedIssue = {
-        category: this.reportingIssueForm.value.category || "",
-        description: this.reportingIssueForm.value.description || "",
-        priority: +priorityValue || 0,
-        time: this.reportingIssueForm.value.time || new Date(),
-        tourId: +tourIdValue || 0,
-        touristId: +user.id || 0
-      };
+    const tour: Tour = {
+      id: 1, // Set the ID to a valid ID or any other value you want
+      name: "Example Tour",
+      description: "This is an example tour description.",
+      demandignessLevel: "Moderate", // Set the demandignessLevel as needed
+      price: 100, // Set the price as needed
+      tags: ["Adventure", "Nature"], // Set the tags as needed
+      authorId: 2, // Set the author ID as needed
+      status: "Active", // Set the status as needed
+      equipment: [] // Set the equipment as needed
+    };
 
-      this.service.addReportedIssue(reportedIssue).subscribe({
+    if (priorityValue !== null && tourIdValue !== null && user !== null) {
+      const message = this.reportingIssueForm.value.category + "/"+ this.reportingIssueForm.value.description+
+      "/"+priorityValue+"/"+tourIdValue+"/"+user.id;
+
+
+      this.service.addReportedIssue(message).subscribe({
         next: () => {
           alert('Problem reported successfully.')
           this.reportingIssueForm.reset();}
