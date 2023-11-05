@@ -41,7 +41,6 @@ export class ReportedIssuesComponent implements OnInit{
   addDeadline(issue: ReportedIssue, dateStr: string) {
     if (issue && issue.id && dateStr) {
       const date = new Date(dateStr);
-
       this.service.addDeadline(issue.id, date).subscribe(
         (result: ReportedIssue) => {
           this.selectedReportedIssue = result;
@@ -53,9 +52,10 @@ export class ReportedIssuesComponent implements OnInit{
           alert('Failed to add a deadline.');
         }
       );
-      
     }
   }
+  
+  
   
   penalize(id: number) {
     const confirmBlock = window.confirm("Are you sure you want to penalize this tour?");
