@@ -107,6 +107,18 @@ export class AdministrationService {
   block(id: number): Observable<PagedResults<Account>> {
     return this.http.put<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement/block/' + id, null);
   }
+
+  addDeadline(id: number, date: Date): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/deadline/' + id, date);
+  }
+
+  penalize(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/penalizeAuthor/' + id, null);
+  }
+
+  closeReportedIssue(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/closeReportedIssue/' + id, null);
+  }
   
   getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
     return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');

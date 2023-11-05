@@ -10,4 +10,5 @@ export interface Tour {
     authorId : number;
     status:string;
     equipment: Equipment[];
+    closed?: boolean;
 }
