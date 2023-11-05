@@ -11,13 +11,21 @@
                 <tr>
                     <th>Tour name</th>
                     <th>Tour price</th>
-                    <th></th>
+                    <th>Quantity</th>
+                    <th>Remove item</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let i of orderItems">
-                    <td>{{i.tourName}}</td>
+                    <td>{{i.tourId}}</td>
                     <td>{{i.price}}</td>
+                    <td>
+                        <div class="quantity-control">
+                            <button  class="qty qty-minus" (click)="decreaseQuantity(i)">-</button>
+                            <input type="numeric" [(ngModel)]="i.quantity" class="numeric-input" />
+                            <button  class="qty qty-plus" (click)="increaseQuantity(i)">+</button>
+                        </div>
+                    </td>
                     <td>
                         <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
                             <mat-icon>delete</mat-icon>

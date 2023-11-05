@@ -48,3 +48,45 @@ tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
 }
+
+/*Kolicina u korpi*/
+/* Stilizacija za elemente za promenu količine */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .qty {
+    display: inline-block;
+    font-size: 1.2em;
+    width: 2em;
+    height: 2em;
+    border: 1px solid #ccc;
+    background-color: #ecf0f1;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%; 
+  }
+  
+  .qty-plus {
+    margin-left: 0.2em;
+  }
+
+  .qty-minus {
+    margin-right: 0.2em;
+  }
+  
+  .qty:hover {
+    background-color: #43ace3;
+    color: #fff;
+  }
+  
+  .numeric-input {
+    border: 1px solid #ccc;
+    padding: 0.2em 0.3em;
+    font-size: 1.2em;
+    text-align: center;
+    width: 3em;
+  }
+  

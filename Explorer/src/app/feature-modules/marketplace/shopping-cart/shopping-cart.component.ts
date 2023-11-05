@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -44,8 +45,21 @@ export class ShoppingCartComponent implements OnInit{
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.cart.items) {
-      totalPrice += item.price;
+      totalPrice += item.price * item.quantity;
     }
     return totalPrice;
+  }
+
+  increaseQuantity(item: OrderItem): void {
+    item.quantity++; 
+    this.cart.price = this.calculateTotalPrice();
+  }
+
+  decreaseQuantity(item: OrderItem): void {
+    if (item.quantity > 1) {
+      item.quantity--; 
+      this.cart.price = this.calculateTotalPrice();
+      //this.service.updateShoppingCart(this.cart).subscribe(() => {});           //treba mi ?
+    }
   }
 }

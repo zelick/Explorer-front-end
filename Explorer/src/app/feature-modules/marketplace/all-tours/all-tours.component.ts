@@ -40,6 +40,7 @@ export class AllToursComponent implements OnInit{
       tourId: t.id || 0,
       tourName: t.name,
       price: t.price,
+      quantity: 1 //podesiti 
     };
 
     this.addItemToCart(orderItem, t);  
@@ -50,7 +51,7 @@ export class AllToursComponent implements OnInit{
       if (cartExists) {
         this.service.getShoppingCart(tour.authorId).subscribe((shoppingCart) => { 
           shoppingCart.items.push(orderItem);
-          console.log(shoppingCart);
+          //console.log(shoppingCart);
           shoppingCart.price = shoppingCart.price + orderItem.price;
           this.service.updateShoppingCart(shoppingCart).subscribe(() => {
           });
