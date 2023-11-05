@@ -112,4 +112,10 @@ tbody tr.active-row {
     margin-top: 6vh;
     margin-left: 2vh;
     margin-bottom: 1vh;
-  }
+    display: flex;
+    align-items: center;
+}
+
+.tours-heading button {
+  margin-right: 10px; /* Dodaje razmak između dugmadi po potrebi */
+}

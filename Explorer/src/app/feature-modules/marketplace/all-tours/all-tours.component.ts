@@ -49,18 +49,14 @@ export class AllToursComponent implements OnInit {
   addItemToCart(orderItem: OrderItem, tour: Tour): void {
     this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
       if (cartExists) {
-        this.service.getShoppingCart(this.user.id).subscribe((shoppingCart) => {
+        this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
           // shoppingCart.items.push(orderItem);
-          this.cartItemCount = shoppingCart.items.length;
-          console.log(shoppingCart);
-          this.service.getShoppingCart(tour.authorId).subscribe((tourShoppingCart) => {
-            tourShoppingCart.items.push(orderItem);
-            // console.log(shoppingCart);
-            tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
-            this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
-              this.cartItemCount = tourShoppingCart.items.length;
+          this.cartItemCount = tourShoppingCart.items.length;
+          tourShoppingCart.items.push(orderItem);
+          tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
+          this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
+            this.cartItemCount = tourShoppingCart.items.length;
               // location.reload();
-            });
           });
         });
       } else {

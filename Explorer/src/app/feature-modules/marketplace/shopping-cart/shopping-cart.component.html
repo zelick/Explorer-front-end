@@ -5,38 +5,21 @@
     <div class="tours-heading">My shopping cart</div>
     <div id="tour-details">
     <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tour name</th>
-                    <th>Tour price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of orderItems">
-                    <td>{{i.tourName}}</td>
-                    <td>{{i.price}}</td>
-                    <td>
-                    </td>
-                </tr>
-            </tbody>
-        </table><br>
-        <p>Total price: {{cart.price}}</p>
-        <button (click)="checkout()">Checkout</button>
         <div class="tour-card" *ngFor="let i of orderItems">
             <div class="tour-info">
                 <p> IME TURE, {{i.price}} eur</p>
-                <div>
-                    <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
             </div>
-            <div class="quantity-control"> 
+            <div class="tour-actions">
+                <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
             </div>
         </div>
-        <div class="tours-heading">Total price: {{cart.price}}</div>
+        <div class="tours-heading">
+            Total price: {{cart.price}}  
+            <button color="primary" (click)="checkout()" mat-raised-button>Checkout</button>
+        </div>
+        
     </div>
     </div>
 </div>
