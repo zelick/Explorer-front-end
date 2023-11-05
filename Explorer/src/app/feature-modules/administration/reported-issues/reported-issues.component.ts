@@ -24,6 +24,7 @@ export class ReportedIssuesComponent implements OnInit{
   newComment: TourIssueComment;
   addDeadlineClicked = false;
   selectedDateStr: string;
+  lastLooked: number=0;
 
   constructor(private service: AdministrationService, private authservice: AuthService, private datePipe: DatePipe) {
     this.user = authservice.user$.value;
@@ -38,20 +39,26 @@ export class ReportedIssuesComponent implements OnInit{
     return tour.closed;
   }
 
-  addDeadline(issue: ReportedIssue, dateStr: string) {
-    if (issue && issue.id && dateStr) {
-      const date = new Date(dateStr);
-      this.service.addDeadline(issue.id, date).subscribe(
+  addDeadline() {
+    if (this.selectedReportedIssue && this.selectedReportedIssue.id && this.selectedDateStr) {
+      const date = new Date(this.selectedDateStr);
+      this.service.addDeadline(this.selectedReportedIssue.id, date).subscribe(
         (result: ReportedIssue) => {
-          this.selectedReportedIssue = result;
-          this.addDeadlineClicked = false;
           this.selectedDateStr = '';
           this.getReportedIssues();
+          for(const issue of this.reportedIssues){
+            if(result.id===issue.id)
+              this.selectedReportedIssue = issue;
+          }
         },
         (error) => {
           alert('Failed to add a deadline.');
         }
       );
+    }
+    else{
+      alert("Choose deadline in calendar.");
+      return;
     }
   }
   
@@ -91,6 +98,11 @@ export class ReportedIssuesComponent implements OnInit{
     this.getReportedIssues();
   }
   selectReportedIssue(issue: any): void {
+    let i = 0
+    for(const iss of this.reportedIssues){
+      if(issue.id===iss.id) this.lastLooked = i;
+      i++;
+    }
     this.selectedReportedIssue = issue;
   }
   
@@ -99,7 +111,8 @@ export class ReportedIssuesComponent implements OnInit{
       this.service.getReportedIssues().subscribe({
         next:(result:PagedResults<ReportedIssue>)=>{
           this.reportedIssues = result.results;
-          this.selectedReportedIssue = this.reportedIssues[0];
+          this.reportedIssues.sort((a, b) => a.id - b.id);
+          this.selectedReportedIssue = this.reportedIssues[this.lastLooked];
         },
         error: ()=>{
   
@@ -152,6 +165,10 @@ export class ReportedIssuesComponent implements OnInit{
     );
   }
   addComment() {
+    if(this.selectedReportedIssue.closed){
+      alert("This conversation is closed by administrators. You can't reply to it.");
+      return;
+    }
     if (this.selectedReportedIssue && this.selectedReportedIssue.id) {
       if (this.newCommentString.trim() !== '') {
         if(this.user.role==='administrator'){

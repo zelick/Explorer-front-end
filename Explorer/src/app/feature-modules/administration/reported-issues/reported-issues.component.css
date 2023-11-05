@@ -15,6 +15,8 @@
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
+    height: 77vh;
+    overflow-y: auto;
 }
 
 p {
@@ -67,9 +69,11 @@ tbody tr.active-row {
   .post {
     border: 3px solid #B6D4AF;;
     padding: 10px;
+    padding-bottom: 0px;
     margin: 1px;
     margin-right: 20px;
     margin-left: 10px;
+    height: 77vh;
     width: 40%;
     font-family: 'Poppins', sans-serif;
 }
@@ -95,7 +99,7 @@ tbody tr.active-row {
 
 /* Post Content */
 .post-content {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 120%;
     margin-left: 7px;
 }
@@ -142,7 +146,7 @@ tbody tr.active-row {
     font-size: 2vh;
     color: gray;
     font-weight: 400;  
-    margin-bottom: 0.5vh;
+    margin-bottom: 0px;
 }
 
 .resolved{
@@ -160,9 +164,10 @@ tbody tr.active-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     font-family: 'Poppins', sans-serif;
+    border-bottom: 3px solid #B6D4AF;
   }
   
   .comment-input input {
@@ -171,6 +176,7 @@ tbody tr.active-row {
     margin-right: 10px;
     border: 1px solid #ccc;
     font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
   }
   
   .comment-input button {
@@ -180,9 +186,10 @@ tbody tr.active-row {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    margin-bottom: 10px;
   }
   
-  #resolveButton{
+  .greenButton{
     background-color: #3B846B;
     font-family: 'Poppins', sans-serif;
     color: #ffffff;
@@ -198,4 +205,26 @@ tbody tr.active-row {
     justify-content: space-between;
     align-items: center; /* Center vertically within the flex container */
     }
+
+.adminsButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#penalizeButton{
+    background-color: #E67840;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 6px;
+    margin-right: auto;
+}
+
+.datepicker{
+    height: 26px;
+    margin-right: 6px;
+}
 
