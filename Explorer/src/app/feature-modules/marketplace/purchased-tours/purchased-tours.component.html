@@ -1,0 +1,50 @@
+<div id="tour">
+    <p>Tours</p>
+    <hr>
+    <div id="tours">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Demandigness level</th>
+                    <th>Tags</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of purchasedTours, let i = index">
+                    <td>{{t.name}}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.price}}</td>
+                    <td>{{t.demandignessLevel}}</td>
+                    <td>{{t.tags}}</td>
+                    <td>{{t.status}}</td>
+                    <td>
+                        <button *ngFor="let button of buttons" 
+                                id="button-tour-exection-{{ i }}" 
+                                color="primary" 
+                                mat-icon-button 
+                                (mouseenter)="showTooltip = i" 
+                                (mouseleave)="showTooltip = null">
+                          <div style="display: flex; align-items: center;">
+                            <mat-icon style="margin-right: 5px;">play_arrow</mat-icon>
+                            <span *ngIf="showTooltip === i" style="font-size: 15px; white-space: nowrap;">Take a tour</span>
+                          </div>
+                        </button>
+                    </td>
+                    <td>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>

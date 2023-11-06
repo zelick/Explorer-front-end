@@ -84,7 +84,7 @@ export class AdministrationService {
   deleteClub(id: number): Observable<Club> {
     return this.http.delete<Club>('https://localhost:44333/api/club/' + id);
   }
-
+  
   getClubWithUsers(clubId : number): Observable<Club> {
     return this.http.get<Club>('https://localhost:44333/api/club/' + clubId);
   }
@@ -110,7 +110,6 @@ export class AdministrationService {
   getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
     return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
   }
-
 
   getUsersForClub(id: number): Observable<Club> {
     return this.http.get<Club>('https://localhost:44333/api/club/' + id);

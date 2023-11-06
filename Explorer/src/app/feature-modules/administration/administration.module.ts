@@ -14,7 +14,6 @@ import { ReportedIssuesComponent } from './reported-issues/reported-issues.compo
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 
-
 @NgModule({
   declarations: [
     EquipmentFormComponent,

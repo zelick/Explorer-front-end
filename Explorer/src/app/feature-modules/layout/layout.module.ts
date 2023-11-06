@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent,
+    ProfileAdministrationComponent
   ],
   imports: [
     CommonModule,
