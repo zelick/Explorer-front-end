@@ -48,6 +48,7 @@ export class CheckpointComponent implements OnInit{
           this.checkpoints = this.tour.checkpoints || [];
           this.tourTimes = this.tour.tourTimes;
           this.fillProfiles();
+          this.ngAfterViewInit();
        });
      });
    }
@@ -73,7 +74,9 @@ export class CheckpointComponent implements OnInit{
            if(e != this.checkpoints[0])
              coords.push({lat:e.latitude, lon:e.longitude});
        });
-       this.mapComponent.setRoute(coords, this.profile.toString());
+       this.profiles.forEach(element => {
+         this.mapComponent.setRoute(coords, element.toString());
+       });
        this.fillProfiles();
     }
   }
@@ -129,12 +132,15 @@ export class CheckpointComponent implements OnInit{
         if(this.tour.tourTimes.length == 0)
           this.tour.tourTimes.push(tourTime);
 
-        this.tour.tourTimes.forEach(e => {
-          if(tourTime.transportation == e.transportation)
-            this.tour.tourTimes[this.tour.tourTimes.indexOf(e)] = tourTime;
-          else
-            this.tour.tourTimes.push(tourTime);
-        });
+        if(this.tour.tourTimes.some(l => l.transportation == tourTime.transportation))
+        {
+          this.tour.tourTimes.forEach(e => {
+            if(tourTime.transportation == e.transportation)
+              this.tour.tourTimes[this.tour.tourTimes.indexOf(e)] = tourTime;
+          });
+        }else{
+          this.tour.tourTimes.push(tourTime);
+        }
         this.tourTimes = this.tour.tourTimes || [];
         var tourTimes: TourTimes = {tourTimes: this.tour.tourTimes};
         this.service.addTourTransportation(this.tourID, tourTimes).subscribe({
@@ -151,6 +157,8 @@ export class CheckpointComponent implements OnInit{
       for(let c of this.checkpoints)
         sum += c.requiredTimeInSeconds || 0;
 
+      for(let t of this.tour.tourTimes)
+        sum += t.timeInSeconds;
       return sum + (this.time || 0);
     }
 

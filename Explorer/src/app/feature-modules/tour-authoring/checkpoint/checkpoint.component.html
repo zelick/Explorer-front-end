@@ -5,10 +5,21 @@
             <div>
                 <p class="subtitle">Tour info</p>
                 <br>
-                <label>Total distance in meters: </label><input type="text" disabled [ngModel]="distance">
-            <br>
-            <br>
-            <label>Total required time for all checkpoints in seconds: </label><input type="text" disabled [ngModel]="calculateTimeForCheckpoints()">
+                <table class="info-table">
+                    <tr *ngFor="let tt of tour.tourTimes">
+                        <td>{{tt.transportation}}</td>
+                        <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+                        <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Total required time with all checkpoints: </label>
+                        </td>
+                        <td>
+                            {{(calculateTimeForCheckpoints()/3600).toFixed(0)}} h {{((calculateTimeForCheckpoints()%3600)/60).toFixed(0)}} min
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div id="tour">
                 <button class="buttonAdd" mat-raised-button (click) = "onAddCheckpoint()">Add checkpoint ➕</button>
@@ -51,12 +62,6 @@
         <div class="transportation-div"  *ngIf="!shouldRenderCheckpointForm">
             <xp-tour-transport-form *ngIf="checkpoints.length >= 2" (changedSelection)="updateProfiles($event)" [tourID]="tourID"></xp-tour-transport-form>
         </div>
-    </div>
-    <div class="profile-div" *ngIf="!shouldRenderCheckpointForm">
-        <label>Choose transportation:    </label>
-            <select class="profile-select" [(ngModel)]="profile">
-                <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
-            </select><button class="button-route" (click)="route()" mat-raised-button>See route 📌</button>
     </div>
     <div>
         <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
