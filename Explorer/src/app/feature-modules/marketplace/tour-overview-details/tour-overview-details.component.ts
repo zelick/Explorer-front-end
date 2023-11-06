@@ -1,10 +1,11 @@
 import { Component,OnInit ,ViewChild} from '@angular/core';
-import { Tour } from '../../tour-authoring/model/tour.model';
+import { TourPreview } from '../model/tour-preview';
 import { MarketplaceService } from '../marketplace.service';
 import { ActivatedRoute } from '@angular/router';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Router } from '@angular/router';
+import { CheckpointPreview } from '../model/checkpoint-preview';
 
 
 @Component({
@@ -23,36 +24,35 @@ export class TourOverviewDetailsComponent implements OnInit{
      this.getPublishedTour(this.tourID);
    })
  }
-    tour:Tour;
+    tour:TourPreview;
     tourID:number;
-    checkpoints: Array<Checkpoint> = [];
+    checkpoints:CheckpointPreview;
     profiles: string[] = ['walking', 'cycling', 'driving'];
     profile: string = this.profiles[0];
 
     route(): void{
-      let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
-      this.checkpoints.forEach(e => {
-          if(e != this.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude});
-      });
+      let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
+
+            coords.push({lat:this.checkpoints.latitude, lon:this.checkpoints.longitude});
+
       this.mapComponent.setRoute(coords, this.profile);
     }
   
     ngAfterViewInit(): void {
       if(this.checkpoints != null)
       {
-         let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
-         this.checkpoints.forEach(e => {
-             if(e != this.checkpoints[0])
-               coords.push({lat:e.latitude, lon:e.longitude});
-         });
+         let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
+
+             coords.push({lat:this.checkpoints.latitude, lon:this.checkpoints.longitude});
+
          this.mapComponent.setRoute(coords, 'walking');
     }
   }
     getPublishedTour(id: number): void {
-      this.service.getPublishedTour(id).subscribe((result: Tour) => {
+      this.service.getPublishedTour(id).subscribe((result: TourPreview) => {
         this.tour = result;
-        this.checkpoints=this.tour.checkpoints || [];
+        console.log(this.tour);
+        this.checkpoints=this.tour.checkpoint;
         if(this.checkpoints != null)
         { 
           this.route();

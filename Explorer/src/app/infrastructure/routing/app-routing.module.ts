@@ -29,6 +29,9 @@ import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tou
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/marketplace/tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from 'src/app/feature-modules/marketplace/tour-overview-details/tour-overview-details.component';
+import { AllToursComponent } from 'src/app/feature-modules/marketplace/all-tours/all-tours.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/purchased-tours/purchased-tours.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -36,6 +39,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
+  {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
@@ -58,8 +62,11 @@ const routes: Routes = [
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
-  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]}
-
+  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'all-tours', component: AllToursComponent},
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

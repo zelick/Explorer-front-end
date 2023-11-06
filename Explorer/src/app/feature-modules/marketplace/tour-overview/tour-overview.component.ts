@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
+import { TourPreview } from '../model/tour-preview';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class TourOverviewComponent implements OnInit{
 
   constructor(private service: MarketplaceService,private router:Router) { }
-  publishedTours:Tour[]=[];
+  publishedTours:TourPreview[]=[];
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
 
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class TourOverviewComponent implements OnInit{
     )
   }
 
-  openDetails(tour:Tour):void{
+  openDetails(tour:TourPreview):void{
     this.router.navigate([`tour-overview-details/${tour.id}`]);
   }
 

@@ -17,14 +17,10 @@ export class TourDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
   tour:Tour;
   checkpoints: Array<Checkpoint> = [];
-  availableEquipment: Equipment[];
-  currentEquipmentIds: number[] = [];
-  isVisibleEquipment: boolean = false;
-  isVisibleAvailableEquipment: boolean = false;
-  showButtonText: string = 'Show equipment';
-  showAvailableButtonText: string = 'Show available equipment';
-  profiles: string[] = [];
+
+  profiles: string[] = ['walking', 'cycling', 'driving'];
   profile: string = this.profiles[0];
+
 
   constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
   tourID:number;

@@ -84,7 +84,8 @@ export class TourFormComponent implements OnChanges,OnInit{
       status: "Draft",
       equipment: [],
       checkpoints:[],
-      tourTimes: []
+      tourTimes: [],
+      tourRatings:[]
     };
     this.service.addTour(tour).subscribe(
     (response:Tour)=>{
@@ -126,7 +127,8 @@ export class TourFormComponent implements OnChanges,OnInit{
       status: this.tour.status,
       equipment: this.tour.equipment,
       checkpoints:this.tour.checkpoints,
-      tourTimes: this.tour.tourTimes
+      tourTimes: this.tour.tourTimes,
+      tourRatings:this.tour.tourRatings
     };
     tour.id = this.tour.id;
     tour.checkpoints=this.tour.checkpoints;

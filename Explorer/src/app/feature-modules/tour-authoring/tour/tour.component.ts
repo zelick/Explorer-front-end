@@ -17,6 +17,7 @@ export class TourComponent implements OnInit{
   shouldEdit: boolean = false;
   user: User;
   id:number;
+  
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
 
   
@@ -68,4 +69,8 @@ export class TourComponent implements OnInit{
   openDetails(t:Tour): void {
     this.router.navigate([`tour-details/${t.id}`]);
   }
+
+
+  
+
 }

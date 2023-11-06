@@ -9,6 +9,9 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
+import { AllToursComponent } from './all-tours/all-tours.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
 import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
@@ -20,6 +23,10 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
     PreferenceComponent,
     PreferenceFormComponent,
     TourRatingComponent,
+    TourRatingFormComponent,
+    AllToursComponent,
+    ShoppingCartComponent,
+    PurchasedToursComponent,
     TourRatingFormComponent,
     TourOverviewComponent,
     TourOverviewDetailsComponent
@@ -35,7 +42,10 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
   ],
   exports:[
     PreferenceFormComponent, 
-    TourRatingFormComponent  ]
+    TourRatingFormComponent,
+    PurchasedToursComponent,
+    TourRatingFormComponent  
+  ]
 
 })
 export class MarketplaceModule { }

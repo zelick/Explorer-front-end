@@ -18,9 +18,10 @@
             <th>Demandigness level:</th>
             <td>{{tour.demandignessLevel}}</td>
         </tr>
-        <tr *ngFor="let tt of tour.tourTimes">
+        <tr *ngFor="let tt of tour.tourTime">
             <th>{{tt.transportation}}</th>
-            <td>{{tt.distance}}</td>
+            <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+            <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
         </tr>
         <tr>
             <th>Tags:</th>
@@ -56,36 +57,67 @@
     <p class="subtitle">Starting checkpoint</p>
     <table>
         <tbody>
-            <tr *ngFor="let e of tour.checkpoints">
+            <tr>
                 <td class="cpp">
                     <div class="cardcp">
                         <span class="cps1">
                             <br>
-                            <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
+                            <div><span><span class="cps2">Name:</span>{{tour.checkpoint.name}}</span></div>
                             <br>
-                            <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
+                            <div><span><span class="cps2">Description:</span>{{tour.checkpoint.description}}</span></div>
                             <br>
                         </span>
                         <span class="cps1">
                             <br>
-                            <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
+                            <div><span><span class="cps2">Longitude:</span>{{tour.checkpoint.longitude}}</span></div>
 
                             <br>
-                            <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
+                            <div><span><span class="cps2">Latitude:</span>{{tour.checkpoint.latitude}}</span></div>
                             <br>
                         </span>
                     </div>
                   
                 </td>
              
-                <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
+                <td class="cppi"><img [src]="tour.checkpoint.pictures[0]" width="80px" height="90px"></td>
             </tr>
         </tbody>
   
 </table>
+
     <div class="mapa">
     <xp-map></xp-map>
     <br>
+
+
+<p class="subtitle">Ratings</p>
+<div>
+    <table>
+        <tbody>
+            <tr *ngFor="let e of tour.tourRating" >
+                <td class="cpp">
+                    <div class="cardcp">
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
+                            <br>
+                            <div><span><span class="cps2">Rating:</span>{{e.rating}}</span></div>
+                            <br>
+                        </span>
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
+                        </span>
+                    </div>
+                  
+                </td>
+             
+                
+            </tr>
+        </tbody>
+  
+</table>
+</div>
     <div class="routingButton">
         <div>
             <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
@@ -95,6 +127,7 @@
         </div>
         </div>
     </div>
+   
 </div>
 
 
