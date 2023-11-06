@@ -26,7 +26,7 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
     TourRatingFormComponent,
     AllToursComponent,
     ShoppingCartComponent,
-    PurchasedToursComponent
+    PurchasedToursComponent,
     TourRatingFormComponent,
     TourOverviewComponent,
     TourOverviewDetailsComponent
@@ -43,9 +43,9 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
   exports:[
     PreferenceFormComponent, 
     TourRatingFormComponent,
-    PurchasedToursComponent
+    PurchasedToursComponent,
+    TourRatingFormComponent  
   ]
-    TourRatingFormComponent  ]
 
 })
 export class MarketplaceModule { }

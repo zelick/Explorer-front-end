@@ -50,13 +50,11 @@ export class AllToursComponent implements OnInit {
     this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
       if (cartExists) {
         this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
-          // shoppingCart.items.push(orderItem);
-          this.cartItemCount = tourShoppingCart.items.length;
           tourShoppingCart.items.push(orderItem);
+          this.cartItemCount = tourShoppingCart.items.length;
           tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
           this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
-            this.cartItemCount = tourShoppingCart.items.length;
-              // location.reload();
+            //this.cartItemCount = tourShoppingCart.items.length;
           });
         });
       } else {

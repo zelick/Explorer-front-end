@@ -62,8 +62,7 @@ const routes: Routes = [
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
-  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]}
-
+  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'all-tours', component: AllToursComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},

@@ -8,7 +8,6 @@ import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
-import { Tour } from '../tour-authoring/model/tour.model';
 import { Customer } from './model/customer.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
@@ -111,7 +110,6 @@ export class MarketplaceService {
   deleteOrderItems(id: number): Observable<ShoppingCart> {
     return this.http.delete<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/deleteOrderItems/' + id);
   }
-
 
   getPublishedTours():Observable<TourPreview[]> {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
