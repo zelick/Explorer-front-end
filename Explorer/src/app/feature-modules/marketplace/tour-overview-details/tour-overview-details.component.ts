@@ -21,7 +21,10 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class TourOverviewDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
-  constructor(private service: MarketplaceService,private activatedRoute:ActivatedRoute,private router:Router, private authService : AuthService) { }
+  constructor(private service: MarketplaceService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router, 
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -95,6 +98,7 @@ export class TourOverviewDetailsComponent implements OnInit{
             tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
             this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
               //this.cartItemCount = tourShoppingCart.items.length;
+              this.service.updateCartItemCount(tourShoppingCart.items.length); //
             });
           });
         } else {
@@ -115,7 +119,7 @@ export class TourOverviewDetailsComponent implements OnInit{
             });
   
             //this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu
-  
+            this.service.updateCartItemCount(1); //
           });
         }
       });

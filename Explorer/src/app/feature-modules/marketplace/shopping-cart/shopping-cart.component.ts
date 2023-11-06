@@ -8,6 +8,12 @@ import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { FormsModule } from '@angular/forms'; 
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -36,9 +42,7 @@ export class ShoppingCartComponent implements OnInit{
     });
   }
 
-  checkout() {
-    console.log('Checkout izvršen!');
-    
+  checkout() {    
     if (this.user && this.user.id !== undefined) {
       this.service.shoppingCartCheckOut(this.user.id).subscribe(
         () => {
@@ -50,7 +54,7 @@ export class ShoppingCartComponent implements OnInit{
                 console.log('Sve stavke su uspešno obrisane iz korpe');
                 this.orderItems = [];
                 this.cart.price = 0;
-                this.cartItemCount = this.orderItems.length; //
+                this.service.updateCartItemCount(0); // Postavi na 0 jer su sve stavke obrisane
               },
               (deleteOrderItemsError) => {
                 console.error('Greška prilikom brisanja stavki iz korpe:', deleteOrderItemsError);
@@ -73,7 +77,9 @@ export class ShoppingCartComponent implements OnInit{
     this.orderItems = this.orderItems.filter(item => item.tourId !== tourId);
     this.cart.items = this.orderItems
     this.cart.price = this.calculateTotalPrice();
-    this.service.updateShoppingCart(this.cart).subscribe(() => {});
+    this.service.updateShoppingCart(this.cart).subscribe(() => {
+      this.service.updateCartItemCount(this.cart.items.length); //
+    });
   };
 
   calculateTotalPrice(): number {
