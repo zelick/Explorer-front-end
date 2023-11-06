@@ -15,6 +15,7 @@ import { PurchasedToursComponent } from './purchased-tours/purchased-tours.compo
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
 import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
+import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
     PurchasedToursComponent,
     TourRatingFormComponent,
     TourOverviewComponent,
-    TourOverviewDetailsComponent
+    TourOverviewDetailsComponent,
+    PurchasedToursDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
     PreferenceFormComponent, 
     TourRatingFormComponent,
     PurchasedToursComponent,
-    TourRatingFormComponent  
+    TourRatingFormComponent,
+    PurchasedToursDetailsComponent
   ]
 
 })

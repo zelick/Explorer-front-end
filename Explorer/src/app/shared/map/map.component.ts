@@ -6,6 +6,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { MAPBOX_API_KEY } from '../constants';
 import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
+import { CheckpointPreview } from 'src/app/feature-modules/marketplace/model/checkpoint-preview';
 
 @Component({
   selector: 'xp-map',
@@ -169,5 +170,23 @@ export class MapComponent implements AfterViewInit {
     getTimeAndDistance(): void{
       this.timeAndDistance.emit({d: this.dist});
     }
+
+    setCheckpoints(checkpoints: CheckpointPreview[]): void {
+      let defaultIcon = L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+    
+      checkpoints.forEach(point => {
+        L.marker([point.latitude, point.longitude], { icon: defaultIcon }).addTo(this.map)
+          .bindPopup(point.name);
+      });
+
+      console.log('Checkpoints set successfully.');
+
+    }
+    
   }
 

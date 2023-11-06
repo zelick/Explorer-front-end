@@ -32,6 +32,7 @@ import { TourOverviewDetailsComponent } from 'src/app/feature-modules/marketplac
 import { AllToursComponent } from 'src/app/feature-modules/marketplace/all-tours/all-tours.component';
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/purchased-tours/purchased-tours.component';
+import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketplace/purchased-tours-details/purchased-tours-details.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -66,7 +67,8 @@ const routes: Routes = [
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'all-tours', component: AllToursComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},
-  {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]}
+  {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
+  {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

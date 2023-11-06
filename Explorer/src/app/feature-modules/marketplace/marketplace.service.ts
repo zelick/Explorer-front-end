@@ -16,6 +16,7 @@ import { TourPreview } from './model/tour-preview';
   providedIn: 'root'
 })
 export class MarketplaceService {
+  [x: string]: any;
   getCheckpointsByTour(tourId: number) {
       throw new Error('Method not implemented.');
   }
@@ -117,5 +118,9 @@ export class MarketplaceService {
 
   getPublishedTour(id:number): Observable<TourPreview> {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
+  }
+
+  getPurchasedTourDetails(id:number):Observable<Tour> {
+    return this.http.get<Tour>(environment.apiHost + 'customer/customersPurchasedTourDetails/'+ id)
   }
 }

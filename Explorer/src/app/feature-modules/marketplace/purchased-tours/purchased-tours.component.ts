@@ -4,6 +4,8 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { TourPreview } from '../model/tour-preview';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-purchased-tours',
@@ -14,15 +16,8 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 export class PurchasedToursComponent implements OnInit {
   user: User;
   purchasedTours: Tour[] = [];
-  
-  buttons = [
-    { text: 'Take a tour' },
-  ];
 
-  showTooltip: number | null = null;
-
-
-  constructor(private service: MarketplaceService, private tourService: TourAuthoringService, private authService: AuthService) { }
+  constructor(private service: MarketplaceService, private tourService: TourAuthoringService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -37,5 +32,11 @@ export class PurchasedToursComponent implements OnInit {
         // Obrada greške
       }
     });
+
   }
+
+  openDetails(tour:Tour):void{
+    this.router.navigate([`purchased-tours-details/${tour.id}`]);
+  }
+
 }
