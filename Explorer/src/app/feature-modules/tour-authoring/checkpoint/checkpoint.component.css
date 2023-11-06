@@ -61,12 +61,6 @@ tbody tr.active-row {
     cursor: pointer;
 }
 
-.profile-div{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    margin-left: 120px;
-}
-
 .table-div{
     display: flex;
     flex-direction: column;
@@ -154,11 +148,6 @@ tbody tr.active-row {
     margin-left: 170px;
     margin-top: 0px;
 }
-.profile-select{
-    width: 100px;
-    height: 30px;
-    background-color:#fff;
-    border-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+.info-table{
+    margin-left: 0px;
 }
