@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
     this.authService.user$.subscribe(user => {
       this.user = user;
 
-      /*
       this.marketplaceService.getShoppingCart(this.user.id).subscribe({
         next: (result: ShoppingCart) => {
           this.cart = result;
@@ -32,7 +31,6 @@ export class NavbarComponent implements OnInit {
           this.cartItemCount = this.orderItems.length;
         }
       })
-      */
 
     });
 
