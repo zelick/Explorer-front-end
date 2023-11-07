@@ -27,6 +27,7 @@ import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tou
 import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
+import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -55,7 +56,8 @@ const routes: Routes = [
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
-  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]}
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
