@@ -1,17 +1,34 @@
-<div id="blog-post">
-    <p>Blog Post Details</p>
-    <hr>
-    <div id="blog-post-details">
-        <div>
-            <h2>{{ blogPost.title }}</h2>
-            <p>Created: {{ blogPost.creationDate | date:'HH:mm dd.MM.yyyy' }}</p>
-            <p>Status: <i>{{ blogPost.status }}</i></p>
-            <p>Author: <i>{{ blogPost.username }}</i></p>
-            <div>
-                <img *ngFor="let imageUrl of blogPost.imageUrls" [src]="imageUrl" alt="Image"
-                    style="max-width: 200px; max-height: 200px;">
+<body>
+    <div id="blog-post">
+        <div class="center-container">
+            <div class="voting-container">
+                <button class="circle-button" [class.upvoted]="upvoted" (blogPostUpdated)="getBlogPost()"
+                    (click)="onUpvoteClicked()" mat-icon-button>
+                    <mat-icon>arrow_upward</mat-icon>
+                </button>
+                <div class="vote-count">
+                    <p>{{netVoteCount}}</p>
+                </div>
+                <button class="circle-button" [class.downvoted]="downvoted" (blogPostUpdated)="getBlogPost()"
+                    (click)="onDownvoteClicked()" mat-icon-button>
+                    <mat-icon>arrow_downward</mat-icon>
+                </button>            
             </div>
-            <div [innerHTML]="blogPost.description"></div>
+            <div class="blog-post-details">
+                <div class="author-time-details">
+                    <p class="author"> Posted by: {{ blogPost.username }}</p>
+                    <p> on {{ blogPost.creationDate | date:'dd.MM.yyyy' }} at {{ blogPost.creationDate | date:'HH:mm' }}</p>
+                </div>
+                <div class="title">
+                    <p>{{ blogPost.title }}</p>
+                </div>
+                <hr>
+                <p>Status: <i>{{ blogPost.status }}</i></p>
+                <div class="image-container">
+                    <img *ngFor="let imageUrl of blogPost.imageUrls" [src]="imageUrl" alt="Image">
+                </div>
+                <div [innerHTML]="blogPost.description"></div>
+            </div>
         </div>
     </div>
-</div>
+</body>

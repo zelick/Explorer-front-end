@@ -1,3 +1,5 @@
+import { BlogRating } from "./blog-rating.model";
+
 export interface BlogPost {
     id?: number;
     userId?: number;
@@ -9,6 +11,7 @@ export interface BlogPost {
     username?: string;
     userFirstName?: string;
     userLastName?: string;
+    ratings?: BlogRating[];
 }
 
 export enum BlogPostStatus {
