@@ -9,27 +9,16 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
   templateUrl: './blog-comment-form.component.html',
   styleUrls: ['./blog-comment-form.component.css']
 })
-export class BlogCommentFormComponent implements OnChanges{
+export class BlogCommentFormComponent{
   
-  @Output() blogCommentsUpdated = new EventEmitter<null>();
   @Input() blogComment: BlogComment;
   @Input() blogPostId: number | undefined;
-  @Input() shouldEdit: boolean = false;
-  @Output() editingFinished = new EventEmitter<boolean>();
+  @Output() commentAdded: EventEmitter<void> = new EventEmitter<void>();
 
   userId: number;
 
   constructor(private service: BlogService, private authService: AuthService) {
     this.userId = authService.user$.value.id;
-  }
-
-  ngOnChanges(): void {
-    this.blogCommentForm.reset();
-    if(this.shouldEdit) {
-      this.blogCommentForm.patchValue({
-        text: this.blogComment.text
-      })
-    }
   }
 
   blogCommentForm = new FormGroup({
@@ -45,7 +34,7 @@ export class BlogCommentFormComponent implements OnChanges{
 
     this.service.addBlogComment(this.blogPostId!, blogComment).subscribe({
       next: () => {
-        this.blogCommentsUpdated.emit()
+        this.commentAdded.emit();
         this.blogCommentForm.reset();
       }
     })

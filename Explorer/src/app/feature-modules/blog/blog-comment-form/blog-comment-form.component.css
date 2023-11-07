@@ -1,11 +1,13 @@
 .comment-form {
   padding: 8px;
-  width: 780px;
+  width: 782px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #3B846B;
   margin-top: 20px;
+  border: 2px solid #3B846B;
+  background-color: #3B846B;
+  box-shadow: 0 0 4px #253B34;
 }
 
 .form-button {

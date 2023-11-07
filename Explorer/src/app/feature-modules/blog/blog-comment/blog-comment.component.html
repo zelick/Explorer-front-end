@@ -14,6 +14,13 @@
         <p class="modification-time" *ngIf="comment.modificationTime !== null">Last modified on: {{ comment.modificationTime | date: 'dd.MM.yyyy'}} at {{ comment.modificationTime | date: 'HH:mm'}}</p>
       </div>
     </div>
-    <div class="comment-text">{{ comment.text }}</div>
+    <div *ngIf="isEditing; else viewMode">
+      <input class="comment-field" [(ngModel)]="editedCommentText" placeholder="What are your thoughts?"/>
+      <button class="comment-button" (click)="editCommment()">Save</button>
+      <button class="comment-button" (click)="cancelEdit()">Cancel</button>
+    </div>
+    <ng-template #viewMode>
+      <div class="comment-text">{{ comment.text }}</div>
+    </ng-template>
   </div>
 </div>

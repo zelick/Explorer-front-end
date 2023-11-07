@@ -31,12 +31,12 @@
             </div>
         </div>
         <div>
-            <xp-blog-comment-form [blogPostId]="blogPost.id"></xp-blog-comment-form>
+            <xp-blog-comment-form [blogPostId]="blogPost.id" (commentAdded)="getBlogPost()"></xp-blog-comment-form>
         </div>
-        <div *ngIf="blogPost.comments && blogPost.comments.length">
-            <div *ngFor="let comment of blogPost.comments" class="blog-comments">
+        <div class="blog-comments" *ngIf="blogPost.comments && blogPost.comments.length">
+            <div *ngFor="let comment of blogPost.comments">
                 <div class="comments">
-                    <xp-blog-comment [blogPostId]="blogPost.id" [comment]="comment"></xp-blog-comment>
+                    <xp-blog-comment [blogPostId]="blogPost.id" [comment]="comment" (commentUpdated)="getBlogPost()"></xp-blog-comment>
                 </div>
             </div>
         </div>

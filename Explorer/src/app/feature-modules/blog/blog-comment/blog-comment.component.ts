@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -13,22 +13,18 @@ export class BlogCommentComponent implements OnInit {
 
   @Input() blogPostId: number | undefined;
   @Input() comment: BlogComment;
-  blogComments: BlogComment[] = [];
-  selectedBlogComment: BlogComment;
-  shouldRenderBlogCommentForm: boolean = false;
+  @Output() commentUpdated: EventEmitter<void> = new EventEmitter<void>();
   shouldEdit: boolean = false;
   showOptions: boolean = false;
   userId: number;
+  isEditing = false;
+  editedCommentText: string = '';
 
   constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.userId = this.authService.user$.value.id;
-    console.log('HELO iz koemntara');
-    console.log(this.comment);
-    console.log(this.blogPostId);
   }
-
 
   toggleOptions() {
     this.showOptions = !this.showOptions;
@@ -38,30 +34,37 @@ export class BlogCommentComponent implements OnInit {
     return this.showOptions;
   }
 
-  onEditClicked(): void {
-    this.shouldRenderBlogCommentForm = true;
-    this.shouldEdit = true;
-  }
-
-  // TODO
-  // updateBlogComment(): void {
-  //   const blogComment: BlogComment = {
-  //     userId: this.blogComment.userId,
-  //     creationTime: this.blogComment.creationTime,
-  //     modificationTime: new Date(),
-  //     text: this.blogCommentForm.value.text || ""
-  //   }
-  // }
-
   deleteComment(): void {
     const result = window.confirm('Are you sure you want to delete your comment?');
     if(result) {
       this.service.deleteBlogComment(this.blogPostId!, this.comment).subscribe({
         next: () => {
-          this.onEditingFinished(false);
+          this.showOptions = false;
+          this.commentUpdated.emit();
         },
       })
     }
+  }
+
+  onEditClicked() {
+    this.isEditing = true;
+    this.editedCommentText = this.comment.text;
+    this.showOptions = false;
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.editedCommentText = this.comment.text;
+  }
+
+  editCommment() {
+    this.comment.text = this.editedCommentText;
+    this.service.addBlogComment(this.blogPostId!, this.comment).subscribe({
+      next: () => {
+        this.onEditingFinished(false);
+        this.commentUpdated.emit();
+      }
+    })
   }
 
   onEditingFinished(value: boolean): void {
