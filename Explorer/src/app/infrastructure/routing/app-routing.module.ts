@@ -11,7 +11,6 @@ import { AccountsManagementComponent } from 'src/app/feature-modules/administrat
 import { ReportedIssuesComponent } from 'src/app/feature-modules/administration/reported-issues/reported-issues.component';
 import { ReportingIssueComponent } from 'src/app/feature-modules/marketplace/reporting-issue/reporting-issue.component';
 import { CheckpointComponent } from 'src/app/feature-modules/tour-authoring/checkpoint/checkpoint.component';
-import { BlogCommentComponent } from 'src/app/feature-modules/blog/blog-comment/blog-comment.component';
 import { PreferenceComponent } from 'src/app/feature-modules/marketplace/preference/preference/preference.component';
 import { PreferenceFormComponent } from 'src/app/feature-modules/marketplace/preference-form/preference-form/preference-form.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
@@ -19,13 +18,15 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { ApplicationGradeComponent } from 'src/app/feature-modules/administration/application-grade-form/application-grade.component';
 import { GradeReviewComponent } from 'src/app/feature-modules/administration/application-grade-review/grade-review/grade-review.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/tour-authoring/tour-details/tour-details.component';
-import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { MapObjectComponent } from 'src/app/feature-modules/tour-authoring/map-object/map-object.component';
 import { ClubComponent } from 'src/app/feature-modules/administration/club/club.component';
 import { ClubMembersComponent } from 'src/app/feature-modules/administration/club-members/club-members.component';
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
+import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-table/blog-post-table.component';
+import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
+import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
 
 const routes: Routes = [
@@ -48,9 +49,10 @@ const routes: Routes = [
   {path: 'grade-review', component: GradeReviewComponent},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
-  {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},
-  {path: 'blog-post', component: BlogPostComponent, canActivate: [AuthGuard]},
-  {path: 'blog-comments', component: BlogCommentComponent, canActivate: [AuthGuard]},
+  {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'blogs', component: BlogPostTableComponent, canActivate: [AuthGuard]},
+  {path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
+  {path: 'your-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
