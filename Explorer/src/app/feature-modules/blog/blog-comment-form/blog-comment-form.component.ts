@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
-import { BlogComment } from '../model/blogComment.model';
+import { BlogComment } from '../model/blog-comment.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
@@ -38,35 +38,15 @@ export class BlogCommentFormComponent implements OnChanges{
 
   addComment(): void {
     const blogComment: BlogComment =  {
-      blogPostId: this.blogPostId , 
       userId: this.userId,
       creationTime: new Date(),
       text: this.blogCommentForm.value.text || ""
     }
 
-    this.service.addBlogComment(blogComment).subscribe({
+    this.service.addBlogComment(this.blogPostId!, blogComment).subscribe({
       next: () => {
         this.blogCommentsUpdated.emit()
         this.blogCommentForm.reset();
-      }
-    })
-  }
-
-  updateBlogComment(): void {
-    const blogComment: BlogComment =  {
-      blogPostId: this.blogComment.blogPostId, 
-      userId: this.blogComment.userId,
-      creationTime: this.blogComment.creationTime,
-      modificationTime: new Date(),
-      text: this.blogCommentForm.value.text || ""
-    }
-    blogComment.id = this.blogComment.id;
-
-    this.service.updateBlogComment(blogComment).subscribe({
-      next: () => {
-        this.blogCommentsUpdated.emit()
-        this.blogCommentForm.reset();
-        this.editingFinished.emit(false);
       }
     })
   }

@@ -1,11 +1,10 @@
 <div>
-  <xp-blog-comment-form [shouldEdit]="shouldEdit" [blogPostId]="blogPostId" [blogComment]="selectedBlogComment" (blogCommentsUpdated)="getBlogComments()" (editingFinished)="onEditingFinished($event)"></xp-blog-comment-form>
-  <div *ngFor="let comment of blogComments; let i = index" class="comment-box">
+  <div class="comment-box">
     <div class="comment-options">
-      <button class="toggle-options" (click)="toggleOptions(i)" *ngIf="comment.userId == userId" title="Options"><b>...</b></button>
-      <div class="comment-options-menu" [ngClass]="{'show': isOptionsVisible(i)}">
-        <a (click)="onEditClicked(comment); toggleOptions(i)">Edit</a>
-        <a (click)="deleteComment(comment.id || 0); toggleOptions(i)">Delete</a>
+      <button class="toggle-options" *ngIf="comment.userId == userId" (click)="toggleOptions()" title="Options"><b>...</b></button>
+      <div class="comment-options-menu" [ngClass]="{'show': isOptionsVisible()}">
+        <a (click)="onEditClicked();">Edit</a>
+        <a (click)="deleteComment();">Delete</a>
       </div>
     </div>
     <div class="blog-comment-details">

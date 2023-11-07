@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BlogComment } from '../model/blogComment.model';
+import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
@@ -13,54 +12,52 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class BlogCommentComponent implements OnInit {
 
   @Input() blogPostId: number | undefined;
+  @Input() comment: BlogComment;
   blogComments: BlogComment[] = [];
   selectedBlogComment: BlogComment;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
-  showOptions: number | null = null;
+  showOptions: boolean = false;
   userId: number;
 
   constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.userId = this.authService.user$.value.id;
-    this.getBlogComments();
+    console.log('HELO iz koemntara');
+    console.log(this.comment);
+    console.log(this.blogPostId);
   }
 
-  getBlogComments(): void {
-    this.service.getBlogComments().subscribe({
-      next: (result: PagedResults<BlogComment>) => {
-        this.blogComments = result.results;
-      },
-      error: () => {
-      }
-    });
+
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
   }
 
-  toggleOptions(index: number) {
-    if (this.showOptions === index) {
-      this.showOptions = null;
-    } else {
-      this.showOptions = index;
-    }
+  isOptionsVisible(): boolean {
+    return this.showOptions;
   }
 
-  isOptionsVisible(index: number): boolean {
-    return this.showOptions === index;
-  }
-
-  onEditClicked(blogComment: BlogComment): void {
-    this.selectedBlogComment = blogComment;
+  onEditClicked(): void {
     this.shouldRenderBlogCommentForm = true;
     this.shouldEdit = true;
   }
 
-  deleteComment(id: number): void {
+  // TODO
+  // updateBlogComment(): void {
+  //   const blogComment: BlogComment = {
+  //     userId: this.blogComment.userId,
+  //     creationTime: this.blogComment.creationTime,
+  //     modificationTime: new Date(),
+  //     text: this.blogCommentForm.value.text || ""
+  //   }
+  // }
+
+  deleteComment(): void {
     const result = window.confirm('Are you sure you want to delete your comment?');
     if(result) {
-      this.service.deleteBlogComment(id).subscribe({
+      this.service.deleteBlogComment(this.blogPostId!, this.comment).subscribe({
         next: () => {
-          this.getBlogComments();
           this.onEditingFinished(false);
         },
       })

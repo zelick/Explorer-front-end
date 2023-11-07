@@ -30,10 +30,18 @@
                 <div [innerHTML]="blogPost.description"></div>
             </div>
         </div>
-        <div class="blog-comments">
-            <div class="comments">
-                <xp-blog-comment [blogPostId]="blogPost.id"></xp-blog-comment>
+        <div>
+            <xp-blog-comment-form [blogPostId]="blogPost.id"></xp-blog-comment-form>
+        </div>
+        <div *ngIf="blogPost.comments && blogPost.comments.length">
+            <div *ngFor="let comment of blogPost.comments" class="blog-comments">
+                <div class="comments">
+                    <xp-blog-comment [blogPostId]="blogPost.id" [comment]="comment"></xp-blog-comment>
+                </div>
             </div>
+        </div>
+        <div *ngIf="!blogPost.comments || blogPost.comments.length === 0">
+            <p>No comments yet.</p>
         </div>
     </div>
 </body>
