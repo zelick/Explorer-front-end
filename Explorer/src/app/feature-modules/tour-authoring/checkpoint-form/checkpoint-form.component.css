@@ -1,0 +1,68 @@
+#checkpoint{
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.subtitle{
+    margin: 0 auto;
+    font-size: 4vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+
+}
+
+.time{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+.buttonPlus{
+    width: auto;
+    margin-top: 0px;
+    margin-left: 15px;
+    width: 30px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.address-input{
+    width: 180px;
+    height: 80px;
+}
+
+.location{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+.routingButton{
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.button{
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}

@@ -1,48 +1,76 @@
 <div id="checkpoint">
-    <div id="tour">
-        <p>Choose tour by id</p><br>
-        <input type="number" name="tourID" [(ngModel)]="tourID">
-        <button color="primary" (click) = "onAddCheckpoint()">Add checkpoints</button>
-        <br>
-        <button color="primary" (click)="onSeeCheckpoint()">See all checkpoints</button>
+    <div class="checkpoint">
+    <div class="table-div"  *ngIf="!shouldRenderCheckpointForm">
+        <div class="info-div">
+            <div>
+                <p class="subtitle">Tour info</p>
+                <br>
+                <table class="info-table">
+                    <tr *ngFor="let tt of tour.tourTimes">
+                        <td>{{tt.transportation}}</td>
+                        <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+                        <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Total required time with all checkpoints: </label>
+                        </td>
+                        <td>
+                            {{(calculateTimeForCheckpoints()/3600).toFixed(0)}} h {{((calculateTimeForCheckpoints()%3600)/60).toFixed(0)}} min
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tour">
+                <button class="buttonAdd" mat-raised-button (click) = "onAddCheckpoint()">Add checkpoint ➕</button>
+                <br>
+            </div>
+        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Required time</th>
+                <th>Picture</th>
+                <th></th>
+                <th></th>
+            </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of checkpoints">
+            <td>{{c.name}}</td>
+            <td>{{c.description}}</td>
+            <td>{{c.latitude.toFixed(2)}}, {{c.longitude.toFixed(2)}}</td>
+            <td>{{(c.requiredTimeInSeconds/3600).toFixed(2)}}h {{(c.requiredTimeInSeconds%3600/60).toFixed(0)}}min</td>
+            <td>
+                <picture>
+                    <img [src]="c.pictures[0]" alt="Checkpoint image" width="100" height="100">
+                </picture>
+            </td>
+            <td>
+                <button class="button-table" (click)="onEdit(c)" mat-raised-button>Edit✏️</button>
+            </td>
+            <td>
+                <button class="button-table" (click)="onDelete(c.id || 0)" mat-raised-button>Delete🗑️</button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
     </div>
-    <br>
+        <div class="transportation-div"  *ngIf="!shouldRenderCheckpointForm">
+            <xp-tour-transport-form *ngIf="checkpoints.length >= 2" (changedSelection)="updateProfiles($event)" [tourID]="tourID"></xp-tour-transport-form>
+        </div>
+    </div>
     <div>
         <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
     </div>
-    <br>
-    <div *ngIf="shouldRenderCheckpointList">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tour</th>
-                    <th>Location</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Picture</th>
-                </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of checkpoints">
-                <td>{{c.tourId}}</td>
-                <td>{{c.latitude}}, {{c.longitude}}</td>
-                <td>{{c.name}}</td>
-                <td>{{c.description}}</td>
-                <td>
-                    <picture>
-                        <img [src]="c.pictures[0]" alt="Checkpoint image" width="100" height="100">
-                    </picture>
-                </td>
-                <td>
-                    <button color="primary" (click)="onEdit(c)">EDIT</button>
-                </td>
-                <td>
-                    <button color="primary" (click)="onDelete(c.id || 0)">DELETE</button>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-    
-
 </div>
+    <div class="map-div" *ngIf="!shouldRenderCheckpointForm">
+        <xp-map class="map-div" (timeAndDistance) ="getTimeAndDistance($event)"></xp-map>
+    </div>
+    <div class="navigation-div" *ngIf="!shouldRenderCheckpointForm">
+        <button class="button" (click)="onBack()" mat-raised-button>Back</button>
+        <button class="button" (click)="onNext()" mat-raised-button>Finish</button>
+    </div>

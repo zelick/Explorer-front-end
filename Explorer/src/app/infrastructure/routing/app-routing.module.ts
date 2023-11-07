@@ -28,12 +28,19 @@ import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-t
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
+import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
+import { TourOverviewComponent } from 'src/app/feature-modules/marketplace/tour-overview/tour-overview.component';
+import { TourOverviewDetailsComponent } from 'src/app/feature-modules/marketplace/tour-overview-details/tour-overview-details.component';
+import { AllToursComponent } from 'src/app/feature-modules/marketplace/all-tours/all-tours.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/purchased-tours/purchased-tours.component';
+import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketplace/purchased-tours-details/purchased-tours-details.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'club', component: ClubComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
@@ -41,9 +48,9 @@ const routes: Routes = [
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
   {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
-  {path: 'checkpoint', component: CheckpointComponent, canActivate: [AuthGuard]},
+  {path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard]},
   {path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard]},
-  {path: 'tour-form', component: TourFormComponent,canActivate:[AuthGuard]},
+  {path: 'tour-form/:id', component: TourFormComponent,canActivate:[AuthGuard]},
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'application-grade', component: ApplicationGradeComponent},
   {path: 'grade-review', component: GradeReviewComponent},
@@ -57,7 +64,15 @@ const routes: Routes = [
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
-  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]}
+  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
+  {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
+  {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
+  {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
+  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'all-tours', component: AllToursComponent},
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
+  {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

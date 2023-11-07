@@ -1,0 +1,27 @@
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div id="tour-details">
+        <div class="tours-heading">Choose your next adventure</div>
+        <div class="tour-card" *ngFor="let t of tours">
+            <div class="tour-info">
+                <div>
+                <div class="tourName"><strong>{{t.name}}</strong></div>
+                </div>
+                <br>
+                <p> {{t.description}}</p>
+                <p> {{t.price}} eur</p>
+                <p> Demandigness: {{t.demandignessLevel}}</p>
+                <p> Status: {{t.status}}</p>
+            </div>
+            <div class="tour-actions">
+                <button color="primary" (click)="addToCart(t)" mat-raised-button>
+                    Add to cart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

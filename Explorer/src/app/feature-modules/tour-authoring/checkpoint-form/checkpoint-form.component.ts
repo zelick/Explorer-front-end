@@ -4,6 +4,8 @@ import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Tour } from '../model/tour.model';
+import { Time } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class CheckpointFormComponent implements OnChanges{
   longitude: number = 0;
   latitude: number = 0;
 
-  constructor(private service: TourAuthoringService) {
+  constructor(private service: TourAuthoringService, private router:Router) {
     this.checkpointForm.controls.latitude.disable();
     this.checkpointForm.controls.longitude.disable();
   }
@@ -52,7 +54,9 @@ export class CheckpointFormComponent implements OnChanges{
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    address: new FormControl('')
+    address: new FormControl(''),
+    hours: new FormControl(0),
+    minutes: new FormControl(0)
   });
   pictureForm = new FormGroup({
     picture: new FormControl(this.picture, [Validators.required])
@@ -66,12 +70,16 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60
     };
 
+    if(this.validate(checkpoint.name, checkpoint.pictures))
+    {
       this.service.addCheckpoint(checkpoint).subscribe({
         next: () => { this.checkpointUpdated.emit();
         location.reload(); }
       });
+    }
   }
 
   updateCheckpoint(): void {
@@ -82,12 +90,16 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
+      requiredTimeInSeconds: this.selectedCheckpoint.requiredTimeInSeconds
     };
     checkpoint.id = this.selectedCheckpoint.id;
-    this.service.updateCheckpoint(checkpoint).subscribe({
-      next: () => { this.checkpointUpdated.emit();
-      location.reload();}
-    });
+    if(this.validate(checkpoint.name, checkpoint.pictures))
+    {
+      this.service.updateCheckpoint(checkpoint).subscribe({
+        next: () => { this.checkpointUpdated.emit();
+        location.reload();}
+      });
+    }
   }
 
   addPicture(): void{
@@ -153,5 +165,13 @@ export class CheckpointFormComponent implements OnChanges{
         console.error('Error:', error);
       },
     });
+  }
+
+  onBack(): void{
+    location.reload();
+  }
+
+  validate(name: string, pics: string[]): boolean{
+    return name!='' && pics.length>0;
   }
 }
