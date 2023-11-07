@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { BlogComment } from '../model/blogComment.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-blog-comment-form',
@@ -14,18 +13,22 @@ export class BlogCommentFormComponent implements OnChanges{
   
   @Output() blogCommentsUpdated = new EventEmitter<null>();
   @Input() blogComment: BlogComment;
+  @Input() blogPostId: number | undefined;
   @Input() shouldEdit: boolean = false;
-  user: User;
+  @Output() editingFinished = new EventEmitter<boolean>();
+
+  userId: number;
 
   constructor(private service: BlogService, private authService: AuthService) {
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-    });
-   }
+    this.userId = authService.user$.value.id;
+  }
 
   ngOnChanges(): void {
+    this.blogCommentForm.reset();
     if(this.shouldEdit) {
-      this.blogCommentForm.patchValue(this.blogComment);
+      this.blogCommentForm.patchValue({
+        text: this.blogComment.text
+      })
     }
   }
 
@@ -34,19 +37,17 @@ export class BlogCommentFormComponent implements OnChanges{
   });
 
   addComment(): void {
-    const currentDateTime = new Date();
-
-    console.log(currentDateTime);
     const blogComment: BlogComment =  {
-      blogPostId: 1, 
-      userId: this.user.id,
+      blogPostId: this.blogPostId , 
+      userId: this.userId,
       creationTime: new Date(),
       text: this.blogCommentForm.value.text || ""
     }
-    console.log(blogComment);
+
     this.service.addBlogComment(blogComment).subscribe({
-      next: (_) => {
+      next: () => {
         this.blogCommentsUpdated.emit()
+        this.blogCommentForm.reset();
       }
     })
   }
@@ -62,10 +63,11 @@ export class BlogCommentFormComponent implements OnChanges{
     blogComment.id = this.blogComment.id;
 
     this.service.updateBlogComment(blogComment).subscribe({
-      next: (_) => {
+      next: () => {
         this.blogCommentsUpdated.emit()
+        this.blogCommentForm.reset();
+        this.editingFinished.emit(false);
       }
     })
   }
-  
 }
