@@ -21,7 +21,10 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class TourOverviewDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
-  constructor(private service: MarketplaceService,private activatedRoute:ActivatedRoute,private router:Router, private authService : AuthService) { }
+  constructor(private service: MarketplaceService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router, 
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -129,7 +132,7 @@ export class TourOverviewDetailsComponent implements OnInit{
             });
   
             //this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu
-  
+            this.service.updateCartItemCount(1); //
           });
         }
       });

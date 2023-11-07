@@ -23,15 +23,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
+    });
 
-      this.marketplaceService.getShoppingCart(this.user.id).subscribe({
-        next: (result: ShoppingCart) => {
-          this.cart = result;
-          this.orderItems = this.cart.items;
-          this.cartItemCount = this.orderItems.length;
-        }
-      })
-
+    this.marketplaceService.cartItemCount$.subscribe((count) => {
+      this.cartItemCount = count;
     });
 
   }
