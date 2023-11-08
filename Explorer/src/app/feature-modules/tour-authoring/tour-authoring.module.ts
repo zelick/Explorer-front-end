@@ -12,6 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapObjectComponent } from './map-object/map-object.component';
 import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -32,7 +33,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ],
   exports: [
     CheckpointComponent,

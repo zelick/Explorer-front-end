@@ -22,6 +22,7 @@ export class MapObjectFormComponent implements OnChanges {
     category: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     pictureURL: new FormControl('', [Validators.required]),
+    status: new FormControl('Private', [Validators.required]),
   });
 
   constructor(private service: TourAuthoringService) {}
@@ -67,7 +68,9 @@ export class MapObjectFormComponent implements OnChanges {
       pictureURL: this.mapObjectForm.value.pictureURL || '',
     };
 
-    this.service.addMapObject(mapObject).subscribe({
+    const status = this.mapObjectForm.value.status || ''
+
+    this.service.addMapObject(mapObject, 1 ,status).subscribe({
       next: () => {
         this.mapObjectUpdated.emit();
       },

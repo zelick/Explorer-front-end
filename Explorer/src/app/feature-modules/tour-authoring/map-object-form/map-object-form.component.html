@@ -24,6 +24,13 @@
             <label>Picture URL:</label>
             <input matInput type="text" name="picture" formControlName="pictureURL">
         </mat-form-field>
+        <mat-form-field>
+            <label>Make your object public</label>
+            <mat-select formControlName="status">
+              <mat-option value="Private">Private</mat-option>
+              <mat-option value="Public">Public</mat-option>
+            </mat-select>
+        </mat-form-field>
         <br>
         <button *ngIf="!shouldEdit" (click)="addMapObject()">Add MapObject</button>
         <button *ngIf="shouldEdit" (click)="updateMapObject()">Update</button>

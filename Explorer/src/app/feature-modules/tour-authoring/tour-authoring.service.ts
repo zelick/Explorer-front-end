@@ -43,8 +43,8 @@ export class TourAuthoringService {
     return this.http.delete<MapObject>(environment.apiHost + 'administration/mapobject/' + id);
   }
   
-  addMapObject(mapObject: MapObject): Observable<MapObject> {
-    return this.http.post<MapObject>(environment.apiHost + 'administration/mapobject', mapObject);
+  addMapObject(mapObject: MapObject, userId: number, status: string): Observable<MapObject> {
+    return this.http.post<MapObject>(environment.apiHost + `administration/mapobject/create/${userId}/${status}`, mapObject);
   }
   
   updateMapObject(mapObject: MapObject): Observable<MapObject> {
