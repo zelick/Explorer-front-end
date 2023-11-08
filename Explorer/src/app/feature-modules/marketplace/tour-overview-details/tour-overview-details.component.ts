@@ -124,4 +124,8 @@ export class TourOverviewDetailsComponent implements OnInit{
         }
       });
     }
+
+    rateTour(tour: TourPreview): void{
+      this.router.navigate(['/tour-rating-form']);
+    }
 }
