@@ -21,24 +21,31 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class TourOverviewDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
-  constructor(private service: MarketplaceService,private activatedRoute:ActivatedRoute,private router:Router, private authService : AuthService) { }
+  constructor(private service: MarketplaceService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router, 
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params=>{
-     this.tourID=params['id'];
-     this.getPublishedTour(this.tourID);
-
-     this.authService.user$.subscribe(user => {
-      this.user = user;
+    this.authService.user$.subscribe(user => {
+          this.user = user;
+      
+      this.activatedRoute.params.subscribe(params=>{
+              this.tourID=params['id'];
+              this.getPublishedTour(this.tourID);
+              this.FindShoppingCart();
+      })
     });
-   })
- }
+  }
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
     profiles: string[] = ['walking', 'cycling', 'driving'];
     profile: string = this.profiles[0];
     user: User;
+    userCart: ShoppingCart;
+    isTourInCart: boolean = false;
+    buttonColor: string = 'orange';
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
@@ -93,8 +100,13 @@ export class TourOverviewDetailsComponent implements OnInit{
             tourShoppingCart.items.push(orderItem);
             //this.cartItemCount = tourShoppingCart.items.length;
             tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
-            this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
+            this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
               //this.cartItemCount = tourShoppingCart.items.length;
+              this.userCart = result;
+              this.isTourInCart = this.checkIsTourInCart();
+              if(this.isTourInCart == true){
+                this.buttonColor = 'gray';
+              }
             });
           });
         } else {
@@ -105,6 +117,11 @@ export class TourOverviewDetailsComponent implements OnInit{
           };
           this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => {
   
+            this.userCart = createdShoppingCart;
+            this.isTourInCart = this.checkIsTourInCart();
+            if(this.isTourInCart == true){
+              this.buttonColor = 'gray';
+            }
             const newCustomer: Customer = {
               touristId: this.user.id,
               purchaseTokens: [],
@@ -115,8 +132,30 @@ export class TourOverviewDetailsComponent implements OnInit{
             });
   
             //this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu
-  
+            this.service.updateCartItemCount(1); //
           });
+        }
+      });
+    }
+
+    checkIsTourInCart(): boolean{
+      if (this.userCart.items.length > 0) {
+        return this.userCart.items.some(item => item.tourId == this.tourID);
+      }
+      return false;
+    }
+
+    FindShoppingCart(): void{
+      this.service.getShoppingCart(this.user.id).subscribe((result) => {
+        if(!result){
+          this.isTourInCart = false;
+          this.buttonColor = 'orange';
+        }else{
+          this.userCart = result;
+          this.isTourInCart = this.checkIsTourInCart();
+          if(this.isTourInCart == true){
+            this.buttonColor = 'gray';
+          }
         }
       });
     }

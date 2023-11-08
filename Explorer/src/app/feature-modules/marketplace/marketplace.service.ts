@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ReportedIssue } from './model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
@@ -123,4 +123,14 @@ export class MarketplaceService {
   getPurchasedTourDetails(id:number):Observable<Tour> {
     return this.http.get<Tour>(environment.apiHost + 'customer/customersPurchasedTourDetails/'+ id)
   }
+
+  //
+  private cartItemCountSubject = new BehaviorSubject<number>(0);
+  cartItemCount$ = this.cartItemCountSubject.asObservable();
+
+  updateCartItemCount(count: number): void {
+    this.cartItemCountSubject.next(count);
+  }
+  //
+
 }
