@@ -82,15 +82,16 @@ export class TourOverviewDetailsComponent implements OnInit{
       this.router.navigate([`tour-overview`]);
 
     }
-
     onAddToCart(t: TourPreview): void{
-      const orderItem: OrderItem = {
-        tourId: t.id || 0,
-        tourName: t.name,
-        price: t.price,
-        // quantity: 1 // podesiti 
-      };
-      this.addItemToCart(orderItem, t);
+      const isConfirmed = window.confirm('Are you sure you want to add this item to the cart?');
+      if (isConfirmed) {
+        const orderItem: OrderItem = {
+          tourId: t.id || 0,
+          tourName: t.name,
+          price: t.price,
+        };
+        this.addItemToCart(orderItem, t);
+      }
     }
 
     addItemToCart(orderItem: OrderItem, tour: TourPreview): void {
