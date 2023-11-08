@@ -19,48 +19,57 @@
     overflow-y: auto;
 }
 
+#reported-issues-details > div {
+    width: 100%;
+}
 p {
     font-size: 20px;
+}
+
+
+.table-wrapper {
+    display: flex;
+    max-height: 76vh; /* Adjust the maximum height as needed */
+    overflow-y: scroll;
 }
 
 table {
     border-collapse: collapse;
     font-size: 0.9em;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-left: 20px;
-    overflow-y: auto;
-    margin-right: 10px;
+    table-layout: fixed;
+    width: 100%;
 }
 
 thead tr {
     background-color: #3B846B;
     color: #ffffff;
     text-align: left;
+    position: sticky;
+    top: 0; /* Header stays at the top */
 }
 
 th, td {
     padding: 12px 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-
-
 tbody tr {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #B6D4AF;
     cursor: pointer;
 }
 
 tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #F7F6DC;
 }
 
 tbody tr:last-of-type {
     border-bottom: 2px solid #3B846B;
 }
 
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
-}
+
 
 .red-row {
     color:red;
@@ -153,12 +162,14 @@ tbody tr.active-row {
     color: rgb(11, 179, 11);
     font-size: 120%;
     font-weight: 500;
+    margin-right: 10px;
 }
 
 .unresolved{
     color: red;
     font-size: 120%;
     font-weight: 500;
+    margin-right: 10px;
 }  
 .comment-input {
     display: flex;
