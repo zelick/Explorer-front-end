@@ -35,15 +35,24 @@ export class TourOverviewDetailsComponent implements OnInit{
      this.authService.user$.subscribe(user => {
       this.user = user;
     });
-    
-   })
- }
+    this.service.getAverageRating(this.tourID).subscribe(
+      (averageRating: number) => {
+        this.tourAvarageRating = averageRating;
+        console.log('Prosečna ocena ture:', this.tourAvarageRating);
+      },
+      (error) => {
+        console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
+      }
+    );
+  })
+  }
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
     profiles: string[] = ['walking', 'cycling', 'driving'];
     profile: string = this.profiles[0];
     user: User;
+    tourAvarageRating:number = 0;
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];

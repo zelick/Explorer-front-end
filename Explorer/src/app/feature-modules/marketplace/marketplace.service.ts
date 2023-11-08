@@ -75,6 +75,8 @@ export class MarketplaceService {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 
+  //isto ovde update tour rating
+
   addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
     return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
   }
@@ -151,5 +153,8 @@ export class MarketplaceService {
   }
   //
 
+  getAverageRating(id:number): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)
+  }
 
 }
