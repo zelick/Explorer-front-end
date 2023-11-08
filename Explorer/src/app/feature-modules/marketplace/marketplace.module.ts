@@ -18,6 +18,7 @@ import { PurchasedToursComponent } from './purchased-tours/purchased-tours.compo
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
 import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
+import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PurchasedToursDetailsComponent } from './purchased-tours-details/purcha
         PurchasedToursComponent,
         TourOverviewComponent,
         TourOverviewDetailsComponent,
-        PurchasedToursDetailsComponent
+        PurchasedToursDetailsComponent,
+        TourRatingEditFormComponent
     ],
     exports: [
         PreferenceFormComponent,

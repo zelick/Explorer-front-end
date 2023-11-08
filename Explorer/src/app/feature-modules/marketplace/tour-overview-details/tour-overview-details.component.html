@@ -106,8 +106,11 @@
                         </span>
                         <span class="cps1">
                             <br>
-                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
+                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
                         </span>
+                        <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </div>
                   
                 </td>

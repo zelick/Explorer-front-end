@@ -11,6 +11,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Customer } from '../model/customer.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourRating } from '../model/tour-rating.model';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class TourOverviewDetailsComponent implements OnInit{
      this.authService.user$.subscribe(user => {
       this.user = user;
     });
+    
    })
  }
     tour:TourPreview;
@@ -64,13 +66,13 @@ export class TourOverviewDetailsComponent implements OnInit{
     getPublishedTour(id: number): void {
       this.service.getPublishedTour(id).subscribe((result: TourPreview) => {
         this.tour = result;
+        console.log("Milicina tura: ");
         console.log(this.tour);
         this.checkpoints=this.tour.checkpoint;
         if(this.checkpoints != null)
         { 
           this.route();
         } 
-    
       });
     }
 
@@ -128,5 +130,14 @@ export class TourOverviewDetailsComponent implements OnInit{
     rateTour(tour: TourPreview): void{
       console.log(tour.id);
       this.router.navigate(['/tour-rating-form', tour.id]);
+    }
+
+    isTouristRating(rating: TourRating): boolean{
+      return rating.touristId === this.user.id;
+    }
+
+    editRating(rating: TourRating): void{
+      this.router.navigate(['/tour-rating-edit-form', rating.id]);
+      console.log(rating.id);
     }
 }
