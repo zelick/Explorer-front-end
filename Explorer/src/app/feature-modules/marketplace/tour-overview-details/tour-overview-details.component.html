@@ -1,4 +1,3 @@
-
 <div class="tour-details">
     <br>
     <p >{{tour.name}}</p>
@@ -92,6 +91,9 @@
 
 <p class="subtitle">Ratings</p>
 <div>
+    <div>
+        <p>Average Rating: {{tourAvarageRating}}</p>
+    </div>
     <table>
         <tbody>
             <tr *ngFor="let e of tour.tourRating" >
@@ -132,5 +134,3 @@
     </div>
    
 </div>
-
-
