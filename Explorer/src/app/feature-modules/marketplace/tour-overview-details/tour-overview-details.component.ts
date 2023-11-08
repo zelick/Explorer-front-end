@@ -126,6 +126,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     }
 
     rateTour(tour: TourPreview): void{
-      this.router.navigate(['/tour-rating-form']);
+      console.log(tour.id);
+      this.router.navigate(['/tour-rating-form', tour.id]);
     }
 }

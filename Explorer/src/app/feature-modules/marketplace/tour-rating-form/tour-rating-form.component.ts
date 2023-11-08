@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { MarketplaceService } from '../marketplace.service';
 import { TourRating } from '../model/tour-rating.model';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-rating-form',
@@ -12,19 +13,27 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./tour-rating-form.component.css'],
   providers: [DatePipe]
 })
-export class TourRatingFormComponent implements OnChanges {
+export class TourRatingFormComponent implements OnChanges, OnInit {
 
   @Output() ratingUpdated = new EventEmitter<null>();
   @Input() rating: TourRating;
   @Input() shouldEdit: boolean = false;
   user: User;
   newPictures: string[]=[];
+  tourId: number;
   
-  constructor(private service: MarketplaceService, private authService: AuthService) { 
+  constructor(private service: MarketplaceService, private authService: AuthService, private route: ActivatedRoute) { 
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.newPictures=[];
      });
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.tourId = params['id'];
+      console.log(this.tourId);
+    });
   }
 
   ngOnChanges(): void {
@@ -50,8 +59,8 @@ export class TourRatingFormComponent implements OnChanges {
       rating: Number(this.tourRatingForm.value.rating) || 1,
       comment: this.tourRatingForm.value.comment || "",
       touristId: this.user.id,
-      tourId: Number(this.tourRatingForm.value.tourId) || 0,
-      tourDate: this.tourRatingForm.value.tourDate || new Date(),
+      tourId: this.tourId,
+      tourDate: new Date(), // sta je tourDate proveri
       creationDate: new Date(),
       pictures: this.newPictures
     };
