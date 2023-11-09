@@ -1,42 +1,63 @@
 <div id="reported-issue-notification" >
     <hr>
     <div>
-        <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Created on</th>
-                <th>Is Read</th>
-                <th>userId</th>
-                <th>Reported Issue Id</th>
-                <th>Mark as read</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let n of notifications" color="primary" (click)="selectNotification(n)">
-                <td>{{n.id}}</td>
-                <td>{{n.description}}</td>
-                <td>{{n.creationTime | date: 'HH:mm, dd.MM.yyyy'}}</td>
-                <td>{{n.isRead}}</td>
-                <td>{{n.userId}}</td>
-                <td>{{n.reportedIssueId}}</td> 
-                <!-- TODO -> add see details button -->
-                <td>
-                  <button color="accent" (click)="markAsRead(n)" mat-icon-button>
-                    <mat-icon>check</mat-icon>
-                  </button>
-                </td>
+      <div id="content">
+        <div id="notifications-table">
+          <!-- TODO -> fix numberNew display -->
+          <!-- <p>You have {{numberNew}} new notifications </p> -->
+          <div style="overflow-x: hidden;">
+            <div style="border: 2px solid #3B846B;">
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th> Notifications </th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let n of notifications" color="primary" (click)="selectNotification(n)">
+                      <td>
+                        <div class="details">
+                          <p class="post-content" style="width: 55%;">{{n.description}}</p>
+                          <p class="new" *ngIf="!n.isRead">New</p>
+                          <p>{{n.reportedIssueId}}</p>
+                        </div>
+                        
+                        <div class="date-and-dissmiss-div">
+                          <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
+                          
+                          <!-- TODO details button  -->
+                          <a class="see-details" href="/reported-issues">
+                            see details
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="buttons-div">
+                          <button color="accent" (click)="deleteNotification(n.id || 0)" mat-icon-button>
+                              <mat-icon>delete</mat-icon>
+                          </button>
+                          
+                          <a class="dismiss" *ngIf="!n.isRead" href="/reported-issue-notifications"  (click)="dismissOne(n)">
+                            dismiss
+                          </a>
+                        </div>
+                      </td>  
 
-                <td>
-                  <button color="accent" (click)="deleteNotification(n.id || 0)" mat-icon-button>
-                      <mat-icon>delete</mat-icon>
-                  </button>
-                </td>         
-              </tr>
-            </tbody>
-          </table>
+                      <td>{{n.isRead}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        <button class="green-button" (click)="dismissAll()">
+          Dismiss all
+        </button>
     </div>
-
 </div>

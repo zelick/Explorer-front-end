@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { DatePipe } from '@angular/common';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../administration.service';
 import { ReportedIssueNotification } from '../model/reported-issue-notification.model';
+//TODO -> change to dialog
+//import { MatDialogRef ,MatDialog, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'xp-reported-issue-notifications',
   templateUrl: './reported-issue-notifications.component.html',
   styleUrls: ['./reported-issue-notifications.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+
 })
 export class ReportedIssueNotificationsComponent implements OnInit {
   notifications: ReportedIssueNotification[];
+  numberAll: number;
   unread: ReportedIssueNotification[];
-  user:User;
+  numberNew: number;
+  user: User;
   role: string;
   selectedNotification:ReportedIssueNotification;
 
-  constructor(private service: AdministrationService, private authService: AuthService) { }
+  constructor(
+    private service: AdministrationService, private authService: AuthService) { }
   
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -38,6 +44,7 @@ export class ReportedIssueNotificationsComponent implements OnInit {
         error: () => {
         }
     })
+    this.numberAll = this.notifications.length;
   }
 
   getUnreadByUser(): void{
@@ -48,6 +55,7 @@ export class ReportedIssueNotificationsComponent implements OnInit {
         error: () => {
         }
     })
+    this.numberNew = this.unread.length;
   }
   
   deleteNotification(id: number): void {
@@ -59,7 +67,7 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     })
   }
 
-  markAsRead(notification: ReportedIssueNotification): void {
+  dismissOne(notification: ReportedIssueNotification): void {
     notification.isRead = true;
     this.service.updateReportedIssueNotification(this.role, notification).subscribe({
       next: () => {
@@ -67,6 +75,14 @@ export class ReportedIssueNotificationsComponent implements OnInit {
         this.getUnreadByUser();
       },
     })
+  }
+
+  dismissAll(): void {
+    this.notifications.forEach(element => {
+      this.dismissOne(element);
+    });  
+    this.getAllByUser();
+    this.getUnreadByUser();
   }
 
   // getNotification(id: number): void {
@@ -82,5 +98,4 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   selectNotification(notif: ReportedIssueNotification): void {
     this.selectedNotification = notif;
   }
-
 }
