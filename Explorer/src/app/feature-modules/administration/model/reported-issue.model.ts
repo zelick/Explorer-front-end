@@ -13,5 +13,7 @@ export interface ReportedIssue {
     tour: Tour;
     closed?: boolean;
     deadline?: Date;
+    personName: string;
+    profilePictureUrl: string;
     comments: TourIssueComment[];
 }

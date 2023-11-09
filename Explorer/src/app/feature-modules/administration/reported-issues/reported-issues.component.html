@@ -45,8 +45,10 @@
             <p class="additionalInfo" style="width: 35%; text-align: right;">Category: {{selectedReportedIssue.category}}</p>
         </div>        
         <div class="user-info">
-            <div class="user-avatar"></div>
-            <div class="user-name">{{selectedReportedIssue.touristId}}</div>
+            <div class="user-avatar">
+                <img [src]="selectedReportedIssue.profilePictureUrl" alt=" ">
+            </div>
+            <div class="user-name">{{selectedReportedIssue.personName}}</div>
         </div>
         <div class="post-content">
             {{selectedReportedIssue.description}}
@@ -58,8 +60,10 @@
         <div class="comments">
             <div *ngFor="let ri of selectedReportedIssue.comments" class="comment">
                 <div class="comment-user-info">
-                    <div class="comment-avatar"></div>
-                    <div class="comment-name">{{ri.creatorId}}</div>
+                    <div class="comment-avatar">
+                        <img [src]="ri.profilePictureUrl" alt=" ">
+                    </div>
+                    <div class="comment-name">{{ri.personName}}</div>
                 </div>
                 <div class="comment-content">
                     {{ri.text}}

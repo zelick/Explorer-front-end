@@ -31,7 +31,9 @@ export class ReportedIssuesComponent implements OnInit{
     this.newComment = {
       creationTime: new Date(),
       creatorId: 0, 
-      text: ''
+      text: '',
+      personName:'',
+      profilePictureUrl:''
     };
   }
 

@@ -94,13 +94,20 @@ tbody tr:last-of-type {
     margin-bottom: 10px;
 }
 
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.user-avatar{
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
     margin-right: 10px;
     background-color: #ccc;
+    overflow: hidden; /* Clip the image to fit the circle */
 }
+
+.user-avatar img, .comment-avatar img {
+    max-width: 100%; /* Maximum width as per the parent div */
+    max-height: 100%; /* Maximum height as per the parent div */
+}
+
 
 .user-name {
     font-weight: bold;
@@ -135,12 +142,14 @@ tbody tr:last-of-type {
 }
 
 .comment-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
     margin-right: 10px;
     background-color: #ccc;
+    overflow: hidden; /* Clip the image to fit the circle */
 }
+
 
 .comment-name {
     font-weight: bold;
