@@ -35,7 +35,6 @@ export class TourOverviewDetailsComponent implements OnInit{
      this.authService.user$.subscribe(user => {
       this.user = user;
     });
-    
     this.service.getAverageRating(this.tourID).subscribe(
       (averageRating: number) => {
         this.tourAvarageRating = averageRating;
@@ -46,7 +45,7 @@ export class TourOverviewDetailsComponent implements OnInit{
       }
     );
   })
- }
+  }
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
@@ -76,6 +75,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     getPublishedTour(id: number): void {
       this.service.getPublishedTour(id).subscribe((result: TourPreview) => {
         this.tour = result;
+        console.log("Milicina tura: ");
         console.log(this.tour);
         this.checkpoints=this.tour.checkpoint;
         console.log("OCENE ZA TURU ", this.tour.tourRating)
@@ -83,7 +83,6 @@ export class TourOverviewDetailsComponent implements OnInit{
         { 
           this.route();
         } 
-    
       });
     }
 
@@ -143,15 +142,12 @@ export class TourOverviewDetailsComponent implements OnInit{
       this.router.navigate(['/tour-rating-form', tour.id]);
     }
 
-    editRating(tourRating : TourRating) : void {
-        console.log(tourRating.id);
-        this.router.navigate(['/tour-rating-form', tourRating.id]);
+    isTouristRating(rating: TourRating): boolean{
+      return rating.touristId === this.user.id;
     }
 
-    isTouristRating(tourRating : TourRating) : boolean {
-      if (tourRating.touristId == this.user.id) {
-        return true;
-      }
-      return false;
+    editRating(rating: TourRating): void{
+      this.router.navigate(['/tour-rating-edit-form', rating.id]);
+      console.log(rating.id);
     }
 }
