@@ -1,1 +1,33 @@
-<p>tour-execution works!</p>
+<div id="tour-execution">
+
+    <div id="top-div">
+        <div class="tour-info">
+            <p class="subtitle">Tour: {{tour.name}}</p>
+            <table>
+                <tr>
+                    <td>Description: </td>
+                    <td>{{tour.description}}</td>
+                </tr>
+                <tr>
+                    <td>Demandigness Level: </td>
+                    <td>{{tour.demandignessLevel}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="notification-div">
+            <table>
+                <tr *ngFor="let n of notifications">
+                    <td>Save your new position!</td>
+                    <td>
+                        <button>Save</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="simulator-div">
+        <xp-simulator></xp-simulator>
+    </div>
+</div>

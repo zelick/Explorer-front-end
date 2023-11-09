@@ -59,8 +59,11 @@ export class SimulatorComponent implements OnInit {
     this.searchByCoord(event.lat, event.lon);
   }
 
+  addCheckpoint(coords: [{lat: number, lon: number}]): void{
+    this.mapComponent.addCheckpoints(coords);
+  }
   private searchByCoord(lat: number, lon: number) {
-    this.mapComponent.reverseSearch(lat, lon).subscribe({
+    this.mapComponent.addTouristPosition(lat, lon).subscribe({
       next: (location) => {
         const foundLocation = location;
         console.log('Found Location Lat:', foundLocation.lat);

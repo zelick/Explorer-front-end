@@ -188,5 +188,36 @@ export class MapComponent implements AfterViewInit {
 
     }
     
+    addCheckpoints(coords: [{lat: number, lon: number}]): void {
+
+      let defaultIcon = L.icon({
+        iconUrl: 'https://docs.mapbox.com/mapbox.js/assets/images/astronaut1.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).addTo(this.map);
+      });
+    }
+
+    addTouristPosition(lat: number, lon: number): Observable<LocationResponse> {
+      return this.mapService.reverseSearch(lat, lon).pipe(
+        map((result) => result),
+        tap((location) => {
+          console.log('Location:', location);
+         L.marker([location.lat, location.lon])
+            .addTo(this.map)
+            .bindPopup(location.display_name)
+            .openPopup();
+        }),
+        catchError((error) => {
+          console.error('Error in reverse search:', error);
+          throw error;
+        })
+      );
+    }
+
+
   }
 

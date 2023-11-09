@@ -24,7 +24,6 @@ import { TourTransportFormComponent } from './tour-transport-form/tour-transport
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapComponent,
     MapObjectComponent,
     MapObjectFormComponent,
     TourEquipmentComponent,
@@ -42,8 +41,7 @@ import { TourTransportFormComponent } from './tour-transport-form/tour-transport
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent,
-    MapComponent
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }
