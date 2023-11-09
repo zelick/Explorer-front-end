@@ -1,3 +1,5 @@
+import { CheckpointSecret } from "./checkpointSecret.model";
+
 export interface Checkpoint{
     id?: number,
     tourId: number,
@@ -6,5 +8,12 @@ export interface Checkpoint{
     name: string,
     description: string,
     pictures: string[],
-    requiredTimeInSeconds: number
+    requiredTimeInSeconds: number,
+    checkpointSecret?:CheckpointSecret,
+    currentPicture:number,
+    currentPointPicture:number,
+    showedPointPicture:string,
+    visibleSecret:Boolean,
+    showedPicture:string,
+    viewSecretMessage:string
 }

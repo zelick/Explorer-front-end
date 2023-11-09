@@ -9,6 +9,7 @@ import { Tour } from './model/tour.model';
 import { MapObject } from './model/map-object.model';
 import { TourTime } from './model/tourTime.model';
 import { TourTimes } from './model/tourTimes.model';
+import { CheckpointSecret } from './model/checkpointSecret.model';
 
 
 @Injectable({
@@ -17,9 +18,12 @@ import { TourTimes } from './model/tourTimes.model';
 export class TourAuthoringService {
 
   constructor(private http: HttpClient) { }
-
+  
   getCheckpoints(): Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>(environment.apiHost + 'administration/checkpoint')
+  }
+  getCheckpoint(id:number): Observable<Checkpoint> {
+    return this.http.get<Checkpoint>(environment.apiHost + 'administration/checkpoint/details/'+id);
   }
 
   getCheckpointsByTour(id: number): Observable<PagedResults<Checkpoint>> {
@@ -36,6 +40,14 @@ export class TourAuthoringService {
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
     return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpoint.id, checkpoint);
+  }
+
+  addCheckpointSecret(checkpointSecret: CheckpointSecret,id:number): Observable<Checkpoint> {
+    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/createSecret/' + id, checkpointSecret);
+  }
+
+  updateCheckpointSecret(checkpointSecret: CheckpointSecret,id:number): Observable<Checkpoint> {
+    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/updateSecret/' + id, checkpointSecret);
   }
 
   getMapObjects(): Observable<PagedResults<MapObject>> {
