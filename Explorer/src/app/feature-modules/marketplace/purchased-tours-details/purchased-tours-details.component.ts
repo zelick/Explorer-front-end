@@ -52,7 +52,7 @@ export class PurchasedToursDetailsComponent implements OnInit{
     }
 
     tourExecution() {
-
+        this.router.navigate([`tour-execution/` + this.tour.id || 0]);
     }
 
     onBack():void{

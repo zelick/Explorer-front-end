@@ -25,7 +25,6 @@ import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoi
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapComponent,
     MapObjectComponent,
     MapObjectFormComponent,
     TourEquipmentComponent,
@@ -44,8 +43,7 @@ import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoi
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent,
-    MapComponent
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }

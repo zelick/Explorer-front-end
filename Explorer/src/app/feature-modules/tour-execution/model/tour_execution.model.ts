@@ -1,12 +1,14 @@
-import { Tour } from "../../tour-authoring/model/tour.model";
+import { TourPreview } from "../../marketplace/model/tour-preview";
+import { PurchasedTourPreview } from "./purchased_tour_preview.model";
+
 
 export interface TourExecution{
-    TouristId: number,
-    TourId: number,
-    Tour: Tour,
-    Start: Date,
-    LastActivity: Date,
-    ExecutionStatus: ExecutionStatus
+    touristId: number,
+    tourId: number,
+    tour: PurchasedTourPreview,
+    start: Date,
+    lastActivity: Date,
+    executionStatus: ExecutionStatus
 }
 
 export enum ExecutionStatus

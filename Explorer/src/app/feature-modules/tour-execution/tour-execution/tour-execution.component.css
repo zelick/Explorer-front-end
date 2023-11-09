@@ -1,0 +1,15 @@
+#tour-execution{
+    margin: 100px;
+    margin-top: 100px;
+}
+
+.simulator-div{
+    width: 600px;
+    height: 150px;
+}
+
+#top-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
