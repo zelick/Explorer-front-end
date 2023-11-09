@@ -1,17 +1,12 @@
-#equipment {
-    margin-top: 20px;
-    margin-left: 20px;
+#blog-post {
+    margin-left: 2rem;
 }
 
-#equipment-details {
+#blog-post-details {
     display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
-}
-
-p {
-    font-size: 20px;
+    flex-direction: column;
+    width: 800px;
+    margin-top: 40px;
 }
 
 table {
@@ -20,10 +15,11 @@ table {
     font-family: sans-serif;
     min-width: 300px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    align-self: flex-start;
 }
 
 thead tr {
-    background-color: #3f51b5;
+    background-color: #3B846B;
     color: #ffffff;
     text-align: left;
 }
@@ -42,10 +38,29 @@ tbody tr:nth-of-type(even) {
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+    border-bottom: 2px solid #3B846B;
 }
 
 tbody tr.active-row {
     font-weight: bold;
-    color: #3f51b5;
+    color: #3B846B;
+}
+button {
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px;
+}
+
+button mat-icon {
+    color: #ffffff;
+}
+
+button[color="primary"] {
+    background-color: #3B846B;
+}
+
+button[color="accent"] {
+    background-color: #E67840;
 }

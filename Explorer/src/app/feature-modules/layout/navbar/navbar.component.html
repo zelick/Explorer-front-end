@@ -16,7 +16,7 @@
             <button mat-raised-button [matMenuTriggerFor]="menu" class="menu-button" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Blog</button>
             <mat-menu #menu="matMenu" class="frame">
                 <button mat-menu-item [routerLink]="['blogs']">All blogs</button>
-                <button mat-menu-item [routerLink]="['your-blogs']">Manage your blogs</button>
+                <button mat-menu-item [routerLink]="['my-blogs']">Manage your blogs</button>
             </mat-menu>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['preference']">Manage preference</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>

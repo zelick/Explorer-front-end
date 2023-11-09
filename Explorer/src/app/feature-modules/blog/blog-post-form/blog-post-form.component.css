@@ -1,10 +1,45 @@
-div {
-    width: 400px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
+button {
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px;
 }
 
-.mat-icon {
-    vertical-align: middle;
+button mat-icon {
+    color: #ffffff;
+}
+
+button[color="primary"] {
+    background-color: #3B846B;
+}
+
+button[color="accent"] {
+    background-color: #E67840;
+}
+
+form button {
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px;
+}
+
+form button {
+    display: block;
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px 0;
+}
+
+form button mat-icon {
+    color: #ffffff;
+}
+
+form button[color="primary"],
+form button[color="accent"] {
+    display: block;
 }
