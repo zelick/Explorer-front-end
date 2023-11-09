@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -33,10 +33,30 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     this.route.params.subscribe(params => {
       this.tourId = params['id'];
       console.log(this.tourId);
+
+      if (this.tourId != 0) {
+        this.shouldEdit = true;
+      }
+
+      console.log(this.shouldEdit)
+      console.log(this.rating)
+
+      if (this.shouldEdit && this.rating) {
+        this.initializeFormValues();
+      }
     });
   }
 
-  ngOnChanges(): void {
+  initializeFormValues(): void {
+    this.tourRatingForm.patchValue({
+      rating: this.rating.rating || 0,
+      comment: this.rating.comment || '',
+      tourId: this.rating.tourId || 0,
+      tourDate: this.rating.tourDate || new Date()
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.tourRatingForm.reset();
     if(this.shouldEdit) {
       this.tourRatingForm.patchValue(this.rating);
@@ -54,6 +74,28 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     picture: new FormControl<string>("", {nonNullable: true})
   });
 
+  editTourRating(): void {
+    const tourRating: TourRating = {
+      rating: Number(this.tourRatingForm.value.rating) || 1,
+      comment: this.tourRatingForm.value.comment || "",
+      touristId: this.user.id,
+      tourId: this.tourId,
+      tourDate: new Date(),
+      creationDate: new Date(),
+      pictures: this.newPictures
+    };
+    tourRating.id = this.tourId;
+    this.service.updateTourRating(tourRating).subscribe({
+      next: () => {
+        this.ratingUpdated.emit()
+      }
+    })
+
+    this.newPictures=[];
+    this.picturesForm.reset();
+    this.tourRatingForm.reset();
+  }
+
   addTourRating(): void {
     const rating: TourRating = {
       rating: Number(this.tourRatingForm.value.rating) || 1,
@@ -67,8 +109,13 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     
     console.log(rating)
     
-    this.service.addTourRating(rating).subscribe({
-      next: () => { this.ratingUpdated.emit() }
+    this.service.addTourRating(rating).subscribe(
+    (response) =>
+      {
+      this.ratingUpdated.emit();
+    }, 
+    (error) => {
+      alert(error.error);
     });
     this.newPictures=[];
     this.picturesForm.reset();

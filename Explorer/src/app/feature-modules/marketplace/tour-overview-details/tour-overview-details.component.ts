@@ -11,6 +11,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Customer } from '../model/customer.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourRating } from '../model/tour-rating.model';
 
 
 @Component({
@@ -77,6 +78,7 @@ export class TourOverviewDetailsComponent implements OnInit{
         this.tour = result;
         console.log(this.tour);
         this.checkpoints=this.tour.checkpoint;
+        console.log("OCENE ZA TURU ", this.tour.tourRating)
         if(this.checkpoints != null)
         { 
           this.route();
@@ -139,5 +141,17 @@ export class TourOverviewDetailsComponent implements OnInit{
     rateTour(tour: TourPreview): void{
       console.log(tour.id);
       this.router.navigate(['/tour-rating-form', tour.id]);
+    }
+
+    editRating(tourRating : TourRating) : void {
+        console.log(tourRating.id);
+        this.router.navigate(['/tour-rating-form', tourRating.id]);
+    }
+
+    isTouristRating(tourRating : TourRating) : boolean {
+      if (tourRating.touristId == this.user.id) {
+        return true;
+      }
+      return false;
     }
 }

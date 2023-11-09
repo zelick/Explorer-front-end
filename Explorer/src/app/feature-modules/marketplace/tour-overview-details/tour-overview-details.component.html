@@ -91,15 +91,15 @@
 
 <p class="subtitle">Ratings</p>
 <div>
-    <div>
-        <p>Average Rating: {{tourAvarageRating}}</p>
-    </div>
     <table>
         <tbody>
             <tr *ngFor="let e of tour.tourRating" >
                 <td class="cpp">
                     <div class="cardcp">
                         <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Id:</span>{{e.id}}</span></div>
+                            <br>
                             <br>
                             <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
                             <br>
@@ -108,8 +108,11 @@
                         </span>
                         <span class="cps1">
                             <br>
-                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
+                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
                         </span>
+                        <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button> 
                     </div>
                   
                 </td>
@@ -119,6 +122,9 @@
         </tbody>
   
 </table>
+<div>
+    <p>Average Rating: {{tourAvarageRating}}</p>
+</div>
 </div>
     <div class="routingButton">
         <div>
