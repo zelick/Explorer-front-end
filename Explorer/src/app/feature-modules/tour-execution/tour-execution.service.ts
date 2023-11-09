@@ -18,7 +18,18 @@ export class TourExecutionService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("tourId",tourId);
     queryParams = queryParams.append("touristId",touristId);
-    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams})
+    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
   }
 
+  startExecution(tourId: number, touristId: number): Observable<TourExecution>{
+    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId + "/" + tourId, null);
+  }
+
+  abandon(id: number): Observable<TourExecution>{
+    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/abandoned', id);
+  }
+
+  registerPosition(id: number, position: TouristPosition): Observable<TourExecution>{
+    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/' + id, position);
+  }
 }

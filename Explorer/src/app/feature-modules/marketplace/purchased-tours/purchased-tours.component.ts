@@ -38,10 +38,5 @@ export class PurchasedToursComponent implements OnInit {
   openDetails(tour:Tour):void{
     this.router.navigate([`purchased-tours-details/${tour.id}`]);
   }
-  
-  start(tour: Tour): void
-  {
-    this.service.startExecution(tour.id || 0, this.user.id).subscribe({
-    });
-  }
+
 }

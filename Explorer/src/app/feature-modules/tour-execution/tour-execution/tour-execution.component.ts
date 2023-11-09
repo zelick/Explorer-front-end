@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { TourPreview } from '../../marketplace/model/tour-preview';
 import { TourExecution } from '../model/tour_execution.model';
 import { Injectable } from '@angular/core';
@@ -10,6 +10,8 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { SimulatorComponent } from '../../marketplace/simulator/simulator.component';
 import { TouristPosition } from '../../marketplace/model/position.model';
 import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
+import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
+import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
 @Component({
   selector: 'xp-tour-execution',
   templateUrl: './tour-execution.component.html',
-  styleUrls: ['./tour-execution.component.css']
+  styleUrls: ['./tour-execution.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TourExecutionComponent implements OnInit, AfterViewInit{
   @ViewChild(SimulatorComponent) simulatorComponent: SimulatorComponent;
@@ -27,7 +30,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   tourist: User;
   oldPosition: TouristPosition;
   shouldRenderSimulator: boolean = false;
-  notifications: number[]=[];
+  notifications: number[]=[1];
+  checkPositions: any;
+  completedCheckpoint: CheckpointPreview[]
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -41,26 +46,50 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.tourist = user;
 
       this.service.getTourExecution(this.tourist.id, this.tourId || 0).subscribe(result => {
-        this.tourExecution = result;  
-        this.tour = result.tour;    
+        if(result != null)
+        {
+          this.tourExecution = result;  
+          this.tour = result.tour;    
+          this.findCheckpoints();
+        }else{
+          this.service.startExecution(this.tourId, this.tourist.id).subscribe( result =>{
+            this.tourExecution = result;  
+            this.tour = result.tour; 
+            this.findCheckpoints();
+          });
+        }
       });
     });
   });
 
-  var intervalID = setInterval(this.checkPosition, 10000);
+  this.checkPositions = setInterval(() => {
+    this.checkPosition();
+  }, 10000);
+
   }
 
   ngAfterViewInit(): void{
-    this.addCheckpointsOnMap();
+    if(this.tour != null)
+      this.addCheckpointsOnMap();
   }
 
   checkPosition(): void{
-    if(this.oldPosition != this.simulatorComponent.positions[0]){
-      this.simulatorComponent.addTouristPosition(this.simulatorComponent.positions[0]);
+    if(this.oldPosition != this.simulatorComponent.selectedPosition){
+      if(this.oldPosition == undefined)
+        this.oldPosition = this.simulatorComponent.selectedPosition;
+      if(this.simulatorComponent.selectedPosition != undefined)
+      {
+        this.service.registerPosition(this.tourExecution.id || 0, this.simulatorComponent.selectedPosition).subscribe( result => {
+            this.tourExecution = result;
+            this.tour = result.tour;
+            this.findCheckpoints();
+        });
+      }
+      this.oldPosition = this.simulatorComponent.selectedPosition;
+      this.notifications = [];
     }
     console.log("Check position");
     this.notifications.push(1);
-    this.notifications = {...this.notifications};
     this.changeDetection.detectChanges();
   }
 
@@ -78,6 +107,26 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       });
       this.simulatorComponent.addCheckpoint(coords);
     }
+  }
+
+  abandon(): void{
+    this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
+      this.tourExecution = result;
+      this.tour = result.tour;
+      this.findCheckpoints();
+    })
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.checkPositions);
+  }
+
+  findCheckpoints(): void{
+    this.completedCheckpoint = [];
+    this.tourExecution.completedCheckpoints?.forEach(element => {
+      var c = this.tour.checkpoints.filter(n => n.id == element.checkpointId);
+      this.completedCheckpoint.push(c[0]);
+    });
   }
 }
 

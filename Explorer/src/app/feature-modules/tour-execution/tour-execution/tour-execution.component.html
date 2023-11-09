@@ -15,12 +15,16 @@
             </table>
         </div>
 
+        <button (click)="abandon()">
+            Abandon
+        </button>
+
         <div class="notification-div">
-            <table>
+            <table border="1">
                 <tr *ngFor="let n of notifications">
                     <td>Save your new position!</td>
                     <td>
-                        <button>Save</button>
+                    ({{n}})
                     </td>
                 </tr>
             </table>
@@ -28,6 +32,16 @@
     </div>
 
     <div class="simulator-div">
-        <xp-simulator></xp-simulator>
+        <xp-simulator (positionUpdated)="checkPosition()"></xp-simulator>
     </div>
+
+    <div class="checkpoints-div">
+        <table>
+            <tr *ngFor="let c of completedCheckpoint">
+                <td>Name: {{c.name}}</td>
+                <td>Description: {{c.description}}</td>
+            </tr>
+        </table>
+    </div>
+
 </div>

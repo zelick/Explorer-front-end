@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild, Output } from '@angular/core';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TouristPosition } from '../model/position.model';
@@ -16,6 +16,7 @@ export class SimulatorComponent implements OnInit {
   selectedPosition: TouristPosition;
   shouldEdit: boolean = false;
   user: User;
+  @Output() positionUpdated: EventEmitter<null> = new EventEmitter<null>();
 
   constructor(private service: MarketplaceService, private authService: AuthService) { }
 
@@ -36,7 +37,11 @@ export class SimulatorComponent implements OnInit {
 
   addTouristPosition(position: TouristPosition): void {
     this.service.addTouristPosition(position).subscribe({
-      next: () => { this.getPosition(); }
+      next: () => { 
+        this.getPosition(); 
+        this.selectedPosition = position;
+        this.positionUpdated.emit();
+      }
     });
   }
 
