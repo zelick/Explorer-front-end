@@ -14,7 +14,6 @@ export class BlogCommentComponent implements OnInit {
   @Input() blogPostId: number | undefined;
   @Input() comment: BlogComment;
   @Output() commentUpdated: EventEmitter<void> = new EventEmitter<void>();
-  shouldEdit: boolean = false;
   showOptions: boolean = false;
   userId: number;
   isEditing = false;
@@ -59,15 +58,11 @@ export class BlogCommentComponent implements OnInit {
 
   editCommment() {
     this.comment.text = this.editedCommentText;
+    this.isEditing = false;
     this.service.addBlogComment(this.blogPostId!, this.comment).subscribe({
       next: () => {
-        this.onEditingFinished(false);
         this.commentUpdated.emit();
       }
     })
-  }
-
-  onEditingFinished(value: boolean): void {
-    this.shouldEdit = value;
   }
 }

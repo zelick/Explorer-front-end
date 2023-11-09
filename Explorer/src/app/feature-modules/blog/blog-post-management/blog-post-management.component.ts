@@ -3,6 +3,7 @@ import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-blog-post-management',
@@ -19,7 +20,7 @@ export class BlogPostManagementComponent implements OnInit {
   shouldEdit: boolean = false;
   userId: number;
 
-  constructor(private service: BlogService, private authService: AuthService) { }
+  constructor(private service: BlogService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -38,6 +39,10 @@ export class BlogPostManagementComponent implements OnInit {
       error: () => {
       }
     })
+  }
+
+  onRowSelected(selectedBlogPost: BlogPost): void {
+    this.router.navigate(['/blogs', selectedBlogPost.id]);
   }
 
   deleteBlogPost(id: number): void {

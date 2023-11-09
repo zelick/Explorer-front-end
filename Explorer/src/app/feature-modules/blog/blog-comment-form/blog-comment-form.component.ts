@@ -19,6 +19,7 @@ export class BlogCommentFormComponent{
 
   constructor(private service: BlogService, private authService: AuthService) {
     this.userId = authService.user$.value.id;
+    
   }
 
   blogCommentForm = new FormGroup({

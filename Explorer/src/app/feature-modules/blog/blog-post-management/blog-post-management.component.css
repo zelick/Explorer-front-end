@@ -4,9 +4,19 @@
 
 #blog-post-details {
     display: flex;
-    flex-direction: column;
-    width: 800px;
+    justify-content: space-between;
     margin-top: 40px;
+    width: 100%;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.table-container {
+    width: 50%;
+}
+
+.form-container {
+    width: 40%;
 }
 
 table {
@@ -16,6 +26,7 @@ table {
     min-width: 300px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     align-self: flex-start;
+    width: 70%;
 }
 
 thead tr {
@@ -45,6 +56,7 @@ tbody tr.active-row {
     font-weight: bold;
     color: #3B846B;
 }
+
 button {
     background-color: #3B846B;
     color: #ffffff;
@@ -63,4 +75,9 @@ button[color="primary"] {
 
 button[color="accent"] {
     background-color: #E67840;
+}
+
+.row-hover:hover {
+    background-color: #3b846b6e;
+    cursor: pointer;
 }
