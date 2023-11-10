@@ -76,7 +76,7 @@ export class MarketplaceService {
   }
 
   updateTourRating(rating: TourRating): Observable<TourRating> {
-    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
+    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
   }
 
   addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
@@ -159,4 +159,7 @@ export class MarketplaceService {
     return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)
   }
 
+  getRating(id:number): Observable<TourRating> {
+    return this.http.get<TourRating>(environment.apiHost + 'tourist/tour-rating/getTourRating/' + id)
+  }
 }

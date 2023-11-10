@@ -141,7 +141,6 @@ export class TourOverviewDetailsComponent implements OnInit{
     }
 
     rateTour(tour: TourPreview): void{
-      console.log(tour.id);
       this.router.navigate(['/tour-rating-form', tour.id]);
     }
 
@@ -150,9 +149,6 @@ export class TourOverviewDetailsComponent implements OnInit{
     }
 
     editRating(rating: TourRating): void{
-      this.shouldEdit = true;
-      this.selectedRating = rating;
-      console.log(this.shouldEdit);
-      console.log('ok');
+      this.router.navigate(['/tour-rating-edit-form', rating.id]);
     }
 }
