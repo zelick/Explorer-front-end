@@ -75,7 +75,9 @@ export class MarketplaceService {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 
-  //isto ovde update tour rating
+  updateTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
+  }
 
   addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
     return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);

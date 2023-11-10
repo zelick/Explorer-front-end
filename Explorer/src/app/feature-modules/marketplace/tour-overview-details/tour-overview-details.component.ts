@@ -81,6 +81,7 @@ export class TourOverviewDetailsComponent implements OnInit{
         console.log("Milicina tura: ");
         console.log(this.tour);
         this.checkpoints=this.tour.checkpoint;
+        console.log("OCENE ZA TURU ", this.tour.tourRating)
         if(this.checkpoints != null)
         { 
           this.route();
