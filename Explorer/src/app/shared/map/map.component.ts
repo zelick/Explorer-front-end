@@ -191,7 +191,7 @@ export class MapComponent implements AfterViewInit {
     addCheckpoints(coords: [{lat: number, lon: number}]): void {
 
       let defaultIcon = L.icon({
-        iconUrl: 'https://docs.mapbox.com/mapbox.js/assets/images/astronaut1.png',
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
@@ -218,6 +218,43 @@ export class MapComponent implements AfterViewInit {
       );
     }
 
+    addMapObjects(coords: [{lat: number, lon: number, category: string}]): void {
+
+      let defaultIconWC = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/1257/1257334.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconRestaurant = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448609.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconParking = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/8/8206.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconOther = L.icon({
+        iconUrl: 'https://png.pngtree.com/png-vector/20190420/ourmid/pngtree-list-vector-icon-png-image_963980.jpg',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        if(element.category == 'WC')
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).addTo(this.map);
+        if(element.category == 'Restaurant')
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).addTo(this.map);
+        if(element.category == 'Parking')
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).addTo(this.map);
+        if(element.category == 'Other')
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).addTo(this.map);
+      });
+    }
 
   }
 
