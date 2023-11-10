@@ -3,8 +3,8 @@
     <div>
       <div id="content">
         <div id="notifications-table">
-          <!-- TODO -> fix numberNew display -->
-          <!-- <p>You have {{numberNew}} new notifications </p> -->
+          <p class="new-notif-number" *ngIf="hasNew">You have {{numberNew}} new notifications, {{numberAll}} notifications overall </p>
+          <p class="new-notif-number" *ngIf="!hasNew">You have {{numberAll}} notifications </p>
           <div style="overflow-x: hidden;">
             <div style="border: 2px solid #3B846B;">
               <div class="table-wrapper">
@@ -20,15 +20,15 @@
                       <td>
                         <div class="details">
                           <p class="post-content" style="width: 55%;">{{n.description}}</p>
-                          <p class="new" *ngIf="!n.isRead">New</p>
                           <p>{{n.reportedIssueId}}</p>
+                          <p class="new" *ngIf="!n.isRead">New</p>
                         </div>
                         
                         <div class="date-and-dissmiss-div">
                           <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
                           
-                          <!-- TODO details button  -->
-                          <a class="see-details" href="/reported-issues">
+                          <!-- TODO details button - go to the reported issues page and see the chat for the issue that notification is reffering to -->
+                          <a class="see-details" href="/reported-issues" (click)="seeDetails(n)">
                             see details
                           </a>
                         </div>
@@ -44,8 +44,6 @@
                           </a>
                         </div>
                       </td>  
-
-                      <td>{{n.isRead}}</td>
                     </tr>
                   </tbody>
                 </table>

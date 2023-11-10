@@ -5,15 +5,12 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../administration.service';
 import { ReportedIssueNotification } from '../model/reported-issue-notification.model';
-//TODO -> change to dialog
-//import { MatDialogRef ,MatDialog, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'xp-reported-issue-notifications',
   templateUrl: './reported-issue-notifications.component.html',
   styleUrls: ['./reported-issue-notifications.component.css'],
   providers: [DatePipe],
-
 })
 export class ReportedIssueNotificationsComponent implements OnInit {
   notifications: ReportedIssueNotification[];
@@ -21,8 +18,8 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   unread: ReportedIssueNotification[];
   numberNew: number;
   user: User;
-  role: string;
   selectedNotification:ReportedIssueNotification;
+  hasNew: boolean = true;
 
   constructor(
     private service: AdministrationService, private authService: AuthService) { }
@@ -30,36 +27,53 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
-      this.role = this.user.role
     });
     this.getAllByUser();
     this.getUnreadByUser();
   }
 
   getAllByUser(): void{
-    this.service.getAllReportedIssueNotificationsByUser(this.user.id, this.role).subscribe({
+    this.service.getAllReportedIssueNotificationsByUser(this.user.id, this.user.role).subscribe({
       next: (result: PagedResults<ReportedIssueNotification>) => {
         this.notifications = result.results;
+        // Sort the notifications, sort by isRead in descending order (false comes first). 
+        // If both have the same isRead status, sort by creationTime in descending order
+        this.notifications.sort((a, b) => {
+          if (a.isRead === b.isRead) {  
+            return new Date(b.creationTime).getTime() - new Date(a.creationTime).getTime();
+          } else if (a.isRead) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+        this.numberAll = this.notifications.length;
         },
         error: () => {
         }
     })
-    this.numberAll = this.notifications.length;
   }
 
   getUnreadByUser(): void{
-    this.service.getUnreadReportedIssueNotificationsByUser(this.user.id, this.role).subscribe({
+    this.service.getUnreadReportedIssueNotificationsByUser(this.user.id, this.user.role).subscribe({
       next: (result: PagedResults<ReportedIssueNotification>) => {
         this.unread = result.results;
+        // Sort the notifications by creationTime in descending order
+        this.unread.sort((a, b) => {
+          return new Date(b.creationTime).getTime() - new Date(a.creationTime).getTime();
+        });
+        this.numberNew = this.unread.length;
+        if (this.unread.length == 0){
+          this.hasNew = false;
+        }
         },
         error: () => {
         }
     })
-    this.numberNew = this.unread.length;
   }
   
   deleteNotification(id: number): void {
-    this.service.deleteReportedIssueNotification(id, this.role).subscribe({
+    this.service.deleteReportedIssueNotification(id, this.user.role).subscribe({
       next: () => {
         this.getAllByUser();
         this.getUnreadByUser();
@@ -67,9 +81,21 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     })
   }
 
+  // TODO - go to the reported issues page and see the chat for the issue that notification is reffering to
+  seeDetails(notification: ReportedIssueNotification): void {
+    // dismiss notification when you see details
+    this.dismissOne(notification);
+    // TODO
+    // if (this.user.role == 'tourist'){
+    //   this.service.getTouristsReportedIssues(notification.reportedIssueId).subscribe();
+    // } else {
+    //   this.service.getAuthorsReportedIssues(notification.reportedIssueId).subscribe();
+    // }
+  }
+
   dismissOne(notification: ReportedIssueNotification): void {
     notification.isRead = true;
-    this.service.updateReportedIssueNotification(this.role, notification).subscribe({
+    this.service.updateReportedIssueNotification(this.user.role, notification).subscribe({
       next: () => {
         this.getAllByUser();
         this.getUnreadByUser();
@@ -86,7 +112,7 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   }
 
   // getNotification(id: number): void {
-  //   this.service.getReportedIssueNotification(id, this.role).subscribe({
+  //   this.service.getReportedIssueNotification(id, this.user.role).subscribe({
   //     next: (result: ReportedIssueNotification) => {
   //       this.selectedNotification = result;
   //       },

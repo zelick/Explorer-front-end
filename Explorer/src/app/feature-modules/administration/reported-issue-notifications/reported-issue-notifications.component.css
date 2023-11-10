@@ -1,23 +1,11 @@
 #reported-issue-notification {
     margin-left: 20px;
+    margin-top: 30px;
     font-family: 'Poppins', sans-serif;
 }
 #content{
     display: flex;
 }
-/* #content > div {
-    flex: 1;
-    width: 50%;
-}
-#notifications-table {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
-    height: 77vh;
-    overflow-y: auto;
-} */
-
 
 p {
     font-size: 20px;
@@ -60,42 +48,18 @@ tbody tr.active-row {
     color: #3f51b5;
 }
 
-.red-row {
-    color:red;
-  }
-
-  .post {
-    border: 3px solid #B6D4AF;;
-    padding: 10px;
-    padding-bottom: 0px;
-    margin: 1px;
-    margin-right: 20px;
-    margin-left: 10px;
-    height: 77vh;
-    width: 40%;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* User Info Section */
-.user-info {
+/*  */
+.new-notif-number {
+    font-size: 150%;
+    font-size: 20px;
+    margin-left: 7px;
+    margin-bottom: 8px;
+    margin-top: 5px;
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    width: 20%;
+    flex-wrap: wrap;
 }
 
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background-color: #ccc;
-}
-
-.user-name {
-    font-weight: bold;
-}
-
-/*   */
 .table-wrapper {
     display: flex;
     max-height: 76vh; /* Adjust the maximum height as needed */
@@ -116,7 +80,7 @@ tbody tr.active-row {
 
 .new{
     color: red;
-    font-size: 120%;
+    font-size: 160%;
     font-weight: 500;
     margin-right: 10px;
 }
@@ -152,9 +116,6 @@ tbody tr.active-row {
     margin-top: 8px;
     margin-bottom: 0px;
 }
-
-
-/* might need later */
 
 .green-button{
     background-color: #3B846B;
