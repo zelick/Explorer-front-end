@@ -1,0 +1,62 @@
+<div id="equipment-div">
+<div >
+    <br>
+    <br>
+<p>TOUR EQUIPMENT</p>
+<br>
+
+    <p class="subtitle">Added eqipment</p>
+    <table class="equipment-details-table">
+        <div id="table-equipment-div">
+            <thead>
+                <th class="equipment-th">Name</th>
+                <th class="equipment-th">Description</th>
+                <th class="equipment-th"></th>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let e of tour.equipment">
+                    <td>{{e.name}}</td>
+                    <td>{{e.description}}</td>
+                    <td>
+                        <button class="buttonPlus" (click)="removeEquipment(tour.id, e.id)" mat-raised-button>-</button>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+
+<!-- Available equipments -->
+<div id="equipment-div">
+<p class="subtitle">Available equipment</p>
+    <table id="equipment-details-table">
+        <div id="table-equipment-div" >
+            <thead>
+                <th class="equipment-th">Name</th>
+                <th class="equipment-th">Description</th>
+                <th class="equipment-th"></th>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let e of availableEquipment">
+                    <td>{{e.name}}</td>
+                    <td>{{e.description}}</td>
+                    <td>
+                        <button class="buttonPlus" (click)="addEquipment(tour.id, e.id)" mat-raised-button>+</button>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </table>
+    
+</div>
+<br>
+<br>
+<div class="routingButton">
+    <button (click)="showTours()" class="button" mat-raised-button>Back</button>
+
+    <button (click)="showCheckpoints()" class="button" mat-raised-button>Next</button>
+
+</div>
+</div>
