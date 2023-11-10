@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},
   {path: 'blogs', component: BlogPostTableComponent, canActivate: [AuthGuard]},
   {path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
-  {path: 'your-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
+  {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},

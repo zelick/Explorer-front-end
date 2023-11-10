@@ -1,4 +1,9 @@
 .row-hover:hover {
-    background-color: #f0f0f0;
+    background-color: #3b846b6e;
     cursor: pointer;
+}
+
+.paginator {
+    color: #3b846b6e;
+    font-weight: bold;
 }
