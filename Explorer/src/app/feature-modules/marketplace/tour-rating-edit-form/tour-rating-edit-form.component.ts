@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TourRating } from '../model/tour-rating.model';
 
 @Component({
   selector: 'xp-tour-rating-edit-form',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./tour-rating-edit-form.component.css']
 })
 export class TourRatingEditFormComponent {
-
+  @Input() rating: TourRating;
 }

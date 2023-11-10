@@ -91,15 +91,15 @@
 
 <p class="subtitle">Ratings</p>
 <div>
-    <div>
-        <p>Average Rating: {{tourAvarageRating}}</p>
-    </div>
     <table>
         <tbody>
             <tr *ngFor="let e of tour.tourRating" >
                 <td class="cpp">
                     <div class="cardcp">
                         <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Id:</span>{{e.id}}</span></div>
+                            <br>
                             <br>
                             <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
                             <br>
@@ -122,6 +122,9 @@
         </tbody>
   
 </table>
+<div>
+    <p>Average Rating: {{tourAvarageRating}}</p>
+</div>
 </div>
     <div class="routingButton">
         <div>
@@ -133,7 +136,9 @@
         <div>
             <button mat-raised-button class="shopButton" (click)="onAddToCart(tour)">Add to card🛒</button>
         </div>
-        </div>
     </div>
-   
+</div>
+<div>
+    <xp-tour-rating-edit-form *ngIf="shouldEdit" [rating]="selectedRating"></xp-tour-rating-edit-form>
+</div>
 </div>

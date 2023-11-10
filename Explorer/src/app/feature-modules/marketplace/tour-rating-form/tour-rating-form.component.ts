@@ -70,6 +70,7 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     this.service.addTourRating(rating).subscribe({
       next: () => { this.ratingUpdated.emit() }
     });
+    console.log(rating.id);
     this.newPictures=[];
     this.picturesForm.reset();
     this.tourRatingForm.reset();

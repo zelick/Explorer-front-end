@@ -31,6 +31,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     this.activatedRoute.params.subscribe(params=>{
      this.tourID=params['id'];
      this.getPublishedTour(this.tourID);
+     
 
      this.authService.user$.subscribe(user => {
       this.user = user;
@@ -53,6 +54,8 @@ export class TourOverviewDetailsComponent implements OnInit{
     profile: string = this.profiles[0];
     user: User;
     tourAvarageRating:number = 0;
+    shouldEdit: boolean = false;
+    selectedRating: TourRating;
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
@@ -146,7 +149,9 @@ export class TourOverviewDetailsComponent implements OnInit{
     }
 
     editRating(rating: TourRating): void{
-      this.router.navigate(['/tour-rating-edit-form', rating.id]);
-      console.log(rating.id);
+      this.shouldEdit = true;
+      this.selectedRating = rating;
+      console.log(this.shouldEdit);
+      console.log('ok');
     }
 }
