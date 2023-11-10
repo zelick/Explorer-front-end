@@ -14,6 +14,7 @@ import { MapObjectFormComponent } from './map-object-form/map-object-form.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
+import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
 
 
 
@@ -27,7 +28,8 @@ import { TourTransportFormComponent } from './tour-transport-form/tour-transport
     MapObjectComponent,
     MapObjectFormComponent,
     TourEquipmentComponent,
-    TourTransportFormComponent
+    TourTransportFormComponent,
+    CheckpointSecretFormComponent
   ],
   imports: [
     CommonModule,

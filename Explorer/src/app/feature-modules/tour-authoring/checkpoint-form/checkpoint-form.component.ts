@@ -62,6 +62,7 @@ export class CheckpointFormComponent implements OnChanges{
     picture: new FormControl(this.picture, [Validators.required])
   });
 
+
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
       tourId: this.tourID,
@@ -70,14 +71,23 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
-      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60,
+      currentPicture:0,
+      visibleSecret:false,
+      showedPicture:"",
+      viewSecretMessage:"",
+      currentPointPicture:0,
+      showedPointPicture:""
+
+
     };
 
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
       this.service.addCheckpoint(checkpoint).subscribe({
-        next: () => { this.checkpointUpdated.emit();
-        location.reload(); }
+        next: (result:any) => { this.checkpointUpdated.emit();
+          this.router.navigate([`checkpoint-secret/${result.id}`]);
+        }
       });
     }
   }
@@ -90,14 +100,24 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
-      requiredTimeInSeconds: this.selectedCheckpoint.requiredTimeInSeconds
+      requiredTimeInSeconds: this.selectedCheckpoint.requiredTimeInSeconds,
+      checkpointSecret: this.selectedCheckpoint.checkpointSecret,
+      currentPicture:0,
+      visibleSecret:false,
+      showedPicture:"",
+      viewSecretMessage:"",
+      currentPointPicture:0,
+      showedPointPicture:""
+
+
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
       this.service.updateCheckpoint(checkpoint).subscribe({
-        next: () => { this.checkpointUpdated.emit();
-        location.reload();}
+        next: (result:any) => { this.checkpointUpdated.emit();
+          this.router.navigate([`checkpoint-secret/${result.id}`]);
+        }
       });
     }
   }
@@ -112,6 +132,8 @@ export class CheckpointFormComponent implements OnChanges{
   deletePicture(i: number): void{
     this.pictures.splice(i, 1);
   }
+
+
 
   private searchByAddress(inputAddress: string) {
     this.mapComponent.search(inputAddress).subscribe({
