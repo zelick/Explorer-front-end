@@ -77,8 +77,8 @@ export class CheckpointFormComponent implements OnChanges{
       showedPicture:"",
       viewSecretMessage:"",
       currentPointPicture:0,
-      showedPointPicture:""
-
+      showedPointPicture:"",
+      authorId: this.service.user.id
 
     };
 
@@ -107,9 +107,8 @@ export class CheckpointFormComponent implements OnChanges{
       showedPicture:"",
       viewSecretMessage:"",
       currentPointPicture:0,
-      showedPointPicture:""
-
-
+      showedPointPicture:"",
+      authorId: this.selectedCheckpoint.authorId
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))
