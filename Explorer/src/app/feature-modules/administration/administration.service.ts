@@ -145,12 +145,12 @@ export class AdministrationService {
     return this.http.get<CheckpointRequest[]>(environment.apiHost + 'administration/checkpointequests');
   }
 
-  acceptCheckpointRequest(requestId: number): Observable<CheckpointRequest> {
-    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/accept/' + requestId, null);
+  acceptCheckpointRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.post<CheckpointRequest>(environment.apiHost + 'administration/publicCheckpoint/create/' + requestId + '/' + comment, null);
   }
 
-  rejectCheckpointRequest(requestId: number): Observable<CheckpointRequest> {
-    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/reject/' + requestId, null);
+  rejectCheckpointRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/reject/' + requestId + '/' + comment, null);
   }
 
 }

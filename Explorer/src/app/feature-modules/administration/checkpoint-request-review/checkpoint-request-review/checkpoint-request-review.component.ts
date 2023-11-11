@@ -14,7 +14,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class CheckpointRequestReviewComponent implements OnInit{
   
-  requestDetails: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean }[] = [];
+  requestDetails: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean, comment: string }[] = [];
   allCheckpoints: PagedResults<Checkpoint>;
   allUsers: PagedResults<User>;
   allCheckpointRequests: CheckpointRequest[] = [];
@@ -30,39 +30,42 @@ export class CheckpointRequestReviewComponent implements OnInit{
     this.adminService.getAllCheckpointRequests().subscribe({
         next: (requests: CheckpointRequest[]) => {
             this.allCheckpointRequests = requests;
+            this.getAllCheckpoints();
         },
         error: () => {
             // Handle errors
         }
     });
 
-    this.getAllCheckpoints();
+    //this.getAllCheckpoints();
   }
 
   getAllCheckpoints(): void {
     this.tourAuthService.getCheckpoints().subscribe({
         next: (checkpoints: PagedResults<Checkpoint>) => {
             this.allCheckpoints = checkpoints;
+            this.getAllUsers();
         },
         error: () => {
             // Handle errors
         }
     });
 
-    this.getAllUsers();
+    //this.getAllUsers();
   }
 
   getAllUsers(): void {
     this.adminService.getAllUsers().subscribe({
         next: (users: PagedResults<User>) => {
             this.allUsers = users;
+            this.fillRequestDetails();
         },
         error: () => {
             // Handle errors
         }
     });
 
-    this.fillRequestDetails();
+    //this.fillRequestDetails();
   }
 
   fillRequestDetails(): void {
@@ -70,13 +73,14 @@ export class CheckpointRequestReviewComponent implements OnInit{
       this.allCheckpoints.results.forEach(checkPoint => {
         this.allUsers.results.forEach(user => {
           if(request.authorId === user.id && request.checkpointId === checkPoint.id) {
-            let req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean } = {
+            let req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean, comment: string } = {
               id: request.id,
               checkpointName: checkPoint.name,
               checkpointDescription: checkPoint.description,
               authorName: user.username,
               status: request.status,
-              onHold: this.investigateStatus(request.status)
+              onHold: this.investigateStatus(request.status),
+              comment: ""
             };
 
             this.requestDetails.push(req);
@@ -87,13 +91,20 @@ export class CheckpointRequestReviewComponent implements OnInit{
   }
 
   investigateStatus(s: Status): boolean {
-    if(s === Status.OnHold) return true;
-    else return false;
+    return s.toString() === 'OnHold';
   }
 
-  acceptRequest(req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean }): void {
-    this.adminService.acceptCheckpointRequest(req.id).subscribe({
+  acceptRequest(req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean, comment: string }): void {
+    if(req.comment === "") {
+      req.comment = "Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is accepted.";
+    } else {
+      let enteredComment: string = req.comment;
+      req.comment = "Administrator's comment: " + enteredComment + "\n\nConclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is accepted.";
+    }
+
+    this.adminService.acceptCheckpointRequest(req.id, req.comment).subscribe({
       next: () => {
+        this.requestDetails.length = 0;
         this.getAllRequests();
     },
       error: () => {
@@ -102,9 +113,17 @@ export class CheckpointRequestReviewComponent implements OnInit{
     })
   }
 
-  rejectRequest(req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean }): void {
-    this.adminService.rejectCheckpointRequest(req.id).subscribe({
+  rejectRequest(req: { id: number, checkpointName: string, checkpointDescription: string, authorName: string, status: Status, onHold:boolean, comment: string }): void {
+    if(req.comment === "") {
+      req.comment = "Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is rejected.";
+    } else {
+      let enteredComment: string = req.comment;
+      req.comment = "Administrator's comment: " + enteredComment + "\n\nConclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is rejected.";
+    }
+
+    this.adminService.rejectCheckpointRequest(req.id, req.comment).subscribe({
       next: () => {
+        this.requestDetails.length = 0;
         this.getAllRequests();
     },
       error: () => {

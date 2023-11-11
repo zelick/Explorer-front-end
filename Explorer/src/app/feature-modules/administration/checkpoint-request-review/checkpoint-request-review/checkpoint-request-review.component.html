@@ -9,6 +9,7 @@
                     <th>Checkpoint description</th>
                     <th>Author username</th>
                     <th>Request status</th>
+                    <th>Your comment</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,9 @@
                         <button  mat-icon-button class="accept-button" (click)="acceptRequest(req)">
                             <mat-icon>check_circle</mat-icon>
                         </button>
+                    </td>
+                    <td *ngIf="req.onHold">
+                        <input type="text" [(ngModel)]="req.comment" placeholder="Enter your comment">
                     </td>
                 </tr>
             </tbody>
