@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapObject } from '../model/map-object.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 @Component({
   selector: 'xp-map-object-form',
@@ -25,7 +27,8 @@ export class MapObjectFormComponent implements OnChanges {
     status: new FormControl('Private', [Validators.required]),
   });
 
-  constructor(private service: TourAuthoringService) {}
+  constructor(private service: TourAuthoringService,
+    private tokenStorage: TokenStorage,) {}
 
   onMapClick(event: { lat: number; lon: number }) {
     this.searchByCoord(event.lat, event.lon);
@@ -68,9 +71,11 @@ export class MapObjectFormComponent implements OnChanges {
       pictureURL: this.mapObjectForm.value.pictureURL || '',
     };
 
-    const status = this.mapObjectForm.value.status || ''
+    const jwtHelperService = new JwtHelperService();
+    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const status = this.mapObjectForm.value.status || 'Private'
 
-    this.service.addMapObject(mapObject, 1 ,status).subscribe({
+    this.service.addMapObject(mapObject, jwtHelperService.decodeToken(accessToken).id ,status).subscribe({
       next: () => {
         this.mapObjectUpdated.emit();
       },

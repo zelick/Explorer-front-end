@@ -30,8 +30,8 @@ export class TourAuthoringService {
     return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id);
   }
 
-  addCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
-    return this.http.post<Checkpoint>(environment.apiHost + 'administration/checkpoint', checkpoint);
+  addCheckpoint(checkpoint: Checkpoint, userId: number, status: string): Observable<Checkpoint> {
+    return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${userId}/${status}`, checkpoint);
   }
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
