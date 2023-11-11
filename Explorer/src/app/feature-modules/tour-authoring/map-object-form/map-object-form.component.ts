@@ -21,7 +21,7 @@ export class MapObjectFormComponent implements OnChanges {
     longitude: new FormControl(0, [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
+    category: new FormControl('Other', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     pictureURL: new FormControl('', [Validators.required]),
     status: new FormControl('Private', [Validators.required]),
