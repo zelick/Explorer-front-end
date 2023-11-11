@@ -39,6 +39,7 @@ const routes: Routes = [
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
   {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
+  {path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
   {path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint', component: CheckpointComponent, canActivate: [AuthGuard]},

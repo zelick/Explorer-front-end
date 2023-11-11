@@ -21,8 +21,9 @@ table {
 }
 
 thead tr {
-    background-color: #3B846B;
-    color: #ffffff;
+    background-color: #B6D4AF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 130%;
     text-align: left;
 }
 
@@ -56,7 +57,7 @@ tbody tr.active-row {
     margin-bottom: 8px;
     margin-top: 5px;
     display: flex;
-    width: 20%;
+    width: 70%;
     flex-wrap: wrap;
 }
 
@@ -117,15 +118,13 @@ tbody tr.active-row {
     margin-bottom: 0px;
 }
 
-.green-button{
+.dismiss-all-button{
     background-color: #3B846B;
     font-family: 'Poppins', sans-serif;
     color: #ffffff;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    margin-top: 15px;
     margin-left: auto;
-    margin-right: 0px;
-    align-self: flex-end;
+    margin-right: 15px;
 }

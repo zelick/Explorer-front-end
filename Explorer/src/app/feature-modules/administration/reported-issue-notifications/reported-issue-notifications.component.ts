@@ -81,18 +81,6 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     })
   }
 
-  // TODO - go to the reported issues page and see the chat for the issue that notification is reffering to
-  seeDetails(notification: ReportedIssueNotification): void {
-    // dismiss notification when you see details
-    this.dismissOne(notification);
-    // TODO
-    // if (this.user.role == 'tourist'){
-    //   this.service.getTouristsReportedIssues(notification.reportedIssueId).subscribe();
-    // } else {
-    //   this.service.getAuthorsReportedIssues(notification.reportedIssueId).subscribe();
-    // }
-  }
-
   dismissOne(notification: ReportedIssueNotification): void {
     notification.isRead = true;
     this.service.updateReportedIssueNotification(this.user.role, notification).subscribe({
@@ -110,16 +98,6 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     this.getAllByUser();
     this.getUnreadByUser();
   }
-
-  // getNotification(id: number): void {
-  //   this.service.getReportedIssueNotification(id, this.user.role).subscribe({
-  //     next: (result: ReportedIssueNotification) => {
-  //       this.selectedNotification = result;
-  //       },
-  //       error: () => {
-  //       }
-  //     })
-  // }
 
   selectNotification(notif: ReportedIssueNotification): void {
     this.selectedNotification = notif;

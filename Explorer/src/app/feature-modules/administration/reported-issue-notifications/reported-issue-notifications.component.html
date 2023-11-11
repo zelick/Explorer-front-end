@@ -12,7 +12,11 @@
                   <thead>
                     <tr>
                       <th> Notifications </th>
-                      <th></th>
+                      <th>
+                        <button class="dismiss-all-button" *ngIf="hasNew" (click)="dismissAll()">
+                          Dismiss all
+                        </button>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -20,15 +24,11 @@
                       <td>
                         <div class="details">
                           <p class="post-content" style="width: 55%;">{{n.description}}</p>
-                          <p>{{n.reportedIssueId}}</p>
                           <p class="new" *ngIf="!n.isRead">New</p>
                         </div>
-                        
                         <div class="date-and-dissmiss-div">
                           <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
-                          
-                          <!-- TODO details button - go to the reported issues page and see the chat for the issue that notification is reffering to -->
-                          <a class="see-details" href="/reported-issues" (click)="seeDetails(n)">
+                          <a class="see-details" href="/reported-issues/{{n.reportedIssueId}}" (click)="dismissOne(n)">
                             see details
                           </a>
                         </div>
@@ -38,7 +38,6 @@
                           <button color="accent" (click)="deleteNotification(n.id || 0)" mat-icon-button>
                               <mat-icon>delete</mat-icon>
                           </button>
-                          
                           <a class="dismiss" *ngIf="!n.isRead" href="/reported-issue-notifications"  (click)="dismissOne(n)">
                             dismiss
                           </a>
@@ -53,9 +52,5 @@
           </div>
         </div>
       </div>
-      
-        <button class="green-button" (click)="dismissAll()">
-          Dismiss all
-        </button>
     </div>
 </div>

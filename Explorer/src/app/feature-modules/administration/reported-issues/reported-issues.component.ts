@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AdministrationService } from '../administration.service';
 import { ReportedIssue } from '../model/reported-issue.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -6,7 +7,6 @@ import { DatePipe } from '@angular/common';
 import { TourIssueComment } from '../../tour-authoring/model/tour-issue-comment';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
-
 
 @Component({
   selector: 'xp-reported-issues',
@@ -25,14 +25,19 @@ export class ReportedIssuesComponent implements OnInit{
   addDeadlineClicked = false;
   selectedDateStr: string;
   lastLooked: number=0;
+  selectedNotifIssueId : number | undefined;
 
-  constructor(private service: AdministrationService, private authservice: AuthService, private datePipe: DatePipe) {
+  constructor(private service: AdministrationService, private authservice: AuthService, private datePipe: DatePipe, 
+    private activatedRoute : ActivatedRoute) {
     this.user = authservice.user$.value;
     this.newComment = {
       creationTime: new Date(),
       creatorId: 0, 
       text: ''
     };
+    this.activatedRoute.params.subscribe(params=>{
+      this.selectedNotifIssueId=params['id'];
+    })
   }
 
   isTourClosed(tour: Tour){
@@ -115,13 +120,30 @@ export class ReportedIssuesComponent implements OnInit{
     this.selectedReportedIssue = issue;
   }
   
+  setSelectedIssue(): void {
+    if (this.selectedNotifIssueId === undefined){
+      // root='/reported-issues'  => display the one with greatest priority
+      this.selectedReportedIssue = this.reportedIssues[0];
+    } else { 
+      // root='/reported-issues/:id'  => display the one with id from root
+      const id: number = this.selectedNotifIssueId; // number | undefined -> number
+      this.reportedIssues.forEach(element => {
+        const result = element.id - id;
+        if (result === 0){
+          this.selectedReportedIssue = element;
+        }
+      });
+      console.log(this.selectedReportedIssue);
+    }
+  }
+
   getReportedIssues(): void{
     if(this.user.role==='administrator'){
       this.service.getReportedIssues().subscribe({
         next:(result:PagedResults<ReportedIssue>)=>{
           this.reportedIssues = result.results;
           this.reportedIssues.sort((a, b) => a.id - b.id);
-          this.selectedReportedIssue = this.reportedIssues[0];
+          this.setSelectedIssue();
         },
         error: ()=>{
   
@@ -133,7 +155,7 @@ export class ReportedIssuesComponent implements OnInit{
           next:(result:PagedResults<ReportedIssue>)=>{
             this.reportedIssues = result.results;
             this.reportedIssues.sort((a, b) => a.id - b.id);
-            this.selectedReportedIssue = this.reportedIssues[0];
+            this.setSelectedIssue();
           },
           error: ()=>{
     
@@ -145,15 +167,15 @@ export class ReportedIssuesComponent implements OnInit{
           next:(result:PagedResults<ReportedIssue>)=>{
             this.reportedIssues = result.results;
             this.reportedIssues.sort((a, b) => a.id - b.id);
-            this.selectedReportedIssue = this.reportedIssues[0];
+            this.setSelectedIssue();
           },
           error: ()=>{
     
           }
         })
     }
-    
   }
+
   isUnresolvedAndOlderThan5Days(ri: ReportedIssue): boolean {
     if (ri.resolved) {
       return false; // Return false for resolved issues
@@ -234,9 +256,4 @@ export class ReportedIssuesComponent implements OnInit{
     } else {
     }
   }
-  
-  
-  
-  
-  
 }
