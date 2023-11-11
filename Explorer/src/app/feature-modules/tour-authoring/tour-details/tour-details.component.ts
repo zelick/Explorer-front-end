@@ -111,6 +111,8 @@ export class TourDetailsComponent implements OnInit{
     this.service.publishTour(this.tour.id || 0).subscribe({
       next: (result: Tour) => {
         this.tour = result;
+        this.fillCheckpointDetails();
+
       }
     });
   }
@@ -119,8 +121,27 @@ export class TourDetailsComponent implements OnInit{
     this.service.archiveTour(this.tour).subscribe({
       next: (result: Tour) => {
         this.tour = result;
+        this.fillCheckpointDetails();
       },
     })
+  }
+
+  fillCheckpointDetails():void{
+    this.tour.checkpoints.forEach(element => {
+      if(element.currentPicture==undefined)
+      {
+        element.currentPicture=0;
+        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+      }
+      if(element.visibleSecret==undefined)
+        element.visibleSecret=false;
+      if(element.viewSecretMessage==undefined)
+        element.viewSecretMessage="Show secret";
+      if(element.currentPointPicture==undefined)
+        element.currentPointPicture=0;
+      if(element.showedPointPicture==undefined)
+      element.showedPointPicture=element.pictures[element.currentPointPicture];
+    });
   }
 
   profileChanged($event: any): void{

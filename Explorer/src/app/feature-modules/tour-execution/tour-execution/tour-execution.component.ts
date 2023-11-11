@@ -13,6 +13,7 @@ import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   shouldRenderSimulator: boolean = false;
   notifications: number[]=[1];
   checkPositions: any;
-  completedCheckpoint: CheckpointPreview[];
+  completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
@@ -92,6 +93,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         this.service.registerPosition(this.tourExecution.id || 0, this.simulatorComponent.selectedPosition).subscribe( result => {
             this.tourExecution = result;
             this.tour = result.tour;
+            console.log("IZVRSENO");
+            console.log(this.tourExecution);
             this.findCheckpoints();
         });
       }
@@ -145,11 +148,66 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   findCheckpoints(): void{
-    this.completedCheckpoint = [];
     this.tourExecution.completedCheckpoints?.forEach(element => {
       var c = this.tour.checkpoints.filter(n => n.id == element.checkpointId);
-      this.completedCheckpoint.push(c[0]);
+      if(this.completedCheckpoint.indexOf(this.completedCheckpoint.filter(n=>n.id==element.checkpointId)[0])==-1)
+        this.completedCheckpoint.push(c[0]);
     });
+    this.completedCheckpoint.forEach(element => {
+      if(element.currentPicture==undefined)
+      {
+        element.currentPicture=0;
+        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+      }
+      if(element.visibleSecret==undefined)
+        element.visibleSecret=false;
+      if(element.viewSecretMessage==undefined)
+        element.viewSecretMessage="Show secret";
+      if(element.currentPointPicture==undefined)
+        element.currentPointPicture=0;
+      if(element.showedPointPicture==undefined)
+      element.showedPointPicture=element.pictures[element.currentPointPicture];
+    });
+    this.changeDetection.detectChanges();
+
+  }
+
+
+  OnViewSecret(c:Checkpoint):void{
+    c.visibleSecret=!c.visibleSecret;
+    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+    if(c.viewSecretMessage=="Show secret")
+      c.viewSecretMessage="Hide secret";
+    else
+      c.viewSecretMessage="Show secret";
+  }
+
+  OnNext(c:Checkpoint):void{
+   let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
+   if(c.currentPicture==(secretPicturesLength-1))
+      c.currentPicture=0;
+    else
+      c.currentPicture=c.currentPicture+1;
+      c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+
+  }
+
+  OnPictureNext(c:Checkpoint):void{
+    let picturesLength= c.pictures.length;
+   if(c.currentPointPicture==(picturesLength-1))
+      c.currentPointPicture=0;
+    else
+      c.currentPointPicture=c.currentPointPicture+1;
+      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+  }
+
+  OnPictureBack(c:Checkpoint):void{
+    let picturesLength= c.pictures.length;
+   if(c.currentPointPicture==0)
+      c.currentPointPicture=(picturesLength-1);
+    else
+      c.currentPointPicture=c.currentPointPicture-1;
+      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 }
 

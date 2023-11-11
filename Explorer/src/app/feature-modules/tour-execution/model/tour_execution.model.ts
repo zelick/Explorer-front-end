@@ -1,4 +1,5 @@
 import { TourPreview } from "../../marketplace/model/tour-preview";
+import { Tour } from "../../tour-authoring/model/tour.model";
 import { CheckpointCompletition } from "./checkpoint_completition.model";
 import { PurchasedTourPreview } from "./purchased_tour_preview.model";
 
