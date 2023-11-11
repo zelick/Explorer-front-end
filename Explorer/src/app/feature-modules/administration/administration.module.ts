@@ -11,6 +11,7 @@ import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
+import { ReportedIssueNotificationsComponent } from './reported-issue-notifications/reported-issue-notifications.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     ClubFormComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent,
+    ReportedIssueNotificationsComponent,
     ClubMembersComponent,
     ClubInvitationsComponent
   ],
@@ -42,7 +44,8 @@ import { FormsModule } from '@angular/forms';
     ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,
-    ReportedIssuesComponent
+    ReportedIssuesComponent, 
+    ReportedIssueNotificationsComponent
   ]
 })
 export class AdministrationModule { }

@@ -9,6 +9,7 @@ import { ClubMemebrshipRequest } from './model/club-membership-request.model';
 import { Club } from './model/club.model';
 import { Account } from './model/account.model';
 import { ReportedIssue } from './model/reported-issue.model';
+import { ReportedIssueNotification } from './model/reported-issue-notification.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
@@ -108,6 +109,7 @@ export class AdministrationService {
     return this.http.put<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement/block/' + id, null);
   }
 
+  // ReportedIssues
   addDeadline(id: number, date: Date): Observable<ReportedIssue> {
     return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/deadline/' + id, date);
   }
@@ -148,6 +150,22 @@ export class AdministrationService {
     return this.http.post<ReportedIssue>(environment.apiHost + `author/reported-issue-response/response/${id}`, comment);
   }
   
+  //ReportedIssueNotification
+  getReportedIssueNotification(id: number, role: string): Observable<ReportedIssueNotification>{
+    return this.http.get<ReportedIssueNotification>(environment.apiHost + role + `/notifications/${id}`);
+  }
+  deleteReportedIssueNotification(id: number, role:string): Observable<ReportedIssueNotification> {
+    return this.http.delete<ReportedIssueNotification>(environment.apiHost + role + `/notifications/${id}`);
+  }
+  updateReportedIssueNotification(role:string, notification: ReportedIssueNotification): Observable<ReportedIssueNotification> {
+    return this.http.put<ReportedIssueNotification>(environment.apiHost + role + `/notifications/` + notification.id, notification);
+  }
+  getAllReportedIssueNotificationsByUser(userId: number, role: string): Observable<PagedResults<ReportedIssueNotification>>{
+    return this.http.get<PagedResults<ReportedIssueNotification>>(environment.apiHost + role + `/notifications/get-all/${userId}`);
+  }
+  getUnreadReportedIssueNotificationsByUser(userId: number, role: string): Observable<PagedResults<ReportedIssueNotification>>{
+    return this.http.get<PagedResults<ReportedIssueNotification>>(environment.apiHost + role + `/notifications/get-unread/${userId}`);
+  }
 
   getUsersForClub(id: number): Observable<Club> {
     return this.http.get<Club>('https://localhost:44333/api/club/' + id);
