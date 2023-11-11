@@ -56,13 +56,14 @@
                         </td>
                     </tr>
                 </table>
-                <mat-form-field>
-                    <label>Checkpoint status</label>
-                    <mat-select formControlName="status">
-                      <mat-option value="Private">Private</mat-option>
-                      <mat-option value="Public">Public</mat-option>
-                    </mat-select>
-                </mat-form-field>
+
+            <mat-form-field *ngIf="!shouldEdit">
+                <label>Checkpoint status</label>
+                <mat-select formControlName="status">
+                  <mat-option value="Private">Private</mat-option>
+                  <mat-option value="Public">Public</mat-option>
+                </mat-select>
+            </mat-form-field>
     </div>
     <div class="routingButton">
         <button (click)="onBack()" class="button" mat-raised-button>Back</button>

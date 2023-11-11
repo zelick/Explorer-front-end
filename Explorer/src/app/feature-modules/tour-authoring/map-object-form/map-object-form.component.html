@@ -29,7 +29,7 @@
             <label>Picture URL:</label>
             <input matInput type="text" name="picture" formControlName="pictureURL">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field *ngIf="!shouldEdit">
             <label>Object status</label>
             <mat-select formControlName="status">
               <mat-option value="Private">Private</mat-option>
@@ -37,8 +37,8 @@
             </mat-select>
         </mat-form-field>
         <br>
-        <button *ngIf="!shouldEdit" (click)="addMapObject()">Add MapObject</button>
-        <button *ngIf="shouldEdit" (click)="updateMapObject()">Update</button>
+        <button class="button" *ngIf="!shouldEdit" (click)="addMapObject()">Add MapObject</button>
+        <button class="button" *ngIf="shouldEdit" (click)="updateMapObject()">Update</button>
         <br>
         <xp-map (mapClick)="onMapClick($event)"></xp-map>
         
