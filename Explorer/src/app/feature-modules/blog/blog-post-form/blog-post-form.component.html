@@ -1,14 +1,16 @@
-<form [formGroup]="blogPostForm">
+<form class="blog-post-form" [formGroup]="blogPostForm">
     <div>
         <mat-form-field>
             <mat-label>Title</mat-label>
             <input matInput formControlName="title" type="text" />
         </mat-form-field>
+        <br>
         <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="description"
                 cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
+        <br>
         <mat-form-field>
             <mat-label>Image URLs</mat-label>
             <input matInput formControlName="imageUrls" type="text" />

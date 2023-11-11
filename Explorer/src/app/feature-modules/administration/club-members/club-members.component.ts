@@ -37,25 +37,28 @@ export class ClubMembersComponent implements OnInit{
         this.club = result;
         this.users = this.club.users;
         console.log(this.users);
-      },
-      error: () => {
-      }
-    })
-
-    this.service.getAllUsers().subscribe({
-      next: (result: PagedResults<User>) => {
-        this.allUsers = result.results;
-        this.usersToInvite = [];
+        this.service.getAllUsers().subscribe({
+          next: (result: PagedResults<User>) => {
+            this.allUsers = result.results;
+           this.usersToInvite = [];
+    
         this.usersToInvite = this.allUsers
-        .filter(user => !this.users.some(u => u.id === user.id))
-        .filter(user => user.id !== this.currentUserTouristId);
-
-        console.log(this.usersToInvite);
+    .filter(user => !this.users.some(u => u.id === user.id) &&  user.id !== this.currentUserTouristId && user.role=='2');
+    console.log("Svi korisnici", this.allUsers);
+    
+    
+            console.log(this.usersToInvite);
+    
+          },
+          error: () => {
+          }
+        })
       },
       error: () => {
       }
     })
 
+  
 
   }
 

@@ -15,7 +15,6 @@ import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 
-
 @NgModule({
   declarations: [
     EquipmentFormComponent,
