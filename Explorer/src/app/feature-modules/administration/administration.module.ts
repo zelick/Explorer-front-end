@@ -13,6 +13,7 @@ import { AccountsManagementComponent } from './accounts/accounts-management/acco
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
+import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
     EquipmentFormComponent,
     EquipmentComponent,
     ApplicationGradeComponent,
+    CheckpointRequestReviewComponent,
     GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
@@ -27,7 +29,8 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
     AccountsManagementComponent,
     ReportedIssuesComponent,
     ClubMembersComponent,
-    ClubInvitationsComponent
+    ClubInvitationsComponent,
+    CheckpointRequestReviewComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +41,8 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
     EquipmentComponent,
     EquipmentFormComponent,
     ApplicationGradeComponent,
+    CheckpointRequestReviewComponent,
+    GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,

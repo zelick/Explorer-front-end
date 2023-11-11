@@ -26,6 +26,7 @@ import { ClubMembersComponent } from 'src/app/feature-modules/administration/clu
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
+import { CheckpointRequestReviewComponent } from 'src/app/feature-modules/administration/checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'application-grade', component: ApplicationGradeComponent},
   {path: 'grade-review', component: GradeReviewComponent},
+  {path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
   {path: 'tour-details/:id',component:TourDetailsComponent,canActivate:[AuthGuard]},

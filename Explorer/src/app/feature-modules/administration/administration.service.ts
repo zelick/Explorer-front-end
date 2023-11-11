@@ -12,6 +12,7 @@ import { ReportedIssue } from './model/reported-issue.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
+import { CheckpointRequest } from './model/checkpoint-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -138,6 +139,19 @@ export class AdministrationService {
 
   getAllUsers(): Observable<PagedResults<User>> {
     return this.http.get<PagedResults<User>>('https://localhost:44333/api/user');
+  }
+
+  //checkpoint requests
+  getAllCheckpointRequests(): Observable<CheckpointRequest[]> {
+    return this.http.get<CheckpointRequest[]>(environment.apiHost + 'administration/checkpointequests');
+  }
+
+  acceptCheckpointRequest(requestId: number): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/accept/' + requestId, null);
+  }
+
+  rejectCheckpointRequest(requestId: number): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/reject/' + requestId, null);
   }
 
 }

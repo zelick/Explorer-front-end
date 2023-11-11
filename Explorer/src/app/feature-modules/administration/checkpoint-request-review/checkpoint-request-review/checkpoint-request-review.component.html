@@ -1,0 +1,33 @@
+<p>Checkpoint requests review</p>
+<hr>
+<div id="checkpoint-request-review">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Checkpoint name</th>
+                    <th>Checkpoint description</th>
+                    <th>Author username</th>
+                    <th>Request status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of requestDetails">
+                    <td>{{req.checkpointName}}</td>
+                    <td>{{req.checkpointDescription}}</td>
+                    <td>{{req.authorName}}</td>
+                    <td *ngIf="!req.onHold">{{req.status}}</td>
+                    <td *ngIf="req.onHold">
+                        <button mat-icon-button class="cancel-button" (click)="rejectRequest(req)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button  mat-icon-button class="accept-button" (click)="acceptRequest(req)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
