@@ -99,7 +99,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
       req.comment = "Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is accepted.";
     } else {
       let enteredComment: string = req.comment;
-      req.comment = "Administrator's comment: " + enteredComment + "\n\nConclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is accepted.";
+      req.comment = "Administrator's comment: " + enteredComment + "\n\n Conclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is accepted.";
     }
 
     this.adminService.acceptCheckpointRequest(req.id, req.comment).subscribe({
@@ -118,7 +118,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
       req.comment = "Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is rejected.";
     } else {
       let enteredComment: string = req.comment;
-      req.comment = "Administrator's comment: " + enteredComment + "\n\nConclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is rejected.";
+      req.comment = "Administrator's comment: " + enteredComment + "\n\n Conclusion: Your request for checkpoint " + req.checkpointName + " with description: " + req.checkpointDescription + ", is rejected.";
     }
 
     this.adminService.rejectCheckpointRequest(req.id, req.comment).subscribe({

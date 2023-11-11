@@ -4,6 +4,7 @@
         <div id="buttons">
 
             <button class="button" *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
+            <button class="button" *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['object-request-review']">Object requests</button>
             <button class="button" *ngIf="user && user.username === ''"  mat-raised-button [routerLink]="['login']">Login</button>
             <button class="button" *ngIf="user && user.username !== ''"  mat-raised-button (click)="onLogout()">Logout</button>
             <button class="button"  mat-raised-button [routerLink]="['home']">Home</button>

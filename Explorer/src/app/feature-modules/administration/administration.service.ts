@@ -13,6 +13,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
 import { CheckpointRequest } from './model/checkpoint-request.model';
+import { ObjectRequest } from './model/object-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -153,4 +154,16 @@ export class AdministrationService {
     return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/reject/' + requestId + '/' + comment, null);
   }
 
+  //object requests
+  getAllObjectRequests(): Observable<ObjectRequest[]> {
+    return this.http.get<ObjectRequest[]>(environment.apiHost + 'administration/objectRequests');
+  }
+
+  acceptObjectRequest(requestId: number, comment: string): Observable<ObjectRequest> {
+    return this.http.post<ObjectRequest>(environment.apiHost + 'administration/publicMapObject/create/' + requestId + '/' + comment, null);
+  }
+
+  rejectObjectRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/objectRequests/reject/' + requestId + '/' + comment, null);
+  }
 }
