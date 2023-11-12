@@ -1,0 +1,133 @@
+
+<div class="tour-details">
+    <br>
+    <p >{{tour.name}}</p>
+    <br>
+    <br>
+    <p class="subtitle">Information</p>
+    <table id="tour-details-table">
+        <tr>
+            <th>Description:</th>
+            <td>{{tour.description}}</td>
+        </tr>
+        <tr>
+            <th>Price:</th>
+            <td>{{tour.price}}</td>
+        </tr>
+        <tr>
+            <th>Demandigness level:</th>
+            <td>{{tour.demandignessLevel}}</td>
+        </tr>
+        <tr *ngFor="let tt of tour.tourTime">
+            <th>{{tt.transportation}}</th>
+            <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+            <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
+        </tr>
+        <tr>
+            <th>Tags:</th>
+            <td>
+                <table>
+                    <tr *ngFor="let tag of tour.tags">
+                        <td>{{tag}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <p class="subtitle">Required equipment</p>
+    <table>
+            
+                <thead>
+                    <th >Name</th>
+                    <th >Description</th>
+                </thead>
+                
+                <tbody>
+                    <tr *ngFor="let e of tour.equipment">
+                        <td>{{e.name}}</td>
+                        <td>{{e.description}}</td>
+
+                    </tr>
+                </tbody>
+          
+        </table>
+    <br>
+    <p class="subtitle">Starting checkpoint</p>
+    <table>
+        <tbody>
+            <tr>
+                <td class="cpp">
+                    <div class="cardcp">
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Name:</span>{{tour.checkpoint.name}}</span></div>
+                            <br>
+                            <div><span><span class="cps2">Description:</span>{{tour.checkpoint.description}}</span></div>
+                            <br>
+                        </span>
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Longitude:</span>{{tour.checkpoint.longitude}}</span></div>
+
+                            <br>
+                            <div><span><span class="cps2">Latitude:</span>{{tour.checkpoint.latitude}}</span></div>
+                            <br>
+                        </span>
+                    </div>
+                  
+                </td>
+             
+                <td class="cppi"><img [src]="tour.checkpoint.pictures[0]" width="80px" height="90px"></td>
+            </tr>
+        </tbody>
+  
+</table>
+
+    <div class="mapa">
+    <xp-map></xp-map>
+    <br>
+
+
+<p class="subtitle">Ratings</p>
+<div>
+    <table>
+        <tbody>
+            <tr *ngFor="let e of tour.tourRating" >
+                <td class="cpp">
+                    <div class="cardcp">
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
+                            <br>
+                            <div><span><span class="cps2">Rating:</span>{{e.rating}}</span></div>
+                            <br>
+                        </span>
+                        <span class="cps1">
+                            <br>
+                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
+                        </span>
+                    </div>
+                  
+                </td>
+             
+                
+            </tr>
+        </tbody>
+  
+</table>
+</div>
+    <div class="routingButton">
+        <div>
+            <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
+        </div>
+        <div>
+            <button mat-raised-button class="shopButton" (click)="onAddToCart(tour)" [disabled]="isTourInCart" [ngStyle]="{ 'background-color': buttonColor }">Add to card🛒</button>
+        </div>
+        </div>
+    </div>
+   
+</div>
+
+

@@ -7,6 +7,9 @@ import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
 import { MapObject } from './model/map-object.model';
+import { TourTime } from './model/tourTime.model';
+import { TourTimes } from './model/tourTimes.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +30,8 @@ export class TourAuthoringService {
     return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id);
   }
 
-  addCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
-    return this.http.post<Checkpoint>(environment.apiHost + 'administration/checkpoint', checkpoint);
+  addCheckpoint(checkpoint: Checkpoint, userId: number, status: string): Observable<Checkpoint> {
+    return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${userId}/${status}`, checkpoint);
   }
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
@@ -43,8 +46,8 @@ export class TourAuthoringService {
     return this.http.delete<MapObject>(environment.apiHost + 'administration/mapobject/' + id);
   }
   
-  addMapObject(mapObject: MapObject): Observable<MapObject> {
-    return this.http.post<MapObject>(environment.apiHost + 'administration/mapobject', mapObject);
+  addMapObject(mapObject: MapObject, userId: number, status: string): Observable<MapObject> {
+    return this.http.post<MapObject>(environment.apiHost + `administration/mapobject/create/${userId}/${status}`, mapObject);
   }
   
   updateMapObject(mapObject: MapObject): Observable<MapObject> {
@@ -58,6 +61,10 @@ export class TourAuthoringService {
 
   updateTour(tour: Tour): Observable<Tour> {
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/' + tour.id, tour);
+  }
+
+  archiveTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/archivedTours/' + tour.id, tour);
   }
 
   getTour(id: number): Observable<Tour[]> {
@@ -84,4 +91,11 @@ export class TourAuthoringService {
     return this.http.post<Equipment[]>(environment.apiHost + 'manipulation/equipment/get-available/' + tourId, currentEquipmentIds);
   }
 
+  publishTour(tourId: number){
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
+  }
+
+  addTourTransportation(tourId: number, tour: TourTimes){
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/tourTime/' + tourId, tour);
+  }
 }

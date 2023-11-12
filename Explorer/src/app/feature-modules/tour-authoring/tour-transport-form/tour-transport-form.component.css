@@ -1,0 +1,42 @@
+#transportation-div{
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.button{
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+table{
+    border: #E67840;
+    border-style: solid;
+}
+.buttonSave{
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+thead{
+    width: 150px;
+    text-align: center;
+    background-color: #E67840;
+    color: white;
+}
+td{
+    width: 150px;
+    text-align: center;
+}

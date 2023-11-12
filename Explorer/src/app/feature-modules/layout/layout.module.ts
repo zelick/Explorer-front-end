@@ -15,7 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent,
+    ProfileAdministrationComponent
   ],
   imports: [
     CommonModule,
