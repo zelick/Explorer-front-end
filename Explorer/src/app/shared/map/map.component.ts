@@ -2,11 +2,12 @@ import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 import { LocationResponse } from '../model/location-response';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, Observer, catchError, map, of, tap } from 'rxjs';
 import { MAPBOX_API_KEY } from '../constants';
 import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
 import { CheckpointPreview } from 'src/app/feature-modules/marketplace/model/checkpoint-preview';
+import 'leaflet-routing-machine';
 
 @Component({
   selector: 'xp-map',
@@ -24,6 +25,7 @@ export class MapComponent implements AfterViewInit {
   
   private map: any;
   private routeControl: any;
+  private routeLayers = new Map<L.Routing.Control, L.Layer[]>(); //dodala
 
 
   constructor(private mapService: MapService) { }
@@ -128,7 +130,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   setRoute(coords: [{lat: number, lon: number}], profile: string): void{
-
+   
     const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
         waypoints: waypoints,
@@ -148,11 +150,14 @@ export class MapComponent implements AfterViewInit {
           totalDistanceMeters: summary.totalDistance,
           totalTimeMinutes: Math.round(summary.totalTime / 60)
         };
+
         alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
         this.dist = summary.totalDistance;
         this.profile = profile;
         this.time = summary.totalTime;
         this.getTimeAndDistance();
+        
+            
       });
     };
 
@@ -185,8 +190,62 @@ export class MapComponent implements AfterViewInit {
       });
 
       console.log('Checkpoints set successfully.');
-
     }
+
+    calculateDistance(coords: { lat: number; lon: number }[], profile: string): Promise<number> {
+      return new Promise((resolve, reject) => {
+        const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
+        const routing = L.Routing.control({
+          waypoints: waypoints,
+          router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` }),
+        });
+    
+        routing.on('routesfound', (e) => {
+          const routes = e.routes;
+          const summary = routes[0].summary;
+          const distance = summary.totalDistance; // Udaljenost u metrima
+          resolve(distance);
+        });
+    
+        routing.route(); //error, ne znam da ispravim, ali pronadje dobro distancu
+      });
+    }
+    
+
+    
+    setCircle(center: { lat: number; lon: number }, radius: number): void {
+      if (this.map) {
+        // Izbriši prethodne krugove ako postoje
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Circle) {
+            this.map.removeLayer(layer);
+          }
+        });
+    
+        // Nacrtajte novi krug
+        L.circle([center.lat, center.lon], { radius: radius }).addTo(this.map);
+      }
+    }
+
+  
+    clearMap(): void {
+      this.map.eachLayer((layer: any) => {
+        if (layer instanceof L.Marker) {
+          this.map.removeLayer(layer);
+        }
+      });
+    }
+
+    clearRouteLayers(routeControl: L.Routing.Control): void {
+      const layers = this.routeLayers.get(routeControl);
+      if (layers) {
+        layers.forEach(layer => {
+          this.map.removeLayer(layer);
+        });
+        this.routeLayers.delete(routeControl);
+      }
+    }
+    
     
   }
 

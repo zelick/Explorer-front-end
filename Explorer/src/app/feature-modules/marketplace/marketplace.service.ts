@@ -153,7 +153,11 @@ export class MarketplaceService {
   updateCartItemCount(count: number): void {
     this.cartItemCountSubject.next(count);
   }
-  //
+
+  //PublicTours 
+  getPublicTours():Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping') //zameni
+  }
 
   getAverageRating(id:number): Observable<number> {
     return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)

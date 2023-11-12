@@ -27,26 +27,28 @@ export class TourOverviewDetailsComponent implements OnInit{
     private router: Router, 
     private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params=>{
-     this.tourID=params['id'];
-     this.getPublishedTour(this.tourID);
-     
-
-     this.authService.user$.subscribe(user => {
-      this.user = user;
-    });
-    this.service.getAverageRating(this.tourID).subscribe(
-      (averageRating: number) => {
-        this.tourAvarageRating = averageRating;
-        console.log('Prosečna ocena ture:', this.tourAvarageRating);
-      },
-      (error) => {
-        console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
-      }
-    );
-  })
-  }
+    ngOnInit(): void {
+      this.authService.user$.subscribe(user => {
+        this.user = user;
+    
+        this.activatedRoute.params.subscribe(params => {
+          this.tourID = params['id'];
+          this.getPublishedTour(this.tourID);
+          this.FindShoppingCart();
+        });
+    
+        this.service.getAverageRating(this.tourID).subscribe(
+          (averageRating: number) => {
+            this.tourAvarageRating = averageRating;
+            console.log('Prosečna ocena ture:', this.tourAvarageRating);
+          },
+          (error) => {
+            console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
+          }
+        );
+      });
+    }
+    
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
@@ -56,6 +58,9 @@ export class TourOverviewDetailsComponent implements OnInit{
     tourAvarageRating:number = 0;
     shouldEdit: boolean = false;
     selectedRating: TourRating;
+    userCart: ShoppingCart;
+    isTourInCart: boolean = false;
+    buttonColor: string = 'orange';
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
@@ -93,15 +98,16 @@ export class TourOverviewDetailsComponent implements OnInit{
       this.router.navigate([`tour-overview`]);
 
     }
-
     onAddToCart(t: TourPreview): void{
-      const orderItem: OrderItem = {
-        tourId: t.id || 0,
-        tourName: t.name,
-        price: t.price,
-        // quantity: 1 // podesiti 
-      };
-      this.addItemToCart(orderItem, t);
+      const isConfirmed = window.confirm('Are you sure you want to add this item to the cart?');
+      if (isConfirmed) {
+        const orderItem: OrderItem = {
+          tourId: t.id || 0,
+          tourName: t.name,
+          price: t.price,
+        };
+        this.addItemToCart(orderItem, t);
+      }
     }
 
     addItemToCart(orderItem: OrderItem, tour: TourPreview): void {
@@ -111,9 +117,13 @@ export class TourOverviewDetailsComponent implements OnInit{
             tourShoppingCart.items.push(orderItem);
             //this.cartItemCount = tourShoppingCart.items.length;
             tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
-            this.service.updateShoppingCart(tourShoppingCart).subscribe(() => {
+            this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
               //this.cartItemCount = tourShoppingCart.items.length;
-              this.service.updateCartItemCount(tourShoppingCart.items.length); //
+              this.userCart = result;
+              this.isTourInCart = this.checkIsTourInCart();
+              if(this.isTourInCart == true){
+                this.buttonColor = 'gray';
+              }
             });
           });
         } else {
@@ -124,6 +134,11 @@ export class TourOverviewDetailsComponent implements OnInit{
           };
           this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => {
   
+            this.userCart = createdShoppingCart;
+            this.isTourInCart = this.checkIsTourInCart();
+            if(this.isTourInCart == true){
+              this.buttonColor = 'gray';
+            }
             const newCustomer: Customer = {
               touristId: this.user.id,
               purchaseTokens: [],
@@ -150,5 +165,26 @@ export class TourOverviewDetailsComponent implements OnInit{
 
     editRating(rating: TourRating): void{
       this.router.navigate(['/tour-rating-edit-form', rating.id]);
+    }
+    checkIsTourInCart(): boolean{
+      if (this.userCart.items.length > 0) {
+        return this.userCart.items.some(item => item.tourId == this.tourID);
+      }
+      return false;
+    }
+
+    FindShoppingCart(): void{
+      this.service.getShoppingCart(this.user.id).subscribe((result) => {
+        if(!result){
+          this.isTourInCart = false;
+          this.buttonColor = 'orange';
+        }else{
+          this.userCart = result;
+          this.isTourInCart = this.checkIsTourInCart();
+          if(this.isTourInCart == true){
+            this.buttonColor = 'gray';
+          }
+        }
+      });
     }
 }
