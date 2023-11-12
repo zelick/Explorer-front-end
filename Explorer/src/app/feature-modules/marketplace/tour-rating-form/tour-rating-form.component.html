@@ -1,6 +1,7 @@
 <div id="tour-rating-form">
-    <form [formGroup]="tourRatingForm">
-        <div>
+    <form class="rating-form" [formGroup]="tourRatingForm">
+        <div class="center-container">
+            <p>Add new rating</p>
             <mat-form-field>
                 <mat-label>Tour Id</mat-label>
                 <input matInput formControlName="tourId" type="number" [defaultValue]="0" min="0" placeholder="0"/>
@@ -37,10 +38,10 @@
                     cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>
 
-            <!-- TODO -> upload a picture file -->
-            <form [formGroup]="picturesForm">
-                <div>
-                    <table>
+            <!-- TODO -> image upload  -->
+            <!-- 
+            <form [formGroup]="imagesForm"> 
+                <table>
                         <tr>
                             <td>
                                 <mat-form-field id="picture">
@@ -61,10 +62,18 @@
                                 <button id="picture" color="lightBlue" (click)="removePicture(p)" mat-raised-button>✖️</button>
                             </td>
                         </tr>
-                    </table>
+                    </table> 
+                </form>             -->
+                
+            <div>
+                <input type="file" (change)="onImageSelected($event)" id="fileInput" multiple />
+                <div class="image-container" *ngIf="!shouldEdit && imagePreview && imagePreview.length > 0">                        
+                    <img *ngFor="let image of imagePreview" [src]="image" alt="Image">                    
                 </div>
-            </form>
-                        
+                <div class="image-container" *ngIf="shouldEdit && rating.imageNames && rating.imageNames.length > 0">
+                    <img *ngFor="let imageName of rating.imageNames" [src]="getImageUrl(imageName)" alt="Image">
+                </div>      
+            </div>
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
         </div>
     </form>
