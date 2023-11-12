@@ -28,7 +28,7 @@ export class BlogPostFormComponent implements OnChanges {
       this.blogPostForm.patchValue({
         title: this.blogPost.title,
         description: this.blogPost.description,
-        imageUrls: this.blogPost.imageUrls ? this.blogPost.imageUrls.join(', ') : ''
+        imageUrls: this.blogPost.imageNames ? this.blogPost.imageNames.join(', ') : ''
       })
     }
   }
@@ -70,7 +70,7 @@ export class BlogPostFormComponent implements OnChanges {
       title: this.blogPostForm.value.title as string || '',
       description: this.blogPostForm.value.description as string || '',
       creationDate: currentDateTime,
-      imageUrls: imageUrls,
+      imageNames: imageUrls,
       status: blogPostStatus
     };
     return blogPost;
