@@ -72,7 +72,10 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     this.service.addTourRating(rating).subscribe(
       (response) =>
         {
+        this.rating = response;
         this.ratingUpdated.emit();
+        this.tourRatingForm.patchValue(this.rating);
+
       }, 
       (error) => {
         alert(error.error);

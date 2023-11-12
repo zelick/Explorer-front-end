@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { TourRating } from '../model/tour-rating.model';
 import { MarketplaceService } from '../marketplace.service';
@@ -14,6 +14,8 @@ export class TourRatingEditFormComponent implements OnInit {
   ratingId: number;
   rating: TourRating;
   tourRatingForm: FormGroup; // Dodao FormGroup
+
+  @Output() ratingUpdated = new EventEmitter<null>();
 
   constructor(
     private service: MarketplaceService,
@@ -53,6 +55,10 @@ export class TourRatingEditFormComponent implements OnInit {
       this.service.updateTourRating(editedRating).subscribe(
         (response) =>
           {
+            this.rating = response;
+            this.ratingUpdated.emit();
+            this.tourRatingForm.patchValue(this.rating);
+    
             this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
         }, 
         (error) => {
