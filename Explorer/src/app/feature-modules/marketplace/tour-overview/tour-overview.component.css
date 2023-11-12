@@ -11,7 +11,7 @@ h1{
   color:#E67840;
   padding: 1% 2.5%; 
   margin: 0 auto;
-  
+
 }
 .tour-details {
     margin: 0 auto;
@@ -44,7 +44,7 @@ table {
     gap: 15px;
     flex-direction: row;
     justify-content: space-between;
-    
+
 }
 
 .cinfo{
