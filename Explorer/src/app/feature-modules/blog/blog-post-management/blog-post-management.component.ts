@@ -78,6 +78,11 @@ export class BlogPostManagementComponent implements OnInit {
     }
   }
 
+  onBlogPostUpdated(): void {
+    this.shouldRenderBlogPostForm = false;
+    this.getBlogPosts();
+  }
+  
   getImageUrl(imageName: string): string {
     return this.imageService.getImageUrl(imageName);
   }

@@ -8,7 +8,6 @@
 
 .blog-post-form mat-form-field textarea {
     width: calc(100% - 24px);
-    /* Adjust to consider padding and border width */
 }
 
 button mat-icon {
