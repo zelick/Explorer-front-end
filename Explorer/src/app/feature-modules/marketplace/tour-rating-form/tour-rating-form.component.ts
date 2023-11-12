@@ -6,6 +6,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { TourRating } from '../model/tour-rating.model';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-rating-form',
@@ -22,7 +23,8 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
   newPictures: string[]=[];
   tourId: number;
   
-  constructor(private service: MarketplaceService, private authService: AuthService, private route: ActivatedRoute) { 
+  constructor(private service: MarketplaceService, private authService: AuthService, private route: ActivatedRoute, 
+    private router: Router) { 
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.newPictures=[];
@@ -67,13 +69,19 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     
     console.log(rating)
     
-    this.service.addTourRating(rating).subscribe({
-      next: () => { this.ratingUpdated.emit() }
-    });
+    this.service.addTourRating(rating).subscribe(
+      (response) =>
+        {
+        this.ratingUpdated.emit();
+      }, 
+      (error) => {
+        alert(error.error);
+      });
     console.log(rating.id);
     this.newPictures=[];
     this.picturesForm.reset();
     this.tourRatingForm.reset();
+    this.router.navigate(['/tour-overview-details/', rating.tourId]);
   }
 
   addPicture():void{   

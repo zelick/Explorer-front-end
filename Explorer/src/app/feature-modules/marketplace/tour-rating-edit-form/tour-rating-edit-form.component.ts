@@ -50,9 +50,13 @@ export class TourRatingEditFormComponent implements OnInit {
         rating: this.tourRatingForm.value.rating,
         comment: this.tourRatingForm.value.comment
       };
-
-      this.service.updateTourRating(editedRating).subscribe((result: TourRating) => {
-        this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
+      this.service.updateTourRating(editedRating).subscribe(
+        (response) =>
+          {
+            this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
+        }, 
+        (error) => {
+          alert(error.error);
       });
     }
   }
