@@ -28,6 +28,10 @@ export class TourOverviewDetailsComponent implements OnInit{
     private authService: AuthService) { }
 
     ngOnInit(): void {
+      this.service.cartItemCount$.subscribe(count => {
+        this.cartItemCount = count;
+      });
+
       this.authService.user$.subscribe(user => {
         this.user = user;
     
@@ -47,6 +51,8 @@ export class TourOverviewDetailsComponent implements OnInit{
           }
         );
       });
+
+      
     }
     
     tour:TourPreview;
@@ -61,6 +67,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     userCart: ShoppingCart;
     isTourInCart: boolean = false;
     buttonColor: string = 'orange';
+    cartItemCount: number;
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
@@ -115,10 +122,9 @@ export class TourOverviewDetailsComponent implements OnInit{
         if (cartExists) {
           this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
             tourShoppingCart.items.push(orderItem);
-            //this.cartItemCount = tourShoppingCart.items.length;
             tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
             this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
-              //this.cartItemCount = tourShoppingCart.items.length;
+              this.service.updateCartItemCount(tourShoppingCart.items.length); //
               this.userCart = result;
               this.isTourInCart = this.checkIsTourInCart();
               if(this.isTourInCart == true){
