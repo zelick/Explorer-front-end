@@ -2,7 +2,7 @@
     <div id="top-div">
         <div class="tour-info">
             <p class="subtitle">Tour: {{tour.name}}</p>
-            <table>
+            <table class="tour-info-table">
                 <tr>
                     <td>Description: </td>
                     <td>{{tour.description}}</td>
@@ -14,14 +14,14 @@
             </table>
         </div>
 
-        <button (click)="abandon()">
-            Abandon
+        <button (click)="abandon()" class="buttonAbandon">
+            Abandon ❌
         </button>
 
         <div class="notification-div">
             <table border="1">
                 <tr *ngFor="let n of notifications">
-                    <td>Save your new position!</td>
+                    <td>Save your new position!  ⚠️</td>
                     <td>
                     ({{n}})
                     </td>
