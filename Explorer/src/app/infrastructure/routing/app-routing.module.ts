@@ -35,6 +35,7 @@ import { AllToursComponent } from 'src/app/feature-modules/marketplace/all-tours
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/purchased-tours/purchased-tours.component';
 import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketplace/purchased-tours-details/purchased-tours-details.component';
+import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-edit-form/tour-rating-edit-form.component';
 
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
 
@@ -67,7 +68,8 @@ const routes: Routes = [
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
-  {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'tour-rating-form/:id', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'tour-rating-edit-form/:id', component: TourRatingEditFormComponent, canActivate: [AuthGuard]},
   {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
   {path: 'tour-equipment/:id',component:TourEquipmentComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},

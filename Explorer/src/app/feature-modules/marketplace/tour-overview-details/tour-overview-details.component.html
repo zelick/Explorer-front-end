@@ -1,4 +1,3 @@
-
 <div class="tour-details">
     <br>
     <p >{{tour.name}}</p>
@@ -106,8 +105,12 @@
                         </span>
                         <span class="cps1">
                             <br>
-                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
+                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
+                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
                         </span>
+                        <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button> 
                     </div>
                   
                 </td>
@@ -117,17 +120,20 @@
         </tbody>
   
 </table>
+<div>
+    <p>Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
+</div>
 </div>
     <div class="routingButton">
         <div>
             <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
         </div>
         <div>
-            <button mat-raised-button class="shopButton" (click)="onAddToCart(tour)">Add to card🛒</button>
+            <button mat-raised-button class="shopButton" (click)="rateTour(tour)">Rate</button>
         </div>
+        <div>
+            <button mat-raised-button class="shopButton" (click)="onAddToCart(tour)" [disabled]="isTourInCart" [ngStyle]="{ 'background-color': buttonColor }">Add to card🛒</button>
         </div>
     </div>
-   
 </div>
-
-
+</div>

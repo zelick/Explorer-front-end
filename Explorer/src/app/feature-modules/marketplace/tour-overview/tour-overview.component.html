@@ -1,40 +1,48 @@
-<div >
+<div>
     <div class="tour">
+        <div style=" height: 50px"></div>
         <h1>Tour offer</h1>
-    <div>
-        <table>
-            <tbody>
-                <tr *ngFor="let t of publishedTours">
-                <td (click)="openDetails(t)">
-                    <div>
-                        <br>
-                            <div class="ch">{{t.name}}</div>
-                        <br>
-                        <div class="card">
+        <div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let t of publishedTours">
+                        <td (click)="openDetails(t)">
                             <div>
-                               <span class="cinfo">Price:</span>
                                 <br>
-                                {{t.price}}
+                                <div class="ch">{{t.name}}</div>
+                                <br>
+                                <div class="card">
+                                    <div>
+                                        <span class="cinfo">Price:</span>
+                                        <br>
+                                        {{t.price}}
+                                    </div>
+                                    <div>
+                                        <span class="cinfo">Start:</span>
+                                        <br>
+                                        {{t.checkpoint.name}}
+                                    </div>
+                                    <div>
+                                        <img [src]="t.checkpoint.pictures[0]" width="100" height="100">
+                                    </div>
+                                </div>
+                                <div class="cttags">{{t.tags}}</div>
                             </div>
-                            <div>
-                                <span class="cinfo">Start:</span>
-                                 <br>
-                                 {{t.checkpoint.name}}
-                             </div>
-                            <div >
-                                <img  [src]="t.checkpoint.pictures[0]" width="100" height="100">
-                            </div>
-                           
-                        </div>                       
-                        <div class="cttags">{{t.tags}}</div>
-                        </div>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-   
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style=" height: 100px"></div>
+            <div style="position: absolute; width: 200px; height: 200px; z-index: 1000;">
+                <input type="range" [(ngModel)]="radius" min="100" max="10000" step="100" (input)="updateRadius()"/>
+                <div></div>
+                <span>{{ radius }} meters</span>
+            </div>
+            <div style=" height: 100px"></div>
+            <div style="width: 800px; height: 250px; position: relative;">
+                <xp-map (mapClick)="onMapClick($event)"></xp-map>
+            </div>
+        </div>
     </div>
 </div>
-
-

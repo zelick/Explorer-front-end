@@ -76,6 +76,10 @@ export class MarketplaceService {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 
+  updateTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
+  }
+
   addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
     return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
   }
@@ -150,10 +154,19 @@ export class MarketplaceService {
   updateCartItemCount(count: number): void {
     this.cartItemCountSubject.next(count);
   }
-  //
 
+  //PublicTours 
+  getPublicTours():Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping') //zameni
   startExecution(tourId: number, touristId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);
   }
 
+  getAverageRating(id:number): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)
+  }
+
+  getRating(id:number): Observable<TourRating> {
+    return this.http.get<TourRating>(environment.apiHost + 'tourist/tour-rating/getTourRating/' + id)
+  }
 }
