@@ -36,8 +36,6 @@ export class CheckpointRequestReviewComponent implements OnInit{
             // Handle errors
         }
     });
-
-    //this.getAllCheckpoints();
   }
 
   getAllCheckpoints(): void {
@@ -50,8 +48,6 @@ export class CheckpointRequestReviewComponent implements OnInit{
             // Handle errors
         }
     });
-
-    //this.getAllUsers();
   }
 
   getAllUsers(): void {
@@ -64,8 +60,6 @@ export class CheckpointRequestReviewComponent implements OnInit{
             // Handle errors
         }
     });
-
-    //this.fillRequestDetails();
   }
 
   fillRequestDetails(): void {

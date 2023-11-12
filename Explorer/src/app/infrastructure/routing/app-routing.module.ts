@@ -30,6 +30,7 @@ import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-p
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
 import { ObjectRequestReviewComponent } from 'src/app/feature-modules/administration/object-request-review/object-request-review/object-request-review.component';
+import { RequestNotificationReviewComponent } from 'src/app/feature-modules/administration/request-notification-review/request-notification-review/request-notification-review.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'grade-review', component: GradeReviewComponent},
   {path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent},
   {path: 'object-request-review', component: ObjectRequestReviewComponent},
+  {path: 'request-notification-review', component: RequestNotificationReviewComponent},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
   {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},

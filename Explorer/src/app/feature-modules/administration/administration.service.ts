@@ -14,6 +14,7 @@ import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
 import { CheckpointRequest } from './model/checkpoint-request.model';
 import { ObjectRequest } from './model/object-request.model';
+import { RequestNotification } from './model/request-notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -165,5 +166,14 @@ export class AdministrationService {
 
   rejectObjectRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
     return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/objectRequests/reject/' + requestId + '/' + comment, null);
+  }
+
+  //request notifications
+  getAllUnreadRequestNotifications(userId: number): Observable<RequestNotification[]> {
+    return this.http.get<RequestNotification[]>(environment.apiHost + 'administration/notification/getAllUnread/' + userId);
+  }
+
+  markAsReadRequestNotification(notificationId: number): Observable<RequestNotification> {
+    return this.http.put<RequestNotification>(environment.apiHost + 'administration/notification/markAsRead/' + notificationId, null);
   }
 }

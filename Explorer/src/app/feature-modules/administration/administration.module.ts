@@ -16,6 +16,7 @@ import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 import { ObjectRequestReviewComponent } from './object-request-review/object-request-review/object-request-review.component';
+import { RequestNotificationReviewComponent } from './request-notification-review/request-notification-review/request-notification-review.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ObjectRequestReviewComponent } from './object-request-review/object-req
     ClubMembersComponent,
     ClubInvitationsComponent,
     CheckpointRequestReviewComponent,
-    ObjectRequestReviewComponent
+    ObjectRequestReviewComponent,
+    RequestNotificationReviewComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { ObjectRequestReviewComponent } from './object-request-review/object-req
     ApplicationGradeComponent,
     CheckpointRequestReviewComponent,
     ObjectRequestReviewComponent,
+    RequestNotificationReviewComponent,
     GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
