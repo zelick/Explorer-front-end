@@ -4,6 +4,7 @@ import { ProfileInfo } from '../model/profileInfo.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-profile-administration',
@@ -15,6 +16,7 @@ export class ProfileAdministrationComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private layoutService: LayoutService,
+    private imageService: ImageService,
     private router: Router
   ) {}
 
@@ -39,12 +41,12 @@ export class ProfileAdministrationComponent implements OnInit{
         name: user.name,
         surname: user.surname,
         email: user.email,
-        profilePictureUrl: user.profilePictureUrl,
+        profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
         biography: user.biography,
         motto: user.motto,
       });
       
-      this.selectedImage = user.profilePictureUrl;
+      this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
     });
   }
   
@@ -90,14 +92,14 @@ export class ProfileAdministrationComponent implements OnInit{
       if (controlUrl) {
         controlUrl.setValue(file.name);
       }
-
+  
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result as string;
       };
       reader.readAsDataURL(file);
     } else {
-      this.selectedImage = null; 
+      this.selectedImage = null;
     }
-  }
+  }  
 }
