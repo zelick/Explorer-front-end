@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BlogService } from '../blog.service';
-import { BlogPost } from '../model/blog-post.model';
+import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -15,6 +15,7 @@ import { BlogRating, Rating } from '../model/blog-rating.model';
 export class BlogPostComponent implements OnInit {
 
   @Output() blogPostUpdated = new EventEmitter<null>();
+  public BlogPostStatus = BlogPostStatus;
   blogPost: BlogPost;
   userId: number;
   upvoteCount: number = 0;
@@ -38,6 +39,18 @@ export class BlogPostComponent implements OnInit {
       this.calculateVoteCounts();
       this.updateUserRating();
     });
+  }
+
+  getBlogPost(): void {
+    if (this.blogPost?.id !== undefined){
+      this.service.getBlogPost(this.blogPost.id).subscribe({
+        next: (updatedBlogPost: BlogPost) => {
+          this.blogPost = updatedBlogPost;
+          this.calculateVoteCounts();
+          this.blogPostUpdated.emit();
+        },
+      });
+    }
   }
   
   onUpvoteClicked(): void {
@@ -70,18 +83,6 @@ export class BlogPostComponent implements OnInit {
           this.downvoted = !this.downvoted;
           this.getBlogPost();
         }
-      });
-    }
-  }
-
-  getBlogPost(): void {
-    if (this.blogPost?.id !== undefined){
-      this.service.getBlogPost(this.blogPost.id).subscribe({
-        next: (updatedBlogPost: BlogPost) => {
-          this.blogPost = updatedBlogPost;
-          this.calculateVoteCounts();
-          this.blogPostUpdated.emit();
-        },
       });
     }
   }

@@ -1,10 +1,43 @@
-div {
-    width: 400px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
+.blog-post-form mat-form-field {
+    width: 80%;
 }
 
-.mat-icon {
-    vertical-align: middle;
+.blog-post-form mat-form-field input {
+    width: 80%;
+}
+
+.blog-post-form mat-form-field textarea {
+    width: calc(100% - 24px);
+    /* Adjust to consider padding and border width */
+}
+
+button mat-icon {
+    color: #ffffff;
+}
+
+button[color="primary"] {
+    background-color: #3B846B;
+}
+
+button[color="accent"] {
+    background-color: #E67840;
+}
+
+form button {
+    display: block;
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px 0;
+    width: 100px;
+}
+
+form button mat-icon {
+    color: #ffffff;
+}
+
+form button[color="primary"],
+form button[color="accent"] {
+    display: block;
 }

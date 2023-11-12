@@ -12,6 +12,7 @@ import { ShoppingCart } from './model/shopping-cart.model';
 import { Customer } from './model/customer.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
+import { TourExecution } from '../tour-execution/model/tour_execution.model';
 
 
 @Injectable({
@@ -157,6 +158,8 @@ export class MarketplaceService {
   //PublicTours 
   getPublicTours():Observable<TourPreview[]> {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping') //zameni
+  startExecution(tourId: number, touristId: number): Observable<TourExecution>{
+    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);
   }
 
   getAverageRating(id:number): Observable<number> {

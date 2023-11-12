@@ -37,6 +37,10 @@ import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/pur
 import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketplace/purchased-tours-details/purchased-tours-details.component';
 import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-edit-form/tour-rating-edit-form.component';
 
+import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
+
+import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
+
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -60,7 +64,7 @@ const routes: Routes = [
   {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},
   {path: 'blogs', component: BlogPostTableComponent, canActivate: [AuthGuard]},
   {path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
-  {path: 'your-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
+  {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
@@ -74,7 +78,9 @@ const routes: Routes = [
   {path: 'all-tours', component: AllToursComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
-  {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]}
+  {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
+  {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -128,10 +128,10 @@ export class MapComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
-
+  
   setRoute(coords: [{lat: number, lon: number}], profile: string): void{
    
-    const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
+   const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
         waypoints: waypoints,
         collapsible: true,
@@ -211,7 +211,6 @@ export class MapComponent implements AfterViewInit {
       });
     }
     
-
     
     setCircle(center: { lat: number; lon: number }, radius: number): void {
       if (this.map) {
@@ -246,6 +245,73 @@ export class MapComponent implements AfterViewInit {
       }
     }
     
-    
+  addCheckpoints(coords: [{lat: number, lon: number}]): void {
+
+      let defaultIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).addTo(this.map);
+      });
+    }
+
+    addTouristPosition(lat: number, lon: number): Observable<LocationResponse> {
+      return this.mapService.reverseSearch(lat, lon).pipe(
+        map((result) => result),
+        tap((location) => {
+          console.log('Location:', location);
+         L.marker([location.lat, location.lon])
+            .addTo(this.map)
+            .bindPopup(location.display_name)
+            .openPopup();
+        }),
+        catchError((error) => {
+          console.error('Error in reverse search:', error);
+          throw error;
+        })
+      );
+    }
+
+    addMapObjects(coords: [{lat: number, lon: number, category: string}]): void {
+
+      let defaultIconWC = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/1257/1257334.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconRestaurant = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448609.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconParking = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/8/8206.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconOther = L.icon({
+        iconUrl: 'https://png.pngtree.com/png-vector/20190420/ourmid/pngtree-list-vector-icon-png-image_963980.jpg',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        if(element.category == 'WC')
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).addTo(this.map);
+        if(element.category == 'Restaurant')
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).addTo(this.map);
+        if(element.category == 'Parking')
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).addTo(this.map);
+        if(element.category == 'Other')
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).addTo(this.map);
+      });
+    }
+
   }
 

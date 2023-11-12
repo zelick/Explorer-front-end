@@ -2,14 +2,14 @@
     <div id="blog-post">
         <div class="center-container">
             <div class="voting-container">
-                <button class="circle-button" [class.upvoted]="upvoted" (blogPostUpdated)="getBlogPost()"
+                <button *ngIf="blogPost.status.toUpperCase() !== BlogPostStatus.Closed" class="circle-button" [class.upvoted]="upvoted" (blogPostUpdated)="getBlogPost()"
                     (click)="onUpvoteClicked()" mat-icon-button>
                     <mat-icon>arrow_upward</mat-icon>
                 </button>
                 <div class="vote-count">
-                    <p>{{netVoteCount}}</p>
+                    <p>Votes: {{netVoteCount}}</p>
                 </div>
-                <button class="circle-button" [class.downvoted]="downvoted" (blogPostUpdated)="getBlogPost()"
+                <button *ngIf="blogPost.status.toUpperCase() !== BlogPostStatus.Closed" class="circle-button" [class.downvoted]="downvoted" (blogPostUpdated)="getBlogPost()"
                     (click)="onDownvoteClicked()" mat-icon-button>
                     <mat-icon>arrow_downward</mat-icon>
                 </button>            
@@ -29,6 +29,19 @@
                 </div>
                 <div [innerHTML]="blogPost.description"></div>
             </div>
+        </div>
+        <div>
+            <xp-blog-comment-form *ngIf="blogPost.status.toUpperCase() !== BlogPostStatus.Closed" [blogPostId]="blogPost.id" (commentAdded)="getBlogPost()"></xp-blog-comment-form>
+        </div>
+        <div class="blog-comments" *ngIf="blogPost.comments && blogPost.comments.length">
+            <div *ngFor="let comment of blogPost.comments">
+                <div class="comments">
+                    <xp-blog-comment [blogPostId]="blogPost.id" [comment]="comment" (commentUpdated)="getBlogPost()"></xp-blog-comment>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!blogPost.comments || blogPost.comments.length === 0">
+            <p>No comments yet.</p>
         </div>
     </div>
 </body>
