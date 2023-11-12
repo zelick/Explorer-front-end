@@ -20,6 +20,8 @@
             </mat-menu>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['preference']">Manage preference</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['all-tours']">See tours</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Tours</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['application-grade']">Rate the app</button>
             <button class="button" *ngIf="user && user.role === 'administrator'" mat-raised-button [routerLink]="['grade-review']">Grade review</button>           
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['invitations']">Invitations</button>
@@ -27,6 +29,8 @@
             <button class="button" *ngIf="user && user.role === 'administrator'" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-rating']">Tour Ratings</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['simulator']">Simulator</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['purchased-tours']">Purchased Tours</button>
         </div>
     </div>
 </div>

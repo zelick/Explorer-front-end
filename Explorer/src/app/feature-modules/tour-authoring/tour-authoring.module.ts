@@ -12,6 +12,9 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapObjectComponent } from './map-object/map-object.component';
 import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
+import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
+import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
 
 
 
@@ -22,9 +25,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapComponent,
     MapObjectComponent,
-    MapObjectFormComponent
+    MapObjectFormComponent,
+    TourEquipmentComponent,
+    TourTransportFormComponent,
+    CheckpointSecretFormComponent
   ],
   imports: [
     CommonModule,
@@ -38,8 +43,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent,
-    MapComponent
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }

@@ -6,7 +6,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { MAPBOX_API_KEY } from '../constants';
 import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
-import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
+import { CheckpointPreview } from 'src/app/feature-modules/marketplace/model/checkpoint-preview';
 
 @Component({
   selector: 'xp-map',
@@ -17,6 +17,10 @@ export class MapComponent implements AfterViewInit {
   @Output() mapClick: EventEmitter<any> = new EventEmitter();
   @Input() initialCenter: [number, number] = [45.2396, 19.8227];
   @Input() initialZoom: number = 13
+  @Output() timeAndDistance: EventEmitter<any> = new EventEmitter<Observable<number>>();
+  dist: number = 0;
+  time: number = 0;
+  profile: string = '';
   
   private map: any;
   private routeControl: any;
@@ -122,15 +126,22 @@ export class MapComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
-
-  setRoute(coords: [{lat: number, lon: number}], profile: string): void {
+  
+  setRoute(coords: [{lat: number, lon: number}], profile: string): void{
+    
     const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
       const routeControl = L.Routing.control({
         waypoints: waypoints,
-        router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` })
+        collapsible: true,
+        router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` }),
+        lineOptions: {
+          styles: [{ color: this.setRouteColor(profile), opacity: 1, weight: 5 }],
+          extendToWaypoints: true,
+          missingRouteTolerance: 50
+        }
       }).addTo(this.map);
 
-      routeControl.on('routesfound', function (e) {
+      routeControl.on('routesfound', (e) => {
         var routes = e.routes;
         var summary = routes[0].summary;
         const routeResponse: RouteResponse = {
@@ -138,7 +149,112 @@ export class MapComponent implements AfterViewInit {
           totalTimeMinutes: Math.round(summary.totalTime / 60)
         };
         alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+        this.dist = summary.totalDistance;
+        this.profile = profile;
+        this.time = summary.totalTime;
+        this.getTimeAndDistance();
       });
     };
+
+    setRouteColor(profile: string): string
+    {
+      if(profile == 'walking')
+        return 'red';
+      if(profile == 'cycling')
+        return 'blue';
+      if(profile == 'driving')
+        return 'green';
+      return 'red';
+    }
+
+    getTimeAndDistance(): void{
+      this.timeAndDistance.emit({d: this.dist});
+    }
+
+    setCheckpoints(checkpoints: CheckpointPreview[]): void {
+      let defaultIcon = L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+    
+      checkpoints.forEach(point => {
+        L.marker([point.latitude, point.longitude], { icon: defaultIcon }).addTo(this.map)
+          .bindPopup(point.name);
+      });
+
+      console.log('Checkpoints set successfully.');
+
+    }
+    
+    addCheckpoints(coords: [{lat: number, lon: number}]): void {
+
+      let defaultIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).addTo(this.map);
+      });
+    }
+
+    addTouristPosition(lat: number, lon: number): Observable<LocationResponse> {
+      return this.mapService.reverseSearch(lat, lon).pipe(
+        map((result) => result),
+        tap((location) => {
+          console.log('Location:', location);
+         L.marker([location.lat, location.lon])
+            .addTo(this.map)
+            .bindPopup(location.display_name)
+            .openPopup();
+        }),
+        catchError((error) => {
+          console.error('Error in reverse search:', error);
+          throw error;
+        })
+      );
+    }
+
+    addMapObjects(coords: [{lat: number, lon: number, category: string}]): void {
+
+      let defaultIconWC = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/1257/1257334.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconRestaurant = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448609.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconParking = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/8/8206.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      let defaultIconOther = L.icon({
+        iconUrl: 'https://png.pngtree.com/png-vector/20190420/ourmid/pngtree-list-vector-icon-png-image_963980.jpg',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        if(element.category == 'WC')
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).addTo(this.map);
+        if(element.category == 'Restaurant')
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).addTo(this.map);
+        if(element.category == 'Parking')
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).addTo(this.map);
+        if(element.category == 'Other')
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).addTo(this.map);
+      });
+    }
+
   }
 
