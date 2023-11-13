@@ -59,16 +59,12 @@ export class TourRatingFormComponent implements OnChanges {
       next: () => { 
         this.ratingUpdated.emit();
         this.tourRatingForm.reset();
-        // this.imagesForm.reset();
         this.imagePreview = [];
       },
       error: (err) => {
         console.error('Couldnt add rating: ', err);
       }
     });
-    // this.tourRatingForm.reset();
-    // this.imagesForm.reset();
-    // this.imagePreview=[];
   }
 
   private fillForm() {
@@ -78,9 +74,7 @@ export class TourRatingFormComponent implements OnChanges {
       comment: this.tourRatingForm.value.comment || "",
       touristId: this.user.id,
       tourId: Number(this.tourRatingForm.value.tourId) || 0,
-      //tourDate: this.tourRatingForm.value.tourDate || currentDateTime,
-      //TODO
-      tourDate: currentDateTime, 
+      tourDate: this.tourRatingForm.value.tourDate || currentDateTime,
       creationDate: currentDateTime
     };
     return rating;
@@ -107,10 +101,6 @@ export class TourRatingFormComponent implements OnChanges {
   }
 
   // image upload
-  imagesForm = new FormGroup({
-    images: new FormControl<string>("", {nonNullable: true})
-  });
-  
   getImageUrl(imageName: string): string {
     return this.imageService.getImageUrl(imageName);
   }
@@ -131,25 +121,8 @@ export class TourRatingFormComponent implements OnChanges {
     this.tourRatingForm.get('images')?.setValue(selectedFiles);
   }
 
-   // addPicture():void{   
-  //   if(this.picturesForm.getRawValue().picture!=""){
-  //     if(this.isExistingPicture(this.picturesForm.getRawValue().picture)===false){
-  //     //this.newPictures.push(this.picturesForm.getRawValue().picture);
-  //     this.picturesForm.reset();
-  //     }
-  //   }
-  // }
-
-  private removePicture(image :string):void{
-    //this.newPictures.splice(this.newPictures.indexOf(pic),1);
-  }
-  
-  // isExistingPicture(pic:string):boolean{
-  //   let isExistingPicture=false;
-  //   this.newPictures.forEach(element => {
-  //     if(element.toLowerCase()==pic)
-  //     isExistingPicture=true;
-  //   });
-  //   return isExistingPicture;
+  // TODO -> add removeImage button
+  // private removeImage(image :string):void{
+  //   this.imagePreview.splice(this.imagePreview.indexOf(image),1);
   // }
 }

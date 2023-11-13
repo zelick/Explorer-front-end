@@ -38,41 +38,18 @@
                     cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>
 
-            <!-- TODO -> image upload  -->
-            <!-- 
-            <form [formGroup]="imagesForm"> 
-                <table>
-                        <tr>
-                            <td>
-                                <mat-form-field id="picture">
-                                    <mat-label>Picture</mat-label>
-                                    <input matInput formControlName="picture" type="text"/>
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <button id="picture"  color="primary" type="submit" (click)="addPicture()" mat-raised-button>+</button>
-                            </td>
-                        </tr>
-                    </table>
-                    Added pictures:
-                    <table>
-                        <tr *ngFor="let p of newPictures">
-                            <td>{{p}}</td>
-                            <td>
-                                <button id="picture" color="lightBlue" (click)="removePicture(p)" mat-raised-button>✖️</button>
-                            </td>
-                        </tr>
-                    </table> 
-                </form>             -->
-                
-            <div>
+            <!-- image upload  -->
+            <div class="image-div">
                 <input type="file" (change)="onImageSelected($event)" id="fileInput" multiple />
                 <div class="image-container" *ngIf="!shouldEdit && imagePreview && imagePreview.length > 0">                        
                     <img *ngFor="let image of imagePreview" [src]="image" alt="Image">                    
                 </div>
                 <div class="image-container" *ngIf="shouldEdit && rating.imageNames && rating.imageNames.length > 0">
                     <img *ngFor="let imageName of rating.imageNames" [src]="getImageUrl(imageName)" alt="Image">
-                </div>      
+                </div>
+                <!-- <button id="picture" (click)="removeImage(image)" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button> -->
             </div>
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
         </div>

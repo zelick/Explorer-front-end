@@ -78,17 +78,3 @@ tbody tr.active-row {
     max-width: 100%;
     max-height: 100%;
 }
-
-.blog-comments {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 800px;
-    box-sizing: border-box;
-    border: 2px solid #3B846B;
-    background-color: #3B846B;
-    box-shadow: 0 0 4px #253B34;
-    margin-top: 40px;
-    color: #ffffff;
-    margin-bottom: 30px;
-}
