@@ -56,43 +56,83 @@ export class ProfileAdministrationComponent implements OnInit{
     name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    profilePicture: new FormControl(null, [Validators.required, this.fileValidator]),
     profilePictureUrl: new FormControl('', [Validators.required]),
     biography: new FormControl('', [Validators.required]),
     motto: new FormControl('', [Validators.required])
   });
 
+  private fileValidator(control: FormControl): { [key: string]: any } | null {
+    const value: File | null = control.value;
+  
+    if (!value) {
+      return { required: true, invalidFileType: false };
+    }
+  
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (allowedFileTypes.indexOf(value.type) === -1) {
+      return { required: false, invalidFileType: true };
+    }
+  
+    return null;
+  }
+
   edit(): void {
+    const profilePictureValue = this.profileInfoForm.value.profilePicture;
+    if (this.isFile(profilePictureValue)) {
     const profileInfo: ProfileInfo = {
       id: this.profileInfoForm.value.id || -1,
       userId: this.profileInfoForm.value.userId || -1,
       name: this.profileInfoForm.value.name || "",
       surname: this.profileInfoForm.value.surname || "",
       email: this.profileInfoForm.value.email || "",
+      profilePicture: profilePictureValue as File,
       profilePictureUrl: this.profileInfoForm.value.profilePictureUrl || "",
       biography: this.profileInfoForm.value.biography || "",
       motto: this.profileInfoForm.value.motto || "",
     };
 
+    const formData = new FormData();
+  
+      Object.keys(profileInfo).forEach(key => {
+        const value = profileInfo[key as keyof ProfileInfo];
+        if (value !== null && value !== undefined) {
+          if (value instanceof File) {
+            formData.append(key, value, value.name);
+          } else {
+            formData.append(key, value.toString());
+          }
+        }
+      });
+
     if (this.profileInfoForm.valid) {
-      this.layoutService.saveNewInfo(profileInfo).subscribe({
+      this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
         next: () => {
           this.router.navigate(['home']);
         },
       });
     }
   }
+  }
+
+  private isFile(value: any): value is File {
+    return value instanceof File;
+  }
 
   selectedImage: string | null = null;
 
   onProfilePictureSelected(event: any) {
     const file = event?.target?.files[0];
-  
+
     if (file) {
-      const controlUrl = this.profileInfoForm.get('profilePictureUrl');
-      if (controlUrl) {
-        controlUrl.setValue(file.name);
-      }
-  
+      this.profileInfoForm.patchValue({ profilePicture: file });
+
+      const fileName = file.name;
+      const baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+      const extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+      const profilePictureUrl = `${baseName}_profile.${extension}`;
+      this.profileInfoForm.patchValue({ profilePictureUrl });
+
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result as string;
@@ -101,5 +141,5 @@ export class ProfileAdministrationComponent implements OnInit{
     } else {
       this.selectedImage = null;
     }
-  }  
+  }
 }
