@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild, Output } from '@angular/core';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TouristPosition } from '../model/position.model';
@@ -16,6 +16,8 @@ export class SimulatorComponent implements OnInit {
   selectedPosition: TouristPosition;
   shouldEdit: boolean = false;
   user: User;
+  @Output() positionUpdated: EventEmitter<null> = new EventEmitter<null>();
+
 
   constructor(private service: MarketplaceService, private authService: AuthService) { }
 
@@ -36,7 +38,11 @@ export class SimulatorComponent implements OnInit {
 
   addTouristPosition(position: TouristPosition): void {
     this.service.addTouristPosition(position).subscribe({
-      next: () => { this.getPosition(); }
+      next: () => { 
+        this.getPosition(); 
+        this.selectedPosition = position;
+        this.positionUpdated.emit();
+      }
     });
   }
 
@@ -59,8 +65,16 @@ export class SimulatorComponent implements OnInit {
     this.searchByCoord(event.lat, event.lon);
   }
 
+
+  addCheckpoint(coords: [{lat: number, lon: number}]): void{
+    this.mapComponent.addCheckpoints(coords);
+  }
+  addMapObjects(coords: [{lat: number, lon: number, category: string}]): void{
+    this.mapComponent.addMapObjects(coords);
+  }
+
   private searchByCoord(lat: number, lon: number) {
-    this.mapComponent.reverseSearch(lat, lon).subscribe({
+    this.mapComponent.addTouristPosition(lat, lon).subscribe({
       next: (location) => {
         const foundLocation = location;
         console.log('Found Location Lat:', foundLocation.lat);

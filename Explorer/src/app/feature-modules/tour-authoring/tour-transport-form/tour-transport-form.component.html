@@ -1,0 +1,26 @@
+<div id="transportation-div">
+    <table>
+        <thead>Types of transportation:</thead>
+        <tbody>
+            <tr *ngFor="let a of availableProfiles">
+                <td>{{a}}</td>
+                <td>
+                    <button class="button" (click)="onAdd(a)" mat-raised-button>Add ➕</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <table>
+        <thead>Chosen transportation:</thead>
+        <tbody>
+            <tr *ngFor="let a of chosenProfiles">
+                <td>{{a}}</td>
+                <td>
+                    <button  class="button" (click)="onDelete(a)" mat-raised-button>Delete 🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button  class="buttonSave" (click)="onSave()" mat-raised-button>Save changes ✔</button>
+</div>

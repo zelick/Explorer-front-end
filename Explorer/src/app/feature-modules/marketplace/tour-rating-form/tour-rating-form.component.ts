@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, Output, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -6,6 +6,8 @@ import { MarketplaceService } from '../marketplace.service';
 import { ImageService } from 'src/app/shared/image/image.service';
 import { TourRating } from '../model/tour-rating.model';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-rating-form',
@@ -13,19 +15,29 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./tour-rating-form.component.css'],
   providers: [DatePipe]
 })
-export class TourRatingFormComponent implements OnChanges {
+export class TourRatingFormComponent implements OnChanges, OnInit {
 
   @Output() ratingUpdated = new EventEmitter<null>();
   @Input() rating: TourRating;
   @Input() shouldEdit: boolean = false;
   user: User;
   imagePreview: string[] = [];
-  
+  tourId: number;
+
   constructor(private service: MarketplaceService, private authService: AuthService,
-    private imageService: ImageService) { 
+    private imageService: ImageService, 
+    private route: ActivatedRoute, private router: Router ) { 
     this.authService.user$.subscribe(user => {
       this.user = user;
-     });
+      this.imagePreview = [];
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.tourId = params['id'];
+      console.log(this.tourId);
+    });
   }
 
   ngOnChanges(): void {
@@ -60,6 +72,7 @@ export class TourRatingFormComponent implements OnChanges {
         this.ratingUpdated.emit();
         this.tourRatingForm.reset();
         this.imagePreview = [];
+        this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
       },
       error: (err) => {
         console.error('Couldnt add rating: ', err);
@@ -73,8 +86,8 @@ export class TourRatingFormComponent implements OnChanges {
       rating: Number(this.tourRatingForm.value.rating) || 1,
       comment: this.tourRatingForm.value.comment || "",
       touristId: this.user.id,
-      tourId: Number(this.tourRatingForm.value.tourId) || 0,
-      tourDate: this.tourRatingForm.value.tourDate || currentDateTime,
+      tourId: this.tourId,
+      tourDate: new Date(), // sta je tourDate proveri
       creationDate: currentDateTime
     };
     return rating;

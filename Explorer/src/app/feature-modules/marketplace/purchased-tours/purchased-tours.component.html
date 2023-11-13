@@ -1,0 +1,20 @@
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div id="tour-details">
+        <div class="tours-heading">Your Purchases</div>
+        <div class="tour-card" *ngFor="let t of purchasedTours">
+            <td (click)="openDetails(t)">
+            <div class="tour-info">
+                <div>
+                <div class="tourName"><strong>{{t.name}}</strong></div>
+                </div>
+                <br>
+                <p> {{t.description}}</p>
+                <p> {{t.price}} eur</p>
+                <p> Demandigness: {{t.demandignessLevel}}</p>
+            </div>
+        </div>
+    </div>
+</div>
