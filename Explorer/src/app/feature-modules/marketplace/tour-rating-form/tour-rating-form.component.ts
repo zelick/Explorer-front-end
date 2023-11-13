@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { MarketplaceService } from '../marketplace.service';
+import { ImageService } from 'src/app/shared/image/image.service';
 import { TourRating } from '../model/tour-rating.model';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -20,15 +21,16 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
   @Input() rating: TourRating;
   @Input() shouldEdit: boolean = false;
   user: User;
-  newPictures: string[]=[];
+  imagePreview: string[] = [];
   tourId: number;
-  
-  constructor(private service: MarketplaceService, private authService: AuthService, private route: ActivatedRoute, 
-    private router: Router) { 
+
+  constructor(private service: MarketplaceService, private authService: AuthService,
+    private imageService: ImageService, 
+    private route: ActivatedRoute, private router: Router ) { 
     this.authService.user$.subscribe(user => {
       this.user = user;
-      this.newPictures=[];
-     });
+      this.imagePreview = [];
+    });
   }
 
   ngOnInit(): void {
@@ -41,71 +43,99 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
   ngOnChanges(): void {
     this.tourRatingForm.reset();
     if(this.shouldEdit) {
-      this.tourRatingForm.patchValue(this.rating);
+      this.tourRatingForm.patchValue({
+        rating: this.rating.rating,
+        tourId: this.rating.tourId
+      });
+      this.imagePreview = this.rating.imageNames?.map(imageName => this.getImageUrl(imageName)) || [];
+      } else {
+        this.imagePreview = [];
+      }  
     }
-  }
   
   tourRatingForm = new FormGroup({
     rating: new FormControl(0, [Validators.required]),
     comment: new FormControl(''),
     tourId: new FormControl(0, [Validators.required]),
-    tourDate: new FormControl(new Date())
-  });
-
-  picturesForm = new FormGroup({
-    picture: new FormControl<string>("", {nonNullable: true})
+    tourDate: new FormControl(new Date()),
+    images: new FormControl('')
   });
 
   addTourRating(): void {
+    const formData = new FormData();
+    const ratingForm = this.fillForm();
+    this.fillFormData(formData, ratingForm);
+    this.fillImages(formData);
+    
+    this.service.addTourRating(formData).subscribe({
+      next: () => { 
+        this.ratingUpdated.emit();
+        this.tourRatingForm.reset();
+        this.imagePreview = [];
+        this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
+      },
+      error: (err) => {
+        console.error('Couldnt add rating: ', err);
+      }
+    });
+  }
+
+  private fillForm() {
+    const currentDateTime = new Date();
     const rating: TourRating = {
       rating: Number(this.tourRatingForm.value.rating) || 1,
       comment: this.tourRatingForm.value.comment || "",
       touristId: this.user.id,
       tourId: this.tourId,
       tourDate: new Date(), // sta je tourDate proveri
-      creationDate: new Date(),
-      pictures: this.newPictures
+      creationDate: currentDateTime
     };
-    
-    console.log(rating)
-    
-    this.service.addTourRating(rating).subscribe(
-      (response) =>
-        {
-        this.rating = response;
-        this.ratingUpdated.emit();
-        this.tourRatingForm.patchValue(this.rating);
-
-      }, 
-      (error) => {
-        alert(error.error);
-      });
-    console.log(rating.id);
-    this.newPictures=[];
-    this.picturesForm.reset();
-    this.tourRatingForm.reset();
-    this.router.navigate(['/tour-overview-details/', rating.tourId]);
+    return rating;
   }
 
-  addPicture():void{   
-    if(this.picturesForm.getRawValue().picture!=""){
-      if(this.isExistingPicture(this.picturesForm.getRawValue().picture)===false){
-      this.newPictures.push(this.picturesForm.getRawValue().picture);
-      this.picturesForm.reset();
+  private fillFormData(formData: FormData, rating: TourRating) {
+    formData.append('rating', rating.rating!.toString());
+    formData.append('comment', rating.comment!.toString());
+    formData.append('touristId', rating.touristId!.toString());
+    formData.append('tourId', rating.tourId!.toString());
+    formData.append('tourDate', rating.tourDate.toISOString());
+    formData.append('creationDate', rating.creationDate.toISOString());
+  }
+  
+  private fillImages(formData: FormData) {
+    if (this.tourRatingForm.value.images) {
+      const selectedFiles = this.tourRatingForm.value.images;
+      for (let i = 0; i < selectedFiles.length; i++) {
+        
+        console.log(i);
+        formData.append('images', selectedFiles[i]);
       }
     }
   }
 
-  isExistingPicture(pic:string):boolean{
-    let isExistingPicture=false;
-    this.newPictures.forEach(element => {
-      if(element.toLowerCase()==pic)
-      isExistingPicture=true;
-    });
-    return isExistingPicture;
+  // image upload
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 
-  removePicture(pic:string):void{
-    this.newPictures.splice(this.newPictures.indexOf(pic),1);
+  onImageSelected(event: any): void {
+    const selectedFiles = event?.target?.files;
+    if (selectedFiles && selectedFiles.length > 0) {
+      this.imagePreview = [];
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview.push(e.target?.result as string);
+        };
+        reader.readAsDataURL(selectedFiles[i]);
+      }
+    }
+    this.tourRatingForm.get('images')?.setValue(selectedFiles);
   }
+
+  // TODO -> add removeImage button
+  // private removeImage(image :string):void{
+  //   this.imagePreview.splice(this.imagePreview.indexOf(image),1);
+  // }
 }

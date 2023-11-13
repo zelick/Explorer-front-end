@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { environment } from 'src/env/environment';
@@ -25,8 +25,26 @@ export class LayoutService {
     return of(null); 
   }
 
-  saveNewInfo(profileInfo: ProfileInfo): Observable<any> {
-    return this.http
-    .put(environment.apiHost + 'profile-administration/edit', profileInfo)
+  saveNewInfo(profileInfo: ProfileInfo, formData: FormData): Observable<any> {
+    const options = { headers: new HttpHeaders() };
+
+    formData.append('id', profileInfo.id.toString());
+  formData.append('userId', profileInfo.userId.toString());
+  formData.append('name', profileInfo.name);
+  formData.append('surname', profileInfo.surname);
+  formData.append('email', profileInfo.email);
+  formData.append('biography', profileInfo.biography);
+  formData.append('motto', profileInfo.motto);
+
+  // Assuming that profilePicture is a File
+  if (profileInfo.profilePicture instanceof File) {
+    formData.append('profilePicture', profileInfo.profilePicture, profileInfo.profilePicture.name);
   }
+
+  // Assuming profilePictureUrl is a string
+  formData.append('profilePictureUrl', profileInfo.profilePictureUrl);
+
+  return this.http.put(environment.apiHost + 'profile-administration/edit', formData, options);
+}
+  
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { BlogRating, Rating } from '../model/blog-rating.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-blog-post',
@@ -24,7 +25,7 @@ export class BlogPostComponent implements OnInit {
   upvoted = false;
   downvoted = false;
 
-  constructor(private service: BlogService, private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(private service: BlogService, private route: ActivatedRoute, private authService: AuthService, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.userId = this.authService.user$.value.id;
@@ -103,5 +104,9 @@ export class BlogPostComponent implements OnInit {
         this.downvoted = userRating.rating === Rating.Downvote;
       }
     }
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

@@ -7,7 +7,8 @@ export interface BlogPost {
     title: string;
     description: string;
     creationDate: Date;
-    imageUrls: string[] | null;
+    imageNames?: string[];
+    images?: FileList;
     status: BlogPostStatus;
     username?: string;
     ratings?: BlogRating[];

@@ -6,5 +6,6 @@ export interface TourRating {
     tourId: number;
     tourDate: Date
     creationDate: Date;
-    pictures?: string[];
+    imageNames?: string[];
+    images?: FileList;
 }

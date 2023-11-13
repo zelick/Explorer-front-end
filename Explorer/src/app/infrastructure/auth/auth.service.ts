@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenStorage } from './jwt/token.service';
 import { environment } from 'src/env/environment';
@@ -31,17 +31,21 @@ export class AuthService {
       );
   }
 
-  register(registration: Registration): Observable<AuthenticationResponse> {
-    return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-    .pipe(
+  register(formData: FormData): Observable<AuthenticationResponse> {
+    const headers = new HttpHeaders();
+  
+    return this.http.post<AuthenticationResponse>(
+      environment.apiHost + 'users',
+      formData,
+      { headers }
+    ).pipe(
       tap((authenticationResponse) => {
         this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
         this.setUser();
       })
     );
   }
-
+  
   logout(): void {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();

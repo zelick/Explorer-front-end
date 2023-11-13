@@ -11,19 +11,24 @@
                 cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         <br>
-        <mat-form-field>
-            <mat-label>Image URLs</mat-label>
-            <input matInput formControlName="imageUrls" type="text" />
-        </mat-form-field>
-        <!-- Add -->
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlogPost(BlogPostStatus.Draft)"
-            mat-raised-button>Draft</button>
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlogPost(BlogPostStatus.Published)"
-            mat-raised-button>Publish</button>
-        <!-- Update -->
-        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlogPost(BlogPostStatus.Draft)"
-            mat-raised-button>Draft</button>
-        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlogPost(BlogPostStatus.Published)"
-            mat-raised-button>Publish</button>
     </div>
+    <input type="file" (change)="onImageSelected($event)" id="fileInput" multiple />
+    <div class="image-container" *ngIf="!shouldEdit && imagePreview && imagePreview.length > 0">
+        <img *ngFor="let image of imagePreview" [src]="image" alt="Image"
+            style="max-width: 200px; max-height: 200px;">
+    </div>
+    <div class="image-container" *ngIf="shouldEdit && blogPost.imageNames && blogPost.imageNames.length > 0">
+        <img *ngFor="let imageName of blogPost.imageNames" [src]="getImageUrl(imageName)" alt="Image"
+            style="max-width: 200px; max-height: 200px;">
+    </div>
+    <!-- Add -->
+    <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlogPost(BlogPostStatus.Draft)"
+        mat-raised-button>Draft</button>
+    <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlogPost(BlogPostStatus.Published)"
+        mat-raised-button>Publish</button>
+    <!-- Update -->
+    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlogPost(BlogPostStatus.Draft)"
+        mat-raised-button>Draft</button>
+    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlogPost(BlogPostStatus.Published)"
+        mat-raised-button>Publish</button>
 </form>

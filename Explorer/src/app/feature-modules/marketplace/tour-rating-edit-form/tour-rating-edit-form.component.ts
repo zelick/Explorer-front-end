@@ -48,7 +48,7 @@ export class TourRatingEditFormComponent implements OnInit {
         tourDate: this.rating.tourDate,
         tourId: this.rating.tourId,
         creationDate: this.rating.creationDate,
-        pictures: this.rating.pictures,
+        imageNames: this.rating.imageNames,
         rating: this.tourRatingForm.value.rating,
         comment: this.tourRatingForm.value.comment
       };

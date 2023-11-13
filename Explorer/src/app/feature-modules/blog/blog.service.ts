@@ -35,7 +35,7 @@ export class BlogService {
     return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts/user/${userId}`)
   }
 
-  addBlogPost(blogPost: BlogPost): Observable<BlogPost> {
+  addBlogPost(blogPost: FormData): Observable<BlogPost> {
     return this.http.post<BlogPost>(environment.apiHost + 'blogging/blog-posts', blogPost);
   }
 
@@ -43,8 +43,8 @@ export class BlogService {
     return this.http.delete<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`);
   }
 
-  updateBlogPost(blogPost: BlogPost): Observable<BlogPost> {
-    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${blogPost.id}`, blogPost);
+  updateBlogPost(id: number, blogPost: FormData): Observable<BlogPost> {
+    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`, blogPost);
   }
 
   closeBlog(id: number): Observable<BlogPost> {
