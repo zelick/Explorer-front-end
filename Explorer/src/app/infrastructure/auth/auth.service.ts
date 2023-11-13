@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenStorage } from './jwt/token.service';
 import { environment } from 'src/env/environment';
@@ -9,7 +9,6 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
-import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -32,17 +31,21 @@ export class AuthService {
       );
   }
 
-  register(registration: Registration): Observable<AuthenticationResponse> {
-    return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-    .pipe(
+  register(formData: FormData): Observable<AuthenticationResponse> {
+    const headers = new HttpHeaders();
+  
+    return this.http.post<AuthenticationResponse>(
+      environment.apiHost + 'users',
+      formData,
+      { headers }
+    ).pipe(
       tap((authenticationResponse) => {
         this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
         this.setUser();
       })
     );
   }
-
+  
   logout(): void {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();
@@ -71,16 +74,7 @@ export class AuthService {
     };
     this.user$.next(user);
   }
-
-  getPersonIdFromToken(): string | null {
-    const token = this.getAccessToken(); 
-    if (token) {
-      const decodedToken: any = jwt_decode(token); 
-      return decodedToken.personId; 
-    }
-    return null;
-  }
-
+  
   getAccessToken(): string | null {
     const token = this.tokenStorage.getAccessToken(); 
   

@@ -6,6 +6,8 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { Tour } from '../model/tour.model';
 import { Time } from '@angular/common';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 
 @Component({
@@ -25,7 +27,8 @@ export class CheckpointFormComponent implements OnChanges{
   longitude: number = 0;
   latitude: number = 0;
 
-  constructor(private service: TourAuthoringService, private router:Router) {
+  constructor(private service: TourAuthoringService, private router:Router,
+    private tokenStorage: TokenStorage) {
     this.checkpointForm.controls.latitude.disable();
     this.checkpointForm.controls.longitude.disable();
   }
@@ -56,7 +59,8 @@ export class CheckpointFormComponent implements OnChanges{
     description: new FormControl(''),
     address: new FormControl(''),
     hours: new FormControl(0),
-    minutes: new FormControl(0)
+    minutes: new FormControl(0),
+    status: new FormControl('Private', [Validators.required]),
   });
   pictureForm = new FormGroup({
     picture: new FormControl(this.picture, [Validators.required])
@@ -82,9 +86,13 @@ export class CheckpointFormComponent implements OnChanges{
 
     };
 
+    const jwtHelperService = new JwtHelperService();
+    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const status = this.checkpointForm.value.status || 'Private'
+
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
-      this.service.addCheckpoint(checkpoint).subscribe({
+      this.service.addCheckpoint(checkpoint,jwtHelperService.decodeToken(accessToken).id,status).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
           this.router.navigate([`checkpoint-secret/${result.id}`]);
         }
