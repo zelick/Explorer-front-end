@@ -15,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
+import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
 
 
 
@@ -25,11 +26,11 @@ import { TourTransportFormComponent } from './tour-transport-form/tour-transport
     TourFormComponent,
     TourComponent,
     TourDetailsComponent,
-    MapComponent,
     MapObjectComponent,
     MapObjectFormComponent,
     TourEquipmentComponent,
-    TourTransportFormComponent
+    TourTransportFormComponent,
+    CheckpointSecretFormComponent
   ],
   imports: [
     CommonModule,
@@ -44,8 +45,7 @@ import { TourTransportFormComponent } from './tour-transport-form/tour-transport
     CheckpointComponent,
     CheckpointFormComponent,
     RouterModule,
-    TourFormComponent,
-    MapComponent
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }
