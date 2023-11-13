@@ -151,7 +151,8 @@ export class MapComponent implements AfterViewInit {
           totalTimeMinutes: Math.round(summary.totalTime / 60)
         };
 
-        alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+        //alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+
         this.dist = summary.totalDistance;
         this.profile = profile;
         this.time = summary.totalTime;
@@ -245,8 +246,8 @@ export class MapComponent implements AfterViewInit {
       }
     }
     
-  addCheckpoints(coords: [{lat: number, lon: number}]): void {
 
+    addCheckpoints(coords: [{lat: number, lon: number, name: string, desc: string}]): void {
       let defaultIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
         iconSize: [25, 41],
@@ -254,7 +255,7 @@ export class MapComponent implements AfterViewInit {
         popupAnchor: [1, -34],
       });
       coords.forEach(element => {
-        L.marker([element.lat, element.lon], { icon: defaultIcon }).addTo(this.map);
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).addTo(this.map).openPopup();
       });
     }
 
@@ -275,7 +276,7 @@ export class MapComponent implements AfterViewInit {
       );
     }
 
-    addMapObjects(coords: [{lat: number, lon: number, category: string}]): void {
+    addMapObjects(coords: [{lat: number, lon: number, category: string, name: string, desc: string}]): void {
 
       let defaultIconWC = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/1257/1257334.png',
@@ -303,15 +304,61 @@ export class MapComponent implements AfterViewInit {
       });
       coords.forEach(element => {
         if(element.category == 'WC')
-          L.marker([element.lat, element.lon], { icon: defaultIconWC }).addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Restaurant')
-          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Parking')
-        L.marker([element.lat, element.lon], { icon: defaultIconParking }).addTo(this.map);
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Other')
-          L.marker([element.lat, element.lon], { icon: defaultIconOther }).addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
       });
     }
 
+    setRouteWithInfo(coords: [{lat: number, lon: number, name: string, desc: string}], profile: string): void{
+    
+      const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          collapsible: true,
+          router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` }),
+          lineOptions: {
+            styles: [{ color: this.setRouteColor(profile), opacity: 1, weight: 5 }],
+            extendToWaypoints: true,
+            missingRouteTolerance: 50
+          },
+        }).addTo(this.map);
+  
+        routeControl.getWaypoints().forEach(element => {
+          this.map.eachLayer((layer: any) => {
+            if (layer instanceof L.Marker) {
+              if(layer.getLatLng() == element.latLng)
+              {
+                var coord = coords.filter(n => n.lat == element.latLng.lat && n.lon == element.latLng.lng)[0];
+                layer.bindPopup("<b>" + coord.name + "</b><br>" + coord.desc).openPopup();
+                layer.setIcon(L.icon({
+                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
+                  iconSize: [25, 41],
+                  iconAnchor: [12, 41],
+                  popupAnchor: [1, -34],
+                }))
+              }
+            }
+          });
+        });
+        routeControl.on('routesfound', (e) => {
+          var routes = e.routes;
+          var summary = routes[0].summary;
+          const routeResponse: RouteResponse = {
+            totalDistanceMeters: summary.totalDistance,
+            totalTimeMinutes: Math.round(summary.totalTime / 60)
+          };
+          //alert('Total distance is ' + summary.totalDistance + 'meters and total time is ' + summary.totalTime + ' seconds');
+          this.dist = summary.totalDistance;
+          this.profile = profile;
+          this.time = summary.totalTime;
+          this.getTimeAndDistance();
+        });
+
+      };
   }
 

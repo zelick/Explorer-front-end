@@ -113,24 +113,29 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   addCheckpointsOnMap(): void{
     if(this.tour.checkpoints)
     {
-      let coords: [{lat: number, lon: number}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude}];
+      let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description}];
       this.tour.checkpoints.forEach(e => {
           if(e != this.tour.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude});
+            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
       });
-      this.simulatorComponent.addCheckpoint(coords);
+      if(this.tour.tourTimes != undefined)
+      {
+        this.tour.tourTimes.forEach(element => {
+          this.simulatorComponent.addCheckpoint(coords, element.transportation);
+        });
+      }
     }
   }
 
   addMapObjectsOnMap(): void{
     if(this.mapObjects)
     {
-      let coords: [{lat: number, lon: number, category: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category}];
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
       this.mapObjects.forEach(e => {
           if(e != this.mapObjects[0])
-            if((e.latitude > this.tour.checkpoints[0].latitude - 5 && e.latitude < this.tour.checkpoints[0].latitude + 5)
-            && (e.longitude > this.tour.checkpoints[0].longitude - 5 && e.longitude < this.tour.checkpoints[0].longitude + 5))
-            coords.push({lat:e.latitude, lon:e.longitude, category: e.category});
+            if((e.latitude > (this.tour.checkpoints[0].latitude - 5) && (e.latitude < this.tour.checkpoints[0].latitude + 5))
+            && ((e.longitude > this.tour.checkpoints[0].longitude - 5) && (e.longitude < this.tour.checkpoints[0].longitude + 5)))
+            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
       });
       this.simulatorComponent.addMapObjects(coords);
     }
