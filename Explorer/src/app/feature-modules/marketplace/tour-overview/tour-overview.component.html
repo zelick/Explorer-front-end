@@ -28,7 +28,6 @@
                                 </div>
                                 <div class="cttags">{{t.tags}}</div>
                             </div>
-                            
                         </td>
                     </tr>
                 </tbody>
@@ -39,10 +38,7 @@
                 <input type="range" [(ngModel)]="radius" min="100" max="10000" step="100" (input)="updateRadius()" />
                 <span>{{ radius }} meters</span>
                 <button mat-raised-button class="shopButton" (click)="cancleSearch()">Cancel search</button>
-            </div>
-              
-            
-              
+            </div>  
             <div style=" height: 100px"></div>
             <div style="width: 800px; height: 250px; position: relative;">
                 <xp-map (mapClick)="onMapClick($event)"></xp-map>
