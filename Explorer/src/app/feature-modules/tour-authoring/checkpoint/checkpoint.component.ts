@@ -55,13 +55,18 @@ export class CheckpointComponent implements OnInit{
 
    route(): void{
     let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
+    let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
     this.checkpoints.forEach(e => {
         if(e != this.checkpoints[0])
+        {
           coords.push({lat:e.latitude, lon:e.longitude});
+          coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+        }
     });
     if(coords.length >= 2)
     {
-      this.mapComponent.setRoute(coords, this.profile.toString());
+      //this.mapComponent.setRoute(coords, this.profile.toString());
+      this.mapComponent.setRouteWithInfo(coordsWithInfo, this.profile.toString());
       this.fillProfiles();
     }
   }
@@ -70,12 +75,17 @@ export class CheckpointComponent implements OnInit{
     if(this.checkpoints != null && this.checkpoints.length > 0)
     {
        let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
+       let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
        this.checkpoints.forEach(e => {
            if(e != this.checkpoints[0])
+           {
              coords.push({lat:e.latitude, lon:e.longitude});
+             coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+           }
        });
        this.profiles.forEach(element => {
-         this.mapComponent.setRoute(coords, element.toString());
+         //this.mapComponent.setRoute(coords, element.toString());
+         this.mapComponent.setRouteWithInfo(coordsWithInfo, element.toString());
        });
        this.fillProfiles();
     }
