@@ -24,10 +24,13 @@ import { ClubMembersComponent } from 'src/app/feature-modules/administration/clu
 import { ClubInvitationsComponent } from 'src/app/feature-modules/administration/club-invitations/club-invitations.component';
 import { TourRatingComponent } from 'src/app/feature-modules/marketplace/tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-form/tour-rating-form.component';
+import { CheckpointRequestReviewComponent } from 'src/app/feature-modules/administration/checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
+import { ObjectRequestReviewComponent } from 'src/app/feature-modules/administration/object-request-review/object-request-review/object-request-review.component';
+import { RequestNotificationReviewComponent } from 'src/app/feature-modules/administration/request-notification-review/request-notification-review/request-notification-review.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/marketplace/tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from 'src/app/feature-modules/marketplace/tour-overview-details/tour-overview-details.component';
@@ -59,6 +62,9 @@ const routes: Routes = [
   {path: 'tour', component: TourComponent,canActivate:[AuthGuard]},
   {path: 'application-grade', component: ApplicationGradeComponent},
   {path: 'grade-review', component: GradeReviewComponent},
+  {path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent},
+  {path: 'object-request-review', component: ObjectRequestReviewComponent},
+  {path: 'request-notification-review', component: RequestNotificationReviewComponent},
   {path: 'preference-form', component: PreferenceFormComponent, canActivate:[AuthGuard]},
   {path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
   {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},

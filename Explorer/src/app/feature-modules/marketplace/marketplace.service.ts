@@ -76,6 +76,7 @@ export class MarketplaceService {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
   }
 
+
   updateTourRating(rating: TourRating): Observable<TourRating> {
     return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
   }

@@ -18,6 +18,7 @@ export class SimulatorComponent implements OnInit {
   user: User;
   @Output() positionUpdated: EventEmitter<null> = new EventEmitter<null>();
 
+
   constructor(private service: MarketplaceService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -63,6 +64,7 @@ export class SimulatorComponent implements OnInit {
   onMapClick(event: { lat: number; lon: number }) {
     this.searchByCoord(event.lat, event.lon);
   }
+
 
   addCheckpoint(coords: [{lat: number, lon: number}]): void{
     this.mapComponent.addCheckpoints(coords);

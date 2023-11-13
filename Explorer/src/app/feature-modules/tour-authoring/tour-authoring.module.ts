@@ -12,6 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapObjectComponent } from './map-object/map-object.component';
 import { MapObjectFormComponent } from './map-object-form/map-object-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSelectModule } from '@angular/material/select';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
 import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
@@ -37,7 +38,8 @@ import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoi
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ],
   exports: [
     CheckpointComponent,

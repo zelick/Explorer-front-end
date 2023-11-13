@@ -9,3 +9,13 @@ div {
     display:flex;
     flex-direction: column;
 }
+
+.button {
+    width: auto;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}

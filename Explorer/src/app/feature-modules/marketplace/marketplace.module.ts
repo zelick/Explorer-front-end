@@ -29,6 +29,7 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         TourRatingComponent,
         TourRatingFormComponent,
         SimulatorComponent,
+        ReportingIssueComponent,
         AllToursComponent,
         ShoppingCartComponent,
         PurchasedToursComponent,
@@ -41,6 +42,7 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         PreferenceFormComponent,
         TourRatingFormComponent,
         SimulatorComponent,
+        PurchasedToursComponent,
         PreferenceFormComponent, 
         PurchasedToursDetailsComponent
     ],
@@ -54,5 +56,7 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         SharedModule,
         TourAuthoringModule
     ]
+  })
 })
+
 export class MarketplaceModule { }

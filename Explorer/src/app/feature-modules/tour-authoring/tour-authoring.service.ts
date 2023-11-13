@@ -45,10 +45,8 @@ export class TourAuthoringService {
     return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id, {params: queryParams});
   }
 
-  addCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.post<Checkpoint>(environment.apiHost + 'administration/checkpoint', checkpoint, {params: queryParams});
+  addCheckpoint(checkpoint: Checkpoint, userId: number, status: string): Observable<Checkpoint> {
+    return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${userId}/${status}`, checkpoint);
   }
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
@@ -73,8 +71,8 @@ export class TourAuthoringService {
     return this.http.delete<MapObject>(environment.apiHost + 'administration/mapobject/' + id);
   }
   
-  addMapObject(mapObject: MapObject): Observable<MapObject> {
-    return this.http.post<MapObject>(environment.apiHost + 'administration/mapobject', mapObject);
+  addMapObject(mapObject: MapObject, userId: number, status: string): Observable<MapObject> {
+    return this.http.post<MapObject>(environment.apiHost + `administration/mapobject/create/${userId}/${status}`, mapObject);
   }
   
   updateMapObject(mapObject: MapObject): Observable<MapObject> {

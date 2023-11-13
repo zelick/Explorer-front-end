@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 import { EquipmentFormComponent } from './equipment-form/equipment-form.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
@@ -13,12 +14,16 @@ import { AccountsManagementComponent } from './accounts/accounts-management/acco
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
+import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
+import { ObjectRequestReviewComponent } from './object-request-review/object-request-review/object-request-review.component';
+import { RequestNotificationReviewComponent } from './request-notification-review/request-notification-review/request-notification-review.component';
 
 @NgModule({
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
     ApplicationGradeComponent,
+    CheckpointRequestReviewComponent,
     GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
@@ -26,17 +31,25 @@ import { ClubInvitationsComponent } from './club-invitations/club-invitations.co
     AccountsManagementComponent,
     ReportedIssuesComponent,
     ClubMembersComponent,
-    ClubInvitationsComponent
+    ClubInvitationsComponent,
+    CheckpointRequestReviewComponent,
+    ObjectRequestReviewComponent,
+    RequestNotificationReviewComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
     ApplicationGradeComponent,
+    CheckpointRequestReviewComponent,
+    ObjectRequestReviewComponent,
+    RequestNotificationReviewComponent,
+    GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,

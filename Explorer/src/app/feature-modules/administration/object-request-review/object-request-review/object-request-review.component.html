@@ -1,0 +1,37 @@
+<p>Map object requests review</p>
+<hr>
+<div id="object-request-review">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Object name</th>
+                    <th>Object description</th>
+                    <th>Author username</th>
+                    <th>Request status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of requestDetails">
+                    <td>{{req.objectName}}</td>
+                    <td>{{req.objectDescription}}</td>
+                    <td>{{req.authorName}}</td>
+                    <td *ngIf="!req.onHold">{{req.status}}</td>
+                    <td *ngIf="req.onHold">
+                        <button mat-icon-button class="cancel-button" (click)="rejectRequest(req)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button  mat-icon-button class="accept-button" (click)="acceptRequest(req)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </td>
+                    <td *ngIf="req.onHold">
+                        <input type="text" [(ngModel)]="req.comment" placeholder="Enter your comment">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

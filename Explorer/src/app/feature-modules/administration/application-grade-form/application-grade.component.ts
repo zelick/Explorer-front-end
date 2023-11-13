@@ -30,7 +30,7 @@ export class ApplicationGradeComponent implements OnInit {
     Rating: new FormControl(1, [Validators.required]),
     Comment: new FormControl(''),
     Created: new FormControl(),
-    UserId: new FormControl('')
+    UserId: new FormControl()
   })
 
   noteTheRate(): void {
@@ -40,7 +40,7 @@ export class ApplicationGradeComponent implements OnInit {
       rating: formData.Rating || 1,
       comment: formData.Comment || "",
       created: new Date(this.now.getUTCFullYear(), this.now.getUTCMonth(), this.now.getUTCDate(), this.now.getUTCHours(), this.now.getUTCMinutes(), this.now.getUTCSeconds()),
-      userId: this.user?.id.toString() || ""
+      userId: this.user?.id || -1
     }).subscribe({
       next: (_) => {
         console.log("Uspješan zahtjev!");
