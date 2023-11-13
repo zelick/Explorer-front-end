@@ -1,0 +1,122 @@
+<div id="social-profile">
+    <div id="topnav">
+        <button class="topnav-button" (click)="onProfileTabClick()">Profile</button>
+        <button class="topnav-button" (click)="onNotificatioTabClick()">Notification</button>
+        <button class="topnav-button" (click)="onInboxTabClick()">Inbox</button>
+        <button class="topnav-button" (click)="onSentTabClick()">Sent</button>
+    </div>
+
+    <div id="tab-div">
+        <!-- Follower table -->
+        <div id="follow-div" *ngIf="activeTab === 'profile'">
+            <div class="follow-table-div">
+                <table class="follow-table">
+                    <caption class="follow-table-caption">Followers</caption>
+                    <thead>
+                        <th>Username</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let f of socialProfile.followers">
+                            <td class="follow-td">{{ f.username }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="follow-table-div">
+                <table class="follow-table">
+                    <caption class="follow-table-caption">Followed</caption>
+                    <thead>
+                        <th>Username</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let f of socialProfile.followed">
+                            <td class="follow-td">{{ f.username }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="follow-table-div">
+                <table class="follow-table">
+                    <caption class="follow-table-caption">Available</caption>
+                    <thead>
+                        <th>Username</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let f of socialProfile.followers">
+                            <td class="follow-td">{{ f.username }}</td>
+                            <td class="follow-td">
+                                <button id="follow-button">Follow</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Notification div -->
+        <div id="notification-div" *ngIf="activeTab === 'notification'">
+            <ul>
+                <li class="message-list-item" *ngFor="let n of notifications">
+                    <div class="message-card">
+                        <div>
+                            <div class="message-sender">{{ n.senderId }}</div>
+                            <div class="message-content">{{ n.content }}</div>
+                        </div>
+                        
+                        <div class="message-info">
+                            <div class="message-sent-date">{{ n.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
+                            <div class="read-button-div">
+                                <button class="read-button">Read</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Inbox -->
+        <div id="notification-div" *ngIf="activeTab === 'inbox'">
+            <ul>
+                <li class="message-list-item" *ngFor="let m of socialProfile.messages">
+                    <div class="message-card">
+                        <div>
+                            <div class="message-sender">{{ m.senderId }}</div>
+                            <div class="message-content">{{ m.content }}</div>
+                        </div>
+                        
+                        <div class="message-info">
+                            <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
+                            <div class="read-button-div">
+                                <button class="read-button">Read</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sent -->
+        <div id="notification-div" *ngIf="activeTab === 'sent'">
+            <ul>
+                <li class="message-list-item" *ngFor="let m of socialProfile.messages">
+                    <div class="message-card">
+                        <div>
+                            <div class="message-sender">{{ m.senderId }}</div>
+                            <div class="message-content">{{ m.content }}</div>
+                        </div>
+                        
+                        <div class="message-info">
+                            <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
+                            <div class="read-button-div">
+                                <button class="read-button">Read</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    
+</div>

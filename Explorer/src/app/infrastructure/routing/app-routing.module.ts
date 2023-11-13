@@ -28,7 +28,7 @@ import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-t
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
-import { SocialProfileComponent } from 'src/app/feature-modules/administration/social-profile/social-profile.component';
+import { SocialProfileComponent } from 'src/app/feature-modules/user-social-profile/social-profile/social-profile.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},

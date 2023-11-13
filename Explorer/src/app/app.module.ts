@@ -15,7 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { SocialProfileComponent } from './feature-modules/administration/social-profile/social-profile.component';
+import { UserSocialProfileModule } from './feature-modules/user-social-profile/user-social-profile.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { SocialProfileComponent } from './feature-modules/administration/social-
     FormsModule,
     HttpClientModule,
     AdministrationModule,
-    MatInputModule
+    MatInputModule,
+    UserSocialProfileModule
   ],
   providers: [
     {

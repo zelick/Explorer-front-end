@@ -13,7 +13,6 @@ import { AccountsManagementComponent } from './accounts/accounts-management/acco
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
-import { SocialProfileComponent } from './social-profile/social-profile.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { SocialProfileComponent } from './social-profile/social-profile.componen
     ReportedIssuesComponent,
     ClubMembersComponent,
     ClubInvitationsComponent,
-    SocialProfileComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +41,6 @@ import { SocialProfileComponent } from './social-profile/social-profile.componen
     ClubComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent,
-    SocialProfileComponent
   ]
 })
 export class AdministrationModule { }

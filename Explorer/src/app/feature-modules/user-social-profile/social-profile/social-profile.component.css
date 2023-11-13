@@ -1,9 +1,10 @@
 #topnav {
     background-color: #333;
     overflow: hidden;
+    padding-top: 100px;
   }
 
-  .topnav-button {
+.topnav-button {
     float: left;
     color: #E67840;
     padding: 14px 16px;
@@ -80,4 +81,47 @@
     height: 30px;
 }
 
+.message-list-item{
+    list-style: none;
+    padding-bottom: 10px;
+}
 
+#follow-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.follow-table-div{
+    padding: 20px;
+}
+
+#follow-button{
+    color: white;
+    background-color: #E67840;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 50px;
+}
+
+.follow-td{
+    border-top: 1px solid #E67840;
+    border-bottom: 1px solid #E67840;
+}
+
+th, td{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.follow-table-caption{
+    font-size: 24px;
+    font-weight: bold;
+}
