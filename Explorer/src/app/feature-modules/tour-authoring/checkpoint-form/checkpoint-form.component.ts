@@ -4,6 +4,10 @@ import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Tour } from '../model/tour.model';
+import { Time } from '@angular/common';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 
 @Component({
@@ -23,7 +27,8 @@ export class CheckpointFormComponent implements OnChanges{
   longitude: number = 0;
   latitude: number = 0;
 
-  constructor(private service: TourAuthoringService) {
+  constructor(private service: TourAuthoringService, private router:Router,
+    private tokenStorage: TokenStorage) {
     this.checkpointForm.controls.latitude.disable();
     this.checkpointForm.controls.longitude.disable();
   }
@@ -52,11 +57,15 @@ export class CheckpointFormComponent implements OnChanges{
     latitude: new FormControl(0, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    address: new FormControl('')
+    address: new FormControl(''),
+    hours: new FormControl(0),
+    minutes: new FormControl(0),
+    status: new FormControl('Private', [Validators.required]),
   });
   pictureForm = new FormGroup({
     picture: new FormControl(this.picture, [Validators.required])
   });
+
 
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
@@ -66,12 +75,29 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60,
+      currentPicture:0,
+      visibleSecret:false,
+      showedPicture:"",
+      viewSecretMessage:"",
+      currentPointPicture:0,
+      showedPointPicture:"",
+      authorId: this.service.user.id
+
     };
 
-      this.service.addCheckpoint(checkpoint).subscribe({
-        next: () => { this.checkpointUpdated.emit();
-        location.reload(); }
+    const jwtHelperService = new JwtHelperService();
+    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const status = this.checkpointForm.value.status || 'Private'
+
+    if(this.validate(checkpoint.name, checkpoint.pictures))
+    {
+      this.service.addCheckpoint(checkpoint,jwtHelperService.decodeToken(accessToken).id,status).subscribe({
+        next: (result:any) => { this.checkpointUpdated.emit();
+          this.router.navigate([`checkpoint-secret/${result.id}`]);
+        }
       });
+    }
   }
 
   updateCheckpoint(): void {
@@ -82,12 +108,25 @@ export class CheckpointFormComponent implements OnChanges{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
+      requiredTimeInSeconds: this.selectedCheckpoint.requiredTimeInSeconds,
+      checkpointSecret: this.selectedCheckpoint.checkpointSecret,
+      currentPicture:0,
+      visibleSecret:false,
+      showedPicture:"",
+      viewSecretMessage:"",
+      currentPointPicture:0,
+      showedPointPicture:"",
+      authorId: this.selectedCheckpoint.authorId
     };
     checkpoint.id = this.selectedCheckpoint.id;
-    this.service.updateCheckpoint(checkpoint).subscribe({
-      next: () => { this.checkpointUpdated.emit();
-      location.reload();}
-    });
+    if(this.validate(checkpoint.name, checkpoint.pictures))
+    {
+      this.service.updateCheckpoint(checkpoint).subscribe({
+        next: (result:any) => { this.checkpointUpdated.emit();
+          this.router.navigate([`checkpoint-secret/${result.id}`]);
+        }
+      });
+    }
   }
 
   addPicture(): void{
@@ -100,6 +139,8 @@ export class CheckpointFormComponent implements OnChanges{
   deletePicture(i: number): void{
     this.pictures.splice(i, 1);
   }
+
+
 
   private searchByAddress(inputAddress: string) {
     this.mapComponent.search(inputAddress).subscribe({
@@ -153,5 +194,13 @@ export class CheckpointFormComponent implements OnChanges{
         console.error('Error:', error);
       },
     });
+  }
+
+  onBack(): void{
+    location.reload();
+  }
+
+  validate(name: string, pics: string[]): boolean{
+    return name!='' && pics.length>0;
   }
 }

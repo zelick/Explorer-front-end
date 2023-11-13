@@ -42,17 +42,6 @@ export class ReportingIssueComponent implements OnChanges {
     }
     const user = this.authService.user$.getValue();
 
-    const tour: Tour = {
-      id: 1, // Set the ID to a valid ID or any other value you want
-      name: "Example Tour",
-      description: "This is an example tour description.",
-      demandignessLevel: "Moderate", // Set the demandignessLevel as needed
-      price: 100, // Set the price as needed
-      tags: ["Adventure", "Nature"], // Set the tags as needed
-      authorId: 2, // Set the author ID as needed
-      status: "Active", // Set the status as needed
-      equipment: [] // Set the equipment as needed
-    };
 
     if (priorityValue !== null && tourIdValue !== null && user !== null) {
       const message = this.reportingIssueForm.value.category + "/"+ this.reportingIssueForm.value.description+

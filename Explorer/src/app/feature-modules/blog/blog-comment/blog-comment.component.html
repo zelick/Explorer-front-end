@@ -1,19 +1,26 @@
 <div>
-  <div *ngFor="let comment of blogComments; let i = index" class="comment-box">
+  <div class="comment-box">
     <div class="comment-options">
-      <button (click)="toggleOptions(i)">...</button>
-      <div class="comment-options-menu" [ngClass]="{'show': isOptionsVisible(i)}">
-        <a (click)="editComment(comment); toggleOptions(i)">Edit</a>
-        <a (click)="deleteComment(comment.id || 0); toggleOptions(i)">Delete</a>
+      <button class="toggle-options" *ngIf="comment.userId == userId" (click)="toggleOptions()" title="Options"><b>...</b></button>
+      <div class="comment-options-menu" [ngClass]="{'show': isOptionsVisible()}">
+        <a (click)="onEditClicked();">Edit</a>
+        <a (click)="deleteComment();">Delete</a>
       </div>
     </div>
-    <div class="comment-text">{{ comment.text }}</div>
-    <div class="comment-metadata">
-      <span class="comment-time">Created: {{ comment.creationTime | date: 'HH:mm dd.MM.yyyy'}} </span>
-      <span class="comment-time" *ngIf="comment.modificationTime !== null">Last modified: {{ comment.modificationTime | date: 'HH:mm dd.MM.yyyy'}}</span>
+    <div class="blog-comment-details">
+      <p class="author">Posted by {{comment.username}} </p>
+      <div class="comment-metadata">
+        <p class="creation-time">Created on: {{ comment.creationTime | date: 'dd.MM.yyyy'}} at {{ comment.creationTime | date: 'HH:mm'}} </p>
+        <p class="modification-time" *ngIf="comment.modificationTime !== null">Last modified on: {{ comment.modificationTime | date: 'dd.MM.yyyy'}} at {{ comment.modificationTime | date: 'HH:mm'}}</p>
+      </div>
     </div>
-  </div>
-  <div>
-    <xp-blog-comment-form [shouldEdit]="shouldEdit" [blogComment]="selectedBlogComment" (blogCommentsUpdated)="getBlogComments()"></xp-blog-comment-form>
+    <div *ngIf="isEditing; else viewMode">
+      <input class="comment-field" [(ngModel)]="editedCommentText" placeholder="What are your thoughts?"/>
+      <button class="comment-button" (click)="editCommment()">Save</button>
+      <button class="comment-button" (click)="cancelEdit()">Cancel</button>
+    </div>
+    <ng-template #viewMode>
+      <div class="comment-text">{{ comment.text }}</div>
+    </ng-template>
   </div>
 </div>

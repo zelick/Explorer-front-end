@@ -1,0 +1,75 @@
+.tour {
+    width: 680px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+h1{
+  font-size: 6vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+  margin: 0 auto;
+
+}
+.tour-details {
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.card{
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 680px;
+    display:flex;
+    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.cinfo{
+    font-style: bold;
+    font-size: 2vh;
+    color: black;
+}
+
+td{
+    border:solid 3px #3B846B;
+    background-color: #B6D4AF;
+    margin-bottom: 50px;
+
+}
+.ch{
+    justify-content: center;
+    font-size: 3vh;
+    font-style: bold;
+    text-align: center;
+
+}
+
+.cttags{
+    margin-left: 50px;
+    justify-content: left;
+    font-size: 2vh;
+    font-style: bold;
+}
