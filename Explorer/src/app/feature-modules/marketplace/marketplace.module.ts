@@ -57,6 +57,5 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         TourAuthoringModule
     ]
   })
-})
 
 export class MarketplaceModule { }

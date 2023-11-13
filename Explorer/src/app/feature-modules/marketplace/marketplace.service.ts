@@ -159,6 +159,7 @@ export class MarketplaceService {
   //PublicTours 
   getPublicTours():Observable<TourPreview[]> {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping') //zameni
+  }
   startExecution(tourId: number, touristId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);
   }
