@@ -5,7 +5,7 @@
         <div>
             <table>
                 <tbody>
-                    <tr *ngFor="let t of publishedTours">
+                    <tr *ngFor="let t of searchTours">
                         <td (click)="openDetails(t)">
                             <div>
                                 <br>
@@ -33,7 +33,11 @@
                     </tr>
                 </tbody>
             </table>
-            <div style=" height: 100px"></div>
+            <div style="height: 100px">
+                <div>
+                    <button mat-raised-button class="shopButton" (click)="cancleSearch()">Cancle search</button>
+                </div>
+            </div>
             <div style="position: absolute; width: 200px; height: 200px; z-index: 1000;">
                 <input type="range" [(ngModel)]="radius" min="100" max="10000" step="100" (input)="updateRadius()"/>
                 <div></div>

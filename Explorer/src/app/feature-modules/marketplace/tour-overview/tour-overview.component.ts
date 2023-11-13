@@ -18,7 +18,8 @@ export class TourOverviewComponent implements OnInit{
   publishedTours:TourPreview[]=[];
    //search:
   tours: Tour[] = [];
-  foundTours: Tour[] = [];
+  foundTours: TourPreview[] = [];
+  searchTours: TourPreview[] = [];
   selectedLongitude: number;
   selectedLatitude: number;
   radius: number = 500; // Inicijalna vrednost precnika (scroller)
@@ -27,17 +28,17 @@ export class TourOverviewComponent implements OnInit{
   ngOnInit(): void {
     this.service.getPublishedTours().subscribe(
       (response:any)=>{
-        this.publishedTours=response;
+        this.publishedTours = response;
+        this.searchTours = response;
         this.getTours();
       }
     )
   }
 
- getTours():void{
+ getTours():void{  //izmeni sa beka dobavi PublicTours
     this.service.getTours().subscribe({
       next: (result: PagedResults<Tour>) => {
         this.tours = result.results;
-        console.log(this.tours);
       },
     });
   }
@@ -47,7 +48,6 @@ export class TourOverviewComponent implements OnInit{
   }
 
   onMapClick(event: { lat: number; lon: number }) {
-    //this.mapComponent.clearMap();
     this.selectedLatitude = event.lat;
     this.selectedLongitude = event.lon;
     this.updateRadius();
@@ -60,12 +60,24 @@ export class TourOverviewComponent implements OnInit{
 
   findNearTours(): void{
    // this.foundTours = []; //izbaci sve prethodne
-    this.tours.forEach(tour => {
+   /* this.tours.forEach(tour => {
       this.checkDistance(tour);
+    });*/
+    const promises = this.tours.map(tour => {
+      return this.checkDistance(tour);
+    });
+
+    Promise.all(promises).then(() => {
+      if (this.foundTours.length > 0) {
+        console.log('usao u if ovdeeeee ');
+        this.searchTours = [];
+        this.searchTours = this.foundTours;
+      }
     });
   }
-
-  checkDistance(tour: Tour): void {
+  //ovaj deo nije radio zbog THEN dela, iscravanje mape
+ /* checkDistance(tour: Tour): void {
+    console.log(tour);
     const originCoords: { lat: number; lon: number } = {
       lat: this.selectedLatitude,
       lon: this.selectedLongitude
@@ -84,24 +96,80 @@ export class TourOverviewComponent implements OnInit{
         .then((distanceBetween) => {
           console.log(distanceBetween);
           if (distanceBetween <= this.radius && !found) {
-            console.log('usao u if');
-            this.foundTours.push(tour);
+
+            const existingTour = this.findTourById(tour.id || 0);
+           
+            if(existingTour && !this.foundTours.some(t => t.id === existingTour.id)){
+              this.foundTours.push(existingTour);
+            }
             this.drowTour(tour);
-            found = true;  // Postavi found na true da se izbegne dodavanje iste ture više puta
+            found = true;
           }
         })
         .catch((error) => {
           console.error('Greška pri izračunavanju rute:', error);
         });
     }
+  }*/
+
+  checkDistance(tour: Tour): Promise<void> {
+    console.log(tour);
+    const originCoords: { lat: number; lon: number } = {
+      lat: this.selectedLatitude,
+      lon: this.selectedLongitude
+    };
+  
+    let found = false;
+  
+    const promises = tour.checkpoints.map(checkpoint => {
+      const destinationCoords: { lat: number; lon: number } = {
+        lat: checkpoint.latitude,
+        lon: checkpoint.longitude
+      };
+  
+      return this.mapComponent.calculateDistance([originCoords, destinationCoords], 'walking')
+        .then(distanceBetween => {
+          console.log(distanceBetween);
+          if (distanceBetween <= this.radius && !found) {
+            const existingTour = this.findTourById(tour.id || 0);
+  
+            if (existingTour && !this.foundTours.some(t => t.id === existingTour.id)) {
+              this.foundTours.push(existingTour);
+            }
+            this.drowTour(tour);
+            found = true;
+          }
+        })
+        .catch(error => {
+          console.error('Greška pri izračunavanju rute:', error);
+          // Reject the promise if an error occurs
+          throw error;
+        });
+    });
+  
+    // Wrap the promises in Promise.all to wait for all of them to resolve
+    return Promise.all(promises)
+      .then(() => {
+        // Resolve the promise when all individual promises are resolved
+      })
+      .catch(error => {
+        console.error('Error in Promise.all:', error);
+      });
   }
+  
+
+
+  findTourById(id: number): TourPreview | undefined{
+    return this.publishedTours.find(t => t.id === id);
+  }
+
   drowTour(tour: Tour): void{
     let coords: [{lat: number, lon: number}] = [{lat: tour.checkpoints[0].latitude, lon: tour.checkpoints[0].longitude}];
     tour.checkpoints.forEach(e => {
         if(e != tour.checkpoints[0])
           coords.push({lat:e.latitude, lon:e.longitude});
     });
-    this.mapComponent.setRoute(coords, 'walking'); //proveriti za profil
+    this.mapComponent.setRoute(coords, 'walking'); //proveriti za profil, izmena?
   }
   
   drawCircle(): void {
@@ -110,5 +178,14 @@ export class TourOverviewComponent implements OnInit{
       { lat: this.selectedLatitude, lon: this.selectedLongitude },
       this.radius
     );
+  }
+
+  cancleSearch():void {
+    this.service.getPublishedTours().subscribe(
+      (response:any)=>{
+        this.searchTours = response;
+      }
+    )
+    this.mapComponent.reloadMap();
   }
 }

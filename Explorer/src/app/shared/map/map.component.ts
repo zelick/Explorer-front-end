@@ -211,41 +211,22 @@ export class MapComponent implements AfterViewInit {
       });
     }
     
-
-    
     setCircle(center: { lat: number; lon: number }, radius: number): void {
       if (this.map) {
-        // Izbriši prethodne krugove ako postoje
         this.map.eachLayer((layer: any) => {
           if (layer instanceof L.Circle) {
             this.map.removeLayer(layer);
           }
         });
-    
-        // Nacrtajte novi krug
         L.circle([center.lat, center.lon], { radius: radius }).addTo(this.map);
       }
-    }
+    }  
 
-  
-    clearMap(): void {
-      this.map.eachLayer((layer: any) => {
-        if (layer instanceof L.Marker) {
-          this.map.removeLayer(layer);
-        }
-      });
-    }
-
-    clearRouteLayers(routeControl: L.Routing.Control): void {
-      const layers = this.routeLayers.get(routeControl);
-      if (layers) {
-        layers.forEach(layer => {
-          this.map.removeLayer(layer);
-        });
-        this.routeLayers.delete(routeControl);
+    reloadMap(): void {
+      if (this.map) {
+        this.map.remove();
       }
+      this.ngAfterViewInit();
     }
-    
-    
   }
 
