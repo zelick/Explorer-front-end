@@ -1,14 +1,18 @@
+import { BlogRating } from "./blog-rating.model";
+import { BlogComment } from "./blog-comment.model";
+
 export interface BlogPost {
     id?: number;
     userId?: number;
     title: string;
     description: string;
     creationDate: Date;
-    imageUrls: string[] | null;
+    imageNames?: string[];
+    images?: FileList;
     status: BlogPostStatus;
     username?: string;
-    userFirstName?: string;
-    userLastName?: string;
+    ratings?: BlogRating[];
+    comments?: BlogComment[];
 }
 
 export enum BlogPostStatus {

@@ -1,8 +1,7 @@
 <div id="blog-post">
-    <p>Blog Posts</p>
     <hr>
     <div id="blog-post-details">
-        <div>
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
@@ -14,16 +13,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let bp of blogPosts">
-                        <td>
+                    <tr *ngFor="let bp of blogPosts" class="row-hover">
+                        <td (click)="onRowSelected(bp)">
                             <b>{{bp.title}}</b><br>
                             {{ bp.creationDate | date:'HH:mm dd.MM.yyyy' }}<br>
                             <i>{{bp.status}}</i>
                         </td>
-                        <td [innerHTML]="bp.description"></td>
+                        <td [innerHTML]="bp.description" (click)="onRowSelected(bp)"></td>
                         <td>
-                            <div *ngFor="let imageUrl of bp.imageUrls">
-                                <img [src]="imageUrl" alt="Image" style="max-width: 200px; max-height: 200px;">
+                            <div *ngFor="let imageName of bp.imageNames">
+                                <img [src]="getImageUrl(imageName)" alt="Image" style="max-width: 200px; max-height: 200px;">
                             </div>
                         </td>
                         <td>
@@ -33,7 +32,7 @@
                                 (click)="onEditClicked(bp)" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button *ngIf="bp.status.toUpperCase() === BlogPostStatus.Published" color="primary"
+                            <button *ngIf="bp.status.toUpperCase() !== BlogPostStatus.Draft && bp.status.toUpperCase() !== BlogPostStatus.Closed" color="primary"
                                 (click)="onCloseClicked(bp)" mat-icon-button>
                                 <mat-icon>archive</mat-icon>
                             </button>
@@ -50,9 +49,9 @@
                 </tbody>
             </table>
         </div>
-        <div>
+        <div class="form-container">
             <xp-blog-post-form *ngIf="shouldRenderBlogPostForm" [shouldEdit]="shouldEdit" [blogPost]="selectedBlogPost"
-                (blogPostUpdated)="getBlogPosts()"></xp-blog-post-form>
+                (blogPostUpdated)="onBlogPostUpdated()"></xp-blog-post-form>
         </div>
     </div>
 </div>

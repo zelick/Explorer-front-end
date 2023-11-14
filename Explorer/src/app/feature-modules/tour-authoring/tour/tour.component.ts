@@ -17,6 +17,8 @@ export class TourComponent implements OnInit{
   shouldEdit: boolean = false;
   user: User;
   id:number;
+  
+  picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
 
   
   constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router) { }
@@ -40,6 +42,10 @@ export class TourComponent implements OnInit{
     this.service.getTour(this.user.id).subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
+        this.tours.forEach(element => {
+          element.checkpoints = element.checkpoints || [];
+        });
+        console.log(this.tours);
       },
       error: () => {
       }
@@ -50,14 +56,21 @@ export class TourComponent implements OnInit{
     this.selectedTour = tour;
     this.shouldRenderTourForm = true;
     this.shouldEdit = true;
+    this.router.navigate([`tour-form/${tour.id}`]);
+
   }
 
   onAddClicked(): void {
     this.shouldEdit = false;
     this.shouldRenderTourForm = true;
+    this.router.navigate([`tour-form/-1`]);
+
   }
   openDetails(t:Tour): void {
     this.router.navigate([`tour-details/${t.id}`]);
   }
+
+
+  
 
 }

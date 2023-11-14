@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { BlogComment } from './model/blogComment.model';
+import { BlogComment } from './model/blog-comment.model';
 import { BlogPost, BlogPostStatus } from './model/blog-post.model';
+import { BlogRating } from './model/blog-rating.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Injectable({
@@ -34,7 +35,7 @@ export class BlogService {
     return this.http.get<PagedResults<BlogPost>>(environment.apiHost + `blogging/blog-posts/user/${userId}`)
   }
 
-  addBlogPost(blogPost: BlogPost): Observable<BlogPost> {
+  addBlogPost(blogPost: FormData): Observable<BlogPost> {
     return this.http.post<BlogPost>(environment.apiHost + 'blogging/blog-posts', blogPost);
   }
 
@@ -42,27 +43,23 @@ export class BlogService {
     return this.http.delete<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`);
   }
 
-  updateBlogPost(blogPost: BlogPost): Observable<BlogPost> {
-    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${blogPost.id}`, blogPost);
+  updateBlogPost(id: number, blogPost: FormData): Observable<BlogPost> {
+    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}`, blogPost);
   }
 
   closeBlog(id: number): Observable<BlogPost> {
     return this.http.patch<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}/close`, null);
   }
+
+  rateBlogPost(id: number, blogRating: BlogRating): Observable<BlogPost> {
+    return this.http.put<BlogPost>(environment.apiHost + `blogging/blog-posts/${id}/ratings`, blogRating);
+  }
   
-    addBlogComment(blogComment: BlogComment): Observable<BlogComment> {
-    return this.http.post<BlogComment>(environment.apiHost + 'blogging/blog-comment/', blogComment);
+  addBlogComment(id: number, blogComment: BlogComment): Observable<BlogComment> {
+    return this.http.patch<BlogComment>(environment.apiHost + `blogging/blog-posts/${id}/comments`, blogComment);
   }
 
-  getBlogComments(): Observable<PagedResults<BlogComment>> {
-    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'blogging/blog-comment/')
-  }
-
-  deleteBlogComment(id: number): Observable<BlogComment> {
-    return this.http.delete<BlogComment>(environment.apiHost + 'blogging/blog-comment/' + id);
-  }
-
-  updateBlogComment(blogComment: BlogComment): Observable<BlogComment> {
-    return this.http.put<BlogComment>(environment.apiHost + 'blogging/blog-comment/' + blogComment.id, blogComment);
+  deleteBlogComment(id: number, blogComment: BlogComment): Observable<BlogComment> {
+    return this.http.patch<BlogComment>(environment.apiHost + `blogging/blog-posts/${id}/comments/remove`, blogComment);
   }
 }
