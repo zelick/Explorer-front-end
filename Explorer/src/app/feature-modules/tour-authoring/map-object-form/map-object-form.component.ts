@@ -84,6 +84,8 @@ export class MapObjectFormComponent implements OnChanges {
         //picture: this.imageService.getImageUrl(this.selectedMapObject.pictureURL),
         pictureURL: this.selectedMapObject.pictureURL
       });
+
+      this.selectedImage = this.selectedMapObject.pictureURL;
     }
   }
 
@@ -141,20 +143,20 @@ export class MapObjectFormComponent implements OnChanges {
       };
   
       const formData = new FormData();
-    
-        Object.keys(mapObject).forEach(key => {
-          const value = mapObject[key as keyof MapObject];
-          if (value !== null && value !== undefined) {
-            if (value instanceof File) {
-              formData.append(key, value, value.name);
-            } else {
-              formData.append(key, value.toString());
-            }
+
+      Object.keys(mapObject).forEach(key => {
+        const value = mapObject[key as keyof MapObject];
+        if (value !== null && value !== undefined) {
+          if (value instanceof File) {
+            formData.append(key, value, value.name);
+          } else if (typeof value === 'string') {
+            formData.append(key, value);
           }
-        });
+        }
+      });
 
       mapObject.id = this.selectedMapObject.id;
-      this.service.updateMapObject(mapObject).subscribe({
+      this.service.updateMapObject(mapObject, formData).subscribe({
         next: () => {
           this.mapObjectUpdated.emit();
         },

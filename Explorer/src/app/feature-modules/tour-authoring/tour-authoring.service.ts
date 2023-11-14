@@ -87,8 +87,21 @@ export class TourAuthoringService {
     return this.http.post<MapObject>(environment.apiHost + `administration/mapobject/create/${userId}/${status}`, formData, options);
   }
   
-  updateMapObject(mapObject: MapObject): Observable<MapObject> {
-    return this.http.put<MapObject>(environment.apiHost + 'administration/mapobject/' + mapObject.id, mapObject);
+  updateMapObject(mapObject: MapObject, formData: FormData): Observable<MapObject> {
+    const options = { headers: new HttpHeaders() };
+
+    formData.append('id', (mapObject.id !== undefined) ? mapObject.id.toString() : '');
+    formData.append('longitude', mapObject.longitude.toString()),
+    formData.append('latitude', mapObject.latitude.toString()),
+    formData.append('name', mapObject.name),
+    formData.append('category', mapObject.category)
+    if (mapObject.picture instanceof File) {
+      formData.append('picture', mapObject.picture, mapObject.picture.name);
+    }
+  
+    // Assuming profilePictureUrl is a string
+    formData.append('pictureURL', mapObject.pictureURL);
+    return this.http.put<MapObject>(environment.apiHost + 'administration/mapobject/' + mapObject.id, formData, options);
   }
   
   

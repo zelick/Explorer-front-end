@@ -27,9 +27,10 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Picture</mat-label>
-            <input matInput type="text" [readonly]="true" [value]="mapObjectForm.get('profilePicture')?.value" />
+            <input matInput type="text" [readonly]="true" [value]="mapObjectForm.get('picture')?.value" />
             <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" accept="image/*" />
         </mat-form-field> 
+        <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" />
         <mat-form-field *ngIf="!shouldEdit">
             <label>Object status</label>
             <mat-select formControlName="status">
