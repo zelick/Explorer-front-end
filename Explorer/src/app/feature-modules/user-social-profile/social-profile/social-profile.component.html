@@ -4,6 +4,7 @@
         <button class="topnav-button" (click)="onNotificatioTabClick()">Notification</button>
         <button class="topnav-button" (click)="onInboxTabClick()">Inbox</button>
         <button class="topnav-button" (click)="onSentTabClick()">Sent</button>
+        <button class="topnav-button" (click)="onComposeTabClick()">Compose</button>
     </div>
 
     <div id="tab-div">
@@ -31,6 +32,9 @@
                     <tbody>
                         <tr *ngFor="let f of socialProfile.followed">
                             <td class="follow-td">{{ f.username }}</td>
+                            <td class="follow-td">
+                                <button id="unfollow-button" (click)="onUnfollowClick(f.id)">Unfollow</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,10 +47,10 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let f of socialProfile.followers">
+                        <tr *ngFor="let f of socialProfile.followable">
                             <td class="follow-td">{{ f.username }}</td>
                             <td class="follow-td">
-                                <button id="follow-button">Follow</button>
+                                <button id="follow-button" (click)="onFollowClick(f.id)">Follow</button>
                             </td>
                         </tr>
                     </tbody>
@@ -60,7 +64,7 @@
                 <li class="message-list-item" *ngFor="let n of notifications">
                     <div class="message-card">
                         <div>
-                            <div class="message-sender">{{ n.senderId }}</div>
+                            <div class="message-sender">{{ n.senderUsername }}</div>
                             <div class="message-content">{{ n.content }}</div>
                         </div>
                         
@@ -78,17 +82,17 @@
         <!-- Inbox -->
         <div id="notification-div" *ngIf="activeTab === 'inbox'">
             <ul>
-                <li class="message-list-item" *ngFor="let m of socialProfile.messages">
+                <li class="message-list-item" *ngFor="let m of inbox">
                     <div class="message-card">
                         <div>
-                            <div class="message-sender">{{ m.senderId }}</div>
+                            <div class="message-sender">{{ m.senderUsername }}</div>
                             <div class="message-content">{{ m.content }}</div>
                         </div>
                         
                         <div class="message-info">
                             <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
                             <div class="read-button-div">
-                                <button class="read-button">Read</button>
+                                <button class="read-button">View</button>
                             </div>
                         </div>
                     </div>
@@ -99,17 +103,17 @@
         <!-- Sent -->
         <div id="notification-div" *ngIf="activeTab === 'sent'">
             <ul>
-                <li class="message-list-item" *ngFor="let m of socialProfile.messages">
+                <li class="message-list-item" *ngFor="let m of sent">
                     <div class="message-card">
                         <div>
-                            <div class="message-sender">{{ m.senderId }}</div>
+                            <div class="message-sender">{{ m.senderUsername }}</div>
                             <div class="message-content">{{ m.content }}</div>
                         </div>
                         
                         <div class="message-info">
                             <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
                             <div class="read-button-div">
-                                <button class="read-button">Read</button>
+                                <button class="read-button">View</button>
                             </div>
                         </div>
                     </div>
@@ -117,6 +121,45 @@
             </ul>
         </div>
 
+        <!-- Message form -->
+        <div id="compose-div" *ngIf="activeTab === 'compose'">
+            <form (ngSubmit)="sendMessage()">
+                <div>
+                    <label id="recipient-lab">Recipient:</label>
+                    <br>
+                    <select  required [(ngModel)]="selectedRecipientId" name="recipient">
+                        <option *ngFor="let f of socialProfile.followers" [value]="f.id">{{ f.username }}</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label>Title:</label>
+                    <br>
+                    <input type="text" required [(ngModel)]="messageTitle" name="title">
+                </div>
+
+                <div>
+                    <label>Content:</label>
+                    <br>
+                    <textarea id="content-area" required [(ngModel)]="messageContent" name="content"></textarea>
+                </div>
+
+                <input id="send-button" type="submit" value="Send" >
+                
+            </form>
+        </div>
+
+        <!-- Show message -->
+        <div id="overlay" *ngIf="isMessageBoxActive === true">
+            <div id="message-box">
+                <div class="close-button" onclick="closePopup()">X</div>
+                <div>Sender: Petar Petrovic</div>
+                <div>Title</div>
+                <div id="content-box">
+                    <div>Content</div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    
 </div>

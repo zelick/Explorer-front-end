@@ -14,15 +14,35 @@ export class UserSocialProfileService {
   constructor(private http: HttpClient) { }
 
   getSocilaProfile(id: number): Observable<SocialProfile> {
-    return this.http.get<SocialProfile>(environment.apiHost + 'profile-messaging/get-user-social-profile/' + id);
+    return this.http.get<SocialProfile>(environment.apiHost + 'social-profile/get/' + id);
+  }
+
+  follow(followerId: number, followedId: number): Observable<SocialProfile> {
+    return this.http.post<SocialProfile>(environment.apiHost + 'social-profile/follow/' + followerId + '/' + followedId, null);
+  }
+
+  unfollow(followerId: number, unfollowedId: number): Observable<SocialProfile>{
+    return this.http.post<SocialProfile>(environment.apiHost + 'social-profile/un-follow/' + followerId + '/' + unfollowedId, null);
   }
 
   getNotifications(id: number): Observable<Message[]> {
-    return this.http.get<Message[]>(environment.apiHost + 'profile-messaging/get-notifications/' + id);
+    return this.http.get<Message[]>(environment.apiHost + 'profile-messaging/notifications/' + id);
+  }
+
+  getInbox(id: number): Observable<Message[]> {
+    return this.http.get<Message[]>(environment.apiHost + 'profile-messaging/inbox/' + id);
+  }
+
+  getSent(id: number): Observable<Message[]> {
+    return this.http.get<Message[]>(environment.apiHost + 'profile-messaging/sent/' + id);
   }
 
   markAsRead(id: number): Observable<Message> {
-    return this.http.post<Message>(environment.apiHost + 'profile-messaging/mark-as-read/' + id, null);
+    return this.http.post<Message>(environment.apiHost + 'profile-messaging/read/' + id, null);
+  }
+
+  sendMessage(message: Message): Observable<Message> {
+    return this.http.post<Message>(environment.apiHost + 'profile-messaging/send/', message);
   }
 
 }

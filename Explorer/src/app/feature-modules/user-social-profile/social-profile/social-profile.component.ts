@@ -4,7 +4,6 @@ import { SocialProfile } from '../model/social-profile.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserSocialProfileService } from '../user-social-profile.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { AdministrationService } from '../../administration/administration.service';
 import { Message } from '../model/message.model';
 
 @Component({
@@ -17,11 +16,17 @@ export class SocialProfileComponent implements OnInit{
   user: User | undefined;
   socialProfile: SocialProfile;
   notifications: Message[];
+  inbox: Message[];
+  sent: Message[];
   activeTab: string = 'profile';
+  isMessageBoxActive: boolean = false;
+
+  selectedRecipientId: number;
+  messageTitle: string;
+  messageContent: string;
 
   constructor(private service: UserSocialProfileService, 
-    private authService: AuthService,
-    private administrationService: AdministrationService) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -36,6 +41,22 @@ export class SocialProfileComponent implements OnInit{
     });
   }
 
+  onFollowClick(followedId?: number): void {
+    if(this.user && followedId){
+      this.service.follow(this.user.id, followedId).subscribe((result: SocialProfile) => {
+        this.socialProfile = result;
+      });
+    }
+  }
+
+  onUnfollowClick(followedId?: number): void {
+    if(this.user && followedId){
+      this.service.unfollow(this.user.id, followedId).subscribe((result: SocialProfile) => {
+        this.socialProfile = result;
+      });
+    }
+  }
+
   onProfileTabClick(): void {
     this.activeTab = "profile";
   }
@@ -43,22 +64,79 @@ export class SocialProfileComponent implements OnInit{
   onNotificatioTabClick(): void {
     this.activeTab = "notification";
     if(this.user) {
-      this.getNotifications(this.user.id);
+      this.getNotifications();
     }
   }
 
   onInboxTabClick(): void {
     this.activeTab = "inbox";
+    if(this.user) {
+      this.getInbox();
+    }
   }
 
   onSentTabClick(): void {
     this.activeTab = "sent";
+    if(this.user) {
+      this.getSent();
+    }
   }
 
-  getNotifications(id: number): void {
-    this.service.getNotifications(id).subscribe((result: Message[]) => {
-      this.notifications = result;
+  onComposeTabClick(): void {
+    this.activeTab = "compose"
+  }
+
+  getNotifications(): void {
+    if(this.user) {
+      this.service.getNotifications(this.user.id).subscribe((result: Message[]) => {
+        this.notifications = result;
+      });
+    }
+  }
+
+  getInbox(): void {
+    if(this.user) {
+      this.service.getNotifications(this.user.id).subscribe((result: Message[]) => {
+        this.inbox = result;
+      });
+    }
+  }
+
+  getSent(): void {
+    if(this.user) {
+      this.service.getSent(this.user.id).subscribe((result: Message[]) => {
+        this.sent = result;
+      });
+    }
+  }
+
+  sendMessage(): void {
+    if(this.user) {
+      const message: Message = {
+        id: 0,
+        senderId: this.user.id,
+        recipientId: this.selectedRecipientId,
+        senderUsername: this.user.username,
+        title: this.messageTitle,
+        sentDateTime: new Date(),
+        readDateTime: new Date(),
+        content: this.messageContent,
+        isRead: false,
+      };
+      this.service.sendMessage(message).subscribe(() => {
+      this.selectedRecipientId = 0;
+      this.messageTitle = '';
+      this.messageContent = '';
+      this.onSentTabClick();
     });
+    } 
   }
 
+  readMessage(id: number): void {
+    if(this.user) {
+      this.service.markAsRead(id).subscribe((result: Message) => {
+        
+      });
+    }
+  }
 }

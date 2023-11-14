@@ -1,7 +1,6 @@
 #topnav {
     background-color: #333;
     overflow: hidden;
-    padding-top: 100px;
   }
 
 .topnav-button {
@@ -58,7 +57,7 @@
     padding-left: 10px;
 }
 
-.message-sender{
+.message-sender {
     font-size: 16px;
     font-weight: bold;
 }
@@ -81,21 +80,21 @@
     height: 30px;
 }
 
-.message-list-item{
+.message-list-item {
     list-style: none;
     padding-bottom: 10px;
 }
 
-#follow-div{
+#follow-div {
     display: flex;
     flex-direction: row;
 }
 
-.follow-table-div{
+.follow-table-div {
     padding: 20px;
 }
 
-#follow-button{
+#follow-button {
     color: white;
     background-color: #E67840;
     border: none;
@@ -103,6 +102,26 @@
     cursor: pointer;
     height: 20px;
     width: 50px;
+}
+
+#unfollow-button{
+    color: white;
+    background-color: #E67840;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 65px;
+}
+
+#send-button{
+    color: white;
+    background-color: #E67840;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 65px;
 }
 
 .follow-td{
@@ -124,4 +143,43 @@ tr:nth-child(even) {
 .follow-table-caption{
     font-size: 24px;
     font-weight: bold;
+}
+
+#compose-div{
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#content-area{
+    width: 400px;
+    height: 100px;
+}
+
+/* semi-transparent overlay */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#message-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
