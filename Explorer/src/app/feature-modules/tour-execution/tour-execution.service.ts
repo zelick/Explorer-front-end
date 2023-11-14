@@ -9,6 +9,7 @@ import { query } from '@angular/animations';
 import { TouristPosition } from '../marketplace/model/position.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { PublicCheckpoint } from './model/public_checkpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,12 @@ export class TourExecutionService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<MapObject>>(environment.apiHost + 'map-object', {params: queryParams});
+  }
+
+  getPublicCheckpoints(): Observable<PagedResults<PublicCheckpoint>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 }
