@@ -14,6 +14,7 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { PublicCheckpoint } from '../model/public_checkpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   checkPositions: any;
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
+  publicCheckpoints: PublicCheckpoint[] = [];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -47,6 +49,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
       this.addMapObjectsOnMap();
+    });
+
+    this.service.getPublicCheckpoints().subscribe( result => {
+      this.publicCheckpoints = result.results;
+      this.addPublicCheckpoinsOnMap();
     });
 
     this.activatedRoute.params.subscribe(params=>{
@@ -82,6 +89,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.addCheckpointsOnMap();
     if(this.mapObjects.length > 0)
       this.addMapObjectsOnMap();
+      if(this.publicCheckpoints.length > 0)
+      this.addPublicCheckpoinsOnMap();
   }
 
   checkPosition(): void{
@@ -133,13 +142,28 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
       this.mapObjects.forEach(e => {
           if(e != this.mapObjects[0])
-            if((e.latitude > (this.tour.checkpoints[0].latitude - 5) && (e.latitude < this.tour.checkpoints[0].latitude + 5))
-            && ((e.longitude > this.tour.checkpoints[0].longitude - 5) && (e.longitude < this.tour.checkpoints[0].longitude + 5)))
+            if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
+            && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
             coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
       });
       this.simulatorComponent.addMapObjects(coords);
     }
   }
+
+  addPublicCheckpoinsOnMap(): void{
+    if(this.publicCheckpoints)
+    {
+      let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
+      this.publicCheckpoints.forEach(e => {
+          if(e != this.publicCheckpoints[0])
+            if((e.latitude > (this.publicCheckpoints[0].latitude - 2) && (e.latitude < this.publicCheckpoints[0].latitude + 2))
+            && ((e.longitude > this.publicCheckpoints[0].longitude - 2) && (e.longitude < this.publicCheckpoints[0].longitude + 2)))
+            coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
+      });
+      this.simulatorComponent.addPublicCheckpoints(coords);
+    }
+  }
+
   abandon(): void{
     this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
       this.tourExecution = result;

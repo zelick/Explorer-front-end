@@ -2,6 +2,10 @@
     <div id="checkpoint">
         <p class="subtitle">Create checkpoint</p>
         <br>
+        <p>Choose one of public checkpoints: </p>
+        <select (change)="onPublicCPChange($event)" formControlName="publicCP">
+            <option *ngFor="let p of publicCheckpoints" [ngValue]="p.id">{{p.name}}</option>
+        </select>
         <mat-form-field>
             <mat-label>Name:</mat-label>
             <input matInput type="text" formControlName="name">
