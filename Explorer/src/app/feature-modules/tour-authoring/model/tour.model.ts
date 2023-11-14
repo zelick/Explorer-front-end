@@ -13,6 +13,7 @@ export interface Tour {
     authorId : number;
     status:string;
     equipment: Equipment[];
+    closed?: boolean;
     checkpoints: Checkpoint[];
     tourTimes: TourTime[];
     tourRatings: TourRating[];

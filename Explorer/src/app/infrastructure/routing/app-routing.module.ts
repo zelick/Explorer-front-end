@@ -9,6 +9,7 @@ import { ClubMembershipRequestComponent } from 'src/app/feature-modules/administ
 import { ProfileAdministrationComponent } from 'src/app/feature-modules/layout/profile-administration/profile-administration.component';
 import { AccountsManagementComponent } from 'src/app/feature-modules/administration/accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from 'src/app/feature-modules/administration/reported-issues/reported-issues.component';
+import { ReportedIssueNotificationsComponent } from 'src/app/feature-modules/administration/reported-issue-notifications/reported-issue-notifications.component';
 import { ReportingIssueComponent } from 'src/app/feature-modules/marketplace/reporting-issue/reporting-issue.component';
 import { CheckpointComponent } from 'src/app/feature-modules/tour-authoring/checkpoint/checkpoint.component';
 import { PreferenceComponent } from 'src/app/feature-modules/marketplace/preference/preference/preference.component';
@@ -55,6 +56,8 @@ const routes: Routes = [
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
   {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
+  {path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
+  {path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard]},
   {path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard]},

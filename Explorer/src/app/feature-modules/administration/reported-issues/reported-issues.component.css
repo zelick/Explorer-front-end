@@ -1,50 +1,251 @@
 #reported-issues {
-    margin-top: 20px;
     margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
 }
+#content{
+    display: flex;
+}
+#content > div {
+    flex: 1;
+    width: 50%;
+  }
 
 #reported-issues-details {
     display: flex;
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
+    height: 77vh;
+    overflow-y: auto;
 }
 
+#reported-issues-details > div {
+    width: 100%;
+}
 p {
     font-size: 20px;
+}
+
+
+.table-wrapper {
+    display: flex;
+    max-height: 76vh; /* Adjust the maximum height as needed */
+    overflow-y: scroll;
 }
 
 table {
     border-collapse: collapse;
     font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed;
+    width: 100%;
 }
 
 thead tr {
-    background-color: #3f51b5;
+    background-color: #3B846B;
     color: #ffffff;
     text-align: left;
+    position: sticky;
+    top: 0; /* Header stays at the top */
 }
 
 th, td {
     padding: 12px 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 tbody tr {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #B6D4AF;
+    cursor: pointer;
 }
 
 tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #F7F6DC;
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+    border-bottom: 2px solid #3B846B;
 }
 
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
+
+
+.red-row {
+    color:red;
+  }
+
+  .post {
+    border: 3px solid #B6D4AF;;
+    padding: 10px;
+    padding-bottom: 0px;
+    margin: 1px;
+    margin-right: 20px;
+    margin-left: 10px;
+    height: 77vh;
+    width: 40%;
+    font-family: 'Poppins', sans-serif;
 }
+
+/* User Info Section */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-avatar{
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    margin-right: 10px;
+    background-color: #ccc;
+    overflow: hidden; /* Clip the image to fit the circle */
+}
+
+.user-avatar img, .comment-avatar img {
+    max-width: 100%; /* Maximum width as per the parent div */
+    max-height: 100%; /* Maximum height as per the parent div */
+}
+
+
+.user-name {
+    font-weight: bold;
+}
+
+/* Post Content */
+.post-content {
+    margin-bottom: 8px;
+    font-size: 120%;
+    margin-left: 7px;
+    flex-wrap: wrap;
+}
+
+/* Comments Section */
+.comments {
+    border-top: 3px solid #B6D4AF;
+    border-bottom: 3px solid #B6D4AF;
+    margin-top: 10px;
+    padding-top: 10px;
+    height: 35vh;
+    overflow-y: auto;
+}
+
+.comment {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #B6D4AF;
+}
+
+/* Comment User Info Section */
+.comment-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.comment-avatar {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    margin-right: 10px;
+    background-color: #ccc;
+    overflow: hidden; /* Clip the image to fit the circle */
+}
+
+
+.comment-name {
+    font-weight: bold;
+}
+
+/* Comment Content */
+.comment-content {
+    margin:5px;
+}
+
+.additionalInfo{
+    font-size: 2vh;
+    color: gray;
+    font-weight: 400;  
+    margin-bottom: 0px;
+}
+
+.resolved{
+    color: rgb(11, 179, 11);
+    font-size: 120%;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.unresolved{
+    color: red;
+    font-size: 120%;
+    font-weight: 500;
+    margin-right: 10px;
+}  
+.comment-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    border-bottom: 3px solid #B6D4AF;
+  }
+  
+  .comment-input input {
+    flex: 1;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+  }
+  
+  .comment-input button {
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .greenButton{
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertically within the flex container */
+    }
+
+.adminsButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#penalizeButton{
+    background-color: #E67840;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 6px;
+    margin-right: auto;
+}
+
+.datepicker{
+    height: 26px;
+    margin-right: 6px;
+}
+
