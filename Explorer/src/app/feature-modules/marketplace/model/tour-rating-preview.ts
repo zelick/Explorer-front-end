@@ -4,5 +4,6 @@ export interface TourRatingPreview {
     touristId: number;
     tourDate: Date
     creationDate: Date;
-    pictures?: string[];
+    imageNames?: string[];
+    images?: FileList;
 }

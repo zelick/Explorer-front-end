@@ -20,6 +20,7 @@ export class TourDetailsComponent implements OnInit{
 
   profiles: string[] = ['walking', 'cycling', 'driving'];
   profile: string = this.profiles[0];
+  secretVisible:Boolean=false;
 
 
   constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
@@ -46,30 +47,44 @@ export class TourDetailsComponent implements OnInit{
   })
 }
   route(): void{
-    let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
+    let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
     this.checkpoints.forEach(e => {
         if(e != this.checkpoints[0])
-          coords.push({lat:e.latitude, lon:e.longitude});
+          coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
     });
-    this.mapComponent.setRoute(coords, this.profile);
+    this.mapComponent.setRouteWithInfo(coords, this.profile);
   }
 
   ngAfterViewInit(): void {
     if(this.checkpoints != null)
     {
-       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
-       this.checkpoints.forEach(e => {
-           if(e != this.checkpoints[0])
-             coords.push({lat:e.latitude, lon:e.longitude});
-       });
-       this.mapComponent.setRoute(coords, this.profile);
+      let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
+      this.checkpoints.forEach(e => {
+          if(e != this.checkpoints[0])
+            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+      });
+      this.mapComponent.setRouteWithInfo(coords, this.profile);
   }
 }
   getTour(id: number): void {
     this.service.get(id).subscribe((result: Tour) => {
       this.tour = result;
       console.log(this.tour.checkpoints);
-   
+      this.tour.checkpoints.forEach(element => {
+        if(element.currentPicture==undefined)
+        {
+          element.currentPicture=0;
+          element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+        }
+        if(element.visibleSecret==undefined)
+          element.visibleSecret=false;
+        if(element.viewSecretMessage==undefined)
+          element.viewSecretMessage="Show secret";
+        if(element.currentPointPicture==undefined)
+          element.currentPointPicture=0;
+        if(element.showedPointPicture==undefined)
+        element.showedPointPicture=element.pictures[element.currentPointPicture];
+      });
   
     });
   }
@@ -96,6 +111,8 @@ export class TourDetailsComponent implements OnInit{
     this.service.publishTour(this.tour.id || 0).subscribe({
       next: (result: Tour) => {
         this.tour = result;
+        this.fillCheckpointDetails();
+
       }
     });
   }
@@ -104,11 +121,67 @@ export class TourDetailsComponent implements OnInit{
     this.service.archiveTour(this.tour).subscribe({
       next: (result: Tour) => {
         this.tour = result;
+        this.fillCheckpointDetails();
       },
     })
   }
 
+  fillCheckpointDetails():void{
+    this.tour.checkpoints.forEach(element => {
+      if(element.currentPicture==undefined)
+      {
+        element.currentPicture=0;
+        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+      }
+      if(element.visibleSecret==undefined)
+        element.visibleSecret=false;
+      if(element.viewSecretMessage==undefined)
+        element.viewSecretMessage="Show secret";
+      if(element.currentPointPicture==undefined)
+        element.currentPointPicture=0;
+      if(element.showedPointPicture==undefined)
+      element.showedPointPicture=element.pictures[element.currentPointPicture];
+    });
+  }
+
   profileChanged($event: any): void{
     this.route();
+  }
+
+  OnViewSecret(c:Checkpoint):void{
+    c.visibleSecret=!c.visibleSecret;
+    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+    if(c.viewSecretMessage=="Show secret")
+      c.viewSecretMessage="Hide secret";
+    else
+      c.viewSecretMessage="Show secret";
+  }
+
+  OnNext(c:Checkpoint):void{
+   let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
+   if(c.currentPicture==(secretPicturesLength-1))
+      c.currentPicture=0;
+    else
+      c.currentPicture=c.currentPicture+1;
+      c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+
+  }
+
+  OnPictureNext(c:Checkpoint):void{
+    let picturesLength= c.pictures.length;
+   if(c.currentPointPicture==(picturesLength-1))
+      c.currentPointPicture=0;
+    else
+      c.currentPointPicture=c.currentPointPicture+1;
+      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+  }
+
+  OnPictureBack(c:Checkpoint):void{
+    let picturesLength= c.pictures.length;
+   if(c.currentPointPicture==0)
+      c.currentPointPicture=(picturesLength-1);
+    else
+      c.currentPointPicture=c.currentPointPicture-1;
+      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 }

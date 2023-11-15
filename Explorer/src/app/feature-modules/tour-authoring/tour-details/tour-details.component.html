@@ -25,6 +25,8 @@
             <tr *ngFor="let tt of tour.tourTimes">
                 <th>{{tt.transportation}}</th>
                 <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+                <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
+
             </tr>
             <tr>
                 <th>Tags:</th>
@@ -57,9 +59,10 @@
           
         </table>
     <br>
+    <p class="subtitle">Added checkpoints</p>
+
     <div class="checkpoint-div">
     <div>
-        <p class="subtitle">Added checkpoints</p>
         <table>
             <tbody>
                 <tr *ngFor="let e of tour.checkpoints">
@@ -67,22 +70,72 @@
                         <div class="cardcp">
                             <span class="cps1">
                                 <br>
-                                <div><span><span class="cps2">Name:</span>{{e.name}}</span></div>
+                                <div><span><span class="cps2">Name: </span>{{e.name}}</span></div>
                                 <br>
-                                <div><span><span class="cps2">Description:</span>{{e.description}}</span></div>
+                                <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
                                 <br>
+                                <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} m </span></div>
+                                <br>
+                                <hr>
                             </span>
                             <span class="cps1">
                                 <br>
-                                <div><span><span class="cps2">Longitude:</span>{{e.longitude}}</span></div>
+                                <div><span><span class="cps2">Longitude: </span>{{(e.longitude).toFixed(3)}}</span></div>
 
                                 <br>
-                                <div><span><span class="cps2">Latitude:</span>{{e.latitude}}</span></div>
+                                <div><span><span class="cps2">Latitude: </span>{{(e.latitude).toFixed(3)}}</span></div>
                                 <br>
                             </span>
+                            <span class="cps1">
+                                <div>
+                                    <table >
+                                        <tr>
+                                            <td>
+                                               <button class="nextbtn" (click)="OnPictureBack(e)">
+                                                <
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <img [src]=e.showedPointPicture width="200px" height="185px" cover="fill">
+                                            </td>
+                                            <td>
+                                                <button class="nextbtn" (click)="OnPictureNext(e)">
+                                                    >
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </span>
                         </div>  
+                        <div *ngIf="e.checkpointSecret!=null" class="cardcp">
+                            <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
+                        </div>
+                        <div *ngIf="e.visibleSecret" class="secretdiv">
+                            <p class="secretp">Secret of this place:</p>
+                            <div class="secret-span">
+                               
+                                <div>
+                                    <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                            <img [src]=e.showedPicture width="100" height="100">
+                                            </td>
+                                            <td>
+                                            <button (click)="OnNext(e)"   class="nextbtn">></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <p class="cpmp">🧭</p>
+                                </div>
+                            </div>
+                        </div>
                     </td>
-                    <td class="cppi"><img [src]="e.pictures[0]" width="80px" height="90px"></td>
+                   
                 </tr>
             </tbody>
             </table>
@@ -92,6 +145,28 @@
                 <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
                     <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
                 </select>
+               
+            </div>
+            <div class="legend-div">
+                <p class="subtitle">Legend</p>
+                <table>
+                    <tr>
+                        <td>🟥</td>
+                        <td>-</td>
+                        <td>🚶‍♂️</td>
+                    </tr>
+                    <tr>
+                        <td>🟩</td>
+                        <td>-</td>
+                        <td>🚗</td>
+                    </tr>
+                    <tr>
+                        <td>🟦</td>
+                        <td>-</td>
+                        <td>🚲</td>
+                    </tr>
+                </table>
+               
             </div>
         </div>
     <div class="mapa">
@@ -101,18 +176,22 @@
         <div>
             <button mat-raised-button class="buttonBack" (click)="onBack()">Back</button>
         </div>
+        
         <div>
-            <button mat-raised-button class="buttonDelete" (click)="onDelete()">Delete🗑️</button>
+            <button mat-raised-button class="buttonDelete1" (click)="onDelete()">Delete🗑️</button>
         </div>
         <div>
-            <button mat-raised-button class="buttonEdit" (click)="onEdit()">Edit✏️</button>
+            <button mat-raised-button class="buttonEdit1" (click)="onEdit()">Edit✏️</button>
         </div>
+        
         </div>
     </div>
 </div>
 <div class="managing-tour-div">
+    <p class="subtitle">Manage tour status</p>
+    <br>
+    <br>
     <table>
-        <thead class="subtitle">Manage tour</thead>
         <tbody>
             <tr>
                 <td>
@@ -126,5 +205,6 @@
             </tr>
         </tbody>
     </table>
+   
 </div>
 </div>

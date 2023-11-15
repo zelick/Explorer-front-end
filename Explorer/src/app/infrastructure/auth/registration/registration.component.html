@@ -1,4 +1,4 @@
-<form [formGroup]="registrationForm" (ngSubmit)="register()">
+<form [formGroup]="registrationForm" (ngSubmit)="register()" enctype="multipart/form-data">
     <div>
       <mat-form-field>
         <mat-label>Name</mat-label>
@@ -33,9 +33,9 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Profile Picture</mat-label>
-        <input matInput type="text" [readonly]="true" formControlName="profilePictureUrl" />
-        <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
-      </mat-form-field>                   
+        <input matInput type="text" [readonly]="true" [value]="registrationForm.get('profilePicture')?.value" />
+        <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" accept="image/*" />
+      </mat-form-field>                        
       <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" />         
       <mat-form-field>
         <mat-label>Role</mat-label>
@@ -44,7 +44,7 @@
           <mat-option value="Tourist">Tourist</mat-option>
         </mat-select>
       </mat-form-field>      
-      <button color="primary" type="submit" mat-raised-button>Register</button>
+      <button class="button" color="primary" type="submit" mat-raised-button>Register</button>
     </div>
 </form>
   

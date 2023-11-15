@@ -3,15 +3,17 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { ReportedIssue } from './model/reported-issue.model';
+import { ReportedIssue } from '../administration/model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
+import { TouristPosition } from './model/position.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 import { Customer } from './model/customer.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
 import { PublicTour } from './model/public-tour.model';
+import { TourExecution } from '../tour-execution/model/tour_execution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +28,8 @@ export class MarketplaceService {
   }
   constructor(private http: HttpClient) { }
 
-  addReportedIssue(reportedIssue: ReportedIssue): Observable<ReportedIssue> {
-    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue', reportedIssue);
+  addReportedIssue(reportedIssue: string): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue/' + reportedIssue,null);
   }
 
   addTourPreference(preference: TourPreference): Observable<TourPreference> {
@@ -56,7 +58,6 @@ export class MarketplaceService {
         url = 'author/tour-rating';
         break;
       case 'tourist':
-        //TODO tourist -> tourism ???
         url = 'tourist/tour-rating';
         break;
       default:
@@ -70,8 +71,29 @@ export class MarketplaceService {
     return this.http.delete<TourRating>(environment.apiHost + 'administration/tour-rating/' + id);
   }
 
-  addTourRating(rating: TourRating): Observable<TourRating> {
-    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
+  addTourRating(ratingForm: FormData): Observable<TourRating> {
+    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', ratingForm);
+  }
+
+
+  updateTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
+  }
+
+  addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
+  }
+
+  updateTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.put<TouristPosition>(environment.apiHost + 'tourism/position/' + position.id, position);
+  }
+
+  getTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.get<TouristPosition>(environment.apiHost + 'tourism/position/'+id)
+  }
+
+  deleteTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
   checkShoppingCart(touristId: number): Observable<boolean> {
@@ -136,5 +158,15 @@ export class MarketplaceService {
   getPublicTours():Observable<PublicTour[]>{
     return this.http.get<PublicTour[]>(environment.apiHost + 'tourist/publicTours/getAll') 
   }
+  startExecution(tourId: number, touristId: number): Observable<TourExecution>{
+    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);
+  }
 
+  getAverageRating(id:number): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)
+  }
+
+  getRating(id:number): Observable<TourRating> {
+    return this.http.get<TourRating>(environment.apiHost + 'tourist/tour-rating/getTourRating/' + id)
+  }
 }

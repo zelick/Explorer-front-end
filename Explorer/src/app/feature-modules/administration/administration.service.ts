@@ -9,9 +9,14 @@ import { ClubMemebrshipRequest } from './model/club-membership-request.model';
 import { Club } from './model/club.model';
 import { Account } from './model/account.model';
 import { ReportedIssue } from './model/reported-issue.model';
+import { ReportedIssueNotification } from './model/reported-issue-notification.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { UserClub } from './model/user-club.model';
 import { ClubInvitation } from './model/club-invitation.model';
+import { TourIssueComment } from '../tour-authoring/model/tour-issue-comment';
+import { CheckpointRequest } from './model/checkpoint-request.model';
+import { ObjectRequest } from './model/object-request.model';
+import { RequestNotification } from './model/request-notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -106,9 +111,63 @@ export class AdministrationService {
   block(id: number): Observable<PagedResults<Account>> {
     return this.http.put<PagedResults<Account>>(environment.apiHost + 'administration/accountsManagement/block/' + id, null);
   }
+
+  // ReportedIssues
+  addDeadline(id: number, date: Date): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/deadline/' + id, date);
+  }
+
+  penalize(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/penalizeAuthor/' + id, null);
+  }
+
+  closeReportedIssue(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + 'administration/reportedIssues/closeReportedIssue/' + id, null);
+  }
   
   getReportedIssues(): Observable<PagedResults<ReportedIssue>>{
     return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + 'administration/reportedIssues');
+  }
+
+  getAuthorsReportedIssues(id:number): Observable<PagedResults<ReportedIssue>>{
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + `author/reported-issue-response/${id}`);
+  }
+
+  getTouristsReportedIssues(id:number): Observable<PagedResults<ReportedIssue>>{
+    return this.http.get<PagedResults<ReportedIssue>>(environment.apiHost + `tourist/reportingIssue/${id}`);
+  }
+
+  addAdministratorCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(`https://localhost:44333/api/administration/reportedIssues/comment/${id}`, comment);
+  }
+
+  resolveReportedIssue(id: number): Observable<ReportedIssue> {
+    return this.http.put<ReportedIssue>(environment.apiHost + `tourist/reportingIssue/resolve/${id}`,null);
+  }
+
+  addTouristCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + `tourist/reportingIssue/comment/${id}`, comment);
+  }
+
+  addAuthorCommentOnReportedIssue(id: number, comment: TourIssueComment): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + `author/reported-issue-response/response/${id}`, comment);
+  }
+  
+  //ReportedIssueNotification
+  getReportedIssueNotification(id: number, role: string): Observable<ReportedIssueNotification>{
+    return this.http.get<ReportedIssueNotification>(environment.apiHost + role + `/notifications/${id}`);
+  }
+  deleteReportedIssueNotification(id: number, role:string): Observable<ReportedIssueNotification> {
+    return this.http.delete<ReportedIssueNotification>(environment.apiHost + role + `/notifications/${id}`);
+  }
+  updateReportedIssueNotification(role:string, notification: ReportedIssueNotification): Observable<ReportedIssueNotification> {
+    return this.http.put<ReportedIssueNotification>(environment.apiHost + role + `/notifications/` + notification.id, notification);
+  }
+  getAllReportedIssueNotificationsByUser(userId: number, role: string): Observable<PagedResults<ReportedIssueNotification>>{
+    return this.http.get<PagedResults<ReportedIssueNotification>>(environment.apiHost + role + `/notifications/get-all/${userId}`);
+  }
+  getUnreadReportedIssueNotificationsByUser(userId: number, role: string): Observable<PagedResults<ReportedIssueNotification>>{
+    return this.http.get<PagedResults<ReportedIssueNotification>>(environment.apiHost + role + `/notifications/get-unread/${userId}`);
   }
 
   getUsersForClub(id: number): Observable<Club> {
@@ -139,4 +198,38 @@ export class AdministrationService {
     return this.http.get<PagedResults<User>>('https://localhost:44333/api/user');
   }
 
+  //checkpoint requests
+  getAllCheckpointRequests(): Observable<CheckpointRequest[]> {
+    return this.http.get<CheckpointRequest[]>(environment.apiHost + 'administration/checkpointequests');
+  }
+
+  acceptCheckpointRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.post<CheckpointRequest>(environment.apiHost + 'administration/publicCheckpoint/create/' + requestId + '/' + comment, null);
+  }
+
+  rejectCheckpointRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/checkpointequests/reject/' + requestId + '/' + comment, null);
+  }
+
+  //object requests
+  getAllObjectRequests(): Observable<ObjectRequest[]> {
+    return this.http.get<ObjectRequest[]>(environment.apiHost + 'administration/objectRequests');
+  }
+
+  acceptObjectRequest(requestId: number, comment: string): Observable<ObjectRequest> {
+    return this.http.post<ObjectRequest>(environment.apiHost + 'administration/publicMapObject/create/' + requestId + '/' + comment, null);
+  }
+
+  rejectObjectRequest(requestId: number, comment: string): Observable<CheckpointRequest> {
+    return this.http.put<CheckpointRequest>(environment.apiHost + 'administration/objectRequests/reject/' + requestId + '/' + comment, null);
+  }
+
+  //request notifications
+  getAllUnreadRequestNotifications(userId: number): Observable<RequestNotification[]> {
+    return this.http.get<RequestNotification[]>(environment.apiHost + 'administration/notification/getAllUnread/' + userId);
+  }
+
+  markAsReadRequestNotification(notificationId: number): Observable<RequestNotification> {
+    return this.http.put<RequestNotification>(environment.apiHost + 'administration/notification/markAsRead/' + notificationId, null);
+  }
 }

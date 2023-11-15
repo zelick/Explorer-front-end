@@ -11,6 +11,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Customer } from '../model/customer.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourRating } from '../model/tour-rating.model';
 
 
 @Component({
@@ -26,26 +27,47 @@ export class TourOverviewDetailsComponent implements OnInit{
     private router: Router, 
     private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-          this.user = user;
+    ngOnInit(): void {
+      this.service.cartItemCount$.subscribe(count => {
+        this.cartItemCount = count;
+      });
+
+      this.authService.user$.subscribe(user => {
+        this.user = user;
+    
+        this.activatedRoute.params.subscribe(params => {
+          this.tourID = params['id'];
+          this.getPublishedTour(this.tourID);
+          this.FindShoppingCart();
+        });
+    
+        this.service.getAverageRating(this.tourID).subscribe(
+          (averageRating: number) => {
+            this.tourAvarageRating = averageRating;
+            console.log('Prosečna ocena ture:', this.tourAvarageRating);
+          },
+          (error) => {
+            console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
+          }
+        );
+      });
+
       
-      this.activatedRoute.params.subscribe(params=>{
-              this.tourID=params['id'];
-              this.getPublishedTour(this.tourID);
-              this.FindShoppingCart();
-      })
-    });
-  }
+    }
+    
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
     profiles: string[] = ['walking', 'cycling', 'driving'];
     profile: string = this.profiles[0];
     user: User;
+    tourAvarageRating:number = 0;
+    shouldEdit: boolean = false;
+    selectedRating: TourRating;
     userCart: ShoppingCart;
     isTourInCart: boolean = false;
     buttonColor: string = 'orange';
+    cartItemCount: number;
 
     route(): void{
       let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints.latitude, lon: this.checkpoints.longitude}];
@@ -68,13 +90,14 @@ export class TourOverviewDetailsComponent implements OnInit{
     getPublishedTour(id: number): void {
       this.service.getPublishedTour(id).subscribe((result: TourPreview) => {
         this.tour = result;
+        console.log("Milicina tura: ");
         console.log(this.tour);
         this.checkpoints=this.tour.checkpoint;
+        console.log("OCENE ZA TURU ", this.tour.tourRating)
         if(this.checkpoints != null)
         { 
           this.route();
         } 
-    
       });
     }
 
@@ -99,10 +122,9 @@ export class TourOverviewDetailsComponent implements OnInit{
         if (cartExists) {
           this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
             tourShoppingCart.items.push(orderItem);
-            //this.cartItemCount = tourShoppingCart.items.length;
             tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
             this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
-              //this.cartItemCount = tourShoppingCart.items.length;
+              this.service.updateCartItemCount(tourShoppingCart.items.length); //
               this.userCart = result;
               this.isTourInCart = this.checkIsTourInCart();
               if(this.isTourInCart == true){
@@ -139,6 +161,17 @@ export class TourOverviewDetailsComponent implements OnInit{
       });
     }
 
+    rateTour(tour: TourPreview): void{
+      this.router.navigate(['/tour-rating-form', tour.id]);
+    }
+
+    isTouristRating(rating: TourRating): boolean{
+      return rating.touristId === this.user.id;
+    }
+
+    editRating(rating: TourRating): void{
+      this.router.navigate(['/tour-rating-edit-form', rating.id]);
+    }
     checkIsTourInCart(): boolean{
       if (this.userCart.items.length > 0) {
         return this.userCart.items.some(item => item.tourId == this.tourID);
