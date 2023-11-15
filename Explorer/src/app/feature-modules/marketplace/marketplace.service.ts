@@ -12,8 +12,8 @@ import { ShoppingCart } from './model/shopping-cart.model';
 import { Customer } from './model/customer.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
+import { PublicTour } from './model/public-tour.model';
 import { TourExecution } from '../tour-execution/model/tour_execution.model';
-
 
 @Injectable({
   providedIn: 'root'
@@ -155,9 +155,8 @@ export class MarketplaceService {
     this.cartItemCountSubject.next(count);
   }
 
-  //PublicTours 
-  getPublicTours():Observable<TourPreview[]> {
-    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping') //zameni
+  getPublicTours():Observable<PublicTour[]>{
+    return this.http.get<PublicTour[]>(environment.apiHost + 'tourist/publicTours/getAll') 
   }
   startExecution(tourId: number, touristId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);

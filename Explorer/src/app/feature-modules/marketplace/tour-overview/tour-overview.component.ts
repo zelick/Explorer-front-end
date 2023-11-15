@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TourPreview } from '../model/tour-preview';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { PublicTour } from '../model/public-tour.model';
 
 
 @Component({
@@ -17,8 +18,9 @@ export class TourOverviewComponent implements OnInit{
   constructor(private service: MarketplaceService,private router:Router) { }
   publishedTours:TourPreview[]=[];
    //search:
-  tours: Tour[] = [];
-  foundTours: Tour[] = [];
+  publicTours: PublicTour[] = [];
+  foundTours: TourPreview[] = [];
+  searchTours: TourPreview[] = [];
   selectedLongitude: number;
   selectedLatitude: number;
   radius: number = 500; // Inicijalna vrednost precnika (scroller)
@@ -27,19 +29,19 @@ export class TourOverviewComponent implements OnInit{
   ngOnInit(): void {
     this.service.getPublishedTours().subscribe(
       (response:any)=>{
-        this.publishedTours=response;
-        this.getTours();
+        this.publishedTours = response;
+        this.searchTours = response;
+        this.getPublicTours();
       }
     )
   }
 
- getTours():void{
-    this.service.getTours().subscribe({
-      next: (result: PagedResults<Tour>) => {
-        this.tours = result.results;
-        console.log(this.tours);
-      },
-    });
+  getPublicTours():void{
+    this.service.getPublicTours().subscribe(
+      (response:any)=>{
+        this.publicTours = response;
+      }
+    )
   }
 
   openDetails(tour:TourPreview):void{
@@ -47,7 +49,6 @@ export class TourOverviewComponent implements OnInit{
   }
 
   onMapClick(event: { lat: number; lon: number }) {
-    //this.mapComponent.clearMap();
     this.selectedLatitude = event.lat;
     this.selectedLongitude = event.lon;
     this.updateRadius();
@@ -59,49 +60,73 @@ export class TourOverviewComponent implements OnInit{
   }
 
   findNearTours(): void{
-   // this.foundTours = []; //izbaci sve prethodne
-    this.tours.forEach(tour => {
-      this.checkDistance(tour);
+    const promises = this.publicTours.map(tour => {
+      return this.checkDistance(tour);
+    });
+
+    Promise.all(promises).then(() => {
+      if (this.foundTours.length > 0) {
+        this.searchTours = [];
+        this.searchTours = this.foundTours;
+      }
     });
   }
 
-  checkDistance(tour: Tour): void {
+  checkDistance(tour: PublicTour): Promise<void> {
+    console.log(tour);
     const originCoords: { lat: number; lon: number } = {
       lat: this.selectedLatitude,
       lon: this.selectedLongitude
     };
-
+  
     let found = false;
   
-    for (const checkpoint of tour.checkpoints) {
-      console.log(checkpoint);
+    const promises = tour.previewCheckpoints.map(checkpoint => {
       const destinationCoords: { lat: number; lon: number } = {
         lat: checkpoint.latitude,
         lon: checkpoint.longitude
       };
   
-      this.mapComponent.calculateDistance([originCoords, destinationCoords], 'walking')
-        .then((distanceBetween) => {
+      return this.mapComponent.calculateDistance([originCoords, destinationCoords], 'walking')
+        .then(distanceBetween => {
           console.log(distanceBetween);
           if (distanceBetween <= this.radius && !found) {
-            console.log('usao u if');
-            this.foundTours.push(tour);
+            const existingTour = this.findTourById(tour.id || 0);
+  
+            if (existingTour && !this.foundTours.some(t => t.id === existingTour.id)) {
+              this.foundTours.push(existingTour);
+            }
             this.drowTour(tour);
-            found = true;  // Postavi found na true da se izbegne dodavanje iste ture više puta
+            found = true;
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('Greška pri izračunavanju rute:', error);
+          throw error;
         });
-    }
+    });
+  
+    return Promise.all(promises)
+      .then(() => {
+      })
+      .catch(error => {
+        console.error('Error in Promise.all:', error);
+      });
   }
-  drowTour(tour: Tour): void{
-    let coords: [{lat: number, lon: number}] = [{lat: tour.checkpoints[0].latitude, lon: tour.checkpoints[0].longitude}];
-    tour.checkpoints.forEach(e => {
-        if(e != tour.checkpoints[0])
+  
+
+
+  findTourById(id: number): TourPreview | undefined{
+    return this.publishedTours.find(t => t.id === id);
+  }
+
+  drowTour(tour: PublicTour): void{
+    let coords: [{lat: number, lon: number}] = [{lat: tour.previewCheckpoints[0].latitude, lon: tour.previewCheckpoints[0].longitude}];
+    tour.previewCheckpoints.forEach(e => {
+        if(e != tour.previewCheckpoints[0])
           coords.push({lat:e.latitude, lon:e.longitude});
     });
-    this.mapComponent.setRoute(coords, 'walking'); //proveriti za profil
+    this.mapComponent.setRoute(coords, 'walking'); //proveriti za profil, izmena?
   }
   
   drawCircle(): void {
@@ -110,5 +135,14 @@ export class TourOverviewComponent implements OnInit{
       { lat: this.selectedLatitude, lon: this.selectedLongitude },
       this.radius
     );
+  }
+
+  cancleSearch():void {
+    this.service.getPublishedTours().subscribe(
+      (response:any)=>{
+        this.searchTours = response;
+      }
+    )
+    this.mapComponent.reloadMap();
   }
 }
