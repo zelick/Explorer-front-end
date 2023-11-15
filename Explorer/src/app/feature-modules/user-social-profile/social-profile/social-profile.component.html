@@ -71,7 +71,7 @@
                         <div class="message-info">
                             <div class="message-sent-date">{{ n.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
                             <div class="read-button-div">
-                                <button class="read-button">Read</button>
+                                <button class="read-button" (click)="readMessage(n.id)">Read</button>
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <div class="message-info">
                             <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
                             <div class="read-button-div">
-                                <button class="read-button">View</button>
+                                <button class="read-button" (click)="viewMessage(m.id)">View</button>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="message-info">
                             <div class="message-sent-date">{{ m.sentDateTime | date: 'dd.MM.yyyy. HH:mm' }}</div>
                             <div class="read-button-div">
-                                <button class="read-button">View</button>
+                                <button class="read-button" (click)="viewMessage(m.id)">View</button>
                             </div>
                         </div>
                     </div>
@@ -152,14 +152,14 @@
         <!-- Show message -->
         <div id="overlay" *ngIf="isMessageBoxActive === true">
             <div id="message-box">
-                <div class="close-button" onclick="closePopup()">X</div>
-                <div>Sender: Petar Petrovic</div>
-                <div>Title</div>
+                <div class="close-button" (click)="closePopup()">X</div>
+                <div>Sender: {{showingMessage?.senderUsername}}</div>
+                <div>Title: {{showingMessage?.title}}</div>
                 <div id="content-box">
                     <div>Content</div>
+                    <div>{{showingMessage?.content}}</div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

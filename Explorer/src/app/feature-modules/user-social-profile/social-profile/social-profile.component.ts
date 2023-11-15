@@ -20,6 +20,7 @@ export class SocialProfileComponent implements OnInit{
   sent: Message[];
   activeTab: string = 'profile';
   isMessageBoxActive: boolean = false;
+  showingMessage: Message | undefined;
 
   selectedRecipientId: number;
   messageTitle: string;
@@ -96,7 +97,7 @@ export class SocialProfileComponent implements OnInit{
 
   getInbox(): void {
     if(this.user) {
-      this.service.getNotifications(this.user.id).subscribe((result: Message[]) => {
+      this.service.getInbox(this.user.id).subscribe((result: Message[]) => {
         this.inbox = result;
       });
     }
@@ -132,11 +133,32 @@ export class SocialProfileComponent implements OnInit{
     } 
   }
 
-  readMessage(id: number): void {
-    if(this.user) {
+  readMessage(id?: number): void {
+    if(id) {
       this.service.markAsRead(id).subscribe((result: Message) => {
-        
+        this.showingMessage = result;
+        this.isMessageBoxActive = true;
+        this.getNotifications();
       });
     }
   }
+
+  viewMessage(id?: number): void {
+    if(id) {
+      if(this.activeTab === "inbox") {
+        this.showingMessage = this.inbox.find(message => message.id === id);
+        this.isMessageBoxActive = true;
+      }
+      else if(this.activeTab === "sent") {
+        this.showingMessage = this.sent.find(message => message.id === id);
+        this.isMessageBoxActive = true;
+      }
+    }
+  }
+
+  closePopup(): void {
+    this.showingMessage = undefined;
+    this.isMessageBoxActive = false;
+  }
+
 }

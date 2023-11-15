@@ -38,7 +38,7 @@ export class UserSocialProfileService {
   }
 
   markAsRead(id: number): Observable<Message> {
-    return this.http.post<Message>(environment.apiHost + 'profile-messaging/read/' + id, null);
+    return this.http.put<Message>(environment.apiHost + 'profile-messaging/read/' + id, null);
   }
 
   sendMessage(message: Message): Observable<Message> {
