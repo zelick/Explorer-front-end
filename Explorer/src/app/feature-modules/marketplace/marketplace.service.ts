@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -14,6 +14,8 @@ import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
 import { PublicTour } from './model/public-tour.model';
 import { TourExecution } from '../tour-execution/model/tour_execution.model';
+import { MapObject } from '../tour-authoring/model/map-object.model';
+import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,5 +170,19 @@ export class MarketplaceService {
 
   getRating(id:number): Observable<TourRating> {
     return this.http.get<TourRating>(environment.apiHost + 'tourist/tour-rating/getTourRating/' + id)
+  }
+
+  getMapObjects(): Observable<PagedResults<MapObject>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<MapObject>>(environment.apiHost + 'map-object', {params: queryParams});
+  }
+
+  getPublicCheckpoints(): Observable<PagedResults<PublicCheckpoint>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 }

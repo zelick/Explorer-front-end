@@ -6,16 +6,25 @@ import { TourPreview } from '../model/tour-preview';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PublicTour } from '../model/public-tour.model';
-
+import { MapObject } from '../../tour-authoring/model/map-object.model';
+import { PublicCheckpoint } from '../../tour-execution/model/public_checkpoint.model';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'xp-tour-overview',
   templateUrl: './tour-overview.component.html',
   styleUrls: ['./tour-overview.component.css'], 
 })
-export class TourOverviewComponent implements OnInit{
+export class TourOverviewComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
   constructor(private service: MarketplaceService,private router:Router) { }
+
+  ngAfterViewInit(): void {
+    if(this.mapObjects.length > 0)
+    this.addMapObjectsOnMap();
+    if(this.publicCheckpoints.length > 0)
+    this.addPublicCheckpoinsOnMap();
+  }
   publishedTours:TourPreview[]=[];
    //search:
   publicTours: PublicTour[] = [];
@@ -25,8 +34,20 @@ export class TourOverviewComponent implements OnInit{
   selectedLatitude: number;
   radius: number = 500; // Inicijalna vrednost precnika (scroller)
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
+  mapObjects: MapObject[] = [];
+  publicCheckpoints: PublicCheckpoint[] = [];
 
   ngOnInit(): void {
+    this.service.getMapObjects().subscribe( result => {
+      this.mapObjects = result.results;
+      this.addMapObjectsOnMap();
+    });
+
+    this.service.getPublicCheckpoints().subscribe( result => {
+      this.publicCheckpoints = result.results;
+      this.addPublicCheckpoinsOnMap();
+    });
+
     this.service.getPublishedTours().subscribe(
       (response:any)=>{
         this.publishedTours = response;
@@ -54,6 +75,30 @@ export class TourOverviewComponent implements OnInit{
     this.updateRadius();
   }
 
+  addMapObjectsOnMap(): void{
+    if(this.mapObjects)
+    {
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
+      this.mapObjects.forEach(e => {
+          coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
+      });
+      this.mapComponent.addMapObjects(coords);
+    }
+  }
+
+  addPublicCheckpoinsOnMap(): void{
+    if(this.publicCheckpoints)
+    {
+      let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
+      this.publicCheckpoints.forEach(e => {
+          if(e != this.publicCheckpoints[0])
+            if((e.latitude > (this.publicCheckpoints[0].latitude - 2) && (e.latitude < this.publicCheckpoints[0].latitude + 2))
+            && ((e.longitude > this.publicCheckpoints[0].longitude - 2) && (e.longitude < this.publicCheckpoints[0].longitude + 2)))
+            coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
+      });
+      this.mapComponent.addPublicCheckpoints(coords);
+    }
+  }
   updateRadius() {
     this.drawCircle();
     this.findNearTours();

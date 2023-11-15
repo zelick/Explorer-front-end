@@ -300,13 +300,13 @@ export class MapComponent implements AfterViewInit {
       });
       coords.forEach(element => {
         if(element.category == 'WC')
-          L.marker([element.lat, element.lon], { icon: defaultIconWC }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Restaurant')
-          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Parking')
-        L.marker([element.lat, element.lon], { icon: defaultIconParking }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
         if(element.category == 'Other')
-          L.marker([element.lat, element.lon], { icon: defaultIconOther }).bindPopup("<b>" + element.name + "</b><br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
       });
     }
 
