@@ -73,6 +73,10 @@ export class SimulatorComponent implements OnInit {
     this.mapComponent.addMapObjects(coords);
   }
 
+  addPublicCheckpoints(coords: [{lat: number, lon: number, picture: string, name: string, desc: string}]): void{
+    this.mapComponent.addPublicCheckpoints(coords);
+  }
+
   private searchByCoord(lat: number, lon: number) {
     this.mapComponent.addTouristPosition(lat, lon).subscribe({
       next: (location) => {

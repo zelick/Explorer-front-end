@@ -13,6 +13,7 @@ import { CheckpointSecret } from './model/checkpointSecret.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Result } from 'postcss';
+import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 
 
 @Injectable({
@@ -136,5 +137,12 @@ export class TourAuthoringService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("userId", this.user.id);
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/tourTime/' + tourId, tour, {params: queryParams});
+  }
+
+  getPublicCheckpoints(): Observable<PagedResults<PublicCheckpoint>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 }
