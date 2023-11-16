@@ -1,0 +1,130 @@
+#reported-issue-notification {
+    margin-left: 20px;
+    margin-top: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+#content{
+    display: flex;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 20px;
+    overflow-y: auto;
+    margin-right: 10px;
+}
+
+thead tr {
+    background-color: #B6D4AF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 130%;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+    cursor: pointer;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3B846B;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3f51b5;
+}
+
+/*  */
+.new-notif-number {
+    font-size: 150%;
+    font-size: 20px;
+    margin-left: 7px;
+    margin-bottom: 8px;
+    margin-top: 5px;
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+}
+
+.table-wrapper {
+    display: flex;
+    max-height: 76vh; /* Adjust the maximum height as needed */
+    overflow-y: scroll;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertically within the flex container */
+}
+
+.post-content {
+    margin-bottom: 8px;
+    font-size: 120%;
+    margin-left: 7px;
+}
+
+.new{
+    color: red;
+    font-size: 160%;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.date-and-dissmiss-div  {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.date-info {
+    font-size: 2vh;
+    color: gray;
+    font-weight: 400;  
+    margin-bottom: 0px;
+}
+
+.see-details {
+    font-size: 2.5vh;
+    font-weight: 400;  
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+
+.buttons-div {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.dismiss {
+    font-size: 2.5vh;
+    font-weight: 400;  
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.dismiss-all-button{
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 15px;
+}

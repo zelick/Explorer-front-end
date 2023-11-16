@@ -1,21 +1,37 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { ReportedIssue } from './model/reported-issue.model';
+import { ReportedIssue } from '../administration/model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
 import { TouristPosition } from './model/position.model';
+import { OrderItem } from './model/order-item.model';
+import { ShoppingCart } from './model/shopping-cart.model';
+import { Customer } from './model/customer.model';
+import { Tour } from '../tour-authoring/model/tour.model';
+import { TourPreview } from './model/tour-preview';
+import { PublicTour } from './model/public-tour.model';
+import { TourExecution } from '../tour-execution/model/tour_execution.model';
+import { MapObject } from '../tour-authoring/model/map-object.model';
+import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketplaceService {
+  [x: string]: any;
+  getCheckpointsByTour(tourId: number) {
+      throw new Error('Method not implemented.');
+  }
+  getCheckpoints() {
+      throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) { }
 
-  addReportedIssue(reportedIssue: ReportedIssue): Observable<ReportedIssue> {
-    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue', reportedIssue);
+  addReportedIssue(reportedIssue: string): Observable<ReportedIssue> {
+    return this.http.post<ReportedIssue>(environment.apiHost + 'tourist/reportingIssue/' + reportedIssue,null);
   }
 
   addTourPreference(preference: TourPreference): Observable<TourPreference> {
@@ -44,7 +60,6 @@ export class MarketplaceService {
         url = 'author/tour-rating';
         break;
       case 'tourist':
-        //TODO tourist -> tourism ???
         url = 'tourist/tour-rating';
         break;
       default:
@@ -58,8 +73,13 @@ export class MarketplaceService {
     return this.http.delete<TourRating>(environment.apiHost + 'administration/tour-rating/' + id);
   }
 
-  addTourRating(rating: TourRating): Observable<TourRating> {
-    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', rating);
+  addTourRating(ratingForm: FormData): Observable<TourRating> {
+    return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', ratingForm);
+  }
+
+
+  updateTourRating(rating: TourRating): Observable<TourRating> {
+    return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
   }
 
   addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
@@ -78,6 +98,91 @@ export class MarketplaceService {
     return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
-  
+  checkShoppingCart(touristId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'tourist/shopping-cart/checkShoppingCart/' + touristId);
+  }
 
+  addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.post<OrderItem>(environment.apiHost + 'tourist/order-item', orderItem);
+  }
+
+  getShoppingCart(touristId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/getShoppingCart/' + touristId);
+  }
+
+  addShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.post<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart', shoppingCart);
+  }
+
+  updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/' + shoppingCart.id, shoppingCart);
+  }
+
+  getTours(): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(environment.apiHost + 'administration/tour');
+  }
+  getCustomersPurchasedTours(id: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'customer/cutomersPurchasedTours/'+ id)
+  }
+
+  createCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(environment.apiHost + 'customer/create', customer);
+  }
+
+  shoppingCartCheckOut(id: number): Observable<Customer> {
+    return this.http.put<Customer>(environment.apiHost + 'customer/' + id, {});
+  }
+
+  deleteOrderItems(id: number): Observable<ShoppingCart> {
+    return this.http.delete<ShoppingCart>(environment.apiHost + 'tourist/shopping-cart/deleteOrderItems/' + id);
+  }
+
+  getPublishedTours():Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
+  }
+
+  getPublishedTour(id:number): Observable<TourPreview> {
+    return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
+  }
+
+  getPurchasedTourDetails(id:number):Observable<Tour> {
+    return this.http.get<Tour>(environment.apiHost + 'customer/customersPurchasedTourDetails/'+ id)
+  }
+
+  //
+  private cartItemCountSubject = new BehaviorSubject<number>(0);
+  cartItemCount$ = this.cartItemCountSubject.asObservable();
+
+  updateCartItemCount(count: number): void {
+    this.cartItemCountSubject.next(count);
+  }
+
+  getPublicTours():Observable<PublicTour[]>{
+    return this.http.get<PublicTour[]>(environment.apiHost + 'tourist/publicTours/getAll') 
+  }
+  startExecution(tourId: number, touristId: number): Observable<TourExecution>{
+    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId, tourId);
+  }
+
+  getAverageRating(id:number): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'tourist/shopping/averageRating/' + id)
+  }
+
+  getRating(id:number): Observable<TourRating> {
+    return this.http.get<TourRating>(environment.apiHost + 'tourist/tour-rating/getTourRating/' + id)
+  }
+
+  getMapObjects(): Observable<PagedResults<MapObject>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<MapObject>>(environment.apiHost + 'map-object', {params: queryParams});
+  }
+
+  getPublicCheckpoints(): Observable<PagedResults<PublicCheckpoint>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
 }

@@ -1,0 +1,16 @@
+<div id="tour-rating-form">
+    <form [formGroup]="tourRatingForm">
+      <div>
+        <mat-form-field>
+          <mat-label>Rating</mat-label>
+          <input matInput formControlName="rating" type="number" min="1" max="5" placeholder="1" [(ngModel)]="rating.rating" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Comment</mat-label>
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="comment" cdkAutosizeMaxRows="5" [(ngModel)]="rating.comment"></textarea>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" (click)="editTourRating()">Edit</button>
+    </form>
+  </div>
+  

@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { BlogPostTableComponent } from './blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
-
+import { FormsModule } from '@angular/forms';
     
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
     MaterialModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule
   ],
   exports: [
     BlogPostManagementComponent,

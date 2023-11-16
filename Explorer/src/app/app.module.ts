@@ -16,6 +16,7 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UserSocialProfileModule } from './feature-modules/user-social-profile/user-social-profile.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { UserSocialProfileModule } from './feature-modules/user-social-profile/u
     MarketplaceModule,
     TourAuthoringModule,
     TourExecutionModule,
+    SharedModule,
     AuthModule,
     FormsModule,
     HttpClientModule,

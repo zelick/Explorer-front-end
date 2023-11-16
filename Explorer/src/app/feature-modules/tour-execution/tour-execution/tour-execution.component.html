@@ -1,0 +1,119 @@
+<div id="tour-execution">
+    <div id="top-div">
+        <div class="tour-info">
+            <p class="subtitle">Tour: {{tour.name}}</p>
+            <table class="tour-info-table">
+                <tr>
+                    <td>Description: </td>
+                    <td>{{tour.description}}</td>
+                </tr>
+                <tr>
+                    <td>Demandigness Level: </td>
+                    <td>{{tour.demandignessLevel}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <button (click)="abandon()" class="buttonAbandon">
+            Abandon ❌
+        </button>
+
+        <div class="notification-div">
+            <table border="1">
+                <tr *ngFor="let n of notifications">
+                    <td>Save your new position!  ⚠️</td>
+                    <td>
+                    ({{n}})
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="simulator-div">
+        <xp-simulator (positionUpdated)="checkPosition()"></xp-simulator>
+        <br>
+        <p>Completed checkpoints:</p>
+        <div>
+            <div class="checkpoints-div">
+                <table>
+                    <tbody>
+                        <tr *ngFor="let e of completedCheckpoint">
+                            <td class="cpp">
+                                <div class="cardcp">
+                                    <span class="cps1">
+                                        <br>
+                                        <div><span><span class="cps2">Name: </span>{{e.name}}</span></div>
+                                        <br>
+                                        <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
+                                        <br>
+                                        <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} m </span></div>
+                                        <br>
+                                        <hr>
+                                    </span>
+                                    <span class="cps1">
+                                        <br>
+                                        <div><span><span class="cps2">Longitude: </span>{{(e.longitude).toFixed(3)}}</span></div>
+        
+                                        <br>
+                                        <div><span><span class="cps2">Latitude: </span>{{(e.latitude).toFixed(3)}}</span></div>
+                                        <br>
+                                    </span>
+                                    <span class="cps1">
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                       <button class="nextbtn" (click)="OnPictureBack(e)">
+                                                        <
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <img [src]=e.showedPointPicture width="200px" height="185px" cover="fill">
+                                                    </td>
+                                                    <td>
+                                                        <button class="nextbtn" (click)="OnPictureBack(e)">
+                                                            >
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </span>
+                                </div>  
+                                <div *ngIf="e.checkpointSecret!=null" class="cardcp">
+                                    <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
+                                </div>
+                                <div *ngIf="e.visibleSecret" class="secretdiv">
+                                    <p class="secretp">Secret of this place:</p>
+                                    <div class="secret-span">
+                                       
+                                        <div>
+                                            <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                    <img [src]=e.showedPicture width="100" height="100">
+                                                    </td>
+                                                    <td>
+                                                    <button (click)="OnNext(e)"   class="nextbtn">></button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <p class="cpmp">🧭</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                           
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+</div>

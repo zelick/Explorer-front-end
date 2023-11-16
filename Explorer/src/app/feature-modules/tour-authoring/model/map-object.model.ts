@@ -5,5 +5,6 @@ export interface MapObject{
     name: string,
     category: string,
     description: string,
+    picture: File | null,
     pictureURL: string
 }

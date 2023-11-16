@@ -12,6 +12,13 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
 import { SimulatorComponent } from './simulator/simulator.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
+import { AllToursComponent } from './all-tours/all-tours.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
+import { TourOverviewComponent } from './tour-overview/tour-overview.component';
+import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
+import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
+import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 
 
 @NgModule({
@@ -21,12 +28,23 @@ import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
         PreferenceFormComponent,
         TourRatingComponent,
         TourRatingFormComponent,
-        SimulatorComponent
+        SimulatorComponent,
+        ReportingIssueComponent,
+        AllToursComponent,
+        ShoppingCartComponent,
+        PurchasedToursComponent,
+        TourOverviewComponent,
+        TourOverviewDetailsComponent,
+        PurchasedToursDetailsComponent,
+        TourRatingEditFormComponent
     ],
     exports: [
         PreferenceFormComponent,
         TourRatingFormComponent,
-        SimulatorComponent
+        SimulatorComponent,
+        PurchasedToursComponent,
+        PreferenceFormComponent, 
+        PurchasedToursDetailsComponent
     ],
     imports: [
         CommonModule,
@@ -38,5 +56,6 @@ import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
         SharedModule,
         TourAuthoringModule
     ]
-})
+  })
+
 export class MarketplaceModule { }
