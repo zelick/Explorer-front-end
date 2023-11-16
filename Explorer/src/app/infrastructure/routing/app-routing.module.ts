@@ -84,7 +84,7 @@ const routes: Routes = [
   {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
-  {path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]}
+  {path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
   {path: 'all-tours', component: AllToursComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},

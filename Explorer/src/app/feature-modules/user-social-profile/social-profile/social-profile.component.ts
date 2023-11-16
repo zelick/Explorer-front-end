@@ -114,7 +114,6 @@ export class SocialProfileComponent implements OnInit{
   sendMessage(): void {
     if(this.user) {
       const message: Message = {
-        id: 0,
         senderId: this.user.id,
         recipientId: this.selectedRecipientId,
         senderUsername: this.user.username,
