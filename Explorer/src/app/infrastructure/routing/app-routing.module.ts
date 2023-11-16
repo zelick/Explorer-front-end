@@ -30,6 +30,7 @@ import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-t
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
 import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
+import { SocialProfileComponent } from 'src/app/feature-modules/user-social-profile/social-profile/social-profile.component';
 import { ObjectRequestReviewComponent } from 'src/app/feature-modules/administration/object-request-review/object-request-review/object-request-review.component';
 import { RequestNotificationReviewComponent } from 'src/app/feature-modules/administration/request-notification-review/request-notification-review/request-notification-review.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
@@ -40,9 +41,7 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { PurchasedToursComponent } from 'src/app/feature-modules/marketplace/purchased-tours/purchased-tours.component';
 import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketplace/purchased-tours-details/purchased-tours-details.component';
 import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-edit-form/tour-rating-edit-form.component';
-
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
-
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 
 const routes: Routes = [
@@ -84,12 +83,15 @@ const routes: Routes = [
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
+  {path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
   {path: 'all-tours', component: AllToursComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]}
+
 ];
 
 @NgModule({
