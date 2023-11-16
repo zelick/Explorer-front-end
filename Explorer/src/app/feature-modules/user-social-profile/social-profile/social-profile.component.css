@@ -1,6 +1,7 @@
 #topnav {
     background-color: #333;
     overflow: hidden;
+    padding-top: 100px;
   }
 
 .topnav-button {
