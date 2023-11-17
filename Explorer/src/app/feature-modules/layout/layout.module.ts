@@ -9,12 +9,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent,
+    ProfileAdministrationComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   exports: [
     NavbarComponent,

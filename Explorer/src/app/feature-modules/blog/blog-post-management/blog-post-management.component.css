@@ -1,0 +1,83 @@
+#blog-post {
+    margin-left: 2rem;
+}
+
+#blog-post-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    width: 90%;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.table-container {
+    width: 50%;
+}
+
+.form-container {
+    width: 40%;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    align-self: flex-start;
+    width: 70%;
+}
+
+thead tr {
+    background-color: #3B846B;
+    color: #ffffff;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3B846B;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3B846B;
+}
+
+button {
+    background-color: #3B846B;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    margin: 4px;
+}
+
+button mat-icon {
+    color: #ffffff;
+}
+
+button[color="primary"] {
+    background-color: #3B846B;
+}
+
+button[color="accent"] {
+    background-color: #E67840;
+}
+
+.row-hover:hover {
+    background-color: #3b846b6e;
+    cursor: pointer;
+}

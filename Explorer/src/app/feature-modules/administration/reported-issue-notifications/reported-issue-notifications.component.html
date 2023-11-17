@@ -1,0 +1,56 @@
+<div id="reported-issue-notification" >
+    <hr>
+    <div>
+      <div id="content">
+        <div id="notifications-table">
+          <p class="new-notif-number" *ngIf="hasNew">You have {{numberNew}} new notifications, {{numberAll}} notifications overall </p>
+          <p class="new-notif-number" *ngIf="!hasNew">You have {{numberAll}} notifications </p>
+          <div style="overflow-x: hidden;">
+            <div style="border: 2px solid #3B846B;">
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th> Notifications </th>
+                      <th>
+                        <button class="dismiss-all-button" *ngIf="hasNew" (click)="dismissAll()">
+                          Dismiss all
+                        </button>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let n of notifications" color="primary" (click)="selectNotification(n)">
+                      <td>
+                        <div class="details">
+                          <p class="post-content" style="width: 55%;">{{n.description}}</p>
+                          <p class="new" *ngIf="!n.isRead">New</p>
+                        </div>
+                        <div class="date-and-dissmiss-div">
+                          <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
+                          <a class="see-details" href="/reported-issues/{{n.reportedIssueId}}" (click)="dismissOne(n)">
+                            see details
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="buttons-div">
+                          <button color="accent" (click)="deleteNotification(n.id || 0)" mat-icon-button>
+                              <mat-icon>delete</mat-icon>
+                          </button>
+                          <a class="dismiss" *ngIf="!n.isRead" href="/reported-issue-notifications"  (click)="dismissOne(n)">
+                            dismiss
+                          </a>
+                        </div>
+                      </td>  
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

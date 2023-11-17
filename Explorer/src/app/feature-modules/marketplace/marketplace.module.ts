@@ -9,28 +9,53 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
+import { SimulatorComponent } from './simulator/simulator.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
+import { AllToursComponent } from './all-tours/all-tours.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
+import { TourOverviewComponent } from './tour-overview/tour-overview.component';
+import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
+import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
+import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 
 
 @NgModule({
-  declarations: [
-    ReportingIssueComponent,
-    PreferenceComponent,
-    PreferenceFormComponent,
-    TourRatingComponent,
-    TourRatingFormComponent
-  ],
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule
-  ],
-  exports:[
-    PreferenceFormComponent, 
-    TourRatingFormComponent
-  ]
+    declarations: [
+        ReportingIssueComponent,
+        PreferenceComponent,
+        PreferenceFormComponent,
+        TourRatingComponent,
+        TourRatingFormComponent,
+        SimulatorComponent,
+        ReportingIssueComponent,
+        AllToursComponent,
+        ShoppingCartComponent,
+        PurchasedToursComponent,
+        TourOverviewComponent,
+        TourOverviewDetailsComponent,
+        PurchasedToursDetailsComponent,
+        TourRatingEditFormComponent
+    ],
+    exports: [
+        PreferenceFormComponent,
+        TourRatingFormComponent,
+        SimulatorComponent,
+        PurchasedToursComponent,
+        PreferenceFormComponent, 
+        PurchasedToursDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        SharedModule,
+        TourAuthoringModule
+    ]
+  })
 
-})
 export class MarketplaceModule { }

@@ -3,6 +3,7 @@ import { MapObject } from '../model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { NgModel, NgForm } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-map-object',
@@ -15,17 +16,25 @@ export class MapObjectComponent {
   selectedMapObject: MapObject;
   shouldEdit: boolean = false;
 
-  constructor(private service: TourAuthoringService) { }
+  constructor(private service: TourAuthoringService, private imageService: ImageService,) { }
 
   ngOnInit(): void {
-
     this.service.getMapObjects().subscribe({
-      next: (result: PagedResults<MapObject>) => {
+      next: async (result: PagedResults<MapObject>) => {
         console.log(result);
-        this.mapObjects = result.results;
+  
+        const pictureUrlPromises = result.results.map(async (obj) => {
+          return await this.imageService.getImageUrl(obj.pictureURL);
+        });
+
+        const pictureUrls = await Promise.all(pictureUrlPromises);
+        
+        this.mapObjects = result.results.map((obj, index) => {
+          return { ...obj, pictureURL: pictureUrls[index] };
+        });
       },
-      error: () => {
-        // Handle error if needed
+      error: (error) => {
+        console.error('Error during ngOnInit:', error);
       }
     });
   }
@@ -62,6 +71,8 @@ export class MapObjectComponent {
       },
     });
   }
+
+ 
 
    
 }

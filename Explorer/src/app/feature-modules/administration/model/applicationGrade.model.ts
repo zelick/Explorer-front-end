@@ -3,5 +3,5 @@ export interface ApplicationGrade {
     rating: number,
     comment: string,
     created: Date,
-    userId: string
+    userId: number
 }

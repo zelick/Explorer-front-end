@@ -1,0 +1,27 @@
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div class="tours-heading">My shopping cart</div>
+    <div id="tour-details">
+    <div>
+        <div class="tour-card" *ngFor="let i of orderItems">
+            <div class="tour-info">
+                <p> IME TURE, {{i.price}} eur</p>
+            </div>
+            <div class="tour-actions">
+                <button color="accent" (click)="removeShopppingCartItem(i.tourId || 0)" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="tours-heading">
+            Total price: {{cart.price}}  
+            <button color="primary" (click)="checkout()" mat-raised-button>Checkout</button>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { BlogComment } from '../model/blogComment.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-blog-comment',
@@ -11,52 +11,58 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 export class BlogCommentComponent implements OnInit {
 
-  blogComments: BlogComment[] = [];
-  selectedBlogComment: BlogComment;
-  shouldRenderBlogCommentForm: boolean = false;
-  shouldEdit: boolean = false;
-  showOptions: number | null = null;
+  @Input() blogPostId: number | undefined;
+  @Input() comment: BlogComment;
+  @Output() commentUpdated: EventEmitter<void> = new EventEmitter<void>();
+  showOptions: boolean = false;
+  userId: number;
+  isEditing = false;
+  editedCommentText: string = '';
 
-  constructor(private service: BlogService) { }
+  constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getBlogComments();
+    this.userId = this.authService.user$.value.id;
   }
 
-  getBlogComments(): void {
-    this.service.getBlogComments().subscribe({
-      next: (result: PagedResults<BlogComment>) => {
-        this.blogComments = result.results;
-      },
-      error: () => {
-        // handle error
-      }
-    });
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
   }
 
-  toggleOptions(index: number) {
-    if (this.showOptions === index) {
-      this.showOptions = null;
-    } else {
-      this.showOptions = index;
+  isOptionsVisible(): boolean {
+    return this.showOptions;
+  }
+
+  deleteComment(): void {
+    const result = window.confirm('Are you sure you want to delete your comment?');
+    if(result) {
+      this.service.deleteBlogComment(this.blogPostId!, this.comment).subscribe({
+        next: () => {
+          this.showOptions = false;
+          this.commentUpdated.emit();
+        },
+      })
     }
   }
 
-  isOptionsVisible(index: number): boolean {
-    return this.showOptions === index;
+  onEditClicked() {
+    this.isEditing = true;
+    this.editedCommentText = this.comment.text;
+    this.showOptions = false;
   }
 
-  editComment(blogComment: BlogComment): void {
-    this.selectedBlogComment = blogComment;
-    this.shouldRenderBlogCommentForm = true;
-    this.shouldEdit = true;
+  cancelEdit() {
+    this.isEditing = false;
+    this.editedCommentText = this.comment.text;
   }
 
-  deleteComment(id: number): void {
-    this.service.deleteBlogComment(id).subscribe({
+  editCommment() {
+    this.comment.text = this.editedCommentText;
+    this.isEditing = false;
+    this.service.addBlogComment(this.blogPostId!, this.comment).subscribe({
       next: () => {
-        this.getBlogComments();
-      },
+        this.commentUpdated.emit();
+      }
     })
   }
 }
