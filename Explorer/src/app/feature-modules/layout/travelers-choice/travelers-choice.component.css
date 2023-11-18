@@ -1,0 +1,113 @@
+  .tour-cards-container {
+    display: flex;
+    overflow-x: hidden; /* Hide the horizontal scrollbar */
+    transition: margin-left 0.5s ease-in-out; 
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+  .tour-cards-container.slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  .navigation-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust the margin as needed */
+  }
+  .navigation-button {
+    margin: 0 5px; /* Adjust the margin as needed */
+  }
+  .slide-right {
+    margin-left: -100%; 
+  }
+  
+  .slide-left {
+    margin-left: 0;
+  }
+  
+  
+  .tour-card {
+    flex: 0 0 31.00%;
+    background-color: #3B846B; 
+    scroll-snap-align: start;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px #3b846b15;
+    color: #000;
+    text-align: left;
+    margin: 1.5%; 
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 5px;
+    width: 31%;
+    cursor: pointer;
+    height: 66vh;
+  }
+  .tour-card:hover {
+    /*background-color: #26594B; /* Change to the desired hover background color */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add a box shadow on hover */
+    transform: scale(1.01); /* Scale the card by 1.01 on hover */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .star {
+    font-size:x-large;
+    color: #B6D4AF; /* Make the text inside transparent */
+    position: relative;
+    display: inline-block;
+  }
+  .card-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .tour-card img { 
+    width: 100%;
+    height: 52%;
+    border-radius: 5px;
+    object-fit: cover; 
+  }
+  
+  .navigation-button {
+    width: 9vh;
+    height: 9vh;
+    font-size: 4vh;
+    margin: 0 10px;
+    margin-top: 9px;
+    background-color: rgb(0,0,0,0);
+    color: #E67840;
+    border: 1px solid #E67840;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navigation-button:hover {
+    background-color: #E67840;
+    color: white;
+  }
+  
+  .card-location-header{
+    font-size: small;
+    color: white;
+    padding: 1% 2.5%; 
+    background-color: #1b332b8e;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  .card-header{
+    margin-top: 10px;
+    margin-left: 11px;
+    color: white;
+  }
+  
+  .travelers-div {
+    background-color:  rgb(0,0,0,0);
+    height: auto; 
+    width: 100%;
+  }

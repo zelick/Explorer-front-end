@@ -108,7 +108,7 @@ video {
   text-align: left;
   padding: 20px;
   margin-bottom: 16vh;
-  background-color: #F7F6DC;
+  background-color: #253B34;
 }
 
 .subtitle{
@@ -119,55 +119,6 @@ video {
   margin-top: 6vh;
   margin-left: 2vh;
   margin-bottom: 1vh;
-}
-
-.tour-cards-container {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between;
-  margin-bottom: 5vh;
-}
-
-.tour-card {
-  flex: 0 0 0 0 calc(33.33% - 20%); 
-  background-color: #3B846B; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border: 1px #3b846b15;
-  color: #000;
-  text-align: left;
-  margin: 10px; 
-  border-radius: 5px;
-  width: 20%;
-  height: 45vh;
-}
-
-.tour-card img {
-  width: 100%;
-  height: 62%;
-  border-radius: 5px;
-  object-fit: cover; 
-}
-
-.card-location-header{
-  font-size: small;
-  color: white;
-  padding: 1% 2.5%; 
-  background-color: #1b332b8e;
-  margin-left: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-
-.card-header{
-  margin-top: 10px;
-  margin-left: 11px;
-  color: white;
-}
-
-.travelers-div {
-  background-color:  #B6D4AF;
-  height: auto; 
-  width: 100%;
 }
 
 .container {

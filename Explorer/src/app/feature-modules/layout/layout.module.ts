@@ -10,12 +10,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { TravelersChoiceComponent } from './travelers-choice/travelers-choice.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent
+    ProfileAdministrationComponent,
+    TravelersChoiceComponent
   ],
   imports: [
     CommonModule,
