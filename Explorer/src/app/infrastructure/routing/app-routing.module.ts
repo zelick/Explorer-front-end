@@ -45,6 +45,7 @@ import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-auth
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 
 const routes: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},

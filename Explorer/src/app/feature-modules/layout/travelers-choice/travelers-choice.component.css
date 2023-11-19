@@ -1,6 +1,6 @@
   .tour-cards-container {
     display: flex;
-    overflow-x: hidden; /* Hide the horizontal scrollbar */
+    overflow-x: hidden;
     transition: margin-left 0.5s ease-in-out; 
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -15,10 +15,10 @@
   .navigation-buttons-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px; /* Adjust the margin as needed */
+    margin-top: 10px;
   }
   .navigation-button {
-    margin: 0 5px; /* Adjust the margin as needed */
+    margin: 0 5px;
   }
   .slide-right {
     margin-left: -100%; 
