@@ -29,10 +29,19 @@
                         <div class="date-and-dissmiss-div">
                           <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
                           
-                          <!-- TODO - see reported issue details -->
-                          <a class="see-details" href="/reported-issues/{{n.foreignId}}" (click)="dismissOne(n)">
+                          <!-- TODO - see request details -->
+                          <a class="see-details" *ngIf="requestNotificationType(n)" href="/notifications" (click)="dismissOne(n)">
                             see details
                           </a>
+
+                          <a class="see-details" *ngIf="reportedIssueNotificationType(n)" href="/reported-issues/{{n.foreignId}}" (click)="dismissOne(n)">
+                            see details
+                          </a>
+                          
+                          <a class="see-details" *ngIf="messageNotificationType(n)" href="/social-profile" (click)="dismissOne(n)">
+                            see details
+                          </a>
+
                         </div>
                       </td>
                       <td>
@@ -40,7 +49,7 @@
                           <button color="accent" (click)="deleteNotification(n.id || 0)" mat-icon-button>
                               <mat-icon>delete</mat-icon>
                           </button>
-                          <a class="dismiss" *ngIf="!n.isRead" href="/reported-issue-notifications"  (click)="dismissOne(n)">
+                          <a class="dismiss" *ngIf="!n.isRead" href="/notifications"  (click)="dismissOne(n)">
                             dismiss
                           </a>
                         </div>

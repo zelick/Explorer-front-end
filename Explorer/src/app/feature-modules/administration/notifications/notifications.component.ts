@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { DatePipe } from '@angular/common';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -101,5 +101,17 @@ export class NotificationsComponent implements OnInit {
 
   selectNotification(notif: Notification): void {
     this.selectedNotification = notif;
+  }
+
+  messageNotificationType(notif: Notification): boolean{
+    return notif.type.toString().includes('MESSAGE');
+  }
+  
+  reportedIssueNotificationType(notif: Notification): boolean{
+    return notif.type.toString().includes('REPORTED_ISSUE');
+  }
+
+  requestNotificationType(notif: Notification): boolean{
+    return notif.type.toString().includes('REQUEST');
   }
 }
