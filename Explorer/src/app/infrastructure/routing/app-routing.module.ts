@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/feature-modules/layout/home/home.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
+
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
@@ -49,6 +51,34 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  { path: 'my-profile', 
+    component: MyProfileComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'profile-info', pathMatch: 'full'}, 
+      // TODO -> administrator should open accounts first
+      //ADMIN
+      { path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
+      { path: 'grade-review', component: GradeReviewComponent, canActivate: [AuthGuard], },
+      { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+      { path: 'object-request-review', component: ObjectRequestReviewComponent, canActivate: [AuthGuard]},
+      { path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent, canActivate: [AuthGuard]},
+      { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
+      { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
+
+      //TOURIST and AUTHOR
+      { path: 'profile-info', component: ProfileAdministrationComponent, canActivate: [AuthGuard],},
+      { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
+      { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
+      //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
+      {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
+      //{path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
+      { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
+      
+      //ALL USERS
+      { path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},
+    ]
+  },
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'club', component: ClubComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},

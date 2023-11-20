@@ -12,6 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { TravelersChoiceComponent } from './travelers-choice/travelers-choice.component';
 import { FooterComponent } from './footer/footer.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     ProfileAdministrationComponent,
     TravelersChoiceComponent,
-    FooterComponent
+    FooterComponent,
+    MyProfileComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,9 @@ import { FooterComponent } from './footer/footer.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule, 
+    MatButtonModule,
+    MatSidenavModule
   ],
   exports: [
     NavbarComponent,

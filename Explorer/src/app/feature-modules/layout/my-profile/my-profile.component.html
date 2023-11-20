@@ -1,0 +1,97 @@
+<div id="my-profile">
+    <mat-drawer-container autosize>
+        <mat-drawer #drawer class="sidenav" mode="side">
+            <!-- ADMIN -->
+            <div *ngIf="user && user.role === 'administrator'">
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['accounts']">Accounts management</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['grade-review']">Grade review</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['equipment']">Manage equipment</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['object-request-review']">Object requests</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['social-profile']">Social profile</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['tour-rating']">Tour Ratings</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+            </div>
+            
+            <!-- TOURIST AND AUTHOR -->
+            <div class="sidenav-item"
+                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
+                <!-- Manage profile  -->
+                <button mat-menu-item [routerLink]="['profile-info']">Profile information</button>
+                <div class="horizontal-divider"></div>
+            </div>
+
+            <div class="sidenav-item"
+                *ngIf="user && user.role === 'tourist'">             
+                <button mat-menu-item [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
+                <div class="horizontal-divider"></div>
+            </div>
+
+            <div class="sidenav-item"
+                *ngIf="user && user.role === 'tourist'"> 
+                <!-- Trip history  -->
+                <button mat-menu-item [routerLink]="['purchased-tours']">Purchased Tours</button>
+                <div class="horizontal-divider"></div>
+            </div>
+            
+            <div class="sidenav-item"
+                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
+                <button mat-menu-item [routerLink]="['my-blogs']">Manage your blogs</button>
+                <div class="horizontal-divider"></div>
+            </div>
+
+            <div class="sidenav-item"
+                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
+                <button mat-menu-item [routerLink]="['reported-issues']">My Reported issues</button>
+                <div class="horizontal-divider"></div>
+            </div>
+
+
+            <!-- ALL USERS -->
+            <div class="sidenav-item"
+                *ngIf="user"> 
+                <button mat-menu-item [routerLink]="['reported-issue-notifications']">Notifications</button> 
+                <div class="horizontal-divider"></div>
+            </div>
+        </mat-drawer>
+      
+        <mat-drawer-content>
+            <div class="sidenav-content">
+                <div>
+                    <div class="toggle-button-position">
+                        <button class="toggle-button" (click)="drawer.toggle()" mat-icon-button>
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="header">
+                        <h1>Content header</h1>
+                    </div>
+                </div>
+                <div class="content">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

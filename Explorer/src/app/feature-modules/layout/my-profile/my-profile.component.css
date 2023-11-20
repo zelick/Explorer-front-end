@@ -1,0 +1,51 @@
+#my-profile {
+    height: 600px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sidenav {
+    padding: 20px;
+    width: 15%;
+    background-color: #B6D4AF;
+}
+
+.sidenav-item {
+    height: fit-content;
+    font-size: medium;
+}
+
+.horizontal-divider {
+    border-top: 1px solid #253B34; 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+
+.toggle-button-position {
+    margin-top: 10px; 
+    margin-left: 10px; 
+    float: left;
+}
+
+.toggle-button {
+    background-color: #E67840;
+    color: #ffffff; 
+}
+
+.header {
+    margin-top: 20px; 
+    margin-left: 1%; 
+    float: left;
+    font-size: large;
+}
+
+.sidenav-content {
+    display: flex;
+    background-color: #F7F6DC;
+    flex-direction: column;
+    height: 600px;
+}
+
+.content {
+    overflow-y: auto;
+}
