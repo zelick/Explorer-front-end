@@ -4,9 +4,8 @@
         <div id="buttons">
 
             <button class="button"  mat-raised-button [routerLink]="['home']">Home</button>
-            <button class="button" *ngIf="user" mat-raised-button [routerLink]="['my-profile']">My profile</button> 
-            <button class="button" *ngIf="user && user.username === ''"  mat-raised-button [routerLink]="['login']">Login</button>
-            <button class="button" *ngIf="user && user.username !== ''"  mat-raised-button (click)="onLogout()">Logout</button>
+            <button class="button" *ngIf="user && user.username !== ''" mat-raised-button [routerLink]="['my-profile']">My profile</button> 
+            
 
             <button class="button" *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
             <button class="button" *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['object-request-review']">Object requests</button>
@@ -39,6 +38,9 @@
             <button class="button" *ngIf="user && (user.role === 'author' || user.role === 'tourist' || user.role === 'administrator')"  mat-raised-button [routerLink]="['social-profile']">Social profile</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['purchased-tours']">Purchased Tours</button>
+
+            <button class="button" *ngIf="user && user.username === ''"  mat-raised-button [routerLink]="['login']">Login</button>
+            <button class="button" *ngIf="user && user.username !== ''"  mat-raised-button (click)="onLogout()">Logout</button>
         </div>
 
     </div>

@@ -18,7 +18,7 @@
                         <td>{{getRoleString(a.role)}}</td>
                         <td>{{a.email}}</td>
                         <td>{{a.isActive}}</td>
-                        <td><input type="button" *ngIf="a.isActive" (click)="blockAccount(a.id)" value="Block"/></td>
+                        <td><input type="button" *ngIf="a.isActive" (click)="blockAccount(a.id)" value="Block" style="border-radius: 12px;"/></td>
                     </tr>
                 </tbody>
             </table>
