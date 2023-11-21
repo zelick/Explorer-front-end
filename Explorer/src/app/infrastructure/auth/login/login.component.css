@@ -10,7 +10,7 @@ body {
     height: 100%;
 }
 
-.submit-button{
+.submit-button {
     background-color: #E67840 !important;
     color: white;
     width: 50%;
@@ -35,7 +35,7 @@ form {
     height: 55%;
 }
 
-.form-header{
+.form-header {
     font-size: 52px;
     padding: 10%;
     margin-left: 21%;
@@ -46,6 +46,16 @@ p {
     margin-left: 16%;
 }
 
-p a{
-   margin-left: 5px;
+p a {
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    form {
+        height: auto;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
 }
