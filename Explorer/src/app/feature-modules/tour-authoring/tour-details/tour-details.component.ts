@@ -150,7 +150,7 @@ export class TourDetailsComponent implements OnInit{
 
   OnViewSecret(c:Checkpoint):void{
     c.visibleSecret=!c.visibleSecret;
-    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture || 0]||"";
     if(c.viewSecretMessage=="Show secret")
       c.viewSecretMessage="Hide secret";
     else
@@ -162,7 +162,7 @@ export class TourDetailsComponent implements OnInit{
    if(c.currentPicture==(secretPicturesLength-1))
       c.currentPicture=0;
     else
-      c.currentPicture=c.currentPicture+1;
+      c.currentPicture=c.currentPicture || 0+1;
       c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
 
   }
@@ -172,7 +172,7 @@ export class TourDetailsComponent implements OnInit{
    if(c.currentPointPicture==(picturesLength-1))
       c.currentPointPicture=0;
     else
-      c.currentPointPicture=c.currentPointPicture+1;
+      c.currentPointPicture=c.currentPointPicture || 0 +1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 
@@ -181,7 +181,7 @@ export class TourDetailsComponent implements OnInit{
    if(c.currentPointPicture==0)
       c.currentPointPicture=(picturesLength-1);
     else
-      c.currentPointPicture=c.currentPointPicture-1;
+      c.currentPointPicture=c.currentPointPicture || 0-1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 }

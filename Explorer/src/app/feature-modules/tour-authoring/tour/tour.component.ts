@@ -39,7 +39,7 @@ export class TourComponent implements OnInit{
   }
 
   getTour(): void {
-    this.service.getTour(this.user.id).subscribe({
+    this.service.getTour().subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
         this.tours.forEach(element => {

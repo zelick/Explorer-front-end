@@ -17,15 +17,14 @@ import { PublicCheckpoint } from './model/public_checkpoint.model';
 export class TourExecutionService {
 
   constructor(private http: HttpClient) { }
-  getTourExecution(touristId: number, tourId: number): Observable<TourExecution> {
+  getTourExecution(tourId: number): Observable<TourExecution> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("tourId",tourId);
-    queryParams = queryParams.append("touristId",touristId);
     return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
   }
 
-  startExecution(tourId: number, touristId: number): Observable<TourExecution>{
-    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution/' + touristId + "/" + tourId, null);
+  startExecution(tourId: number): Observable<TourExecution>{
+    return this.http.post<TourExecution>(environment.apiHost + 'tour-execution' + "/" + tourId, null);
   }
 
   abandon(id: number): Observable<TourExecution>{

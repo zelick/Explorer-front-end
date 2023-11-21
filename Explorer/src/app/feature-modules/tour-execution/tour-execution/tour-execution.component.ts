@@ -61,14 +61,14 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.authService.user$.subscribe(user => {
       this.tourist = user;
 
-      this.service.getTourExecution(this.tourist.id, this.tourId || 0).subscribe(result => {
+      this.service.getTourExecution(this.tourist.id).subscribe(result => {
         if(result != null)
         {
           this.tourExecution = result;  
           this.tour = result.tour;    
           this.findCheckpoints();
         }else{
-          this.service.startExecution(this.tourId, this.tourist.id).subscribe( result =>{
+          this.service.startExecution(this.tourId).subscribe( result =>{
             this.tourExecution = result;  
             this.tour = result.tour; 
             this.findCheckpoints();
