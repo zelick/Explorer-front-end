@@ -3,7 +3,13 @@ body {
   padding: 0;
   background-color: #253B34;
 }
-
+.popular-blogs{
+  width: 100%;
+  margin-top: 30px;
+  height: auto;
+  max-width: 1450px;
+  background-color: #F7F6DC;
+}
 .video-container {
   position: absolute;
   top: 0;
@@ -107,7 +113,6 @@ video {
   margin-bottom: 0;
   position: relative;
   text-align: left; 
-  padding: 20px 20px ;
   background-color: #253B34;
 }
 

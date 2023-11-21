@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PopularBlogsComponent } from './popular-blogs/popular-blogs.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     ProfileAdministrationComponent,
     TravelersChoiceComponent,
     FooterComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    PopularBlogsComponent
   ],
   imports: [
     CommonModule,
