@@ -10,6 +10,15 @@ body {
     height: 100%;
 }
 
+.submit-button{
+    background-color: #E67840 !important;
+    color: white;
+    width: 50%;
+    align-self: center;
+    border-radius: 15px;
+    margin-top: 10%;
+}
+
 div {
     width: 400px;
     display: flex;
@@ -21,16 +30,22 @@ div {
 form {
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: rgb(38, 61, 54, 0.65);
     border-radius: 15px;
-    height: 60%;
+    height: 55%;
 }
 
 .form-header{
-    font-size: 40px;
-    margin-left: 35%;
+    font-size: 52px;
+    padding: 10%;
+    margin-left: 21%;
 }
 
 p {
     margin-top: 10px;
+    margin-left: 16%;
+}
+
+p a{
+   margin-left: 5px;
 }

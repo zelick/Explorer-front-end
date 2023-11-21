@@ -1,13 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #253B34;
+  background-color: rgb(38, 61, 54);
 }
 .popular-blogs{
   width: 100%;
   margin-top: 30px;
   height: auto;
-  max-width: 1450px;
   background-color: #F7F6DC;
 }
 .video-container {
