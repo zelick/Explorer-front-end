@@ -44,6 +44,7 @@
     width: 31%;
     cursor: pointer;
     height: 66vh;
+    max-height: 500px;
   }
   .tour-card:hover {
     /*background-color: #26594B; /* Change to the desired hover background color */
