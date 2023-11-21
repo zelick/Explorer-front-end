@@ -66,6 +66,7 @@ const routes: Routes = [
       { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
       { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
 
+
       //TOURIST and AUTHOR
       { path: 'profile-info', component: ProfileAdministrationComponent, canActivate: [AuthGuard],},
       { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
@@ -74,6 +75,7 @@ const routes: Routes = [
       {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
       //{path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
+      { path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
       
       //ALL USERS
       { path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},

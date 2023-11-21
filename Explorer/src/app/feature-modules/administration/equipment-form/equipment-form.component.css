@@ -1,3 +1,9 @@
+#equipmentForm {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
 div {
     width: 400px;
     display:flex;
@@ -7,4 +13,17 @@ div {
 
 .mat-icon {
     vertical-align: middle;
+}
+
+/* TODO - fix this buttons */
+mat-raised-button {
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
 }
