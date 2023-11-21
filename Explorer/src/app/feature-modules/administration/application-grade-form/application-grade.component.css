@@ -1,3 +1,56 @@
+#application-grade-form {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#application-grade-form-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+    width: 80%;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: 'Poppins', sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border: 1px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+thead tr {
+    background-color: #3B846B;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #3B846B;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3B846B;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3B846B;
+}
+
 div {
     width: 400px;
     display:flex;
@@ -7,4 +60,25 @@ div {
 
 .mat-icon {
     vertical-align: middle;
+}
+
+label {
+    margin-right: 15px;
+}
+
+.comment-text {
+    height: 120px;
+    width: 250px;
+}
+
+button {
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
 }
