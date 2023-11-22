@@ -29,11 +29,6 @@
                         <div class="date-and-dissmiss-div">
                           <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
                           
-                          <!-- TODO - see request details -->
-                          <a class="see-details" *ngIf="requestNotificationType(n)" href="/notifications" (click)="dismissOne(n)">
-                            see details
-                          </a>
-
                           <a class="see-details" *ngIf="reportedIssueNotificationType(n)" href="/reported-issues/{{n.foreignId}}" (click)="dismissOne(n)">
                             see details
                           </a>

@@ -110,8 +110,4 @@ export class NotificationsComponent implements OnInit {
   reportedIssueNotificationType(notif: Notification): boolean{
     return notif.type.toString().includes('REPORTED_ISSUE');
   }
-
-  requestNotificationType(notif: Notification): boolean{
-    return notif.type.toString().includes('REQUEST');
-  }
 }

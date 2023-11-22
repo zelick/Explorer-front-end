@@ -41,9 +41,7 @@ import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketpl
 import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-edit-form/tour-rating-edit-form.component';
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
-//TODO -> change
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
-import { RequestNotificationReviewComponent } from 'src/app/feature-modules/administration/request-notification-review/request-notification-review/request-notification-review.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -90,10 +88,7 @@ const routes: Routes = [
   {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
-  
-  // TODO
-  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
-  {path: 'request-notification-review', component: RequestNotificationReviewComponent} 
+  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],}
 
 ];
 

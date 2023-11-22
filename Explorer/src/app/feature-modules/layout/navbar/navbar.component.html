@@ -35,10 +35,7 @@
             <button class="button" *ngIf="user && (user.role === 'author' || user.role === 'tourist')"  mat-raised-button [routerLink]="['social-profile']">Social profile</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['purchased-tours']">Purchased Tours</button>
-
-            <!-- TODO -->
             <button class="button" *ngIf="user && (user.role === 'author' || user.role === 'tourist' || user.role === 'administrator')" mat-raised-button [routerLink]="['notifications']">Notifications</button>
-            <!-- <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['request-notification-review']">Request notifications</button> -->
         </div>
     </div>
 </div>
