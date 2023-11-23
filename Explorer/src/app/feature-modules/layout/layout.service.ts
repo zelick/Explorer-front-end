@@ -10,11 +10,14 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from '../marketplace/model/tour-preview';
 import { BlogPost } from '../blog/model/blog-post.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService {
+  private apiUrl2 = 'https://nominatim.openstreetmap.org/reverse?format=json';
 
   constructor(private http: HttpClient, private authService: AuthService, private tokenStorage: TokenStorage) { }
 
@@ -48,7 +51,18 @@ export class LayoutService {
   formData.append('profilePictureUrl', profileInfo.profilePictureUrl);
 
   return this.http.put(environment.apiHost + 'profile-administration/edit', formData, options);
+  
 }
+
+  getPlaceInfo(latitude: number, longitude: number): Observable<any> {
+    const url = `${this.apiUrl2}&lat=${latitude}&lon=${longitude}`;
+
+    return this.http.get(url);
+  }
+
+  getAllTours():  Observable<PagedResults<TourPreview>>{
+    return this.http.get<PagedResults<TourPreview>>('https://localhost:44333/api/langing-page/get-all-tours-preview');
+  }
   
 
 getTopRatedTours(count:number): Observable<TourPreview[]> {
