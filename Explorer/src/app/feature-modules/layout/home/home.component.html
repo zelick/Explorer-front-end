@@ -23,19 +23,33 @@
         </button>
       </div>
     </form>
-    
+
     
   </div>
   
   <div class="content" >
     <div *ngIf="searchButtonClicked">
       <br><p class="subtitle">Found tours</p><br>
+      <button mat-raised-button class="button" (click)="cancelSearch()">
+        <div class="search-button">
+          <mat-icon>cancel</mat-icon>
+          <p>Cancel</p>
+        </div>
+      </button>
       <div class="travelers-div">
         <div class="tour-cards-container" [@slide]="i">
           <div class="tour-card" *ngFor="let tour of foundTours">
             <label class="card-location-header">Location</label> <!--kad se merg sa kristinom dodam ovo-->
             <img src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="img">
-            <!-- kad se merg sa kristinom vidi kako zvezdice-->
+            <div *ngIf="tour.tourRating.length>0" style="height: 6vh; width: 22vh; display: flex; justify-content: center; margin-right: 5px;">
+              <label style="color: white; font-size: large; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
+              <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+            </div>
             <div class="card-top">          
             </div>
             <h2 class="card-header">{{tour.name}}</h2>
