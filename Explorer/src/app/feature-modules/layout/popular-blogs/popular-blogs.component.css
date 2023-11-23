@@ -66,6 +66,7 @@
     cursor: pointer;
     height: 46vh;
     max-height: 390px;
+    border-bottom: 15px solid #E67840;
   }
   
   .blog-card:hover {
@@ -110,5 +111,18 @@
     margin-right: auto;
     max-width: 1450px;
     width: 100%;
+  }
+  .description{
+    color: white;
+    font-size: small;
+    text-wrap: wrap;
+  }
+  .description-container{
+    overflow: hidden;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px; 
+    margin-bottom: 15px;
+    height: auto;
   }
   
