@@ -356,5 +356,15 @@ export class MapComponent implements AfterViewInit {
         });
 
       };
+
+      /*getLocationDetails(lat: number, lon: number): Observable<LocationResponse> {
+        return this.mapService.reverseSearch(lat, lon).pipe(
+          map((result) => result),
+          catchError((error) => {
+            console.error('Error in reverse search:', error);
+            throw error;
+          })
+        );
+      }*/
   }
 

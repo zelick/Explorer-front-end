@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'; //dodala ViewChild
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { LayoutService } from '../layout.service';
+import { TourPreview } from '../../marketplace/model/tour-preview';
+import { MapComponent } from 'src/app/shared/map/map.component'; //dodala
+import { TourLocation } from '../../marketplace/model/tour-location.model';
+import { MapService } from 'src/app/shared/map/map.service';
 
 @Component({
   selector: 'xp-travelers-choice',
@@ -8,10 +13,54 @@ import { trigger, transition, style, animate } from '@angular/animations';
   styleUrls: ['./travelers-choice.component.css']
 })
 export class TravelersChoiceComponent implements OnInit{
+  
+  @ViewChild(MapComponent) mapComponent: MapComponent; //potrebna metoda iz mape
+  constructor(private service: LayoutService, private mapService: MapService) { 
+    
+  }
+
   ngOnInit(): void {
+    this.service.getTopRatedTours(3).subscribe({
+
+      next: (result: TourPreview[]) => {
+        this.tours = result;
+        console.log(this.tours);
+        this.findToursLocation();
+        console.log(this.toursLocation);
+      },
+      error: () => {
+          console.log('Nesupesno dobavljanje tura');
+      }
+    });
   }
   i:number=0;
-  tours: Tour[] = [
+  tours: TourPreview[] = [];
+  toursLocation: TourLocation[] = [];
+
+  findToursLocation(): void {
+    this.tours.forEach(tour => {
+      this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({
+        next: (location) => {
+          const tourLocation: TourLocation = {
+            tourid: tour.id || 0,
+            adress: location.address.city + ' , ' + location.address.country 
+          };
+          console.log(location);
+          this.toursLocation.push(tourLocation);
+        },
+        error: (error) => {
+          console.error('Error in finding location for lon and lat:', error);
+        }
+      });
+    });
+  }
+
+  getTourLocation(tourid: number): string{
+    const tourLocation = this.toursLocation.find(location => location.tourid === tourid);
+    return tourLocation?.adress || "";
+  }
+  
+ /* tours: Tour[] = [
     { 
       id: 1, 
       authorId: 2, 
@@ -91,11 +140,11 @@ export class TravelersChoiceComponent implements OnInit{
       equipment: [], 
       checkpoints: [{tourId:1, authorId:2, longitude:12.0, latitude:13.9, name:'cd', description: 'yy', pictures:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQoQuVACa7v79DCJeGHbGh5D_RfSxcJiXCtA&usqp=CAU'], requiredTimeInSeconds:1200, currentPicture:0, currentPointPicture: 0, viewSecretMessage:'mmm', visibleSecret:true, showedPicture:'', showedPointPicture:''}]
     }
-  ];
-  averageGrade(tour:Tour){
+  ];*/
+  averageGrade(tour: TourPreview){
     var sum = 0;
     var count = 0;
-    for(let g of tour.tourRatings){
+    for(let g of tour.tourRating){
       sum += g.rating;
       count ++;
     }
