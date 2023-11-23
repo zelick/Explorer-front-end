@@ -70,6 +70,16 @@
                 <div class="horizontal-divider"></div>
             </div>
 
+            
+            <!-- TOURIST only -->
+            <div class="sidenav-item"
+                *ngIf="user && user.role === 'tourist'"> 
+                <button mat-menu-item [routerLink]="['club']">Clubs</button>
+                <div class="horizontal-divider"></div>
+            </div>
+
+
+
             <!-- ALL USERS -->
             <div class="sidenav-item"
                 *ngIf="user"> 
