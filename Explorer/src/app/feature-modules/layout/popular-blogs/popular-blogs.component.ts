@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BlogPost, BlogPostStatus } from '../../blog/model/blog-post.model';
 import { Rating } from '../../blog/model/blog-rating.model';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'xp-popular-blogs',
@@ -8,18 +9,32 @@ import { Rating } from '../../blog/model/blog-rating.model';
   styleUrls: ['./popular-blogs.component.css']
 })
 export class PopularBlogsComponent implements OnInit, OnDestroy {
-  blogs: BlogPost[];
+  blogs: BlogPost[] = [];
   i: number = 0;
   imageIntervals: Map<number, any> = new Map();
   imageIndexes: Map<number, number> = new Map();
 
+  constructor(private service: LayoutService){
+
+  }
+
   ngOnInit(): void {
-    this.blogs = [
+    /*this.blogs = [
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Famous ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']},
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Active ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']},
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Famous ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']},
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Published ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']}
-    ]
+    ]*/
+    this.service.getTopRatedBlogs(1).subscribe({
+      next: (result: BlogPost[]) => {
+       this.blogs = result;
+       console.log(this.blogs);
+      },
+      error: () => {
+          console.log('Nesupesno dobavljanje blogova');
+      }
+    });
+
   }
   getUpvoteCount(blog: BlogPost): number {
       return blog.ratings ? blog.ratings.filter(rating => rating.rating === Rating.Upvote).length : 0;
