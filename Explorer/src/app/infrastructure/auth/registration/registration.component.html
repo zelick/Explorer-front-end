@@ -45,6 +45,11 @@
         </mat-select>
       </mat-form-field>      
       <button class="button" color="primary" type="submit" mat-raised-button>Register</button>
-    </div>
+      <div *ngIf="waitingForVerification" class="waiting-for-verification-message">
+        <p>
+          Thanks for registrating! Please check your email for verification, and when you verify refresh this page.
+        </p>
+      </div> 
+    </div>   
 </form>
   

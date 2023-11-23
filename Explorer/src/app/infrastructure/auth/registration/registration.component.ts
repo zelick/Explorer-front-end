@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Registration } from '../model/registration.model';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { interval } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'xp-registration',
@@ -13,9 +16,60 @@ export class RegistrationComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorage,
   ) {}
+
+  waitingForVerification: boolean = false;
+  isVerified: boolean = false;
+  private intervalSubscription: any;
+
+  ngOnInit(): void {
+    // Pokreni interval samo ako postoji JWT token
+    this.startVerificationIntervalIfTokenExists();
+  }
+
+  ngOnDestroy(): void {
+    // Otkazi interval prilikom uništavanja komponente
+    this.stopVerificationInterval();
+  }
+
+  private startVerificationIntervalIfTokenExists(): void {
+    const accessToken = this.tokenStorage.getAccessToken();
+
+    if (accessToken) {
+      console.log('JWT token found. Starting verification interval...');
+      this.startVerificationInterval();
+    }
+  }
+
+  private startVerificationInterval(): void {
+    this.intervalSubscription = interval(5000).subscribe(() => {
+      console.log('Checking verification status...');
+      this.checkVerificationStatus();
+    });
+  }
+
+  private stopVerificationInterval(): void {
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
   
+  private checkVerificationStatus(): void {
+    const jwtHelperService = new JwtHelperService();
+    const accessToken = this.tokenStorage.getAccessToken() || "";
+    this.authService
+      .isUserVerified(jwtHelperService.decodeToken(accessToken).id)
+      .subscribe((status: boolean) => {
+        this.isVerified = status;
+
+        if (this.isVerified) {
+          this.router.navigate(['home']);
+        }
+      });
+  }
+
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
@@ -26,7 +80,8 @@ export class RegistrationComponent {
     profilePicture: new FormControl(null, [Validators.required, this.fileValidator]),
     profilePictureUrl: new FormControl('', [Validators.required]),
     biography: new FormControl('', [Validators.required]),
-    motto: new FormControl('', [Validators.required])
+    motto: new FormControl('', [Validators.required]),
+    verificationToken: new FormControl('')
   });
 
   private fileValidator(control: FormControl): { [key: string]: any } | null {
@@ -60,6 +115,7 @@ export class RegistrationComponent {
         profilePictureUrl: this.registrationForm.value.profilePictureUrl || '',
         biography: this.registrationForm.value.biography || '',
         motto: this.registrationForm.value.motto || '',
+        verificationToken: this.registrationForm.value.verificationToken || 'sometoken'
       };
   
       const formData = new FormData();
@@ -78,7 +134,8 @@ export class RegistrationComponent {
       if (this.registrationForm.valid) {
         this.authService.register(formData).subscribe({
           next: () => {
-            this.router.navigate(['home']);
+            //this.router.navigate(['home']);
+            this.waitingForVerification = true;
           },
         });
       }
