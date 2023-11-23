@@ -7,6 +7,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Equipment } from '../model/equipment.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ForecastPopupComponent } from 'src/app/feature-modules/marketplace/forecast-popup/forecast-popup.component';
 
 @Component({
   selector: 'xp-tour-details',
@@ -23,7 +25,7 @@ export class TourDetailsComponent implements OnInit{
   secretVisible:Boolean=false;
 
 
-  constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
+  constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router,public dialog:MatDialog) { }
   tourID:number;
   ngOnInit(): void {
    this.activatedRoute.params.subscribe(params=>{
@@ -184,4 +186,22 @@ export class TourDetailsComponent implements OnInit{
       c.currentPointPicture=c.currentPointPicture-1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
+
+  ShowPopup():void{
+    if(this.checkpoints.length > 0 ){
+
+      const result={
+        lat: this.checkpoints[1].latitude,
+        lon: this.checkpoints[1].longitude,
+      }
+      this.dialog.open(ForecastPopupComponent, {
+        data: result,
+         width: '500px',
+         height:'520px',
+         panelClass: 'custom-dialog',
+       });
+       console.log(result);
+    }
+  }
+
 }

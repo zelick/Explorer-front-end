@@ -21,7 +21,6 @@ import { PurchasedToursDetailsComponent } from './purchased-tours-details/purcha
 import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
-import { ForecastTestComponent } from './forecast-test/forecast-test.component';
 
 
 @NgModule({
@@ -41,7 +40,6 @@ import { ForecastTestComponent } from './forecast-test/forecast-test.component';
         PurchasedToursDetailsComponent,
         TourRatingEditFormComponent,
         ForecastPopupComponent,
-        ForecastTestComponent
     ],
     exports: [
         PreferenceFormComponent,
