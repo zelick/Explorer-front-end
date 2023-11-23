@@ -43,10 +43,12 @@ import { PurchasedToursDetailsComponent } from 'src/app/feature-modules/marketpl
 import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace/tour-rating-edit-form/tour-rating-edit-form.component';
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
+import { ForecastTestComponent } from 'src/app/feature-modules/marketplace/forecast-test/forecast-test.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'forecast-test', component: ForecastTestComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'club', component: ClubComponent},
