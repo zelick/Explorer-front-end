@@ -25,7 +25,7 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Famous ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']},
       {userId: 3, username: 'username', id:1, comments:[{userId:2, username:'tupan', text:'Odlican blog', creationTime: new Date(), }], title: 'Neki blog', description: 'Ovaj blog kida', creationDate: new Date(), status:BlogPostStatus.Published ,ratings : [{userId:1, rating:Rating.Upvote},{userId:2, rating:Rating.Downvote}], imageNames:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR94u0EyhIYQ35WVzV0LSlxZ0Ozv9tMqfzewA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGG3PlQB2yqO1_AmQSR8bgcczzjpOLQ8cy2A&usqp=CAU']}
     ]*/
-    this.service.getTopRatedBlogs(1).subscribe({
+    this.service.getTopRatedBlogs(4).subscribe({
       next: (result: BlogPost[]) => {
        this.blogs = result;
        this.getImagePaths();
