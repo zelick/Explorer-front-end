@@ -3,6 +3,8 @@ import { BlogPost, BlogPostStatus } from '../model/blog-post.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
+import { ImageService } from 'src/app/shared/image/image.service';
+import { Rating } from '../model/blog-rating.model';
 
 @Component({
   selector: 'xp-blog-post-table',
@@ -17,7 +19,7 @@ export class BlogPostTableComponent implements OnInit {
   pageIndex = 1;
   totalBlogPosts = 0;
 
-  constructor(private service: BlogService, private router: Router) { }
+  constructor(private service: BlogService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.loadBlogPosts();
@@ -44,5 +46,22 @@ export class BlogPostTableComponent implements OnInit {
     this.pageSize = event.value;
     this.pageIndex = 1;
     this.loadBlogPosts();
+  }
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
+  getUpvoteCount(blog: BlogPost): number {
+    return blog.ratings ? blog.ratings.filter(rating => rating.rating === Rating.Upvote).length : 0;
+  }
+
+  getDownvoteCount(blog: BlogPost): number {
+      return blog.ratings ? blog.ratings.filter(rating => rating.rating === Rating.Downvote).length : 0;
+  }
+  get thumbsUpEmoji(): string {
+    return '\u{1F44D}';
+  }
+
+  get thumbsDownEmoji(): string {
+    return '\u{1F44E}';
   }
 }
