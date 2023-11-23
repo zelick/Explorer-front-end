@@ -12,17 +12,43 @@
     <div class="text-overlay">
       <p>Let's Make Memories</p>
     </div>
-    <div class="search-field-container">
-        <input class="search-field" type="text" placeholder="Where is your next stop?">
-        <button mat-raised-button class="button">
+
+    <form (ngSubmit)="search()">
+      <div class="search-field-container">
+        <input class="search-field" type="text" placeholder="Where is your next stop?" name="searchLocation" [(ngModel)]="searchLocation">
+        <button type="submit" mat-raised-button class="button">
           <div class="search-button">
             <mat-icon>search</mat-icon>
-            <p>Search</p>
           </div>
         </button>
-    </div>
+      </div>
+    </form>
+    
+    
   </div>
+  
   <div class="content" >
+    <div *ngIf="searchButtonClicked">
+      <br><p class="subtitle">Found tours</p><br>
+      <div class="travelers-div">
+        <div class="tour-cards-container" [@slide]="i">
+          <div class="tour-card" *ngFor="let tour of foundTours">
+            <label class="card-location-header">Location</label> <!--kad se merg sa kristinom dodam ovo-->
+            <img src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="img">
+            <!-- kad se merg sa kristinom vidi kako zvezdice-->
+            <div class="card-top">          
+            </div>
+            <h2 class="card-header">{{tour.name}}</h2>
+            <p style="color: white; margin-left: 10px;">{{tour.description}}</p>
+          </div>
+          
+        </div>
+        <div class="navigation-buttons-container">
+          <button class="navigation-button" (click)="swipeLeft()">&#9665;</button>
+          <button class="navigation-button" (click)="swipeRight()">&#9655;</button>
+        </div>
+      </div>
+    </div>
     <br><p class="subtitle">Travelers choice</p><br>
     <xp-travelers-choice></xp-travelers-choice>
     <div class="popular-blogs"><br>
