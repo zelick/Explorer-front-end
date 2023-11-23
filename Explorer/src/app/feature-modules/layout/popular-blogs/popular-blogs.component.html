@@ -2,7 +2,7 @@
     <div class="popular-blogs">
       <div class="blog-card" *ngFor="let blog of blogs; let cardId = index"
            (mouseenter)="startImageInterval(cardId, blog.imageNames || [])"
-           (mouseleave)="stopImageInterval(cardId)">
+           (mouseleave)="stopImageInterval(cardId)" (click)="routeToBlog(blog)">
         <div class="image-container">
           <img *ngIf="blog.imageNames && blog.imageNames.length > 0"
                [src]="blog.imageNames[imageIndexes.get(cardId) || 0].toString()" alt="Image1" class="img">

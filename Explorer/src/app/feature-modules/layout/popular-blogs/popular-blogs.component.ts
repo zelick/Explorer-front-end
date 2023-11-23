@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BlogPost, BlogPostStatus } from '../../blog/model/blog-post.model';
 import { Rating } from '../../blog/model/blog-rating.model';
 import { LayoutService } from '../layout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-popular-blogs',
@@ -14,7 +15,7 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
   imageIntervals: Map<number, any> = new Map();
   imageIndexes: Map<number, number> = new Map();
 
-  constructor(private service: LayoutService){
+  constructor(private service: LayoutService, private router: Router){
 
   }
 
@@ -46,6 +47,11 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
   }
   get thumbsUpEmoji(): string {
     return '\u{1F44D}';
+  }
+  routeToBlog(blog:BlogPost){
+    if(blog.id){
+      this.router.navigate(['/blogs', blog.id]);
+    }
   }
   getImagePaths() {
     const baseUrl: string = "https://localhost:44333//images/";
