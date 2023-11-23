@@ -16,7 +16,6 @@ import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 import { ObjectRequestReviewComponent } from './object-request-review/object-request-review/object-request-review.component';
-import { RequestNotificationReviewComponent } from './request-notification-review/request-notification-review/request-notification-review.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ClubInvitationsComponent,
     CheckpointRequestReviewComponent,
     ObjectRequestReviewComponent,
-    RequestNotificationReviewComponent,
     NotificationsComponent
   ],
   imports: [
@@ -50,7 +48,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ApplicationGradeComponent,
     CheckpointRequestReviewComponent,
     ObjectRequestReviewComponent,
-    RequestNotificationReviewComponent,
     GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,

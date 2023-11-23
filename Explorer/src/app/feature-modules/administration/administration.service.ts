@@ -17,9 +17,6 @@ import { CheckpointRequest } from './model/checkpoint-request.model';
 import { ObjectRequest } from './model/object-request.model';
 import { Notification } from './model/notification.model';
 
-//TODO
-import { RequestNotification } from './model/request-notification.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -226,14 +223,5 @@ export class AdministrationService {
   }
   getUnreadNotificationsByUser(userId: number, role: string): Observable<PagedResults<Notification>>{
     return this.http.get<PagedResults<Notification>>(environment.apiHost + role + `/notifications/get-unread/${userId}`);
-  }
-
-  //TODO
-  //request notifications
-  getAllUnreadRequestNotifications(userId: number): Observable<RequestNotification[]> {
-    return this.http.get<RequestNotification[]>(environment.apiHost + 'administration/notification/getAllUnread/' + userId);
-  }
-  markAsReadRequestNotification(notificationId: number): Observable<RequestNotification> {
-    return this.http.put<RequestNotification>(environment.apiHost + 'administration/notification/markAsRead/' + notificationId, null);
   }
 }
