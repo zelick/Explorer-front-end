@@ -28,6 +28,7 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
     this.service.getTopRatedBlogs(1).subscribe({
       next: (result: BlogPost[]) => {
        this.blogs = result;
+       this.getImagePaths();
        console.log(this.blogs);
       },
       error: () => {
@@ -46,7 +47,14 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
   get thumbsUpEmoji(): string {
     return '\u{1F44D}';
   }
-
+  getImagePaths() {
+    const baseUrl: string = "https://localhost:44333//images/";
+    this.blogs.forEach(blog => {
+      if (blog.imageNames && blog.imageNames.length > 0) {
+        blog.imageNames = blog.imageNames.map(imageName => baseUrl + imageName);
+      }
+    });
+  }
   get thumbsDownEmoji(): string {
     return '\u{1F44E}';
   }
