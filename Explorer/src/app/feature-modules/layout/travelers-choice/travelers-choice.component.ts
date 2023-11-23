@@ -41,10 +41,24 @@ export class TravelersChoiceComponent implements OnInit{
     this.tours.forEach(tour => {
       this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({
         next: (location) => {
-          const tourLocation: TourLocation = {
-            tourid: tour.id || 0,
-            adress: location.address.city + ' , ' + location.address.country 
+          let tourLocation: TourLocation = {
+            tourid: 0,
+            adress: ''
           };
+  
+          if (location.address.city === undefined) {
+            tourLocation = {
+              tourid: tour.id || 0,
+              adress: location.address.city_district + ' , ' + location.address.country 
+            };
+          }
+          else {
+            tourLocation = {
+              tourid: tour.id || 0,
+              adress: location.address.city + ' , ' + location.address.country 
+            };
+          }
+  
           console.log(location);
           this.toursLocation.push(tourLocation);
         },

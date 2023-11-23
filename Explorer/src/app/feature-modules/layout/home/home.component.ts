@@ -1,10 +1,13 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { TourPreview } from '../../marketplace/model/tour-preview';
 import { LocationResponse } from 'src/app/shared/model/location-response';
 import { LayoutService } from '../layout.service';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
 import { TourRating } from '../../marketplace/model/tour-rating.model';
+import { TourLocation } from '../../marketplace/model/tour-location.model';
+import { MapComponent } from 'src/app/shared/map/map.component';
+import { MapService } from 'src/app/shared/map/map.service';
 
 @Component({
   selector: 'xp-home',
@@ -12,7 +15,10 @@ import { TourRating } from '../../marketplace/model/tour-rating.model';
   styleUrls: ['./home.component.css']
 })
 
+
 export class HomeComponent implements OnInit{
+  
+  @ViewChild(MapComponent) mapComponent: MapComponent;
 
   foundTours: TourPreview[];
   searchLocation: string = "";
@@ -21,13 +27,7 @@ export class HomeComponent implements OnInit{
   searchButtonClicked: boolean = false;
   i:number=0;
 
-  filledStarsCount: number = 0;
-  fractionalStar: string = '';
-  stars: any[] = Array(5).fill(0);
-  clipPathValue: string = ''; // Dodajte ovo svojstvo
-
-
-  constructor(private layoutService : LayoutService, private marketPlaceService : MarketplaceService) { }
+  constructor(private layoutService : LayoutService, private marketPlaceService : MarketplaceService, private mapService: MapService) { }
   
   ngOnInit(): void {
     this.layoutService.getAllTours().subscribe({
@@ -107,6 +107,8 @@ export class HomeComponent implements OnInit{
       this.averageGrade(tour);
     }
 
+    this.findToursLocation();
+
     //console.log('NADJENE TURE:' + JSON.stringify(this.foundTours));
   });
 }
@@ -144,4 +146,46 @@ swipeLeft() {
     });
   }
 }
+
+toursLocation: TourLocation[] = [];
+
+findToursLocation(): void {
+  this.foundTours.forEach(tour => {
+    this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({
+      next: (location) => {
+        let tourLocation: TourLocation = {
+          tourid: 0,
+          adress: ''
+        };
+
+        if (location.address.city === undefined) {
+          tourLocation = {
+            tourid: tour.id || 0,
+            adress: location.address.city_district + ' , ' + location.address.country 
+          };
+        }
+        else {
+          tourLocation = {
+            tourid: tour.id || 0,
+            adress: location.address.city + ' , ' + location.address.country 
+          };
+        }
+
+        console.log(location);
+        this.toursLocation.push(tourLocation);
+      },
+      error: (error) => {
+        console.error('Error in finding location for lon and lat:', error);
+      }
+    });
+  });
+}
+
+
+  getTourLocation(tourid: number): string{
+    const tourLocation = this.toursLocation.find(location => location.tourid === tourid);
+    console.log(tourLocation?.adress);
+    return tourLocation?.adress || "";
+  }
+
 }
