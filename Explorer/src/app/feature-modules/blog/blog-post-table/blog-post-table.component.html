@@ -1,63 +1,53 @@
 <div id="blog-posts">
     <hr>
-    <div id="blog-post-details">
-        <div>
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <mat-select [(value)]="selectedStatus" (selectionChange)="loadBlogPosts()">
-                    <mat-option value="Active">Active</mat-option>
-                    <mat-option value="Famous">Famous</mat-option>
-                    <mat-option value="">All</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <table mat-table class="mat-elevation-z8" [dataSource]="blogPosts">
-                <ng-container matColumnDef="title">
-                    <th mat-header-cell *matHeaderCellDef>Title</th>
-                    <td mat-cell *matCellDef="let blogPost" (click)="onRowSelected(blogPost)">
-                        {{ blogPost.title }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="author">
-                    <th mat-header-cell *matHeaderCellDef>Author</th>
-                    <td mat-cell *matCellDef="let blogPost">
-                        {{ blogPost.username }}<br>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="creationDate">
-                    <th mat-header-cell *matHeaderCellDef>Creation Date</th>
-                    <td mat-cell *matCellDef="let blogPost">
-                        {{ blogPost.creationDate | date: 'medium' }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef>Status</th>
-                    <td mat-cell *matCellDef="let blogPost">
-                        {{ blogPost.status }}
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row class="header-font" *matHeaderRowDef="['title', 'author','creationDate', 'status']">
+    <div id="blog-post-details" class="row">
+        <div class="blog-list">
+            <table class="blog-table">
+                
+                <tr *ngFor="let blogPost of blogPosts" (click)="onRowSelected(blogPost)" class="blog">
+                    <div class="left">
+                        <div class="image-container">
+                            <img class="picture" *ngIf="blogPost.imageNames && blogPost.imageNames.length>0" [src]="getImageUrl(blogPost.imageNames[0])" alt="blog image">
+                        </div>
+                        <div class="informations">  
+                            <p><i>Created on: {{blogPost.creationDate | date}} by @{{blogPost.username}}</i></p>
+                            <label class="title">{{blogPost.title}}</label>
+                            <p class="description">Description: {{blogPost.description}}</p>
+                        </div>
+                    </div>
+                    <div class="additional-info">
+                        <label class="status">{{blogPost.status}}</label>
+                        <div class="ratings">
+                            <div class="upvote">{{thumbsUpEmoji}} {{getUpvoteCount(blogPost)}}</div>
+                            <div class="downvote">{{thumbsDownEmoji}} {{getDownvoteCount(blogPost)}}</div>
+                        </div>
+                    </div>
                 </tr>
-                <tr mat-row *matRowDef="let blogPost; columns: ['title', 'author', 'creationDate', 'status']"
-                    (click)="onRowSelected(blogPost)" class="row-hover"></tr>
             </table>
-
             <mat-paginator [length]="totalBlogPosts" [pageSize]="pageSize"
                 (page)="onPageChange($event)" class="paginator"></mat-paginator>
-
-            <mat-form-field class="paginator">
-                <mat-label>Blogs per page</mat-label>
-                <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="10">10</mat-option>
-                    <mat-option value="20">20</mat-option>
-                    <mat-option value="50">50</mat-option>
-                </mat-select>
-            </mat-form-field>
+        </div>
+        <div class="filters">
+            <label class="filters-label">Filters</label>
+            <div class="filter-fields">
+                <mat-form-field class="filter-field">
+                    <mat-label>Status</mat-label>
+                    <mat-select [(value)]="selectedStatus" (selectionChange)="loadBlogPosts()">
+                        <mat-option value="Active">Active</mat-option>
+                        <mat-option value="Famous">Famous</mat-option>
+                        <mat-option value="">All</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="filter-field">
+                    <mat-label>Blogs per page</mat-label>
+                    <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+                        <mat-option value="5">5</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="20">20</mat-option>
+                        <mat-option value="50">50</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
     </div>
 </div>
