@@ -8,7 +8,7 @@ import { ProfileAdministrationComponent } from './profile-administration/profile
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { TravelersChoiceComponent } from './travelers-choice/travelers-choice.component';
 import { FooterComponent } from './footer/footer.component';
@@ -37,7 +37,8 @@ import { PopularBlogsComponent } from './popular-blogs/popular-blogs.component';
     ReactiveFormsModule,
     MatMenuModule, 
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,
