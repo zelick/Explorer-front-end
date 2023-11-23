@@ -193,3 +193,26 @@ img {
     margin-right: auto;
     margin-top: 5px;
 }
+
+
+.invitations-button {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.invitations-div {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+}

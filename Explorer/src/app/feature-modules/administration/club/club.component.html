@@ -10,6 +10,10 @@
             </button>
         </div>
     </div>
+    
+    <button class="invitations-button" (click)="onSeeInvitations()">
+        See invitations
+    </button>
 
     <div id="club-details">
         <div class="table-wrapper">
@@ -59,4 +63,10 @@
     <div >
         <xp-club-form *ngIf="shouldAdd || shouldEdit" (clubUpdated)="getClub()" [club]="selectedClub" [shouldEdit]="shouldEdit"></xp-club-form>
     </div>
+
+    <div class="invitations-div">
+        <xp-club-invitations *ngIf="seeInvitations"></xp-club-invitations>
+    </div>
+
+
 </div>
