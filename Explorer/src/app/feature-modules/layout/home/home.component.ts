@@ -4,6 +4,7 @@ import { LocationResponse } from 'src/app/shared/model/location-response';
 import { LayoutService } from '../layout.service';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
+import { TourRating } from '../../marketplace/model/tour-rating.model';
 
 @Component({
   selector: 'xp-home',
@@ -20,10 +21,15 @@ export class HomeComponent implements OnInit{
   searchButtonClicked: boolean = false;
   i:number=0;
 
+  filledStarsCount: number = 0;
+  fractionalStar: string = '';
+  stars: any[] = Array(5).fill(0);
+  clipPathValue: string = ''; // Dodajte ovo svojstvo
+
+
   constructor(private layoutService : LayoutService, private marketPlaceService : MarketplaceService) { }
   
   ngOnInit(): void {
-
     this.layoutService.getAllTours().subscribe({
       next: (result: any) => {
         this.allTours = result;
@@ -33,6 +39,16 @@ export class HomeComponent implements OnInit{
         console.log('Nije ucitao sve ture');
       }
     });
+  }
+
+  averageGrade(tour: TourPreview){
+    var sum = 0;
+    var count = 0;
+    for(let g of tour.tourRating){
+      sum += g.rating;
+      count ++;
+    }
+    return parseFloat((sum/count).toFixed(1)).toFixed(1);
   }
 
   getPlaceInfo(latitude: number, longitude: number): Observable<string> {
@@ -87,8 +103,18 @@ export class HomeComponent implements OnInit{
 
     console.log(this.foundTours);
 
+    for (let tour of this.foundTours) {
+      this.averageGrade(tour);
+    }
+
     //console.log('NADJENE TURE:' + JSON.stringify(this.foundTours));
   });
+}
+
+cancelSearch(): void {
+  this.searchButtonClicked = false;
+  this.searchLocation = ''; // Postavljanje na prazan string
+  this.foundTours = []; // Resetovanje pronađenih tura
 }
 
 swipeRight() {
