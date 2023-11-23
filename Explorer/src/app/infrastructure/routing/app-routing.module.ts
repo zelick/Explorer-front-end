@@ -76,7 +76,14 @@ const routes: Routes = [
       //{path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
       { path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
-      
+
+      //TOURIST only
+      //clubs
+      { path: 'club', component: ClubComponent, canActivate: [AuthGuard] },
+      //{ path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent, canActivate: [AuthGuard]},
+      //{ path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
+      //{ path: 'invitations', component: ClubInvitationsComponent},
+
       //ALL USERS
       { path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},
     ]
