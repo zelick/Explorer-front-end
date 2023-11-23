@@ -2,14 +2,28 @@
     <hr>
     <div id="blog-post-details">
         <div>
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <mat-select [(value)]="selectedStatus" (selectionChange)="loadBlogPosts()">
-                    <mat-option value="Active">Active</mat-option>
-                    <mat-option value="Famous">Famous</mat-option>
-                    <mat-option value="">All</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="filters">
+                <label class="filters-label">Filters</label>
+                <div class="filter-fields">
+                    <mat-form-field>
+                        <mat-label>Status</mat-label>
+                        <mat-select [(value)]="selectedStatus" (selectionChange)="loadBlogPosts()">
+                            <mat-option value="Active">Active</mat-option>
+                            <mat-option value="Famous">Famous</mat-option>
+                            <mat-option value="">All</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="paginator">
+                        <mat-label>Blogs per page</mat-label>
+                        <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+                            <mat-option value="5">5</mat-option>
+                            <mat-option value="10">10</mat-option>
+                            <mat-option value="20">20</mat-option>
+                            <mat-option value="50">50</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
 
             <table mat-table class="mat-elevation-z8" [dataSource]="blogPosts">
                 <ng-container matColumnDef="title">
@@ -49,15 +63,7 @@
             <mat-paginator [length]="totalBlogPosts" [pageSize]="pageSize"
                 (page)="onPageChange($event)" class="paginator"></mat-paginator>
 
-            <mat-form-field class="paginator">
-                <mat-label>Blogs per page</mat-label>
-                <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="10">10</mat-option>
-                    <mat-option value="20">20</mat-option>
-                    <mat-option value="50">50</mat-option>
-                </mat-select>
-            </mat-form-field>
+            
         </div>
     </div>
 </div>
