@@ -22,6 +22,8 @@ export class ClubComponent implements OnChanges, OnInit{
   requestSent: boolean = false;
   requests: ClubMemebrshipRequest[] = [];
   userClubs: Club[] = [];
+
+  seeInvitations: boolean = false;
   
 
   constructor(private authService: AuthService, private service: AdministrationService, private router: Router) 
@@ -158,5 +160,13 @@ export class ClubComponent implements OnChanges, OnInit{
     }
     navigateToManageMembers(clubId : number): void{
       this.router.navigate(['/club-members', clubId]);
+    }
+
+    onSeeInvitations(): void {
+      if (this.seeInvitations){
+        this.seeInvitations = false;
+      } else {
+        this.seeInvitations = true;
+      }
     }
 }
