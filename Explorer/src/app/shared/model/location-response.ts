@@ -13,5 +13,6 @@ export interface LocationResponse {
         state?: string;
         postcode?: string;
         country?: string;
+        city_district?: string;
     };
 }
