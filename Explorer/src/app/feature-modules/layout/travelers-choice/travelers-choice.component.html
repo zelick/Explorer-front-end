@@ -1,10 +1,10 @@
     <div class="travelers-div">
       <div class="tour-cards-container" [@slide]="i">
         <div class="tour-card" *ngFor="let tour of tours">
-          <img src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="img">
+          <img *ngIf="tour.checkpoints[0]" src="{{tour.checkpoints[0].pictures[0]}}" alt="Image1" class="img">
           <div class="card-top">
             <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
-           <div *ngIf="tour.tourRating.length>0" style="height: 6vh; width: 22vh; display: flex; justify-content: center; margin-right: 5px;">
+           <div *ngIf="tour.tourRatings.length>0" style="height: 6vh; width: 22vh; display: flex; justify-content: center; margin-right: 5px;">
               <label style="color: white; font-size: large; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
               <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
               <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
