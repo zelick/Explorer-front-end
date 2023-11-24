@@ -65,8 +65,8 @@ export class LayoutService {
   }
   
 
-getTopRatedTours(count:number): Observable<Tour[]> {
-  return this.http.get<Tour[]>(environment.apiHost + 'langing-page/top-rated-tours/' + count);
+getTopRatedTours(count:number): Observable<TourPreview[]> {
+  return this.http.get<TourPreview[]>(environment.apiHost + 'langing-page/top-rated-tours/' + count);
 }
 
 getTopRatedBlogs(count: number): Observable<BlogPost[]>{

@@ -23,7 +23,7 @@ export class TravelersChoiceComponent implements OnInit{
   ngOnInit(): void {
     this.service.getTopRatedTours(5).subscribe({
 
-      next: (result: Tour[]) => {
+      next: (result: TourPreview[]) => {
         this.tours = result;
         console.log(this.tours);
         this.findToursLocation();
@@ -35,12 +35,12 @@ export class TravelersChoiceComponent implements OnInit{
     });
   }
   i:number=0;
-  tours: Tour[] = [];
+  tours: TourPreview[] = [];
   toursLocation: TourLocation[] = [];
 
   findToursLocation(): void {
     this.tours.forEach(tour => {
-      this.mapService.reverseSearch(tour.checkpoints[0].latitude, tour.checkpoints[0].longitude).subscribe({
+      this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({
         next: (location) => {
           let tourLocation: TourLocation = {
             tourid: 0,
@@ -75,7 +75,7 @@ export class TravelersChoiceComponent implements OnInit{
     return tourLocation?.adress || "";
   }
 
-  selectTour(tour:Tour){
+  selectTour(tour:TourPreview){
     if(tour.id){
       this.router.navigate(['/tour-overview-details', tour.id]);
     }
@@ -162,10 +162,10 @@ export class TravelersChoiceComponent implements OnInit{
       checkpoints: [{tourId:1, authorId:2, longitude:12.0, latitude:13.9, name:'cd', description: 'yy', pictures:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQoQuVACa7v79DCJeGHbGh5D_RfSxcJiXCtA&usqp=CAU'], requiredTimeInSeconds:1200, currentPicture:0, currentPointPicture: 0, viewSecretMessage:'mmm', visibleSecret:true, showedPicture:'', showedPointPicture:''}]
     }
   ];*/
-  averageGrade(tour: Tour){
+  averageGrade(tour: TourPreview){
     var sum = 0;
     var count = 0;
-    for(let g of tour.tourRatings){
+    for(let g of tour.tourRating){
       sum += g.rating;
       count ++;
     }
