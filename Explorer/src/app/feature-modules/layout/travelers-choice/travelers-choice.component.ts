@@ -6,6 +6,7 @@ import { TourPreview } from '../../marketplace/model/tour-preview';
 import { MapComponent } from 'src/app/shared/map/map.component'; //dodala
 import { TourLocation } from '../../marketplace/model/tour-location.model';
 import { MapService } from 'src/app/shared/map/map.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-travelers-choice',
@@ -15,7 +16,7 @@ import { MapService } from 'src/app/shared/map/map.service';
 export class TravelersChoiceComponent implements OnInit{
   
   @ViewChild(MapComponent) mapComponent: MapComponent; //potrebna metoda iz mape
-  constructor(private service: LayoutService, private mapService: MapService) { 
+  constructor(private service: LayoutService, private mapService: MapService, private router: Router) { 
     
   }
 
@@ -72,6 +73,12 @@ export class TravelersChoiceComponent implements OnInit{
   getTourLocation(tourid: number): string{
     const tourLocation = this.toursLocation.find(location => location.tourid === tourid);
     return tourLocation?.adress || "";
+  }
+
+  selectTour(tour:Tour){
+    if(tour.id){
+      this.router.navigate(['/tour-overview-details', tour.id]);
+    }
   }
   
  /* tours: Tour[] = [

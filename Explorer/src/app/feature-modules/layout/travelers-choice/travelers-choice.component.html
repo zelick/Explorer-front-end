@@ -1,6 +1,6 @@
     <div class="travelers-div">
       <div class="tour-cards-container" [@slide]="i">
-        <div class="tour-card" *ngFor="let tour of tours">
+        <div class="tour-card" *ngFor="let tour of tours" (click)="selectTour(tour)">
           <img *ngIf="tour.checkpoints[0]" src="{{tour.checkpoints[0].pictures[0]}}" alt="Image1" class="img">
           <div class="card-top">
             <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
