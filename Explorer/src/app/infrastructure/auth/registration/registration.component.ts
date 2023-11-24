@@ -65,7 +65,7 @@ export class RegistrationComponent {
         this.isVerified = status;
 
         if (this.isVerified) {
-          this.router.navigate(['home']);
+          this.router.navigate(['login']);
         }
       });
   }
@@ -81,7 +81,6 @@ export class RegistrationComponent {
     profilePictureUrl: new FormControl('', [Validators.required]),
     biography: new FormControl('', [Validators.required]),
     motto: new FormControl('', [Validators.required]),
-    verificationToken: new FormControl('')
   });
 
   private fileValidator(control: FormControl): { [key: string]: any } | null {
@@ -115,7 +114,6 @@ export class RegistrationComponent {
         profilePictureUrl: this.registrationForm.value.profilePictureUrl || '',
         biography: this.registrationForm.value.biography || '',
         motto: this.registrationForm.value.motto || '',
-        verificationToken: this.registrationForm.value.verificationToken || 'sometoken'
       };
   
       const formData = new FormData();
@@ -134,7 +132,7 @@ export class RegistrationComponent {
       if (this.registrationForm.valid) {
         this.authService.register(formData).subscribe({
           next: () => {
-            //this.router.navigate(['home']);
+            this.router.navigate(['login']);
             this.waitingForVerification = true;
           },
         });

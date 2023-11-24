@@ -9,5 +9,4 @@ export interface Registration {
     profilePictureUrl: string,
     biography: string,
     motto: string,
-    verificationToken: string;
 }
