@@ -25,7 +25,7 @@
                 <hr>
                 <p>Status: <i>{{ blogPost.status }}</i></p>
                 <div class="image-container">
-                    <img *ngFor="let imageName of blogPost.imageNames" [src]="getImageUrl(imageName)" alt="Image">
+                    <img class="picture" *ngIf="blogPost.imageNames" [src]="getImageUrl(blogPost.imageNames[i])" alt="Image">
                 </div>
                 <div [innerHTML]="blogPost.description"></div>
             </div>
