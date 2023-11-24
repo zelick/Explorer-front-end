@@ -24,6 +24,7 @@ export class BlogPostComponent implements OnInit {
   netVoteCount: number = 0;
   upvoted = false;
   downvoted = false;
+  i: number = 0;
 
   constructor(private service: BlogService, private route: ActivatedRoute, private authService: AuthService, private imageService: ImageService) { }
 
@@ -53,6 +54,25 @@ export class BlogPostComponent implements OnInit {
       });
     }
   }
+  nextPicture(){
+    if(!this.blogPost.imageNames)
+     return;
+    if(this.i==this.blogPost.imageNames?.length-1){
+      this.i = 0;
+      return;
+    }
+    this.i++;
+  }
+  previousPicture(){
+    if(!this.blogPost.imageNames)
+     return;
+    if(this.i== 0){
+      this.i = this.blogPost.imageNames?.length-1;
+      return;
+    }
+    this.i--;
+  }
+  
   
   onUpvoteClicked(): void {
     if (this.blogPost?.id !== undefined) {
