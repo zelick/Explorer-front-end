@@ -49,7 +49,7 @@ body {
     border-radius: 15px;
     width: 100%;
     max-width: 800px;
-    max-height: 680px;
+    max-height: 700px;
     box-sizing: border-box;
   }
 
@@ -69,7 +69,7 @@ body {
 
   mat-form-field.profile-picture {
     width: 75%;
-    max-height: 120px;
+    max-height: 100px;
   }
   
   .mat-input-element.profile-picture {
@@ -78,11 +78,11 @@ body {
   
 
   .profile-picture-container {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     overflow: hidden;
     width: 80%;
     height:40%;
-    padding: 10px;
+    padding: 5px;
     border: 2px solid #E67840;
     border-radius: 7px;
     display: flex;
