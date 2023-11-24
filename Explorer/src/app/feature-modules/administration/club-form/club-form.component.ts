@@ -34,8 +34,6 @@ export class ClubFormComponent implements OnChanges  {
   })
 
   addClub(): void {
-    // Dohvati najnovije podatke pre nego što generišeš novi ID
-
     this.service.getClub().subscribe({
       next: (result: PagedResults<Club>) => {
         console.log(result);
@@ -49,14 +47,13 @@ export class ClubFormComponent implements OnChanges  {
           users: []
         };
         
-        // Dodaj klub
         this.service.addClub(club).subscribe({
           next: () => { 
             console.log("Uspešno dodat klub");
             this.clubUpdated.emit();
           }
         });
-
+        
         console.log(this.clubForm.value);
       }
     });
@@ -77,7 +74,6 @@ export class ClubFormComponent implements OnChanges  {
       }
     })
   }
-
 }
 
 function findLoggedUser(authService: AuthService): number {

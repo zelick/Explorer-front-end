@@ -33,11 +33,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="img-td">
-                            <div class="img-container">
-                                <img class="img" [src]="c.image" alt="Club Image">
-                            </div>
-                        </td>
+                        
                         <td >
                             <div class="buttons-div">
                                 <div class="edit-buttons-div">
@@ -54,13 +50,18 @@
                                 <button class="options-button" *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
                             </div>
                         </td>
+                        <td class="img-td">
+                            <div class="img-container">
+                                <img class="img" [src]="c.image" alt="Club Image">
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     
-    <div >
+    <div>
         <xp-club-form *ngIf="shouldAdd || shouldEdit" (clubUpdated)="getClub()" [club]="selectedClub" [shouldEdit]="shouldEdit"></xp-club-form>
     </div>
 
@@ -68,5 +69,7 @@
         <xp-club-invitations *ngIf="seeInvitations"></xp-club-invitations>
     </div>
 
-
+    <!-- <div *ngIf="shouldShowMembershipRequests">
+         <xp-club-membership-request *ngIf="shouldShowMembershipRequests" [clubId]="selectedClub.id || -99999"></xp-club-membership-request>
+    </div> -->
 </div>

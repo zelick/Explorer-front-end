@@ -78,8 +78,11 @@ export class RegistrationComponent {
       if (this.registrationForm.valid) {
         this.authService.register(formData).subscribe({
           next: () => {
-            this.router.navigate(['home']);
+            this.router.navigate(['/']);
           },
+          error: (error) => {
+            console.error('Registration error:', error);
+          }
         });
       }
       else{

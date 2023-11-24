@@ -18,12 +18,13 @@ export class ClubComponent implements OnChanges, OnInit{
   selectedClub: Club;
   shouldEdit: boolean;
   shouldAdd: boolean = false;
-  currentUserTouristId: number = 0; //
+  currentUserTouristId: number = 0;
   requestSent: boolean = false;
   requests: ClubMemebrshipRequest[] = [];
   userClubs: Club[] = [];
 
   seeInvitations: boolean = false;
+  shouldShowMembershipRequests: boolean = false;
   
 
   constructor(private authService: AuthService, private service: AdministrationService, private router: Router) 
@@ -33,10 +34,10 @@ export class ClubComponent implements OnChanges, OnInit{
     this.authService.user$.subscribe(user => {
       this.currentUserTouristId = user?.id || 0;
     });
-    //dodala
     this.getUserClubs();
     this.getRequests();
   }
+
   ngOnInit(): void {
     
   }
@@ -47,8 +48,6 @@ export class ClubComponent implements OnChanges, OnInit{
     this.authService.user$.subscribe(user => {
       this.currentUserTouristId = user?.id || 0;
     });
-
-    //dodala
     this.getRequests();
   }
 
@@ -59,7 +58,6 @@ export class ClubComponent implements OnChanges, OnInit{
       },
     })
   }
-
 
   getClub(): void {
     this.service.getClub().subscribe({
@@ -89,8 +87,9 @@ export class ClubComponent implements OnChanges, OnInit{
     }
 
     onAddClicked(): void {
-        this.shouldAdd = true;
+        this.shouldAdd = !this.shouldAdd;
         this.shouldEdit = false;
+        this.seeInvitations = false;
     }
 
     onCloseClicked(): void {
@@ -98,20 +97,34 @@ export class ClubComponent implements OnChanges, OnInit{
       this.shouldEdit = false;
     }
 
+    onSeeInvitations(): void {
+      if (this.seeInvitations){
+        this.seeInvitations = false;
+      } else {
+        this.seeInvitations = true;
+        this.shouldAdd = false;
+        this.shouldEdit = false;
+      }
+    }
+
     isCurrentUserOwner(club: Club): boolean {
       return this.currentUserTouristId === club.touristId;
     }
 
     deleteClub(id: number): void {
-      this.service.deleteClub(id).subscribe({
-        next: () => {
-          this.getClub();
-        },
-      })
+
+      const userConfirmed = confirm('Are you sure you want to delete this club?');
+      if(userConfirmed){
+        this.service.deleteClub(id).subscribe({
+          next: () => {
+            this.getClub();
+          },
+        });
+      }
     }
 
-
-    navigateToClubMembershipRequests(clubId : number): void {
+    navigateToClubMembershipRequests(clubId: number): void {
+      //this.shouldShowMembershipRequests = !this.shouldShowMembershipRequests;
       this.router.navigate(['/clubMembershipRequests', clubId]);
     }
 
@@ -152,21 +165,19 @@ export class ClubComponent implements OnChanges, OnInit{
     deleteRequest(club: Club): void {
       const requestId = this.findRequst(club.id!, this.currentUserTouristId);
 
-      this.service.deleteRequest(requestId).subscribe({
-        next: () => {
-           location.reload();
-        },
-      })
+      const userConfirmed = confirm('Are you sure you want to delete this request?');
+
+      if(userConfirmed){
+        this.service.deleteRequest(requestId).subscribe({
+          next: () => {
+             location.reload();
+          },
+        });
+      }
     }
+
     navigateToManageMembers(clubId : number): void{
       this.router.navigate(['/club-members', clubId]);
     }
-
-    onSeeInvitations(): void {
-      if (this.seeInvitations){
-        this.seeInvitations = false;
-      } else {
-        this.seeInvitations = true;
-      }
-    }
+    
 }
