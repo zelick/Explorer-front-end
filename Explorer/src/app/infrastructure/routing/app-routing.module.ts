@@ -63,28 +63,37 @@ const routes: Routes = [
       { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
       { path: 'object-request-review', component: ObjectRequestReviewComponent, canActivate: [AuthGuard]},
       { path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent, canActivate: [AuthGuard]},
-      { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
-      { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
-
 
       //TOURIST and AUTHOR
       { path: 'profile-info', component: ProfileAdministrationComponent, canActivate: [AuthGuard],},
-      { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
-      { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
-      //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
-      {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
-      //{path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
-      { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
-      { path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
+      { path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
+      //{ path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
 
       //TOURIST only
-      //clubs
+      { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
+      { path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
+      { path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
+      { path: 'all-tours', component: AllToursComponent, canActivate:[AuthGuard]},
+      { path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard] },
+      { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
+      //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
       { path: 'club', component: ClubComponent, canActivate: [AuthGuard] },
       //{ path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent, canActivate: [AuthGuard]},
-      //{ path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       //{ path: 'invitations', component: ClubInvitationsComponent},
+      { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
+      { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
+      { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+
+      //AUTHOR only
+      { path: 'tour', component: TourComponent,canActivate:[AuthGuard] },
+      { path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard] },
+      { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
 
       //ALL USERS
+      { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
+      { path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
+      { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard] },
+      { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard] },
       { path: 'reported-issue-notifications', component: ReportedIssueNotificationsComponent, canActivate: [AuthGuard],},
     ]
   },

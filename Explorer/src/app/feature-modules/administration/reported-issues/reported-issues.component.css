@@ -3,6 +3,24 @@
     margin-left: 20px;
     font-family: 'Poppins', sans-serif;
 }
+
+.report-an-issue-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'Poppins', sans-serif;
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
 #content{
     display: flex;
 }

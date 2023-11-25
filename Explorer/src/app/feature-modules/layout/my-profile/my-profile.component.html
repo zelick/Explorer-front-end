@@ -38,53 +38,85 @@
             </div>
             
             <!-- TOURIST AND AUTHOR -->
-            <div class="sidenav-item"
-                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
-                <!-- Manage profile  -->
-                <button mat-menu-item [routerLink]="['profile-info']">Profile information</button>
-                <div class="horizontal-divider"></div>
+            <div *ngIf="user && (user.role === 'author' || user.role === 'tourist')">
+                <div class="sidenav-item"> 
+                    <!-- Manage profile  -->
+                    <button mat-menu-item [routerLink]="['profile-info']">Profile information</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['my-blogs']">Manage your blogs</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['reported-issues']">My Reported issues</button>
+                    <div class="horizontal-divider"></div>
+                </div>
             </div>
-
-            <div class="sidenav-item"
-                *ngIf="user && user.role === 'tourist'">             
-                <button mat-menu-item [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
-                <div class="horizontal-divider"></div>
-            </div>
-
-            <div class="sidenav-item"
-                *ngIf="user && user.role === 'tourist'"> 
-                <!-- Trip history  -->
-                <button mat-menu-item [routerLink]="['purchased-tours']">Purchased Tours</button>
-                <div class="horizontal-divider"></div>
-            </div>
-            
-            <div class="sidenav-item"
-                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
-                <button mat-menu-item [routerLink]="['my-blogs']">Manage your blogs</button>
-                <div class="horizontal-divider"></div>
-            </div>
-
-            <div class="sidenav-item"
-                *ngIf="user && (user.role === 'author' || user.role === 'tourist')"> 
-                <button mat-menu-item [routerLink]="['reported-issues']">My Reported issues</button>
-                <div class="horizontal-divider"></div>
-            </div>
-
             
             <!-- TOURIST only -->
-            <div class="sidenav-item"
-                *ngIf="user && user.role === 'tourist'"> 
-                <button mat-menu-item [routerLink]="['club']">Clubs</button>
-                <div class="horizontal-divider"></div>
+            <div *ngIf="user && user.role === 'tourist'">
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['tour-overview']">Tours</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['all-tours']">See tours</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['simulator']">Simulator</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <!-- Trip history  -->
+                    <button mat-menu-item [routerLink]="['purchased-tours']">My Purchased Tours</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['club']">Clubs</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['preference']">Manage preference</button>
+                    <div class="horizontal-divider"></div>
+                </div>
             </div>
 
-
+             <!-- AUTHOR only -->
+             <div *ngIf="user && user.role === 'author'">
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['tour']">Tours</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['checkpoint']">Manage checkpoints</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item">
+                    <button mat-menu-item [routerLink]="['map-object']">Manage Map Objects</button>
+                    <div class="horizontal-divider"></div>
+                </div>  
+            </div>
 
             <!-- ALL USERS -->
-            <div class="sidenav-item"
-                *ngIf="user"> 
-                <button mat-menu-item [routerLink]="['reported-issue-notifications']">Notifications</button> 
-                <div class="horizontal-divider"></div>
+            <div *ngIf="user">
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['tour-rating']">Tour Rating</button> 
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['social-profile']">Social profile</button> 
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button mat-menu-item [routerLink]="['reported-issue-notifications']">Notifications</button> 
+                    <div class="horizontal-divider"></div>
+                </div>
             </div>
         </mat-drawer>
       
