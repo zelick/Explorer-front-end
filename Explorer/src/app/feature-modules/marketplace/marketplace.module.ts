@@ -12,7 +12,6 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
 import { SimulatorComponent } from './simulator/simulator.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
-import { AllToursComponent } from './all-tours/all-tours.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
@@ -32,7 +31,6 @@ import { ForecastPopupComponent } from './forecast-popup/forecast-popup.componen
         TourRatingFormComponent,
         SimulatorComponent,
         ReportingIssueComponent,
-        AllToursComponent,
         ShoppingCartComponent,
         PurchasedToursComponent,
         TourOverviewComponent,

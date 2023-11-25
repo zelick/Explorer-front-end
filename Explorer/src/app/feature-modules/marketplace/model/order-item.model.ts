@@ -1,6 +1,5 @@
 export interface OrderItem{
-    //id?: number, //izbaci
-    tourId: number,
+    itemId: number,
     tourName: string,
     price: number
 }

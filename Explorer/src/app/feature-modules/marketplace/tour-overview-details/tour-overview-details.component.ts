@@ -12,6 +12,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { Customer } from '../model/customer.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourRating } from '../model/tour-rating.model';
+import { catchError, of, tap } from 'rxjs';
 
 
 @Component({
@@ -50,11 +51,46 @@ export class TourOverviewDetailsComponent implements OnInit{
             console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
           }
         );
+        this.initializeCustomer();
       });
 
       
     }
     
+  initializeCustomer(): void {
+    this.service.getCustomer(this.user.id).pipe(
+      catchError(() => {
+        return of(null);
+      })
+    ).subscribe(
+      (existingCustomer) => {
+        if (!existingCustomer) {
+          this.createCustomer();
+        }
+      }
+    );
+  }
+
+  createCustomer(): void {
+    const newCustomer: Customer = {
+      userId: this.user.id,
+      tourPurchaseTokens: [],
+      shoppingCartId: 0,
+    };
+
+    this.service.createCustomer(newCustomer)
+      .pipe(
+        tap(() => {
+          console.log('Customer created successfully!');
+        }),
+        catchError(error => {
+          console.error('Error creating customer.', error);
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
     tour:TourPreview;
     tourID:number;
     checkpoints:CheckpointPreview;
@@ -109,7 +145,7 @@ export class TourOverviewDetailsComponent implements OnInit{
       const isConfirmed = window.confirm('Are you sure you want to add this item to the cart?');
       if (isConfirmed) {
         const orderItem: OrderItem = {
-          tourId: t.id || 0,
+          itemId: t.id || 0,
           tourName: t.name,
           price: t.price,
         };
@@ -117,49 +153,21 @@ export class TourOverviewDetailsComponent implements OnInit{
       }
     }
 
-    addItemToCart(orderItem: OrderItem, tour: TourPreview): void {
-      this.service.checkShoppingCart(this.user.id).subscribe((cartExists) => {
-        if (cartExists) {
-          this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
-            tourShoppingCart.items.push(orderItem);
-            tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
-            this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
-              this.service.updateCartItemCount(tourShoppingCart.items.length); //
-              this.userCart = result;
-              this.isTourInCart = this.checkIsTourInCart();
-              if(this.isTourInCart == true){
-                this.buttonColor = 'gray';
-              }
-            });
-          });
-        } else {
-          const newShoppingCart: ShoppingCart = {
-            touristId: this.user.id,
-            price: orderItem.price,
-            items: [orderItem],
-          };
-          this.service.addShoppingCart(newShoppingCart).subscribe((createdShoppingCart) => {
-  
-            this.userCart = createdShoppingCart;
-            this.isTourInCart = this.checkIsTourInCart();
-            if(this.isTourInCart == true){
-              this.buttonColor = 'gray';
-            }
-            const newCustomer: Customer = {
-              touristId: this.user.id,
-              purchaseTokens: [],
-              shoppingCartId: createdShoppingCart.id || 0
-            };
-            this.service.createCustomer(newCustomer).subscribe(() => {
-  
-            });
-  
-            //this.cartItemCount = 1; // Ažuriranje brojača nakon dodavanja prvog predmeta u praznu korpu
-            this.service.updateCartItemCount(1); //
-          });
+  addItemToCart(orderItem: OrderItem, tourPreview: TourPreview): void {
+    this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
+      tourShoppingCart.items.push(orderItem);
+      this.cartItemCount = tourShoppingCart.items.length;
+      tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
+      this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
+        this.service.updateCartItemCount(tourShoppingCart.items.length);
+        this.userCart = result;
+        this.isTourInCart = this.checkIsTourInCart();
+        if (this.isTourInCart == true) {
+          this.buttonColor = 'gray';
         }
       });
-    }
+    });
+  }
 
     rateTour(tour: TourPreview): void{
       this.router.navigate(['/tour-rating-form', tour.id]);
@@ -174,7 +182,7 @@ export class TourOverviewDetailsComponent implements OnInit{
     }
     checkIsTourInCart(): boolean{
       if (this.userCart.items.length > 0) {
-        return this.userCart.items.some(item => item.tourId == this.tourID);
+        return this.userCart.items.some(item => item.itemId == this.tourID);
       }
       return false;
     }
