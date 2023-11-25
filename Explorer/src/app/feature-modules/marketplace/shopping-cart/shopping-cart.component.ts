@@ -32,17 +32,18 @@ export class ShoppingCartComponent implements OnInit{
           this.cart = result;
           this.orderItems = this.cart.items;
 
-          this.service.getPublishedTours().subscribe(tourPreviews => {
-            this.orderItems.forEach(item => {
-              const matchingTour = tourPreviews.find(tour => tour.id === item.itemId);
-              item.tourName = matchingTour ? matchingTour.name : 'Tour Name Not Available';
+          if (this.orderItems.length > 0) {
+            this.service.getPublishedTours().subscribe(tourPreviews => {
+              this.orderItems.forEach(item => {
+                const matchingTour = tourPreviews.find(tour => tour.id === item.itemId);
+                item.tourName = matchingTour ? matchingTour.name : 'Tour Name Not Available';
+              });
             });
-          });
+          }
         },
       });
     });
   }
-
 
   checkout() {    
     if (this.user && this.user.id !== undefined) {
