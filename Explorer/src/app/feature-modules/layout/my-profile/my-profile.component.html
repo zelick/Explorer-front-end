@@ -4,35 +4,27 @@
             <!-- ADMIN -->
             <div *ngIf="user && user.role === 'administrator'">
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['accounts']">Accounts management</button>
+                    <button [routerLink]="['accounts']">Accounts management</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['grade-review']">Grade review</button>
+                    <button [routerLink]="['grade-review']">Grade review</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['equipment']">Manage equipment</button>
+                    <button [routerLink]="['equipment']">Manage equipment</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['object-request-review']">Object requests</button>
+                    <button [routerLink]="['object-request-review']">Object requests</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
+                    <button [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['reported-issues']">Reported issues</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['social-profile']">Social profile</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['tour-rating']">Tour Ratings</button>
+                    <button [routerLink]="['reported-issues']">Reported issues</button>
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -41,15 +33,15 @@
             <div *ngIf="user && (user.role === 'author' || user.role === 'tourist')">
                 <div class="sidenav-item"> 
                     <!-- Manage profile  -->
-                    <button mat-menu-item [routerLink]="['profile-info']">Profile information</button>
+                    <button [routerLink]="['profile-info']">Profile information</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['my-blogs']">Manage your blogs</button>
+                    <button [routerLink]="['my-blogs']">Manage your blogs</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['reported-issues']">My Reported issues</button>
+                    <button [routerLink]="['reported-issues']">My Reported issues</button>
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -57,32 +49,32 @@
             <!-- TOURIST only -->
             <div *ngIf="user && user.role === 'tourist'">
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
+                    <button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['tour-overview']">Tours</button>
+                    <button [routerLink]="['tour-overview']">Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['all-tours']">See tours</button>
+                    <button [routerLink]="['all-tours']">See tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['simulator']">Simulator</button>
+                    <button [routerLink]="['simulator']">Simulator</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
                     <!-- Trip history  -->
-                    <button mat-menu-item [routerLink]="['purchased-tours']">My Purchased Tours</button>
+                    <button [routerLink]="['purchased-tours']">My Purchased Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['club']">Clubs</button>
+                    <button [routerLink]="['club']">Clubs</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['preference']">Manage preference</button>
+                    <button [routerLink]="['preference']">Manage preference</button>
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -90,15 +82,15 @@
              <!-- AUTHOR only -->
              <div *ngIf="user && user.role === 'author'">
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['tour']">Tours</button>
+                    <button [routerLink]="['tour']">Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['checkpoint']">Manage checkpoints</button>
+                    <button [routerLink]="['checkpoint']">Manage checkpoints</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button mat-menu-item [routerLink]="['map-object']">Manage Map Objects</button>
+                    <button [routerLink]="['map-object']">Manage Map Objects</button>
                     <div class="horizontal-divider"></div>
                 </div>  
             </div>
@@ -106,15 +98,15 @@
             <!-- ALL USERS -->
             <div *ngIf="user">
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['tour-rating']">Tour Rating</button> 
+                    <button [routerLink]="['tour-rating']">Tour Rating</button> 
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['social-profile']">Social profile</button> 
+                    <button [routerLink]="['social-profile']">Social profile</button> 
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button mat-menu-item [routerLink]="['reported-issue-notifications']">Notifications</button> 
+                    <button [routerLink]="['reported-issue-notifications']">Notifications</button> 
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -130,7 +122,7 @@
                     </div>
 
                     <div class="header">
-                        <h1>Content header</h1>
+                        <!-- <h1>Content header</h1> -->
                     </div>
                 </div>
                 <div class="content">
