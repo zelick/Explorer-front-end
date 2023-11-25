@@ -1,75 +1,139 @@
-<div id="club">
-    <div class="header-div">
-        <h1>Club</h1>
-        <div class="add-button-div">
-            <button class="add-button" (click)="onAddClicked()" mat-icon-button>
-                <mat-icon>add</mat-icon>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Management</title>
+    <!-- Add your stylesheets and other head elements as needed -->
+    <style>
+        #club-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #club {
+            width: 50%;
+        }
+
+        #requests {
+            width: 50%;
+            margin-left: 20px;
+        }
+
+        /* Your existing styles go here */
+        /* ... */
+
+    </style>
+</head>
+
+<body>
+    <div class="club-container">
+        <div id="club">
+            <div class="header-div">
+                <h1>Club</h1>
+                <div class="add-button-div">
+                    <button class="add-button" (click)="onAddClicked()" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button class="add-button" *ngIf="shouldAdd || shouldEdit" (click)="onCloseClicked()" mat-icon-button>
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <button class="invitations-button" (click)="onSeeInvitations()">
+                See invitations
             </button>
-            <button class="add-button" *ngIf="shouldAdd || shouldEdit" (click)="onCloseClicked()" mat-icon-button>
-                <mat-icon>remove</mat-icon>
-            </button>
+
+            <div id="club-details">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Clubs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="details" *ngFor="let c of club">
+                                <td class="details-td">
+                                    <div class="club-name-div">
+                                        <p class="club-name">{{c.name}} established by tourist {{c.touristId}}</p>
+                                        <div class="description-div">
+                                            <p class="description-text">Description: {{c.description}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="buttons-div">
+                                        <div class="edit-buttons-div">
+                                            <button *ngIf="isCurrentUserOwner(c)" (click)="onEditClicked(c)" color="primary" mat-icon-button>
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button *ngIf="isCurrentUserOwner(c)" (click)="deleteClub(c.id || 0)" color="accent" mat-icon-button>
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </div>
+                                        <button class="options-button" *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && !isRequestSent(c.id || 0)" mat-raised-button color="primary" (click)="sendClubMembershiprequest(c.id || 0)">Join club</button>
+                                        <button class="options-button" *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && isRequestSent(c.id || 0)" mat-raised-button color="primary" (click)="deleteRequest(c)">Decline request</button>
+                                        <button class="options-button" *ngIf="isCurrentUserOwner(c)" mat-raised-button color="primary" (click)="navigateToClubMembershipRequests(c.id!)"> Manage requests</button>
+                                        <button class="options-button" *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
+                                    </div>
+                                </td>
+                                <td class="img-td">
+                                    <div class="img-container">
+                                        <img class="img" [src]="c.image" alt="Club Image">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <xp-club-form *ngIf="shouldAdd || shouldEdit" (clubUpdated)="getClub()" [club]="selectedClub" [shouldEdit]="shouldEdit"></xp-club-form>
+            </div>
+
+            <div class="invitations-div">
+                <xp-club-invitations *ngIf="seeInvitations"></xp-club-invitations>
+            </div>
+
+        </div>
+
+        <div id="requests">
+            <p>Manage club membership requests</p>
+            <hr>
+            <div id="requests-details">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request from</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let r of requests">
+                            <td>Membership Request from {{r.touristId}}</td>
+                            <td>
+                                <button mat-icon-button class="cancel-button" (click)="rejectRequest(r)">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                                <button mat-icon-button class="accept-button" (click)="acceptRequest(r)">
+                                    <mat-icon>check_circle</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    
-    <button class="invitations-button" (click)="onSeeInvitations()">
-        See invitations
-    </button>
+</body>
 
-    <div id="club-details">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Clubs</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="details" *ngFor="let c of club">
-                        <td class="details-td">
-                            <div class="club-name-div">
-                                <p class="club-name">{{c.name}} established by tourist {{c.touristId}}</p>
-                                <div class="description-div">
-                                    <p class="description-text">Description: {{c.description}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        
-                        <td >
-                            <div class="buttons-div">
-                                <div class="edit-buttons-div">
-                                    <button *ngIf="isCurrentUserOwner(c)" (click)="onEditClicked(c)" color="primary" mat-icon-button>
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                    <button *ngIf="isCurrentUserOwner(c)" (click)="deleteClub(c.id || 0)" color="accent" mat-icon-button>
-                                        <mat-icon>delete</mat-icon>
-                                    </button>    
-                                </div>
-                                <button class="options-button" *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && !isRequestSent(c.id || 0)"  mat-raised-button  color="primary" (click)="sendClubMembershiprequest(c.id || 0)">Join club</button>
-                                <button class="options-button" *ngIf="!isCurrentUserOwner(c) && !userBelongsToClub(c) && isRequestSent(c.id || 0)"  mat-raised-button   color="primary"  (click)="deleteRequest(c)">Decline request</button>            
-                                <button class="options-button" *ngIf="isCurrentUserOwner(c)"   mat-raised-button  color="primary"  (click)="navigateToClubMembershipRequests(c.id!)"> Manage requests</button>
-                                <button class="options-button" *ngIf="isCurrentUserOwner(c)" color="primary" mat-raised-button (click)="navigateToManageMembers(c.id!)">Manage members</button>
-                            </div>
-                        </td>
-                        <td class="img-td">
-                            <div class="img-container">
-                                <img class="img" [src]="c.image" alt="Club Image">
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <div>
-        <xp-club-form *ngIf="shouldAdd || shouldEdit" (clubUpdated)="getClub()" [club]="selectedClub" [shouldEdit]="shouldEdit"></xp-club-form>
-    </div>
-
-    <div class="invitations-div">
-        <xp-club-invitations *ngIf="seeInvitations"></xp-club-invitations>
-    </div>
-
-    <!-- <div *ngIf="shouldShowMembershipRequests">
-         <xp-club-membership-request *ngIf="shouldShowMembershipRequests" [clubId]="selectedClub.id || -99999"></xp-club-membership-request>
-    </div> -->
-</div>
+</html>

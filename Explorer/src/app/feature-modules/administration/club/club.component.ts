@@ -3,7 +3,7 @@ import { AdministrationService } from '../administration.service';
 import { Club } from '../model/club.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { ClubMemebrshipRequest } from '../model/club-membership-request.model';
 
 
@@ -23,11 +23,14 @@ export class ClubComponent implements OnChanges, OnInit{
   requests: ClubMemebrshipRequest[] = [];
   userClubs: Club[] = [];
 
+  touristName: string;
+  clubId: number;
+
   seeInvitations: boolean = false;
   shouldShowMembershipRequests: boolean = false;
   
 
-  constructor(private authService: AuthService, private service: AdministrationService, private router: Router) 
+  constructor(private authService: AuthService, private service: AdministrationService, private router: Router, private route: ActivatedRoute) 
   {
     this.getClub();
 
@@ -39,7 +42,9 @@ export class ClubComponent implements OnChanges, OnInit{
   }
 
   ngOnInit(): void {
-    
+    const urlClubId = this.route.snapshot.paramMap.get('id') || 0;
+    this.clubId = urlClubId ? parseInt(urlClubId, 10) : 0; //parsiraj u number
+    this.getRequestsOnProcessing();
   }
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -49,6 +54,45 @@ export class ClubComponent implements OnChanges, OnInit{
       this.currentUserTouristId = user?.id || 0;
     });
     this.getRequests();
+  }
+
+  getRequestsOnProcessing(): void {
+    this.service.getClubMembershipRequests().subscribe({
+      next: (result: PagedResults<ClubMemebrshipRequest>) => {
+        this.requests = result.results
+        .filter(request => request.status === 'Processing' && request.clubId === this.clubId);
+      },
+      error: () => {
+      }
+    })
+  }
+
+  rejectRequest(r: ClubMemebrshipRequest): void {
+    this.service.rijectRequest(r).subscribe({
+      next: () => {
+        this.requests = this.requests.filter(request => request.id !== r.id);
+      },
+    })
+  }result: ClubMemebrshipRequest
+
+  acceptRequest(r: ClubMemebrshipRequest): void {
+    this.service.acceptRequest(r).subscribe({
+      next: (result: ClubMemebrshipRequest) => {
+        
+        this.service.joinUserToClub(r.touristId, r.clubId).subscribe({
+          next: () => {
+            this.requests = this.requests.filter(request => request.id !== r.id);
+          },
+        });
+
+        //this.requests = this.requests.filter(request => request.id !== r.id);
+      },
+    })
+  }
+  
+  //pronadji turistu koji salje zahtev iz liste svih turista(usera)
+  findTouristById(touristId: number): void {
+    
   }
 
   getRequests(): void {
@@ -124,8 +168,10 @@ export class ClubComponent implements OnChanges, OnInit{
     }
 
     navigateToClubMembershipRequests(clubId: number): void {
-      //this.shouldShowMembershipRequests = !this.shouldShowMembershipRequests;
-      this.router.navigate(['/clubMembershipRequests', clubId]);
+      this.shouldShowMembershipRequests = !this.shouldShowMembershipRequests;
+      this.clubId = clubId;
+      this.getRequestsOnProcessing();
+      //this.router.navigate(['/clubMembershipRequests', clubId]);
     }
 
     userBelongsToClub(club: Club): boolean {
