@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Router } from '@angular/router';
 import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { FormsModule } from '@angular/forms'; 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -35,34 +31,29 @@ export class ShoppingCartComponent implements OnInit{
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-          console.log(this.cart);
-          console.log(this.cart.items);
-      },
-      })
+
+          if (this.orderItems.length > 0) {
+            this.service.getPublishedTours().subscribe(tourPreviews => {
+              this.orderItems.forEach(item => {
+                const matchingTour = tourPreviews.find(tour => tour.id === item.itemId);
+                item.tourName = matchingTour ? matchingTour.name : 'Tour Name Not Available';
+              });
+            });
+          }
+        },
+      });
     });
   }
 
   checkout() {    
     if (this.user && this.user.id !== undefined) {
       this.service.shoppingCartCheckOut(this.user.id).subscribe(
-        () => {
+        (cart) => {
           console.log('Uspešno završena kupovina');
-  
-          if (this.cart && this.cart.id !== undefined) {
-            this.service.deleteOrderItems(this.cart.id).subscribe(
-              () => {
-                console.log('Sve stavke su uspešno obrisane iz korpe');
-                this.orderItems = [];
-                this.cart.price = 0;
-                this.service.updateCartItemCount(0); // Postavi na 0 jer su sve stavke obrisane
-              },
-              (deleteOrderItemsError) => {
-                console.error('Greška prilikom brisanja stavki iz korpe:', deleteOrderItemsError);
-              }
-            );
-          } else {
-            console.error('Nemoguće pristupiti cart.id - nije definisano ili ima vrednost undefined.');
-          }
+          this.cart = cart;
+          this.orderItems = this.cart.items;
+          this.cart.price = 0;
+          this.service.updateCartItemCount(0); 
         },
         (error) => {
           console.error('Greška prilikom završavanja kupovine:', error);
@@ -74,22 +65,14 @@ export class ShoppingCartComponent implements OnInit{
   }
 
   removeShopppingCartItem(tourId: number): void{
-    this.orderItems = this.orderItems.filter(item => item.tourId !== tourId);
+    this.orderItems = this.orderItems.filter(item => item.itemId !== tourId);
     this.cart.items = this.orderItems
-    this.cart.price = this.calculateTotalPrice();
-    this.service.updateShoppingCart(this.cart).subscribe(() => {
-      this.service.updateCartItemCount(this.cart.items.length); //
+    this.service.updateShoppingCart(this.cart).subscribe((cart) => {
+      this.cart = cart;
+      this.cart.price = cart.price;
+      this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
-
-  calculateTotalPrice(): number {
-    let totalPrice = 0;
-    for (const item of this.cart.items) {
-     // totalPrice += item.price * item.quantity;
-      totalPrice += item.price;
-    }
-    return totalPrice;
-  }
 
 /*  increaseQuantity(item: OrderItem): void {
     item.quantity++; 

@@ -23,7 +23,6 @@
             </mat-menu>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['preference']">Manage preference</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>
-            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['all-tours']">See tours</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Tours</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['application-grade']">Rate the app</button>
             <button class="button" *ngIf="user && user.role === 'administrator'" mat-raised-button [routerLink]="['grade-review']">Grade review</button>           
