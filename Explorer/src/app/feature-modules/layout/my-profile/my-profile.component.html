@@ -48,6 +48,7 @@
             
             <!-- TOURIST only -->
             <div *ngIf="user && user.role === 'tourist'">
+                <!-- 
                 <div class="sidenav-item">
                     <button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
                     <div class="horizontal-divider"></div>
@@ -56,10 +57,7 @@
                     <button [routerLink]="['tour-overview']">Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
-                <div class="sidenav-item">
-                    <button [routerLink]="['all-tours']">See tours</button>
-                    <div class="horizontal-divider"></div>
-                </div>
+             -->
                 <div class="sidenav-item"> 
                     <button [routerLink]="['simulator']">Simulator</button>
                     <div class="horizontal-divider"></div>
@@ -106,7 +104,7 @@
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['reported-issue-notifications']">Notifications</button> 
+                    <button [routerLink]="['notifications']">Notifications</button> 
                     <div class="horizontal-divider"></div>
                 </div>
             </div>

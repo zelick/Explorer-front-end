@@ -80,6 +80,17 @@ th{
     border-radius: 100px;
     cursor: pointer;
 }
+.forecastButton{
+    width: auto;
+    margin-bottom: 15px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
 td{
     width: 340px;
     text-align: center;

@@ -56,7 +56,7 @@ export class CheckpointSecretFormComponent implements OnInit{
       console.log(this.checkpoint);
       if(this.checkpoint.checkpointSecret!=null){
         this.pictures=this.checkpoint.checkpointSecret?.pictures||[];
-        this.secretForm.patchValue(this.checkpoint);
+        this.secretForm.patchValue(this.checkpoint.checkpointSecret);
       }
     });
   }
