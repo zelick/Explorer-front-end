@@ -2,7 +2,6 @@
     <div class="flex-container">
         <img class="logo" src="assets/explorerLogo.png">
         <div id="buttons">
-
             <button class="button"  mat-raised-button [routerLink]="['home']">Home</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>
 
@@ -12,7 +11,6 @@
             
             <button class="button" *ngIf="user && user.username === ''"  mat-raised-button [routerLink]="['login']">Login</button>
             <button class="button" *ngIf="user && user.username !== ''"  mat-raised-button (click)="onLogout()">Logout</button>
-
         </div>
     </div>
 </div>
