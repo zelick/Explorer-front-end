@@ -1,29 +1,27 @@
 <div id="account">
     <h1>Account management</h1><br>
-    <hr>
     <div id="account-details">
-    <div>
-        <table border="1px">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Is active</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let a of accounts">
-                    <td>{{a.username}}</td>
-                    <td>{{getRoleString(a.role)}}</td>
-                    <td>{{a.email}}</td>
-                    <td>{{a.isActive}}</td>
-                    <td><input type="button" *ngIf="a.isActive" (click)="blockAccount(a.id)" value="Block"/></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Is active</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let a of accounts">
+                        <td>{{a.username}}</td>
+                        <td>{{getRoleString(a.role)}}</td>
+                        <td>{{a.email}}</td>
+                        <td>{{a.isActive}}</td>
+                        <td><input type="button" *ngIf="a.isActive" (click)="blockAccount(a.id)" value="Block" style="border-radius: 12px;"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-

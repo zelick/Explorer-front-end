@@ -8,14 +8,24 @@ import { ProfileAdministrationComponent } from './profile-administration/profile
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { TravelersChoiceComponent } from './travelers-choice/travelers-choice.component';
+import { FooterComponent } from './footer/footer.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { PopularBlogsComponent } from './popular-blogs/popular-blogs.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    ProfileAdministrationComponent
+    ProfileAdministrationComponent,
+    TravelersChoiceComponent,
+    FooterComponent,
+    MyProfileComponent,
+    PopularBlogsComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +35,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule, 
+    MatButtonModule,
+    MatSidenavModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,

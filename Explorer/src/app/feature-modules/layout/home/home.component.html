@@ -12,89 +12,85 @@
     <div class="text-overlay">
       <p>Let's Make Memories</p>
     </div>
-    <div class="search-field-container">
-        <input class="search-field" type="text" placeholder="Where is your next stop?">
-        <button mat-raised-button class="button">
+
+    <form (ngSubmit)="search()">
+      <div class="search-field-container">
+        <input class="search-field" type="text" placeholder="Where is your next stop?" name="searchLocation" [(ngModel)]="searchLocation">
+        <button type="submit" mat-raised-button class="button">
           <div class="search-button">
             <mat-icon>search</mat-icon>
-            <p>Search</p>
           </div>
         </button>
-    </div>
-  </div>
+      </div>
+    </form>
 
+    
+  </div>
   
   <div class="content" >
-    <p class="subtitle">Travelers choice</p><br>
-    <div class="travelers-div">
-      <div class="tour-cards-container">
-        <div class="tour-card">
-          <img src="assets/landing_page/jahorina.jpg" alt="Image1" class="img">
-          <label class="card-location-header">Jahorina</label>
-          <h2 class="card-header">3-Hour Tour on the Olympic Mountain Jahorina</h2>
+    <div *ngIf="searchButtonClicked">
+      <br><p class="subtitle">Found tours</p><br>
+      <button mat-raised-button class="button" (click)="cancelSearch()">
+        <div class="search-button">
+          <mat-icon>cancel</mat-icon>
+          <p>Cancel</p>
         </div>
-        <div class="tour-card">
-          <img src="assets/landing_page/perast.jpg" alt="Image2">
-          <label class="card-location-header">Perast</label>
-          <h2 class="card-header">Visit the most beautiful city in the world</h2>
+      </button>
+      <div class="travelers-div">
+        <div class="tour-cards-container" [@slide]="i">
+          <div class="tour-card" *ngFor="let tour of foundTours">
+            <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
+            <img src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="img">
+            <div *ngIf="tour.tourRating.length>0" style="height: 6vh; width: 22vh; display: flex; justify-content: center; margin-right: 5px;">
+              <label style="color: white; font-size: large; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
+              <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+            </div>
+            <div class="card-top">          
+            </div>
+            <h2 class="card-header">{{tour.name}}</h2>
+            <p style="color: white; margin-left: 10px;">{{tour.description}}</p>
+          </div>
+          
         </div>
-        <div class="tour-card">
-          <img src="assets/landing_page/novisad.jpg" alt="Image3">
-          <label class="card-location-header">Novi Sad</label>
-          <h2 class="card-header">The city of culture</h2>
-        </div>
-        <div class="tour-card">
-          <img src="assets/landing_page/bali.jpg" alt="Image4">
-          <label class="card-location-header">Bali</label>
-          <h2 class="card-header">Enjoy at the most exotic destinations</h2>
+        <div class="navigation-buttons-container">
+          <button class="navigation-button" (click)="swipeLeft()">&#9665;</button>
+          <button class="navigation-button" (click)="swipeRight()">&#9655;</button>
         </div>
       </div>
-
-      <!-- <div class="filter">
-        <div class="tags-div">
-          <h2 class="card-header">Filters</h2>
-          <div class="filter-field-container">
-            <input class="search-field" type="text" placeholder="Input your location">
-            <button mat-raised-button class="button">
-              <div class="search-button">
-                <mat-icon>search</mat-icon>
-                <p>Filter</p>
-              </div>
-            </button>
-          </div>
-          <div class="filter-field-container">
-            <input class="search-field" type="text" placeholder="Input transportation">
-            <button mat-raised-button class="button">
-              <div class="search-button">
-                <mat-icon>search</mat-icon>
-                <p>Filter</p>
-              </div>
-            </button>
-          </div>
-          <div class="filter-field-container">
-            <input class="search-field" type="text" placeholder="Input tags">
-            <button mat-raised-button class="button">
-              <div class="search-button">
-                <mat-icon>search</mat-icon>
-                <p>Filter</p>
-              </div>
-            </button>
-          </div>
-          <div class="reset-filter-button"> 
-            <button mat-raised-button class="filter-button">
-              <mat-icon>close</mat-icon>
-              <p>Reset filter</p>
-            </button>
-          </div>
-        </div>
-      </div> -->
     </div>
+    <br><p class="subtitle">Travelers choice</p><br>
+    <xp-travelers-choice></xp-travelers-choice>
+    <div class="popular-blogs"><br>
+      <p class="subtitle">Popular blogs</p><br>
+      <xp-popular-blogs></xp-popular-blogs>   
+    </div>
+    <div style="height: 14vh;"></div>
+  </div>
+  <xp-footer></xp-footer>
+</body>
+</html>
 
-    <div >
-      <br><br>
-      <p class="subtitle">Popular destionation</p><br>
 
-      <div class="tags-div">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="tags-div">
         <div class="container">
           <div class="left_div">
             <label class="popular-destination-header">Novi Sad</label>
@@ -123,12 +119,4 @@
             <img src="assets/landing_page/novisad.jpg" alt="Image3">
           </div>
         </div>
-
-        
-
-      </div>
-    </div>
-
-  </div>
-</body>
-</html>
+      </div> -->

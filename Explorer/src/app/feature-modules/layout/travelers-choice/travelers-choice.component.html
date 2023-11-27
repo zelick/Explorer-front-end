@@ -1,0 +1,27 @@
+    <div class="travelers-div">
+      <div class="tour-cards-container" [@slide]="i">
+        <div class="tour-card" *ngFor="let tour of tours" (click)="selectTour(tour)">
+          <img *ngIf="tour.checkpoint" src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="img">
+          <div class="card-top">
+            <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
+           <div *ngIf="tour.tourRating.length>0" style="height: 6vh; width: 22vh; display: flex; justify-content: center; margin-right: 5px;">
+              <label style="color: white; font-size: large; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
+              <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+              <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+            </div> 
+            
+          </div>
+          <h2 class="card-header">{{tour.name}}</h2>
+          <p style="color: white; margin-left: 10px;">{{tour.description}}</p>
+        </div>
+        
+      </div>
+      <div class="navigation-buttons-container">
+        <button class="navigation-button" (click)="swipeLeft()">&#9665;</button>
+        <button class="navigation-button" (click)="swipeRight()">&#9655;</button>
+      </div>
+    </div>
