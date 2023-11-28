@@ -6,6 +6,7 @@
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>
 
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Explore Tours</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['plan-your-trip']">Plan your trip</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
             <button class="button" *ngIf="user && user.username !== ''" mat-raised-button [routerLink]="['my-profile']">My profile</button> 
             

@@ -1,0 +1,57 @@
+<body> 
+    <div class="container">
+        <h1>Plan your own trip</h1>
+        <label class="tellUs">Tell us what place you want to visit</label>
+        <div class="forma">
+            <input type="text" placeholder=" Your desired destination" class="destinationInput" [(ngModel)]="selectedDestination"/>
+            <button class="go" (click)="loadPublicCheckpoints()">Go</button>
+        </div>
+        <div class="content">
+            <div class="left">
+                <div class="availableCheckpoints" *ngIf="publicCheckpoints && publicCheckpoints.length>0">
+                    <label class="tellUs">Add checkpoints to your trip</label>
+                    <div style="overflow-y: auto;">
+                        <table class="checkpointsTable">
+                            <tr *ngFor="let ch of publicCheckpoints">
+                                <div class="checkpoint">
+                                    <img class="checkpointPicture" src="{{ch.pictures[0]}}" alt="image">
+                                    <div class="checkpointInfo">
+                                        <label class="name">{{ch.name}}</label>
+                                        <p class="description">{{ch.description}}</p>
+                                        <button class="addCheckpointButton" (click)="addCheckpoint(ch)">+</button>
+                                    </div>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="availableCheckpoints" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0">
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <label class="tellUs">Checkpoints on your custom tour</label>
+                        <button style="color: white; width: 4vh; height: 4vh; border: 0px solid black; background-color: transparent; cursor: pointer; margin-right: 8px;" (click)="changeMode()">{{mode}}</button>
+                    </div>
+                    <div style="overflow-y: auto;" *ngIf="mode==='Map'">
+                        <table class="checkpointsTable">
+                            <tr *ngFor="let ch of selectedCheckpoints">
+                                <div class="checkpoint">
+                                    <img class="checkpointPicture" src="{{ch.pictures[0]}}" alt="image">
+                                    <div class="checkpointInfo">
+                                        <label class="name">{{ch.name}}</label>
+                                        <p class="description">{{ch.description}}</p>
+                                        <button class="addCheckpointButton" (click)="cancelCheckpoint(ch)">-</button>
+                                    </div>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="overflow-y: hidden;" *ngIf="mode==='List'">
+                        <xp-map class="map"></xp-map>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>

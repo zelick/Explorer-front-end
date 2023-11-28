@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
 import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
+import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component';
 
 
 
@@ -30,7 +31,8 @@ import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoi
     MapObjectFormComponent,
     TourEquipmentComponent,
     TourTransportFormComponent,
-    CheckpointSecretFormComponent
+    CheckpointSecretFormComponent,
+    PlanYourTripComponent
   ],
   imports: [
     CommonModule,
