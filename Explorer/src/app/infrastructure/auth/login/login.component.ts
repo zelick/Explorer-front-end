@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../model/login.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'xp-login',
@@ -10,6 +11,8 @@ import { Login } from '../model/login.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  isVerified: Observable<boolean>
 
   constructor(
     private authService: AuthService,
@@ -19,6 +22,7 @@ export class LoginComponent {
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    isVerified: new FormControl()
   });
 
   login(): void {
@@ -28,13 +32,19 @@ export class LoginComponent {
     };
 
     if (this.loginForm.valid) {
-      this.authService.login(login).subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: (error)=>{
-          console.error('Login failed:', error); // Log the error for debugging
-          alert('Incorrect username or password!');
+      this.authService.isUserVerified(this.loginForm.value.username || "").subscribe((isVerified: boolean) => {
+        if (isVerified) {
+          this.authService.login(login).subscribe({
+            next: () => {
+              this.router.navigate(['/']);
+            },
+            error: (error)=>{
+            console.error('Login failed:', error); // Log the error for debugging
+            alert('Incorrect username or password!');
+          }
+          });
+        } else {
+          // Korisnik nije verifikovan, obradite ovaj slučaj
         }
       });
     }
