@@ -135,6 +135,9 @@ export class RegistrationComponent {
             this.router.navigate(['login']);
             this.waitingForVerification = true;
           },
+          error: (error) => {
+            console.error('Registration error:', error);
+          }
         });
       }
       else{

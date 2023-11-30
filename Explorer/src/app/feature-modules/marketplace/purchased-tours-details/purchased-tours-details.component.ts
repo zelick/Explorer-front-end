@@ -8,6 +8,7 @@ import { CheckpointPreview } from '../model/checkpoint-preview';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class PurchasedToursDetailsComponent implements OnInit{
         })
     }
 
-    tour:Tour;
+    tour: PurchasedTourPreview;
     tourId:number;
     checkpoints:CheckpointPreview;
     profiles: string[] = ['walking', 'cycling', 'driving'];
@@ -42,7 +43,7 @@ export class PurchasedToursDetailsComponent implements OnInit{
 
     getPurchasedTour(id: number): void {
         this.service.getPurchasedTourDetails(id).subscribe({
-            next: (result: Tour) => {
+            next: (result: PurchasedTourPreview) => {
                 this.tour = result;
                 this.mapComponent.setCheckpoints(this.tour.checkpoints);
             },

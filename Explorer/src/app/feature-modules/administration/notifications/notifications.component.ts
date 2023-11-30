@@ -1,24 +1,24 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { DatePipe } from '@angular/common';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../administration.service';
-import { ReportedIssueNotification } from '../model/reported-issue-notification.model';
+import { Notification } from '../model/notification.model';
 
 @Component({
-  selector: 'xp-reported-issue-notifications',
-  templateUrl: './reported-issue-notifications.component.html',
-  styleUrls: ['./reported-issue-notifications.component.css'],
-  providers: [DatePipe],
+  selector: 'xp-notifications',
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.css'], 
+  providers: [DatePipe]
 })
-export class ReportedIssueNotificationsComponent implements OnInit {
-  notifications: ReportedIssueNotification[];
+export class NotificationsComponent implements OnInit {
+  notifications: Notification[];
   numberAll: number;
-  unread: ReportedIssueNotification[];
+  unread: Notification[];
   numberNew: number;
   user: User;
-  selectedNotification:ReportedIssueNotification;
+  selectedNotification:Notification;
   hasNew: boolean = true;
 
   constructor(
@@ -33,8 +33,8 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   }
 
   getAllByUser(): void{
-    this.service.getAllReportedIssueNotificationsByUser(this.user.id, this.user.role).subscribe({
-      next: (result: PagedResults<ReportedIssueNotification>) => {
+    this.service.getAllNotificationsByUser(this.user.id, this.user.role).subscribe({
+      next: (result: PagedResults<Notification>) => {
         this.notifications = result.results;
         // Sort the notifications, sort by isRead in descending order (false comes first). 
         // If both have the same isRead status, sort by creationTime in descending order
@@ -55,8 +55,8 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   }
 
   getUnreadByUser(): void{
-    this.service.getUnreadReportedIssueNotificationsByUser(this.user.id, this.user.role).subscribe({
-      next: (result: PagedResults<ReportedIssueNotification>) => {
+    this.service.getUnreadNotificationsByUser(this.user.id, this.user.role).subscribe({
+      next: (result: PagedResults<Notification>) => {
         this.unread = result.results;
         // Sort the notifications by creationTime in descending order
         this.unread.sort((a, b) => {
@@ -73,7 +73,7 @@ export class ReportedIssueNotificationsComponent implements OnInit {
   }
   
   deleteNotification(id: number): void {
-    this.service.deleteReportedIssueNotification(id, this.user.role).subscribe({
+    this.service.deleteNotification(id, this.user.role).subscribe({
       next: () => {
         this.getAllByUser();
         this.getUnreadByUser();
@@ -81,9 +81,9 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     })
   }
 
-  dismissOne(notification: ReportedIssueNotification): void {
+  dismissOne(notification: Notification): void {
     notification.isRead = true;
-    this.service.updateReportedIssueNotification(this.user.role, notification).subscribe({
+    this.service.updateNotification(this.user.role, notification).subscribe({
       next: () => {
         this.getAllByUser();
         this.getUnreadByUser();
@@ -99,7 +99,15 @@ export class ReportedIssueNotificationsComponent implements OnInit {
     this.getUnreadByUser();
   }
 
-  selectNotification(notif: ReportedIssueNotification): void {
+  selectNotification(notif: Notification): void {
     this.selectedNotification = notif;
+  }
+
+  messageNotificationType(notif: Notification): boolean{
+    return notif.type.toString().includes('MESSAGE');
+  }
+  
+  reportedIssueNotificationType(notif: Notification): boolean{
+    return notif.type.toString().includes('REPORTED_ISSUE');
   }
 }

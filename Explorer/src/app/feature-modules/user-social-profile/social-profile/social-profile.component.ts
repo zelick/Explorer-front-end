@@ -15,10 +15,9 @@ export class SocialProfileComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
   user: User | undefined;
   socialProfile: SocialProfile;
-  notifications: Message[];
   inbox: Message[];
   sent: Message[];
-  activeTab: string = 'profile';
+  activeTab: string = 'inbox';
   isMessageBoxActive: boolean = false;
   showingMessage: Message | undefined;
 
@@ -26,13 +25,17 @@ export class SocialProfileComponent implements OnInit{
   messageTitle: string;
   messageContent: string;
 
+  messageId: number | undefined;
+
   constructor(private service: UserSocialProfileService, 
-    private authService: AuthService) { }
+    private authService: AuthService){ }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
-      this.getSocialProfile(this.user.id)
+      this.getSocialProfile(this.user.id);
+      this.onInboxTabClick();
+      // TODO - display message on see details in notification
     });
   }
 
@@ -62,13 +65,6 @@ export class SocialProfileComponent implements OnInit{
     this.activeTab = "profile";
   }
 
-  onNotificatioTabClick(): void {
-    this.activeTab = "notification";
-    if(this.user) {
-      this.getNotifications();
-    }
-  }
-
   onInboxTabClick(): void {
     this.activeTab = "inbox";
     if(this.user) {
@@ -85,14 +81,6 @@ export class SocialProfileComponent implements OnInit{
 
   onComposeTabClick(): void {
     this.activeTab = "compose"
-  }
-
-  getNotifications(): void {
-    if(this.user) {
-      this.service.getNotifications(this.user.id).subscribe((result: Message[]) => {
-        this.notifications = result;
-      });
-    }
   }
 
   getInbox(): void {
@@ -137,7 +125,7 @@ export class SocialProfileComponent implements OnInit{
       this.service.markAsRead(id).subscribe((result: Message) => {
         this.showingMessage = result;
         this.isMessageBoxActive = true;
-        this.getNotifications();
+        console.log(result);
       });
     }
   }

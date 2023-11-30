@@ -1,3 +1,30 @@
+#club-form {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
+
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    transform: translate(-20%, -5%);
+
+    background-color: #B6D4AF; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px #3b846b15;
+    color: #000;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#club-form-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+    width: 80%;
+}
+
+
 div {
     width: 400px;
     display:flex;
@@ -7,4 +34,16 @@ div {
 
 .mat-icon {
     vertical-align: middle;
+}
+
+#club-form button {
+    background-color: #3B846B;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
 }

@@ -1,3 +1,10 @@
+body{
+    background-color: #253B34; 
+    height: auto;
+}
+.blog-post{
+    background-color: #253B34;
+}
 .center-container {
     display: flex;
     justify-content: right;
@@ -37,13 +44,29 @@ body {
     width: 650px;
 }
 
+
 .image-container {
-    margin-top: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60vh;
+    margin-bottom: 20px;
+}
+.image-container img {
+    width: 75%;
+    max-height: 100%;
+    border-radius: 5px;
+    margin: 0 10px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.previous-button {
+    order: -1;
 }
 
-.image-container img {
-    max-width: 100%;
-    max-height: 100%;
+.next-button {
+    order: 1;
 }
 
 .title {

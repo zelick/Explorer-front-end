@@ -38,11 +38,18 @@ export class LoginComponent {
             next: () => {
               this.router.navigate(['/']);
             },
+            error: (error)=>{
+            console.error('Login failed:', error); // Log the error for debugging
+            alert('Incorrect username or password!');
+          }
           });
         } else {
           // Korisnik nije verifikovan, obradite ovaj slučaj
         }
       });
+    }
+    else{
+      alert('Please fill in both username and password.');
     }
   }
 }

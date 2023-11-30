@@ -27,4 +27,6 @@ export class MapService {
       `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}d`
     );
   }
+
+  
 }
