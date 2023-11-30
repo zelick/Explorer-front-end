@@ -56,13 +56,14 @@
     object-fit: cover;
 }
 .title{
-
+    margin-top: -6px;
+    line-height: 1.2;
     font-weight: 500;
     color: #E67840;
     font-size: x-large;
 }
 .description{
-    margin-top: 10px;
+    margin-top: 4px;
     text-wrap: wrap;
     width: 50vh;
     overflow: hidden;
