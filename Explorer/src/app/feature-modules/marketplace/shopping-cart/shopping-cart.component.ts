@@ -64,16 +64,15 @@ export class ShoppingCartComponent implements OnInit{
     }
   }
 
-  removeShopppingCartItem(tourId: number): void{
-    this.orderItems = this.orderItems.filter(item => item.itemId !== tourId);
-    this.cart.items = this.orderItems
-    this.service.updateShoppingCart(this.cart).subscribe((cart) => {
+  removeShopppingCartItem(item: OrderItem): void{
+    this.service.removeItemFromShoppingCart(item).subscribe((cart) => {
       this.cart = cart;
       this.cart.price = cart.price;
+      this.orderItems = this.cart.items;
       this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
-
+  
 /*  increaseQuantity(item: OrderItem): void {
     item.quantity++; 
     this.cart.price = this.calculateTotalPrice();
