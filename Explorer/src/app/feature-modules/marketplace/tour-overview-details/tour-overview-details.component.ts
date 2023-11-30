@@ -51,45 +51,10 @@ export class TourOverviewDetailsComponent implements OnInit{
             console.error('Greška prilikom dobavljanja prosečne ocene ture:', error);
           }
         );
-        this.initializeCustomer();
       });
 
       
     }
-    
-  initializeCustomer(): void {
-    this.service.getCustomer(this.user.id).pipe(
-      catchError(() => {
-        return of(null);
-      })
-    ).subscribe(
-      (existingCustomer) => {
-        if (!existingCustomer) {
-          this.createCustomer();
-        }
-      }
-    );
-  }
-
-  createCustomer(): void {
-    const newCustomer: Customer = {
-      userId: this.user.id,
-      tourPurchaseTokens: [],
-      shoppingCartId: 0,
-    };
-
-    this.service.createCustomer(newCustomer)
-      .pipe(
-        tap(() => {
-          console.log('Customer created successfully!');
-        }),
-        catchError(error => {
-          console.error('Error creating customer.', error);
-          return of(null);
-        })
-      )
-      .subscribe();
-  }
 
     tour:TourPreview;
     tourID:number;
@@ -153,22 +118,19 @@ export class TourOverviewDetailsComponent implements OnInit{
       }
     }
 
-  addItemToCart(orderItem: OrderItem, tourPreview: TourPreview): void {
-    this.service.getShoppingCart(this.user.id).subscribe((tourShoppingCart) => {
-      tourShoppingCart.items.push(orderItem);
-      this.cartItemCount = tourShoppingCart.items.length;
-      tourShoppingCart.price = tourShoppingCart.price + orderItem.price;
-      this.service.updateShoppingCart(tourShoppingCart).subscribe((result) => {
-        this.service.updateCartItemCount(tourShoppingCart.items.length);
-        this.userCart = result;
-        this.isTourInCart = this.checkIsTourInCart();
-        if (this.isTourInCart == true) {
-          this.buttonColor = 'gray';
-        }
-      });
-    });
-  }
-
+  
+    addItemToCart(orderItem: OrderItem, tourPreview: TourPreview): void {
+      this.service.addItemToShoppingCart(orderItem).subscribe((cart) => {
+        this.cartItemCount = cart.items.length;
+        this.service.updateCartItemCount(cart.items.length);
+        this.userCart = cart;
+          this.isTourInCart = this.checkIsTourInCart();
+          if (this.isTourInCart == true) {
+            this.buttonColor = 'gray';
+          }
+        });
+     }
+  
     rateTour(tour: TourPreview): void{
       this.router.navigate(['/tour-rating-form', tour.id]);
     }
@@ -179,7 +141,9 @@ export class TourOverviewDetailsComponent implements OnInit{
 
     editRating(rating: TourRating): void{
       this.router.navigate(['/tour-rating-edit-form', rating.id]);
-    }
+  }
+  
+  // TODO add check if the tourist owns it already
     checkIsTourInCart(): boolean{
       if (this.userCart.items.length > 0) {
         return this.userCart.items.some(item => item.itemId == this.tourID);
