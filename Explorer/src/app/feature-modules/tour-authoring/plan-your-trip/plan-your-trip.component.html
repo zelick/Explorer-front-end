@@ -52,7 +52,8 @@
                 </div>
             </div>
         </div>
-        <h1 *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0">Tours you may be interested in</h1>
+        <label class="disclaimer" *ngIf="publicCheckpoints && publicCheckpoints.length>0 && selectedCheckpoints.length<2">&#9888; Select at least two checkpoints for your private tour.</label>
+        <h1 style="margin-top: 6vh;" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0" >Tours you may be interested in</h1>
         <label class="disclaimer" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0">These tours visit all the checkpoints you chose, and more!</label>
         <div *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0" class="travelers-div">
             <button class="navigation-button" (click)="swipeLeft()"> &#9665;</button>
@@ -61,14 +62,20 @@
                 <div class="image-container">
                     <img *ngIf="tour.previewCheckpoints[0]" src="{{tour.previewCheckpoints[0].pictures[0]}}" alt="Image1" class="img">
                 </div>
-                <h2 class="card-header">{{tour.name}}</h2>
-                <p style="color: white; margin-left: 10px; font-size: x-small;">{{tour.description}}</p>
-              </div>
+                    <h2 class="card-header">{{tour.name}}</h2>
+                    <p style="color: white; margin-left: 10px; font-size: x-small;">{{tour.description}}</p>
+                </div>
               
             </div>
             <button class="navigation-button" (click)="swipeRight()">&#9655; </button>
-          </div>
-          
-      
+        </div>
+        <div *ngIf="selectedCheckpoints.length>1" style="width: 50%;">
+            <h1 style="margin-top: 6vh;">One last step</h1>
+            <label class="tellUs">Select a name for your private tour</label>
+            <div class="formaName">
+                <input type="text" placeholder=" Name for your tour" class="destinationInput" [(ngModel)]="privateTour.name"/>
+            </div>
+            <button class="createButton" (click)="createTour()">Create tour</button>
+        </div>
     </div>
 </body>

@@ -33,7 +33,7 @@ h1{
     justify-content: space-between;
     padding-top: 20px;
     align-items: left;
-    margin-bottom: 9vh;
+    margin-bottom: 1vh;
 }
 .left{
     /* border: 1px solid  red;  */
@@ -53,11 +53,21 @@ h1{
 }
 .forma{
     align-items: center;
-    height: 4vh;
+    height: 5vh;
     display: flex;
     width: 45%;
     flex-direction: row;
     justify-content: space-between;
+}
+.formaName{
+  align-items: center;
+    height: 5vh;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
 }
 .destinationInput{
     width: 100%;
@@ -65,6 +75,8 @@ h1{
     text-align: center;
     border: 1px solid #3B846B;
     border-radius: 5px;
+    font-size: 120%;
+    background-color: #F7F6DC;
 }
 .go{
     height:110%;
@@ -72,7 +84,17 @@ h1{
     color: #3B846B;
     font-weight: 700;
     font-size: 120%;
-    background-color: white;
+    background-color: #F7F6DC;
+    border-radius: 5px;
+    border: 1px solid #253B34;
+    cursor: pointer;
+}
+.createButton{
+    height:5vh;
+    color: white;
+    font-weight: 700;
+    font-size: 120%;
+    background-color: #E67840;
     border-radius: 5px;
     border: 1px solid #253B34;
     cursor: pointer;
@@ -238,18 +260,6 @@ h1{
     transition: transform 0.3s ease-in-out;
   }
   
-  .star {
-    font-size:medium;
-    color: #B6D4AF; /* Make the text inside transparent */
-    position: relative;
-    display: inline-block;
-  }
-  .card-top{
-    justify-content: right;
-    margin-top: 0;
-    height: 3vh;
-  }
-  
   .tour-card img { 
     width: 100%;
     height: 100%;
@@ -277,24 +287,14 @@ h1{
     color: white;
   }
   
-  .card-location-header{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: x-small;
-    color: white;
-    margin-top: 0;
-    padding: 1% 2.5%; 
-    background-color: #1b332b8e;
-    border-radius: 5px;
-  }
   
   .card-header{
     margin-top: 0px;
     margin-bottom: -5px;
     margin-left: 11px;
-    color: white;
+    color: #F7F6DC;
     font-size: medium;
+    font-weight: 500;
   }
   
   .travelers-div {

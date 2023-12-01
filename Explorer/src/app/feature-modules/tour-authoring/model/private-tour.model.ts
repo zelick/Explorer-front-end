@@ -4,5 +4,5 @@ export interface PrivateTour{
     id: number;
     touristId: number;
     checkPoints: PublicCheckpoint[];
-    name:string;
+    name:string; 
 }
