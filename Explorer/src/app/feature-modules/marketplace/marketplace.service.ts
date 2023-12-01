@@ -105,9 +105,14 @@ export class MarketplaceService {
     return this.http.get<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/', { params });
   }
 
-  updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
-    return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/' + shoppingCart.id, shoppingCart);
+  addItemToShoppingCart(item: OrderItem): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/add', item);
   }
+
+  removeItemFromShoppingCart(item: OrderItem): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/remove', item);
+  }
+
 
   shoppingCartCheckOut(id: number): Observable<ShoppingCart> {
     const params = new HttpParams().set('touristId', id.toString());
@@ -118,30 +123,21 @@ export class MarketplaceService {
     return this.http.get<PagedResults<Tour>>(environment.apiHost + 'administration/tour');
   }
 
-  getCustomer(touristId: number): Observable<Customer> {
-    const params = new HttpParams().set('touristId', touristId.toString());
-    return this.http.get<Customer>(environment.apiHost + 'shopping/customer/', { params });
-  }
-
-  createCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(environment.apiHost + 'shopping/customer', customer);
-  }
-
-  getCustomersPurchasedTours(id: number): Observable<PurchasedTourPreview[]> {
+  getTouristsPurchasedTours(id: number): Observable<PurchasedTourPreview[]> {
     const params = new HttpParams().set('touristId', id.toString());
-    return this.http.get<PurchasedTourPreview[]>(environment.apiHost + 'shopping/customer/purchased-tours', { params })
+    return this.http.get<PurchasedTourPreview[]>(environment.apiHost + 'shopping/purchased-tours', { params })
   }
 
+  getPurchasedTourDetails(tourId: number): Observable<PurchasedTourPreview> {
+    return this.http.get<PurchasedTourPreview>(environment.apiHost + 'shopping/purchased-tours/details/' + tourId)
+  }
+  
   getPublishedTours():Observable<TourPreview[]> {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
   }
 
   getPublishedTour(id:number): Observable<TourPreview> {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
-  }
-
-  getPurchasedTourDetails(tourId: number):Observable<PurchasedTourPreview> {
-    return this.http.get<PurchasedTourPreview>(environment.apiHost + 'shopping/customer/purchased-tour-details/' + tourId)
   }
 
   //
