@@ -9,6 +9,8 @@ import { PublicTour } from '../model/public-tour.model';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../../tour-execution/model/public_checkpoint.model';
 import { AfterViewInit } from '@angular/core';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -17,7 +19,7 @@ import { AfterViewInit } from '@angular/core';
 })
 export class TourOverviewComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  constructor(private service: MarketplaceService,private router:Router) { }
+  constructor(private service: MarketplaceService,private router:Router, private authService: AuthService) { }
 
   ngAfterViewInit(): void {
     if(this.mapObjects.length > 0)
@@ -36,8 +38,13 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
+  user: User;
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
       this.addMapObjectsOnMap();

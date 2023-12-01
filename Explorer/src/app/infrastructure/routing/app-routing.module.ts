@@ -43,6 +43,8 @@ import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
+import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.component';
+import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -85,6 +87,7 @@ const routes: Routes = [
       { path: 'tour', component: TourComponent,canActivate:[AuthGuard] },
       { path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard] },
       { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
+      {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],},
 
       //ALL USERS
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
@@ -92,6 +95,7 @@ const routes: Routes = [
       { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard] },
       { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard] },
       { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
+      {path: 'sales', component: SaleComponent, canActivate: [AuthGuard],}
     ]
   },
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
@@ -134,7 +138,9 @@ const routes: Routes = [
   {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
-  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],}
+  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
+  {path: 'sales', component: SaleComponent, canActivate: [AuthGuard],},
+  {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],}
 
 ];
 

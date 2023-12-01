@@ -17,6 +17,7 @@ import { TourExecution } from '../tour-execution/model/tour_execution.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
+import { Sale } from './model/sale.model';
 
 @Injectable({
   providedIn: 'root'
@@ -179,4 +180,13 @@ export class MarketplaceService {
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
+
+  getAllSales(): Observable<PagedResults<Sale>>{
+    return this.http.get<PagedResults<Sale>>(environment.apiHost + 'author/sale');
+  }
+
+  createSale(sale: Sale): Observable<Sale>{
+    return this.http.post<Sale>(environment.apiHost + 'author/sale', sale);
+  }
+
 }

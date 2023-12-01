@@ -1,0 +1,54 @@
+<h1>USAO U PRAVLJENJE RASPRODAJE</h1>
+
+<div id="sale-form">
+    <div id="sale-form-details">
+        <form [formGroup]="saleForm">
+            <div>
+                <mat-form-field>
+                    <mat-label>Start date</mat-label>
+                    <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            
+            <div>
+                <mat-form-field>
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            
+            <div>
+                <mat-form-field>
+                    <mat-label>Discount</mat-label>
+                    <input matInput type="number" formControlName="discount">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <table>
+                    <thead>Published Tours:</thead>
+                    <tbody>
+                        <tr *ngFor="let t of tours">
+                            <td>{{t.name}}</td>
+                            <td>
+                                <button class="button" (click)="t.id && addToSale(t.id)" mat-raised-button>Add ➕</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    
+        
+            <div id="buttons">
+                <button  mat-raised-button type="submit" color="primary" (click)="saleCreation()">Done</button>
+                <!-- <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateClub()">Done</button> -->
+            </div>
+            
+        </form>
+    </div>
+</div>
