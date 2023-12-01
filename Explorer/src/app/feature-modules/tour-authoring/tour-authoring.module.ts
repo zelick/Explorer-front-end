@@ -32,7 +32,7 @@ import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component
     TourEquipmentComponent,
     TourTransportFormComponent,
     CheckpointSecretFormComponent,
-    PlanYourTripComponent
+    PlanYourTripComponent,
   ],
   imports: [
     CommonModule,
