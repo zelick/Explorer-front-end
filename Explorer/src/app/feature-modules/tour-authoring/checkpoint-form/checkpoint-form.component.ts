@@ -99,6 +99,7 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
 
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
+      encounterId:0,
       tourId: this.tourID,
       longitude: this.longitude || 0,
       latitude: this.latitude || 0,
@@ -146,7 +147,9 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.selectedCheckpoint.authorId
+      authorId: this.selectedCheckpoint.authorId,
+      encounterId:this.selectedCheckpoint.encounterId
+
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))

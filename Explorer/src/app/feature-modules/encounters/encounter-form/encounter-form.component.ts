@@ -8,6 +8,7 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { Encounter } from '../model/encounter.model';
 import { __values } from 'tslib';
+import { NumberInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'xp-encounter-form',
@@ -26,6 +27,8 @@ export class EncounterFormComponent implements OnInit{
   checkpoint:Checkpoint;
   imagePreview: string[] = [];
   encounter:Encounter;
+  edit:boolean=false;
+  encounterId:number;
 
 
   ngOnInit(): void {
@@ -42,6 +45,26 @@ export class EncounterFormComponent implements OnInit{
   getCheckpoint(id: number): void {
     this.tourAuthoringService.getCheckpoint(id).subscribe((result: Checkpoint) => {
       this.checkpoint = result;
+      console.log(this.checkpoint);
+      this.encounterId=result.encounterId;
+     if(result.encounterId!=0)
+      {this.service.getEncounter(this.checkpoint.encounterId||1).subscribe((result:Encounter)=>{
+        this.encounter=result;
+        console.log(this.encounter);
+        this.type=this.encounter.type;
+        this.encounterForm.patchValue(this.encounter);
+        this.edit=true;
+        let r:number=this.encounter.image?.length||8;
+
+        let slika:string="";
+        for(let i=0;i<r;i++){
+          let y=this.encounter.image?.at(i)?.valueOf()||"";
+          slika=slika+(this.encounter.image?.at(i)?.valueOf()||"");
+        }
+        this.imagePreview=[];
+        this.imagePreview.push(this.getImageUrl(slika));
+      })
+    }
     });
   }
 
@@ -91,7 +114,7 @@ export class EncounterFormComponent implements OnInit{
       }
     }
 
-    
+    if(this.edit==false){
 
     this.service.addEncounter(formData,this.id,this.encounterForm.value.isPrerequisite|| false).subscribe({
       next: () => {
@@ -102,6 +125,21 @@ export class EncounterFormComponent implements OnInit{
         console.error('Update failed:', err);
       },
     });
+  }else{
+    formData.append('id', this.encounterId.toString()||"");
+
+    this.service.editEncounter(formData).subscribe({
+      next: () => {
+        this.encounterForm.reset();
+        this.imagePreview = [];
+      },
+      error: (err) => {
+        console.error('Update failed:', err);
+      },
+    });
+  }
+
+
 
     this.router.navigate([`checkpoint-secret/${this.id}`]);
   }

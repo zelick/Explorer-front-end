@@ -16,5 +16,6 @@ export interface Checkpoint{
     showedPointPicture:string,
     visibleSecret:Boolean,
     showedPicture:string,
-    viewSecretMessage:string
+    viewSecretMessage:string,
+    encounterId:number
 }

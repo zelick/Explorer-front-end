@@ -22,16 +22,12 @@
             <label>Latitude</label>
             <input matInput formControlName="latitude" type="number" />
         </div>
-        <div>
+        <div *ngIf="edit==false">
             <select formControlName="type" (change)="onChange()">
                 <option  value="Misc" >Misc</option>
                 <option  value="Location">Hidden location</option>
                 <option  value="Social">Social</option>
             </select>
-        </div>
-        <div>
-            <label>Is this encounter prerequisite for unlocking secret?</label>
-            <input type="checkbox" formControlName="isPrerequisite">
         </div>
         <div *ngIf="type=='Social'">
             <label>RequiredPeople</label>
@@ -56,6 +52,10 @@
                 <img *ngFor="let image of imagePreview" [src]="image" alt="Image"
                     style="max-width: 200px; max-height: 200px;">
             </div>
+        </div>
+        <div *ngIf="edit==false">
+            <label>Is this encounter prerequisite for unlocking secret?</label>
+            <input type="checkbox" formControlName="isPrerequisite">
         </div>
     </div>
     </form>

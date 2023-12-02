@@ -14,12 +14,18 @@ export class EncounterService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   addEncounter(encounter: FormData,id:number,isPrerequisite:boolean): Observable<Encounter> {
-    //let queryParams = new HttpParams();
-    //queryParams = queryParams.append("checkpointId", id);
-    //queryParams = queryParams.append("isSecretPrerequisite", isPrerequisite);
+
     const params = new HttpParams()
                     .set('checkpointId', id)
                     .set("isSecretPrerequisite", isPrerequisite);
     return this.http.post<Encounter>(environment.apiHost + 'administration/encounter', encounter,{params});
+  }
+
+  getEncounter(id:number): Observable<Encounter> {
+    return this.http.get<Encounter>(environment.apiHost + 'administration/encounter/'+id);
+  }
+
+  editEncounter(encounter: FormData): Observable<Encounter> {
+    return this.http.put<Encounter>(environment.apiHost + 'administration/encounter', encounter);
   }
 }
