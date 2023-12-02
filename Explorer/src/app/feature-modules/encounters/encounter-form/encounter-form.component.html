@@ -51,7 +51,11 @@
         </div>
         <div *ngIf="type=='Location'">
             <label>Image</label>
-            <input type="file" (change)="onImageSelected($event)" id="fileInput" multiple />
+            <input type="file" (change)="onImageSelected($event)" id="fileInput"/>
+            <div class="image-container" *ngIf="imagePreview.length > 0">
+                <img *ngFor="let image of imagePreview" [src]="image" alt="Image"
+                    style="max-width: 200px; max-height: 200px;">
+            </div>
         </div>
     </div>
     </form>

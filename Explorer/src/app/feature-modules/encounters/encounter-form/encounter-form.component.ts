@@ -79,6 +79,17 @@ export class EncounterFormComponent implements OnInit{
       formData.append('range', this.encounterForm.value.range?.toString()||"");
       formData.append('requiredPeople', this.encounterForm.value.requiredPeople?.toString()||"");
     }
+    if (this.encounterForm.value.type==="Location")
+    {
+      formData.append('range', this.encounterForm.value.range?.toString()||"");
+      formData.append('locationLongitude', this.encounterForm.value.locationLongitude?.toString()||"");
+      formData.append('locationLatitude', this.encounterForm.value.locationLatitude?.toString()||"");
+      if (this.encounterForm.value.images) {
+        const selectedFiles = this.encounterForm.value.images;
+          formData.append('imageF', selectedFiles[0]);
+
+      }
+    }
 
     
 
