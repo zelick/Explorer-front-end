@@ -1,0 +1,64 @@
+<div>
+    <p>Encounter form</p>
+    <form [formGroup]="encounterForm">
+    <div >
+        <div>          
+                <label>Name</label>
+                <input matInput formControlName="name" type="text" />
+        </div>
+        <div>          
+            <label>Description</label>
+            <input matInput formControlName="description" type="text" />
+    </div>
+        <div>
+                <label>XP</label>
+                <input matInput formControlName="xp" type="number" />
+        </div>
+        <div>
+            <label>Longitude</label>
+            <input matInput formControlName="longitude" type="number" />
+        </div>
+        <div>
+            <label>Latitude</label>
+            <input matInput formControlName="latitude" type="number" />
+        </div>
+        <div>
+            <select formControlName="type" (change)="onChange()">
+                <option  value="Misc" >Misc</option>
+                <option  value="Location">Hidden location</option>
+                <option  value="Social">Social</option>
+            </select>
+        </div>
+        <div>
+            <label>Is this encounter prerequisite for unlocking secret?</label>
+            <input type="checkbox" formControlName="isPrerequisite">
+        </div>
+        <div *ngIf="type=='Social'">
+            <label>RequiredPeople</label>
+            <input type="number" formControlName="requiredPeople">
+        </div>
+        <div *ngIf="type=='Social' || type=='Location'">
+            <label>Range</label>
+            <input type="number" formControlName="range">
+        </div>
+        <div *ngIf="type=='Location'">
+            <label>Location of image longitude</label>
+            <input type="number" formControlName="locationLongitude">
+        </div>
+        <div *ngIf="type=='Location'">
+            <label>Location of image latitude</label>
+            <input type="number" formControlName="locationLatitude">
+        </div>
+        <div *ngIf="type=='Location'">
+            <label>Image</label>
+            <input type="file" (change)="onImageSelected($event)" id="fileInput" multiple />
+        </div>
+    </div>
+    </form>
+    
+        <button (click)="onNext()">Finish
+        </button>
+        
+
+    
+</div>

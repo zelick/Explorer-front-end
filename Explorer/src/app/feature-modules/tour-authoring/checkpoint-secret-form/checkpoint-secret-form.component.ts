@@ -85,6 +85,7 @@ export class CheckpointSecretFormComponent implements OnInit{
         console.log(this.checkpoint);
       });
       this.router.navigate([`checkpoint/${this.checkpoint.tourId}`]);
+
     }
 
   }

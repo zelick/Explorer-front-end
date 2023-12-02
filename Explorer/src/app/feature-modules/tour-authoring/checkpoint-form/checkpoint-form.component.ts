@@ -122,7 +122,9 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     {
       this.service.addCheckpoint(checkpoint,status).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }
@@ -151,7 +153,9 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     {
       this.service.updateCheckpoint(checkpoint).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }

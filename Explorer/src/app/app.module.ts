@@ -17,6 +17,7 @@ import { UserSocialProfileModule } from './feature-modules/user-social-profile/u
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { EncountersModule } from './feature-modules/encounters/encounters.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgModule } from '@angular/core';
     AdministrationModule,
     MatInputModule,
     UserSocialProfileModule,
-    FormsModule
+    FormsModule,
+    EncountersModule
   ],
   providers: [
     {

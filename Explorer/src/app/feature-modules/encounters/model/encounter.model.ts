@@ -1,5 +1,3 @@
-import { SocialEncounter } from "./socialEncounter.model";
-import { HiddenLocationEncounter } from "./hiddenLocationEncounter.model";
 import { CompletedEncounter } from "./completedEncounter.model";
 export interface Encounter {
     id?: number;
@@ -10,7 +8,11 @@ export interface Encounter {
     latitude:number;
     status:string,
     type:string,
-    socialEncounter?:SocialEncounter,
-    hiddenLocationEncounter?:HiddenLocationEncounter,
+    locationLongitude?:number,
+    locationLatitude?:number,
+    image?:string[],
+    imageF?:FileList,
+    range?:number,
+    requiredPeople?:number
     completedEncounter?:CompletedEncounter
 }
