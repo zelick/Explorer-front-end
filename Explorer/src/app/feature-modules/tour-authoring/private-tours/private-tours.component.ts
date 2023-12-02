@@ -48,19 +48,22 @@ export class PrivateToursComponent implements OnInit, OnDestroy {
           id: 1,
           touristId: this.touristId,
           checkPoints: [checkpoints[0], checkpoints[1], checkpoints[2]],
-          name: 'Global Landmarks Exploration'
+          name: 'Global Landmarks Exploration',
+          execution: null
         },
         {
           id: 2,
           touristId: this.touristId,
           checkPoints: [checkpoints[3], checkpoints[4], checkpoints[5]],
-          name: 'European Adventure'
+          name: 'European Adventure',
+          execution: null
         },
         {
           id: 3,
           touristId: this.touristId,
           checkPoints: [checkpoints[6], checkpoints[1], checkpoints[4]],
-          name: 'Historical Wonders Tour'
+          name: 'Historical Wonders Tour',
+          execution: null
         }
       ];
       this.startPictureRotation();

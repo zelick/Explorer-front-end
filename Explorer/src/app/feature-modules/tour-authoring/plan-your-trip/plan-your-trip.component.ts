@@ -25,7 +25,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   selectedLongitude: number;
   i: number = 0;
   tours: PublicTour[] = [];
-  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkPoints:[]};
+  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkPoints:[], execution:null};
   
   constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router){
 
@@ -46,6 +46,10 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     this.tourAuthoringService.createPrivateTour(this.privateTour).subscribe({
       next: (result)=>{
         alert('You successfully created private tour '+ this.privateTour.name);
+        this.mode = "List";
+        this.publicCheckpoints = [];
+        this.selectedDestination = "";
+        this.selectedCheckpoints = [];
       },
       error: (error)=>{
         alert('Something went wrong try again.');
