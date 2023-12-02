@@ -28,4 +28,8 @@ export class EncounterService {
   editEncounter(encounter: FormData): Observable<Encounter> {
     return this.http.put<Encounter>(environment.apiHost + 'administration/encounter', encounter);
   }
+
+  deleteEncounter(checkpointId:number): Observable<Encounter> {
+    return this.http.delete<Encounter>(environment.apiHost + 'administration/encounter/'+checkpointId);
+  }
 }

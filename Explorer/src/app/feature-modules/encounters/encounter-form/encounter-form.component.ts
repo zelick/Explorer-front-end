@@ -177,4 +177,15 @@ export class EncounterFormComponent implements OnInit{
   ngOnChanges(): void {
       this.imagePreview = this.encounter.image?.map(image => this.getImageUrl(image)) || [];
   }
+
+  onDelete():void{
+    this.service.deleteEncounter(this.id).subscribe({
+      next: () => {
+       this.edit=false;
+       this.encounterForm.reset();
+        alert("Encounter is deleted");
+        this.router.navigate([`checkpoint-secret/${this.id}`]);
+      }
+    });
+  }
 }
