@@ -38,12 +38,20 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     });
   }
   createTour(){
+    this.privateTour.checkPoints = this.selectedCheckpoints;
     if(this.privateTour.name==="" || this.privateTour.touristId===0 || this.privateTour.checkPoints.length<2){
       alert('Invalid data');
       return;
     }
-    this.privateTour.checkPoints = this.selectedCheckpoints;
-    alert(this.privateTour.name+this.privateTour.touristId+this.privateTour.checkPoints)
+    this.tourAuthoringService.createPrivateTour(this.privateTour).subscribe({
+      next: (result)=>{
+        alert('You successfully created private tour '+ this.privateTour.name);
+      },
+      error: (error)=>{
+        alert('Something went wrong try again.');
+      }
+    });
+    
   }
   ngAfterViewInit(): void {
     if(this.selectedCheckpoints.length > 0)
