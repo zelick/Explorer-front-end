@@ -1,1 +1,43 @@
-<p>composite-tour-form works!</p>
+<div class="container">
+    <div class="tour-list">
+        <h2>Purchased Tours</h2>
+        <table>
+            <tbody>
+                <tr *ngFor="let t of purchasedTours">
+                    <td>
+                        <div class="tour-container">
+                            <br>
+                            <div class="ch">{{ t.name }}</div>
+                            <br>
+                            <div class="card">
+                                
+                            </div>
+                            
+                            <button class="amer-i-rus" (click)="addToSelected(t)">+</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="selected-tours">
+        <h2>  Ordered Selected Tours </h2>
+        <table>
+            <tbody>
+                <tr *ngFor="let selected of selectedTours">
+                    <td>
+                        <div class="tour-container">
+                            <br>
+                            <div class="ch">{{ selected.name }}</div>
+                            <br>
+                            
+                            <button class="amer-i-rus" (click)="removeFromSelected(selected)">-</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="create-button" (click)="createCompositeTour()">Create Composite Tour</button>
+    </div>
+</div>
