@@ -15,6 +15,7 @@ import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
+import { Encounter } from '../../encounters/model/encounter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
+  encounters : Encounter[] = [];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
