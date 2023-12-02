@@ -45,6 +45,7 @@ import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/t
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
 import { PlanYourTripComponent } from 'src/app/feature-modules/tour-authoring/plan-your-trip/plan-your-trip.component';
 import { PrivateToursComponent } from 'src/app/feature-modules/tour-authoring/private-tours/private-tours.component';
+import { PrivateTourExecutionComponent } from 'src/app/feature-modules/tour-execution/private-tour-execution/private-tour-execution.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -82,6 +83,8 @@ const routes: Routes = [
       { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+      { path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
+      { path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
       
 
       //AUTHOR only
@@ -139,7 +142,8 @@ const routes: Routes = [
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
-  {path: 'private-tours/:id', component: PrivateToursComponent, canActivate: [AuthGuard]}
+  {path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
+  {path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

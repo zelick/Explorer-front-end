@@ -1,0 +1,286 @@
+#tour-execution{
+    margin: 100px;
+    margin-top: 100px;
+}
+
+.simulator-div{
+    width: 600px;
+    height: 150px;
+}
+
+#top-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.tour-details {
+    width: 680px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+
+th{
+    width: 340px;
+    text-align: center;
+    background-color: #E67840;
+    color: white;
+}
+
+.buttonEdit{
+    width: auto;
+    margin-left: 0px;
+
+    margin-bottom: 200px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.buttonEdit1{
+    width: auto;
+    margin-left: 50px;
+
+    margin-bottom: 200px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.buttonBack{
+    width: auto;
+    margin-bottom: 15px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.buttonDelete{
+    width: auto;
+    margin-left: 170px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.buttonDelete1{
+    width: auto;
+    margin-left: 800px;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+td{
+    width: 340px;
+    text-align: center;
+
+}
+.cardcp{
+    width: 800px;
+    display:flex;
+    column-gap: 50px;
+    flex-direction: row;
+    justify-content:justify;
+    background-color: #B6D4AF;
+
+}
+
+
+.cp{
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.cps2{
+font-weight: 1000;
+color:#3B846B
+}
+
+.cps1{
+    width: 350px;
+    margin-left: 15px;
+}
+#tour-title{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#tour-details{
+    padding-top: 25px;
+    padding-left: 25px;
+}
+
+
+.mapa{
+    width: 1300px;
+    height: 400px;
+}
+
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+  
+}
+
+.subtitle{
+    font-size: 2vh;
+  color:#E67840;
+  font-style: bold;
+
+}
+
+img{
+    object-fit: cover;
+    border: 2px solid #3B846B;
+
+}
+.cpmp{
+    font-size: 7vh;
+    text-align: right;
+    margin-left: 125px;
+    margin-top: 60px;
+}
+.cpp{
+    width: 200px;
+    text-align: left;
+     border: #3B846B solid 5px;
+
+}
+.routingButton{
+    width: 1200;
+    display:flex;
+    margin-right: 60px;
+    margin-left: 60px;
+    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.nextbtn{
+    margin-bottom: 0.5cm;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+
+}
+
+textarea {
+    height: 100px;
+    width: 11cm;
+    resize: none;
+    margin-left: 10px;
+  }
+.managing-tour-div{
+    width: 200px;
+    height: 200px;
+    border: 2px solid #E67840;
+    margin: 50px auto;
+    margin-top:190px;
+    background-color: #B6D4AF;
+    text-align: center;
+}
+
+.tour-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.checkpoint-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.managing-transport-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 200px;
+    height: 100px;
+    border: 2px solid #E67840;
+    margin-top: 450px;
+    margin-left: 230px;
+    background-color: #B6D4AF;
+}
+.legend-div{
+    width: 500px;
+    height: 100px;
+    border: 2px solid #E67840;
+    margin-top:450px;
+    background-color: #B6D4AF;
+}
+.selectTransport{
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 0px;
+    margin-bottom: auto;
+    width: 70px;
+    height: 30px;
+}
+.profile-select{
+    width: 100px;
+    height: 30px;
+    background-color:#fff;
+    border-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+.notification-div{
+    width: 400px;
+    height: 200px;
+    overflow: scroll;
+}
+
+.buttonAbandon{
+    width: auto;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    margin-right: 50px;
+    padding: 0px 10px;
+    width: 150px;
+    height: 60px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+}

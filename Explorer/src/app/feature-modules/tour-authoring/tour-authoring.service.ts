@@ -31,6 +31,10 @@ export class TourAuthoringService {
     });
   }
   
+  getPrivateTours(touristId: number): Observable<PrivateTour[]> {
+    return this.http.get<PrivateTour[]>(environment.apiHost + 'tourist/privateTours/' + touristId);
+  }
+
   getCheckpoints(): Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>(environment.apiHost + 'administration/checkpoint')
   }

@@ -4,7 +4,7 @@ import { PrivateTourExecution } from "./private-tour-execution.model";
 export interface PrivateTour{
     id: number;
     touristId: number;
-    checkPoints: PublicCheckpoint[];
+    checkpoints: PublicCheckpoint[];
     name:string; 
     execution: PrivateTourExecution|null;
 }

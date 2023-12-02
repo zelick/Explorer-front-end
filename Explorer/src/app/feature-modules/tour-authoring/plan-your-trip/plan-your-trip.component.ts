@@ -25,7 +25,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   selectedLongitude: number;
   i: number = 0;
   tours: PublicTour[] = [];
-  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkPoints:[], execution:null};
+  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[], execution:null};
   
   constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router){
 
@@ -38,8 +38,8 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     });
   }
   createTour(){
-    this.privateTour.checkPoints = this.selectedCheckpoints;
-    if(this.privateTour.name==="" || this.privateTour.touristId===0 || this.privateTour.checkPoints.length<2){
+    this.privateTour.checkpoints = this.selectedCheckpoints;
+    if(this.privateTour.name==="" || this.privateTour.touristId===0 || this.privateTour.checkpoints.length<2){
       alert('Invalid data');
       return;
     }
