@@ -6,7 +6,7 @@ import { User } from "src/app/infrastructure/auth/model/user.model";
 import { Sale } from "../model/sale.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Tour } from "../../tour-authoring/model/tour.model";
 import { TourPreview } from "../model/tour-preview";
@@ -28,40 +28,38 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
     tours: Tour[];
     addedTours: number[] = [];
     sales: Sale[];
+    isAddButtonDisabled: boolean[] = [];
+    isRemoveButtonDisabled: boolean[] = [];
     
-  
     constructor(
         private service: MarketplaceService,
         private authService: AuthService,
         private router:Router, 
         private tourAuthoringService: TourAuthoringService) { }
+
   
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
         });
-
+ 
         this.tourAuthoringService.getTour().subscribe(
             (result) => {
                 this.tours = result.filter(tour => tour.status === 'Published')
+                this.initializeButtonStates();
             }, 
             (error) => {
                 console.log('greska pri ucitavanju autorovih tura')
             }
         )
-
-      /*   this.service.getTours().subscribe(
-            (result) => {
-                this.tours = result.results.filter(
-                    tour => tour.authorId === this.user.id && tour.status === 'Published'
-                ); 
-            },
-            (error) =>
-            {
-                console.log('Greska pri ucitavanju published tours');
-            }
-        ) */
     }
+
+    initializeButtonStates(): void {
+        for (let i = 0; i < this.tours.length; i++) {
+          this.isAddButtonDisabled[i] = false;
+          this.isRemoveButtonDisabled[i] = true;
+        }
+      }
 
     saleForm = new FormGroup({
         startDate: new FormControl(new Date()),
@@ -70,10 +68,20 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
         selectedTours: new FormControl ([[]])
     });
 
-    addToSale(tourId: number) {
+    addToSale(tourId: number, i: number) {
         if (this.addedTours !== undefined && !this.addedTours.includes(tourId)) {
             this.addedTours.push(tourId);
         }
+        this.isAddButtonDisabled[i] = true
+        this.isRemoveButtonDisabled[i] = false
+    }
+
+    removeFromSale(tourId: number, i: number) {
+        if (this.addedTours !== undefined && this.addedTours.includes(tourId)) {
+            this.addedTours = this.addedTours.filter((id) => id !== tourId);
+        }
+        this.isAddButtonDisabled[i] = false
+        this.isRemoveButtonDisabled[i] = true
     }
 
     saleCreation(): void {
@@ -88,12 +96,16 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
             next: (result: Sale) => {
                 console.log(result)
                 this.saleUpdated.emit()
+                this.router.navigate(['/sales']);
             }
         });
-      }
+    }
 
+    openDetails(tour: Tour):void{
+        this.router.navigate([`tour-details/${tour.id}`]);
+    }
 
-
-  
-
+      discardSale(): void {
+        this.router.navigate(['/sales']); // Pretpostavka da želite vratiti na sales stranicu
+    }
 }

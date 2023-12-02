@@ -185,4 +185,8 @@ export class MarketplaceService {
     return this.http.post<Sale>(environment.apiHost + 'author/sale', sale);
   }
 
+  getAllToursFromSale(saleId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'author/sale/tours-on-sale/' + saleId);
+  }
+
 }

@@ -17,3 +17,167 @@
     cursor: pointer;
 }
   
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Puni visinu ekrana */
+}
+
+p {
+  margin: 0 auto;
+  font-size: 4vh;
+  color: #E67840;
+  padding: 1% 2.5%;
+}
+
+.tour-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tourName {
+  font-size: x-large;
+  color: white;
+  padding: 1% 2.5%; 
+  background-color: #1b332b8e;
+  display: flex;
+  text-align: center;
+  width: 100px;
+  margin-left: 1px;
+  margin-top: 10px;
+  margin-right: 30%;
+  border-radius: 5px;
+}
+
+button[color="primary"] {
+  background-color: #3B846B;
+  color: white;
+}
+
+button[color="primary"]:hover {
+  background-color: #253B34;
+  color: white;
+}
+
+.tour-card {
+  flex: 0 0 calc(33.33% - 20%);
+  background-color: #B6D4AF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #3B846B15;
+  color: white;
+  text-align: left;
+  margin: 10px;
+  border-radius: 5px;
+  width: 60%;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.sale-card {
+  flex: 0 0 calc(33.33% - 20%);
+  background-color: #B6D4AF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #3B846B15;
+  color: white;
+  text-align: left;
+  margin: 10px;
+  border-radius: 5px;
+  width: 30%;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.tours-heading{
+  justify-content: left;
+  font-size: 36px;
+  color:#E67840;
+  font-weight: 600;
+  margin-top: 6vh;
+  margin-left: 2vh;
+  margin-bottom: 1vh;
+}
+
+.buttonPlus {
+  width: 80px; /* Širina dugmeta */
+  margin-top: 10px;
+  font-size: 100%;
+  color: #2E6C54;
+  background-color: beige;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px; /* Manji radijus ivice za lepši izgled */
+  cursor: pointer;
+  display: flex; /* Omogućava centriranje teksta i ikone */
+  justify-content: space-around; /* Povećava prostor između teksta i ikone */
+  align-items: center; /* Centrira tekst i ikonu vertikalno */
+  padding: 8px 16px; /* Povećava prostor unutar dugmeta */
+}
+
+.buttonPlus:hover {
+  background-color: dark beige;
+}
+
+/* Dodali novu klasu za ikonu plus (+) */
+.buttonPlus .plusIcon {
+  color: #F9E79F; /* Krem boja za plus simbol */
+}
+
+.buttonMinus {
+  width: 80px; /* Širina dugmeta */
+  margin-top: 10px;
+  font-size: 100%;
+  color: #E67840;
+  background-color: #BDC3C7;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px; /* Manji radijus ivice za lepši izgled */
+  cursor: not-allowed;
+  display: flex; /* Omogućava centriranje teksta i ikone */
+  justify-content: space-around; /* Povećava prostor između teksta i ikone */
+  align-items: center; /* Centrira tekst i ikonu vertikalno */
+  padding: 8px 16px; /* Povećava prostor unutar dugmeta */
+}
+
+.buttonMinus:hover {
+  background-color: #BDC3C7;
+}
+
+.tour-description,
+.tour-price {
+  margin-top: 15px;  /* Dodajte razmak između opisa i cene */
+}
+
+button[color="warn"] {
+  background-color: #e67e22;  /* Promenite boju u narandžastu */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[color="warn"]:hover {
+  background-color: #d35400;  /* Tamnija nijansa narandžaste prilikom hovera */
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;  /* Dodajte manji razmak iznad dugmadi */
+}
+
+.tour-price {
+  margin-top: 15px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;  /* Dodajte boju za precrtani tekst (opcionalno) */
+  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+}
+
+.discounted-price {
+  color: #E67840;  
+  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+}

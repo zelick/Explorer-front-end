@@ -1,6 +1,77 @@
+<div >
 
-<div id="buttons">
-    <button class="button" *ngIf="isAuthor" mat-raised-button color="primary" (click)="createSale()">Create Sale</button>
+    <div id="buttons">
+        <button class="button" *ngIf="isAuthor" mat-raised-button color="primary" (click)="createSale()">Create Sale</button>
+    </div>
+
+    <div id="tour">
+        <br>
+        <div id="tour-details">
+            <p class="subtitle">All author's sales</p>
+            <div class="sale-card" *ngFor="let s of sales; let j = index">
+                <!-- <td (click)="openDetails(t)"> -->
+                    <div class="tour-info">
+                        <p class="tour-description">{{s.start | date:'dd/MM/yyyy'}} - {{s.end | date:'dd/MM/yyyy'}}</p>
+                        <p class="tour-description">{{s.discount}} %</p>
+                    </div>
+                    <!--  <button
+                        class="buttonPlus"
+                        (click)="t.id && addToSale(t.id, i)"
+                        mat-raised-button
+                        [disabled]="isAddButtonDisabled[i]"
+                        >
+                        Add ➕
+                        </button>
+                        <button
+                        class="buttonPlus"
+                        (click)="t.id && removeFromSale(t.id, i)"
+                        mat-raised-button
+                        [disabled]="isRemoveButtonDisabled[i]"
+                        >
+                        Remove ➖
+                        </button> -->
+                <!-- </td> -->
+                <div id="tour">
+                    <br>
+                    <div id="tour-details">
+                        <p class="subtitle">Tours on sale</p>
+                        <div *ngIf="s.id !== undefined">
+                            <div class="tour-card" *ngFor="let t of saleToursMap[s.id]; let i = index">
+                                <td (click)="openDetails(t)">
+                                    <div class="tour-info">
+                                        <div>
+                                            <div class="tourName"><strong>{{t.name}}</strong></div>
+                                        </div>
+                                        <p class="tour-description">{{t.description}}</p>
+                                        <p class="tour-price">
+                                            <span class="original-price">{{t.price}} AC</span>
+                                            <span class="discounted-price"> {{calculateDiscountedPrice(t.price, s.discount)}} AC</span>
+                                        </p>
+                                    </div>
+                                    <!-- <button
+                                        class="buttonPlus"
+                                        (click)="t.id && addToSale(t.id, i)"
+                                        mat-raised-button
+                                        [disabled]="isAddButtonDisabled[i]"
+                                        >
+                                        Add ➕
+                                        </button>
+                                        <button
+                                        class="buttonPlus"
+                                        (click)="t.id && removeFromSale(t.id, i)"
+                                        mat-raised-button
+                                        [disabled]="isRemoveButtonDisabled[i]"
+                                        >
+                                        Remove ➖
+                                        </button> 
+                                    </div> -->
+                                </td>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
-
-<h1> PRIKAZ RASPRODAJA</h1>

@@ -64,12 +64,9 @@ import { MatSelectModule } from '@angular/material/select';
         SharedModule,
         TourAuthoringModule,
         MatDialogModule,
-        MatInputModule,
         MatDatepickerModule,
-        MatFormFieldModule,
         MatNativeDateModule,
-        MatDatepickerModule,
-        MatSelectModule
+        MatSelectModule,
     ]
   })
 
