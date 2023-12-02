@@ -62,7 +62,10 @@
         </div>
     </div>
     </form>
-    
+        <button *ngIf="edit==true" (click)="onDelete()">
+            Delete
+        </button>
+        <br>
         <button (click)="onNext()">Finish
         </button>
         

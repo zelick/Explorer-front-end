@@ -188,6 +188,17 @@ export class EncounterFormComponent implements OnInit{
       this.imagePreview = this.encounter.image?.map(image => this.getImageUrl(image)) || [];
   }
 
+  onDelete():void{
+    this.service.deleteEncounter(this.id).subscribe({
+      next: () => {
+       this.edit=false;
+       this.encounterForm.reset();
+        alert("Encounter is deleted");
+        this.router.navigate([`checkpoint-secret/${this.id}`]);
+      }
+    });
+  }
+
   onMapClick(event: { lat: number; lon: number }) {
     this.searchByCoord(event.lat, event.lon);
   }
