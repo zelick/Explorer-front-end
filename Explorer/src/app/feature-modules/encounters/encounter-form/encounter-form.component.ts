@@ -45,12 +45,10 @@ export class EncounterFormComponent implements OnInit{
   getCheckpoint(id: number): void {
     this.tourAuthoringService.getCheckpoint(id).subscribe((result: Checkpoint) => {
       this.checkpoint = result;
-      console.log(this.checkpoint);
       this.encounterId=result.encounterId;
      if(result.encounterId!=0)
       {this.service.getEncounter(this.checkpoint.encounterId||1).subscribe((result:Encounter)=>{
         this.encounter=result;
-        console.log(this.encounter);
         this.type=this.encounter.type;
         this.encounterForm.patchValue(this.encounter);
         this.edit=true;
@@ -183,9 +181,12 @@ export class EncounterFormComponent implements OnInit{
       next: () => {
        this.edit=false;
        this.encounterForm.reset();
-        alert("Encounter is deleted");
         this.router.navigate([`checkpoint-secret/${this.id}`]);
+        alert("Encounter is deleted");
+
       }
     });
   }
+
+
 }

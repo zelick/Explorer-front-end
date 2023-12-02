@@ -1,70 +1,109 @@
-<div>
+<div id="encounter-form">
+    <br>
+    <br>
     <p>Encounter form</p>
+    <br>
     <form [formGroup]="encounterForm">
     <div >
-        <div>          
-                <label>Name</label>
+        <div>  
+            <mat-form-field>     
+                <mat-label>Name</mat-label>
                 <input matInput formControlName="name" type="text" />
+            </mat-form-field>
         </div>
-        <div>          
-            <label>Description</label>
-            <input matInput formControlName="description" type="text" />
+        <div>
+            <mat-form-field>          
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            </mat-form-field>
     </div>
         <div>
-                <label>XP</label>
-                <input matInput formControlName="xp" type="number" />
+            <mat-form-field>
+                <mat-label>XP</mat-label>
+                <input matInput formControlName="xp" type="number" min="1" />
+            </mat-form-field>    
         </div>
         <div>
-            <label>Longitude</label>
+            <span>
+            <mat-form-field>
+            <mat-label>Longitude</mat-label>
             <input matInput formControlName="longitude" type="number" />
-        </div>
-        <div>
-            <label>Latitude</label>
+            </mat-form-field>
+
+            <mat-form-field>
+            <mat-label>Latitude</mat-label>
             <input matInput formControlName="latitude" type="number" />
+        </mat-form-field>
+    </span>
         </div>
         <div *ngIf="edit==false">
+            <span>
+            <span class="type">Type:</span>
             <select formControlName="type" (change)="onChange()">
                 <option  value="Misc" >Misc</option>
                 <option  value="Location">Hidden location</option>
                 <option  value="Social">Social</option>
             </select>
+        </span>
         </div>
         <div *ngIf="type=='Social'">
-            <label>RequiredPeople</label>
-            <input type="number" formControlName="requiredPeople">
+        <mat-form-field>
+            <mat-label>RequiredPeople</mat-label>
+            <input matInput type="number" formControlName="requiredPeople">
+        </mat-form-field>
         </div>
         <div *ngIf="type=='Social' || type=='Location'">
-            <label>Range</label>
-            <input type="number" formControlName="range">
+            <mat-form-field>
+            <mat-label>Range</mat-label>
+            <input matInput type="number" formControlName="range">
+        </mat-form-field>
         </div>
         <div *ngIf="type=='Location'">
-            <label>Location of image longitude</label>
-            <input type="number" formControlName="locationLongitude">
+            <mat-form-field>
+            <mat-label>Location of image longitude</mat-label>
+            <input matInput type="number" formControlName="locationLongitude">
+        </mat-form-field>
+
         </div>
         <div *ngIf="type=='Location'">
-            <label>Location of image latitude</label>
-            <input type="number" formControlName="locationLatitude">
+            <mat-form-field>
+            <mat-label>Location of image latitude</mat-label>
+            <input matInput type="number" formControlName="locationLatitude">
+        </mat-form-field>
         </div>
         <div *ngIf="type=='Location'">
-            <label>Image</label>
+
+            <span class="type">Image:</span>
+            <br>
             <input type="file" (change)="onImageSelected($event)" id="fileInput"/>
+
             <div class="image-container" *ngIf="imagePreview.length > 0">
                 <img *ngFor="let image of imagePreview" [src]="image" alt="Image"
                     style="max-width: 200px; max-height: 200px;">
             </div>
         </div>
         <div *ngIf="edit==false">
-            <label>Is this encounter prerequisite for unlocking secret?</label>
+            <br>
+            <span class="type">Is this encounter a prerequisite for unlocking secret?</span>
             <input type="checkbox" formControlName="isPrerequisite">
         </div>
     </div>
     </form>
-        <button *ngIf="edit==true" (click)="onDelete()">
-            Delete
-        </button>
-        <br>
-        <button (click)="onNext()">Finish
-        </button>
+        <table>
+            <tr>
+                <td>
+                    <button *ngIf="edit==true" (click)="onDelete()" class="button1" mat-raised-button>
+                        Delete🗑️
+                    </button>
+                </td>
+                <td>
+                    <button (click)="onNext()" class="button" mat-raised-button>Next
+                    </button>
+                </td>
+            </tr>
+        </table>
+       
+
         
 
     
