@@ -14,6 +14,9 @@
                 <label>XP</label>
                 <input matInput formControlName="xp" type="number" />
         </div>
+        <div class="map">
+            <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        </div>
         <div>
             <label>Longitude</label>
             <input matInput formControlName="longitude" type="number" />
