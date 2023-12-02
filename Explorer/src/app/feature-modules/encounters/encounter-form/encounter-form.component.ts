@@ -23,6 +23,8 @@ export class EncounterFormComponent implements OnInit{
     this.authorId = authService.user$.value.id;
     this.encounterForm.controls.latitude.disable();
     this.encounterForm.controls.longitude.disable();
+    this.encounterForm.controls.locationLatitude.disable();
+    this.encounterForm.controls.locationLongitude.disable();
   }
 
   @ViewChild(MapComponent) mapComponent: MapComponent;
@@ -36,25 +38,27 @@ export class EncounterFormComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.mapComponent.reloadMap();
     this.activatedRoute.params.subscribe(params=>{
       this.id=params['id'];
-      if(this.id>0)
-      {
         this.getCheckpoint(this.id);
-        if(this.edit)
+        if( this.id > 0)
         {
-          this.encounterForm.controls.latitude.setValue(this.encounter.latitude || 0);
-          this.encounterForm.controls.longitude.setValue(this.encounter.longitude || 0);
-          this.searchByCoord(this.encounter.latitude, this.encounter.longitude);
+          if(this.edit)
+          {
+            this.encounterForm.controls.latitude.setValue(this.encounter.locationLatitude || 0);
+            this.encounterForm.controls.longitude.setValue(this.encounter.locationLongitude || 0);
+            if(this.encounter.type == 'Location')
+              this.searchByCoord(this.encounter.locationLatitude || 0, this.encounter.locationLongitude || 0);
+          }
         }
-      }
     })
   }
 
   getCheckpoint(id: number): void {
     this.tourAuthoringService.getCheckpoint(id).subscribe((result: Checkpoint) => {
       this.checkpoint = result;
+      this.encounterForm.controls.latitude.setValue(this.checkpoint.latitude);
+      this.encounterForm.controls.longitude.setValue(this.checkpoint.longitude);
       console.log(this.checkpoint);
       this.encounterId=result.encounterId;
      if(result.encounterId!=0)
@@ -84,7 +88,7 @@ export class EncounterFormComponent implements OnInit{
     xp:new FormControl(0,[Validators.required]),
     type:new FormControl('Misc',[Validators.required]), 
     isPrerequisite:new FormControl(false,[Validators.required]),
-    longitude:new FormControl(0,[Validators.required]),
+    longitude:new FormControl(0, [Validators.required]),
     latitude:new FormControl(0,[Validators.required]),
     range:new FormControl(0),
     requiredPeople:new FormControl(0),
@@ -211,8 +215,8 @@ export class EncounterFormComponent implements OnInit{
         console.log('Found Location Lat:', foundLocation.lat);
         console.log('Found Location Lon:', foundLocation.lon);
         console.log('Found Location Name:', foundLocation.display_name);
-        this.encounterForm.controls.latitude.setValue(foundLocation.lat);
-        this.encounterForm.controls.longitude.setValue(foundLocation.lon);
+        this.encounterForm.controls.locationLatitude.setValue(foundLocation.lat);
+        this.encounterForm.controls.locationLongitude.setValue(foundLocation.lon);
       },
       error: (error) => {
         console.error('Error:', error);

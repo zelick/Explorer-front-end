@@ -14,7 +14,7 @@
                 <label>XP</label>
                 <input matInput formControlName="xp" type="number" />
         </div>
-        <div class="map">
+        <div class="map" *ngIf="type=='Location'">
             <xp-map (mapClick)="onMapClick($event)"></xp-map>
         </div>
         <div>
