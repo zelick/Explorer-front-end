@@ -10,6 +10,7 @@ import { TouristPosition } from '../marketplace/model/position.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PublicCheckpoint } from './model/public_checkpoint.model';
+import { Encounter } from '../encounters/model/encounter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,12 @@ export class TourExecutionService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+
+  getEncounters(tourId: number, touristLongitude: number, touristLatitude: number): Observable<Encounter[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("touristLatitude", touristLatitude);
+    queryParams = queryParams.append("touristLongitude", touristLongitude);
+    return this.http.get<Encounter[]>(environment.apiHost + 'tourist/encounter-execution/get-by-tour/' + tourId);
   }
 }

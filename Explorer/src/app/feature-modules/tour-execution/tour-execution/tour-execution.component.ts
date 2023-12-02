@@ -107,6 +107,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             console.log("IZVRSENO");
             console.log(this.tourExecution);
             this.findCheckpoints();
+            this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+              this.encounters = result;
+            });
         });
       }
       this.oldPosition = this.simulatorComponent.selectedPosition;
