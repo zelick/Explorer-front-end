@@ -8,7 +8,6 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { Encounter } from '../model/encounter.model';
 import { __values } from 'tslib';
-import { NumberInput } from '@angular/cdk/coercion';
 import { MapComponent } from 'src/app/shared/map/map.component';
 
 @Component({
@@ -60,11 +59,11 @@ export class EncounterFormComponent implements OnInit{
       this.encounterForm.controls.latitude.setValue(this.checkpoint.latitude);
       this.encounterForm.controls.longitude.setValue(this.checkpoint.longitude);
       console.log(this.checkpoint);
+
       this.encounterId=result.encounterId;
      if(result.encounterId!=0)
       {this.service.getEncounter(this.checkpoint.encounterId||1).subscribe((result:Encounter)=>{
         this.encounter=result;
-        console.log(this.encounter);
         this.type=this.encounter.type;
         this.encounterForm.patchValue(this.encounter);
         this.edit=true;
@@ -197,11 +196,13 @@ export class EncounterFormComponent implements OnInit{
       next: () => {
        this.edit=false;
        this.encounterForm.reset();
-        alert("Encounter is deleted");
         this.router.navigate([`checkpoint-secret/${this.id}`]);
+        alert("Encounter is deleted");
+
       }
     });
   }
+
 
   onMapClick(event: { lat: number; lon: number }) {
     this.searchByCoord(event.lat, event.lon);
