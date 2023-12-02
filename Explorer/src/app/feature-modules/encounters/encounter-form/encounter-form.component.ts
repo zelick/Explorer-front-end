@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { EncounterService } from '../encounter.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ImageService } from 'src/app/shared/image/image.service';
@@ -8,7 +8,7 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { Encounter } from '../model/encounter.model';
 import { __values } from 'tslib';
-import { NumberInput } from '@angular/cdk/coercion';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @Component({
   selector: 'xp-encounter-form',
@@ -20,8 +20,11 @@ export class EncounterFormComponent implements OnInit{
   constructor(private service: EncounterService, authService: AuthService, private imageService: ImageService,private activatedRoute:ActivatedRoute,
     private tourAuthoringService: TourAuthoringService,private router:Router) {
     this.authorId = authService.user$.value.id;
+    this.encounterForm.controls.latitude.disable();
+    this.encounterForm.controls.longitude.disable();
   }
 
+  @ViewChild(MapComponent) mapComponent: MapComponent;
   authorId:number;
   id:number;
   checkpoint:Checkpoint;
@@ -32,14 +35,20 @@ export class EncounterFormComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.mapComponent.reloadMap();
     this.activatedRoute.params.subscribe(params=>{
       this.id=params['id'];
       if(this.id>0)
       {
         this.getCheckpoint(this.id);
+        if(this.edit)
+        {
+          this.encounterForm.controls.latitude.setValue(this.encounter.latitude || 0);
+          this.encounterForm.controls.longitude.setValue(this.encounter.longitude || 0);
+          this.searchByCoord(this.encounter.latitude, this.encounter.longitude);
+        }
       }
     })
-
   }
 
   getCheckpoint(id: number): void {
@@ -189,4 +198,24 @@ export class EncounterFormComponent implements OnInit{
   }
 
 
+  onMapClick(event: { lat: number; lon: number }) {
+    this.searchByCoord(event.lat, event.lon);
+  }
+
+  private searchByCoord(lat: number, lon: number) {
+    this.mapComponent.reverseSearch(lat, lon).subscribe({
+      next: (location) => {
+        // Handle the location data here
+        const foundLocation = location;
+        console.log('Found Location Lat:', foundLocation.lat);
+        console.log('Found Location Lon:', foundLocation.lon);
+        console.log('Found Location Name:', foundLocation.display_name);
+        this.encounterForm.controls.latitude.setValue(foundLocation.lat);
+        this.encounterForm.controls.longitude.setValue(foundLocation.lon);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      },
+    });
+  }
 }

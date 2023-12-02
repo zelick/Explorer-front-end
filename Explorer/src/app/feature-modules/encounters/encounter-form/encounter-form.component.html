@@ -23,6 +23,9 @@
                 <input matInput formControlName="xp" type="number" min="1" />
             </mat-form-field>    
         </div>
+        <div class="map">
+            <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        </div>
         <div>
             <span>
             <mat-form-field>

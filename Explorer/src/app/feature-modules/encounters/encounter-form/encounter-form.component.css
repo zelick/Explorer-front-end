@@ -1,3 +1,4 @@
+
 p{
     margin: 0 auto;
     font-size: 4vh;
@@ -59,7 +60,8 @@ mat-form-field{
     cursor: pointer;
 }
 
-.buttons{
-    display: flex;
-    flex-direction: row;
+
+
+.map{
+    width: 500px;
 }
