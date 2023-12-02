@@ -1,0 +1,36 @@
+
+    <body>
+    <div style="height: 50px"></div>
+    <h1>Your private tours</h1>
+    <div>
+        <table>
+            <tbody>
+                <tr *ngFor="let t of privateTours">
+                    <td>
+                        <div>
+                            <div class="ch">{{ t.name }}</div>
+                            <div class="card">
+                                <div class="image-container">
+                                    <img [src]="t.checkPoints[currentCheckpointIndex].pictures[currentPictureIndex]" width="140" height="140">
+                                </div>
+                                <div class="rightCardPart">
+                                    <div>
+                                        <p>Tour checkpoints</p>
+                                        <ul>
+                                            <li *ngFor="let c of t.checkPoints">
+                                                <label>{{ c.name }}</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div style="height:100%; display: flex; flex-direction: column; justify-content: end;">
+                                        <button>Start adventure</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
