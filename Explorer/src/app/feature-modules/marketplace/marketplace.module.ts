@@ -20,7 +20,8 @@ import { PurchasedToursDetailsComponent } from './purchased-tours-details/purcha
 import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
-
+import { TourBundleTableComponent } from './tour-bundle-table/tour-bundle-table.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { ForecastPopupComponent } from './forecast-popup/forecast-popup.componen
         PurchasedToursDetailsComponent,
         TourRatingEditFormComponent,
         ForecastPopupComponent,
+        TourBundleTableComponent
     ],
     exports: [
         PreferenceFormComponent,
@@ -56,7 +58,8 @@ import { ForecastPopupComponent } from './forecast-popup/forecast-popup.componen
         MaterialModule,
         SharedModule,
         TourAuthoringModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSelectModule
     ]
   })
 

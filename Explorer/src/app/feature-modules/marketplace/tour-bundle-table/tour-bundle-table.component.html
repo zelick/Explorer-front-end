@@ -1,0 +1,30 @@
+<div id="tour-bundles" class="row">
+    <div class="tour-bundle-list">
+        <table class="tour-bundle-table">
+            <tr *ngFor="let tourBundle of tourBundles" class="tour-bundle">
+                <div class="left">
+                    <div class="informations">
+                        <label class="title"> {{ tourBundle.name }} </label>
+                        <p class="price">Price: {{ tourBundle.price }} </p>
+                    </div>
+                </div>
+            </tr>
+        </table>
+        <mat-paginator [length]="totalTourBundles" [pageSize]="pageSize" (page)="onPageChange($event)" class="paginator"></mat-paginator>
+    </div>
+
+    <div class="filters">
+        <label class="filters-label">Filters</label>
+        <div class="filter-fields">
+            <mat-form-field class="filter-field">
+                <mat-label>Tour bundles per page</mat-label>
+                <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="20">20</mat-option>
+                    <mat-option value="50">50</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
