@@ -1,20 +1,14 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { TourPreview } from '../../marketplace/model/tour-preview';
 import { TourExecution } from '../model/tour_execution.model';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { ActivatedRoute } from '@angular/router';
-import { MapComponent } from 'src/app/shared/map/map.component';
 import { SimulatorComponent } from '../../marketplace/simulator/simulator.component';
 import { TouristPosition } from '../../marketplace/model/position.model';
-import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
-import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
-import { Tour } from '../../tour-authoring/model/tour.model';
-import { PublicCheckpoint } from '../model/public_checkpoint.model';
 import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
 
 @Injectable({
@@ -145,15 +139,29 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
     }
   }
 
-  abandon(): void{
-    this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
-      this.tourExecution = result;
-      this.findCheckpoints();
-    })
-  }
-
   ngOnDestroy() {
     clearInterval(this.checkPositions);
+  }
+
+  nextCheckpoint(tour: PrivateTour){
+    this.service.nextCheckpoint(tour).subscribe( result => {
+      this.tour = result;
+      console.log("Checkpoint passed");
+  });
+  }
+
+  start(tour: PrivateTour){
+    this.service.start(tour).subscribe( result => {
+      this.tour = result;
+      console.log("Private tour has been started.");
+  });
+  }
+
+  finish(tour: PrivateTour){
+    this.service.finish(tour).subscribe( result => {
+      this.tour = result;
+      console.log("Private tour has been finished.");
+  });
   }
 
   findCheckpoints(): void{
@@ -164,53 +172,9 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       if(element.currentPicture==undefined)
       {
         element.currentPicture=0;
-        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
       }
-      if(element.visibleSecret==undefined)
-        element.visibleSecret=false;
-      if(element.viewSecretMessage==undefined)
-        element.viewSecretMessage="Show secret";
-      if(element.currentPointPicture==undefined)
-        element.currentPointPicture=0;
-      if(element.showedPointPicture==undefined)
       element.showedPointPicture=element.pictures[element.currentPointPicture];
     });
     this.changeDetection.detectChanges();
-  }
-
-  OnViewSecret(c:Checkpoint):void{
-    c.visibleSecret=!c.visibleSecret;
-    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
-    if(c.viewSecretMessage=="Show secret")
-      c.viewSecretMessage="Hide secret";
-    else
-      c.viewSecretMessage="Show secret";
-  }
-
-  OnNext(c:Checkpoint):void{
-   let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
-   if(c.currentPicture==(secretPicturesLength-1))
-      c.currentPicture=0;
-    else
-      c.currentPicture=c.currentPicture+1;
-      c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
-  }
-
-  OnPictureNext(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
-   if(c.currentPointPicture==(picturesLength-1))
-      c.currentPointPicture=0;
-    else
-      c.currentPointPicture=c.currentPointPicture+1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
-  }
-
-  OnPictureBack(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
-   if(c.currentPointPicture==0)
-      c.currentPointPicture=(picturesLength-1);
-    else
-      c.currentPointPicture=c.currentPointPicture-1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 }

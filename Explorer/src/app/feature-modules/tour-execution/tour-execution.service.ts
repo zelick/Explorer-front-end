@@ -29,6 +29,18 @@ export class TourExecutionService {
     return this.http.get<PrivateTour>(environment.apiHost + 'tourist/privateTours/tour/' + id);
   }
 
+  nextCheckpoint(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/next-checkpoint', tour);
+  }
+
+  start(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/start', tour);
+  }
+
+  finish(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/finish', tour);
+  }
+
   startExecution(tourId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution' + "/" + tourId, null);
   }
