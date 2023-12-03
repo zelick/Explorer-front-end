@@ -29,7 +29,18 @@
             <div class="right">
                 <div class="availableCheckpoints" *ngIf="publicCheckpoints && publicCheckpoints.length>0">
                     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                        <label class="tellUs">Checkpoints on your custom tour</label>
+                        <label *ngIf="mode=='Map'" class="tellUs">Checkpoints on your custom tour</label>
+                        <div class="transport-div" *ngIf="mode=='List'">
+                            <button (click)="changeTransport('walking')" [ngClass]="{'walk-selected': transport=='walking', 'transport-button': transport!='walking'}">
+                                🚶‍♂️
+                            </button>
+                            <button (click)="changeTransport('driving')" [ngClass]="{'car-selected': transport=='driving', 'transport-button': transport!='driving'}">
+                                🚗 
+                            </button>
+                            <button (click)="changeTransport('cycling')" [ngClass]="{'bike-selected': transport=='cycling', 'transport-button': transport!='cycling'}">
+                                🚲
+                            </button>
+                        </div>
                         <button style="color: white; width: 4vh; height: 4vh; border: 0px solid black; background-color: transparent; cursor: pointer; margin-right: 8px;" (click)="changeMode()">{{mode}}</button>
                     </div>
                     <div style="overflow-y: auto;" *ngIf="mode==='Map'">
@@ -46,8 +57,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="overflow-y: hidden;" *ngIf="mode==='List'">
-                        <xp-map class="map"></xp-map>
+                    <div style="overflow-y: hidden; height: 100%;" *ngIf="mode==='List'">
+                        <xp-map></xp-map>
                     </div>
                 </div>
             </div>

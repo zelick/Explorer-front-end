@@ -18,7 +18,7 @@ body{
     text-align: center;
     align-items: center;
     background-color: rgb(37, 60, 53, 0.8);
-    width:70%;
+    width:74%;
     height: auto;
 }
 h1{
@@ -106,7 +106,7 @@ h1{
     justify-content: start;
     align-items: left;
     margin-top: 10px;
-    height: 50vh;
+    height: 55vh;
     background-color: #3B846B;
 }
 .checkpointsTable{
@@ -172,12 +172,47 @@ h1{
     justify-content: start;
     align-items: left;
 }
-.map{
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+.transport-div{
+  margin-left:10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: start;
+  margin-bottom: 3px;
 }
-
+.transport-button{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+}
+.car-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid green;
+  background-color: lightgreen;
+  border-radius: 3px;
+}
+.bike-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid blue;
+  background-color: lightblue;
+  border-radius: 3px;
+}
+.walk-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid red;
+  background-color: lightcoral;
+  border-radius: 3px;
+}
 
 
 
