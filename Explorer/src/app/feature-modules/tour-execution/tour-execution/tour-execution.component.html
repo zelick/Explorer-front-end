@@ -132,7 +132,7 @@
                         <img src="{{e.encounterDto.image}}" width="100" height="60">
                     </td>
                     <td>
-                        <button>Activate</button>
+                        <button (click)="onActivate(e.encounterId)">Activate</button>
                         <button>Complete</button>
                     </td>
                 </tr>

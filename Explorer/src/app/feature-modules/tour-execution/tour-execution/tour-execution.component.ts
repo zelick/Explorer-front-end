@@ -244,6 +244,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       c.currentPointPicture=c.currentPointPicture-1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
+
+  onActivate(id: number): void{
+    this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
+    .subscribe(result =>{
+    });
+  }
 }
 
 
