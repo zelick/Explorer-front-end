@@ -6,7 +6,7 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { Router } from '@angular/router';
 import { CheckpointPreview } from '../model/checkpoint-preview';
-import { OrderItem } from '../model/order-item.model';
+import { ItemType, OrderItem } from '../model/order-item.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Customer } from '../model/customer.model';
@@ -111,8 +111,9 @@ export class TourOverviewDetailsComponent implements OnInit{
       if (isConfirmed) {
         const orderItem: OrderItem = {
           itemId: t.id || 0,
-          tourName: t.name,
+          name: t.name,
           price: t.price,
+          type: ItemType.Tour
         };
         this.addItemToCart(orderItem, t);
       }
