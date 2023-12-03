@@ -77,6 +77,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             this.findCheckpoints();
           });
         }
+        this.service.getActiveEncounters(this.tourId).subscribe(rr => {
+          this.encounterExecutions = rr;
+        });
       });
     });
   });
@@ -110,6 +113,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             this.findCheckpoints();
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
               this.encounterExecutions = result;
+              if(result.find(e => e.encounterDto.type == 'Social'))
+              {
+                this.service.checkIfInRange(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+                  this.encounterExecutions = result;
+                });
+              }
             });
         });
       }
