@@ -16,6 +16,7 @@ import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
 import { Encounter } from '../../encounters/model/encounter.model';
+import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
-  encounters : Encounter[] = [];
+  encounterExecutions : EncounterExecution[] = [];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -108,7 +109,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             console.log(this.tourExecution);
             this.findCheckpoints();
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
-              this.encounters = result;
+              this.encounterExecutions = result;
             });
         });
       }
