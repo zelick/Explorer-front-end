@@ -27,15 +27,28 @@
                     <mat-form-field>
                         <mat-label>Discount</mat-label>
                         <input matInput type="number" formControlName="discount">
+                
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('required')">
+                            Discount is required.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('min')">
+                            Discount must be at least 1.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('max')">
+                            Discount cannot exceed 100.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('pattern')">
+                            Discount must be a whole number.
+                        </mat-error>
                     </mat-form-field>
                 </div>
-
+                
+                
                 <div id="tour">
                     <br>
                     <div id="tour-details">
                         <p class="subtitle">Add tours to sale</p>
                         <div class="tour-card" *ngFor="let t of tours; let i = index">
-                            <td (click)="openDetails(t)">
                                 <div class="tour-info">
                                     <div>
                                         <div class="tourName"><strong>{{t.name}}</strong></div>
@@ -59,15 +72,21 @@
                                     >
                                     Remove ➖
                                     </button>
-                            </td>
+                                    <button
+                                    class="buttonPlus"
+                                    (click)="openDetails(t)"
+                                    mat-raised-button
+                                    >
+                                    See more
+                                    </button>
                         </div>
                     </div>
                 </div>
 
                 <div id="buttons">
-                    <button  mat-raised-button type="submit" color="primary" (click)="saleCreation()">Done</button>
+                    <button  *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="saleCreation()">Done</button>
+                    <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="saleUpdate()">Done</button>
                     <button  mat-raised-button color="warn" (click)="discardSale()">Discard</button>
-                    <!-- <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateClub()">Done</button> -->
                 </div>
                 
             </form>

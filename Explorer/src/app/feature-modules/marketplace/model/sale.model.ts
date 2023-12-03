@@ -3,5 +3,6 @@ export interface Sale{
     toursIds: number[],
     start: Date,
     end: Date,
-    discount: number
+    discount: number,
+    authorId: number
 }

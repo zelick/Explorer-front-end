@@ -189,4 +189,16 @@ export class MarketplaceService {
     return this.http.get<Tour[]>(environment.apiHost + 'author/sale/tours-on-sale/' + saleId);
   }
 
+  deleteSale(saleId: number): Observable<Sale>{
+    return this.http.delete<Sale>(environment.apiHost + 'author/sale/' + saleId);
+  }
+
+  updateSale(sale: Sale): Observable<Sale>{
+    return this.http.put<Sale>(environment.apiHost + 'author/sale', sale);
+  }
+
+  getSale(saleId: number): Observable<Sale>{
+    return this.http.get<Sale>(environment.apiHost + 'author/sale/' + saleId);
+  }
+
 }

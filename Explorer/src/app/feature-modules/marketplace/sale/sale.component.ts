@@ -32,8 +32,12 @@ import { Sale } from "../model/sale.model";
                 console.log(this.user.role)
                 this.isAuthor = true
             }
+            this.getAllSales()
         })
 
+    }
+
+    getAllSales() {
         this.service.getAllSales().subscribe(
             (result) => {
                 this.sales = result.results;
@@ -49,8 +53,8 @@ import { Sale } from "../model/sale.model";
                             console.log(`Greška pri dohvatanju tura za sale ID: ${sale.id}`);
                             }
                         );
-                        }
                     }
+                }
             },
             (error) => {
                 console.log('Greska pri ucitavanju svih sales')
@@ -64,11 +68,31 @@ import { Sale } from "../model/sale.model";
     }
   
     createSale() {
-        this.router.navigate(['/sales-form']);
+        this.router.navigate([`/sales-form/${-1}`]);
     }
 
     openDetails(tour: Tour):void{
         this.router.navigate([`tour-details/${tour.id}`]);
     }
+    
+    isCurrentUserAuthor(sale: Sale) {
+        return sale.authorId === this.user.id
+    }
+    
+    editSale(sale: Sale) {
+        //this.router.navigate([`/sales-form/${sale.id}`]);
+        this.router.navigate(['/sales-form/', sale.id]);
+    }
 
+    deleteSale(saleId: number) {
+        this.service.deleteSale(saleId).subscribe(
+            (result) => {
+                console.log('Uspesno brisanje sale-a');
+                this.getAllSales()
+            },
+            (error) => {
+                console.log('Greska prilikom brisanja sale-a');
+            }
+        )
+    }
 }

@@ -70,7 +70,16 @@
                         </div>
                     </div>
                 </div>
-
+                <div id="buttons">
+                    <button class="button" *ngIf="isCurrentUserAuthor(s) && user" (click)="editSale(s)" color="primary" mat-icon-button>
+                        Edit
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="button" *ngIf="isCurrentUserAuthor(s) && user" (click)="deleteSale(s.id || 0)" color="primary" mat-icon-button>
+                        Delete
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
