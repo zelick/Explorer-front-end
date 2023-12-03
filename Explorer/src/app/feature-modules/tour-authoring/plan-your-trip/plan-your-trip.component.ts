@@ -24,6 +24,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   selectedLatitude: number;
   selectedLongitude: number;
   i: number = 0;
+  transport: string = 'driving';
   tours: PublicTour[] = [];
   privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[], execution:null};
   
@@ -64,6 +65,12 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   ngOnInit(): void {
     this.privateTour.touristId = this.service.user$.value.id;
   }
+  changeTransport(tr:string){
+    if(this.transport!=='tr'){
+      this.transport = tr;
+      this.addPublicCheckpointsOnMap();
+    }
+  }
   changeMode(){
     if(this.mode === "Map"){
       this.mode = "List";
@@ -73,15 +80,14 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     }
     setTimeout(() => {
       this.addPublicCheckpointsOnMap();
-    }, 1000);
+    }, 500);
     
     
   }
   addCheckpoint(ch:PublicCheckpoint){
     this.selectedCheckpoints.push(ch);
     this.updateTours();
-    let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: ch.latitude, lon: ch.longitude, picture: ch.pictures[0], name:ch.name, desc: ch.description}];
-    this.mapComponent.addPublicCheckpoints(coords);
+    this.addPublicCheckpointsOnMap();
   } 
   cancelCheckpoint(ch:PublicCheckpoint){
     const index = this.selectedCheckpoints.indexOf(ch);
@@ -91,16 +97,15 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     this.updateTours();
   }
   addPublicCheckpointsOnMap(): void{
+    this.mapComponent.reloadMap();
     if(this.selectedCheckpoints)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.selectedCheckpoints[0].latitude, lon: this.selectedCheckpoints[0].longitude, picture: this.selectedCheckpoints[0].pictures[0], name: this.selectedCheckpoints[0].name, desc: this.selectedCheckpoints[0].description}];
       this.selectedCheckpoints.forEach(e => {
           if(e != this.selectedCheckpoints[0])
-            // if((e.latitude > (this.selectedCheckpoints[0].latitude - 2) && (e.latitude < this.selectedCheckpoints[0].latitude + 2))
-            // && ((e.longitude > this.selectedCheckpoints[0].longitude - 2) && (e.longitude < this.selectedCheckpoints[0].longitude + 2)))
             coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
       });
-      this.mapComponent.addPublicCheckpoints(coords);
+      this.mapComponent.setRouteWithPublicInfo(coords,this.transport); 
     }
   }
   loadPublicCheckpoints(){
