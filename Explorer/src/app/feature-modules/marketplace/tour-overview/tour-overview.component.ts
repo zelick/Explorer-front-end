@@ -55,6 +55,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       this.addPublicCheckpoinsOnMap();
     });
 
+    // TODO update price if on sale
     this.service.getPublishedTours().subscribe(
       (response:any)=>{
         this.publishedTours = response;
