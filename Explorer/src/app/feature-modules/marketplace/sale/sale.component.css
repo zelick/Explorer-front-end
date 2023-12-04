@@ -114,48 +114,6 @@ select {
   padding: 10px;
 }
 
-.buttonPlus {
-  width: 80px;
-  margin-top: 10px;
-  font-size: 100%;
-  color: #2E6C54;
-  background-color: beige;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 8px 16px;
-}
-
-.buttonPlus:hover {
-  background-color: dark beige;
-}
-
-.buttonPlus .plusIcon {
-  color: #F9E79F;
-}
-
-.buttonMinus {
-  width: 80px;
-  margin-top: 10px;
-  font-size: 100%;
-  color: #E67840;
-  background-color: #BDC3C7;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  cursor: not-allowed;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 8px 16px;
-}
-
-.buttonMinus:hover {
-  background-color: #BDC3C7;
-}
-
 .tour-price {
   margin-top: 15px;
   color: black;
