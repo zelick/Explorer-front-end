@@ -22,6 +22,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
 import { CompositeTourFormComponent } from './composite-tour-form/composite-tour-form.component';
 import { CompositeToursComponent } from './composite-tours/composite-tours.component';
+import { CompositeEquipmentPopupComponent } from './composite-equipment-popup/composite-equipment-popup.component';
+import { CompositeKeypointPopupComponent } from './composite-keypoint-popup/composite-keypoint-popup.component';
 
 
 
@@ -42,7 +44,9 @@ import { CompositeToursComponent } from './composite-tours/composite-tours.compo
         TourRatingEditFormComponent,
         ForecastPopupComponent,
         CompositeTourFormComponent,
-        CompositeToursComponent
+        CompositeToursComponent,
+        CompositeEquipmentPopupComponent,
+        CompositeKeypointPopupComponent
     ],
     exports: [
         PreferenceFormComponent,

@@ -38,6 +38,12 @@
                 </tr>
             </tbody>
         </table>
+            <mat-form-field class="input-field">
+                <input matInput placeholder="Name" type="text" [(ngModel)]="name">
+          </mat-form-field>
+          <mat-form-field class="input-field">
+            <input matInput placeholder="Description" type="text" [(ngModel)]="description">
+          </mat-form-field>
         <button class="create-button" (click)="createCompositeTour()">Create Composite Tour</button>
     </div>
 </div>

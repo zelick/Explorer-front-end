@@ -7,7 +7,7 @@
 }
 
 h1{
-  font-size: 6vh;
+  font-size: 8vh;
   color:#E67840;
   padding: 1% 2.5%; 
   margin: 0 auto;
@@ -39,7 +39,7 @@ table {
 .card{
     margin-left: 50px;
     margin-right: 50px;
-    width: 680px;
+    width: 600px;
     display:flex;
     gap: 15px;
     flex-direction: row;
@@ -48,9 +48,10 @@ table {
 }
 
 .cinfo{
+    color:#E67840;
+    font-weight:bold;
     font-style: bold;
-    font-size: 2vh;
-    color: black;
+    font-size: 3vh;
 }
 
 td{
@@ -60,11 +61,27 @@ td{
 
 }
 .ch{
+    color:#E67840;
+    font-weight:bold;
     justify-content: center;
-    font-size: 3vh;
+    font-size: 4vh;
     font-style: bold;
     text-align: center;
 
+}
+
+.orange-button{
+    font-size:16px;
+    background-color:#E67840;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.orange-div{
+    color:#E67840;
+    font-size:2vh;
+    font-weight:bold;
 }
 
 .cttags{
