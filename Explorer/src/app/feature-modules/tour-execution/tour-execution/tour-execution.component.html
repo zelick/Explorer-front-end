@@ -27,12 +27,12 @@
                             <img src="availableEncounter.image" width="60" height="40">
                         </td>
                         <td *ngIf="availableEncounter.type == 'Social'">
-                            <label>Currently x people, required {{availableEncounter.requiredPeople}}</label>
+                            <label>Currently {{availableEncounter.ActiveTouristsIds?.length || 0}} people, required {{availableEncounter.requiredPeople}}</label><br>
                             <label>Range: {{availableEncounter.range}}</label>
                         </td>
                         <td>
                             <button *ngIf="availableEncounterExecution.status == 'Pending'" (click)="onActivate(availableEncounter.id || 0)">Activate</button>
-                            <button *ngIf="availableEncounterExecution.status == 'Active'"  (click)="onComplete(availableEncounter.id || 0)">Complete</button>
+                            <button *ngIf="availableEncounterExecution.status == 'Active'"  (click)="onComplete()">Complete</button>
                         </td>
                     </tr>
                 </table>

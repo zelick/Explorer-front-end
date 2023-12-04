@@ -66,7 +66,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.authService.user$.subscribe(user => {
       this.tourist = user;
 
-      this.service.getTourExecution(this.tourist.id).subscribe(result => {
+      this.service.getTourExecution(this.tourId).subscribe(result => {
         if(result != null)
         {
           this.tourExecution = result;  
@@ -89,6 +89,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
 
   this.checkPositions = setInterval(() => {
     this.checkPosition();
+
   }, 10000);
 
   }
@@ -119,7 +120,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
               
               if(result.encounterDto.type == 'Social')
               {
-                this.service.checkIfInRange(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+                this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
                   this.availableEncounterExecution = result;
                   this.availableEncounter = this.availableEncounterExecution.encounterDto;
                 });
@@ -156,6 +157,16 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         });
       }
     }
+  }
+
+  checkSocialEncounterStatus(): void{
+    if(this.availableEncounter.type == 'Social')
+              {
+                this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+                  this.availableEncounterExecution = result;
+                  this.availableEncounter = this.availableEncounterExecution.encounterDto;
+                });
+              }
   }
 
   addMapObjectsOnMap(): void{
@@ -268,8 +279,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     });
   }
 
-  onComplete(id: number): void{
-    this.service.completeEncounter(id)
+  onComplete(): void{
+    this.service.completeEncounter(this.availableEncounterExecution.id)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
     });
