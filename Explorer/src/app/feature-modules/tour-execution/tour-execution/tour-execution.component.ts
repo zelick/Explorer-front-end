@@ -41,6 +41,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
   encounterExecutions : EncounterExecution[] = [];
+  availableEncounterExecution: EncounterExecution;
+  availableEncounter: Encounter;
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -79,6 +81,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         }
         this.service.getActiveEncounters(this.tourId).subscribe(rr => {
           this.encounterExecutions = rr;
+          this.findCheckpoints();
         });
       });
     });
@@ -110,16 +113,20 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             this.tour = result.tour;
             console.log("IZVRSENO");
             console.log(this.tourExecution);
-            this.findCheckpoints();
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
-              this.encounterExecutions = result;
-              if(result.find(e => e.encounterDto.type == 'Social'))
+              this.availableEncounterExecution = result;
+              this.availableEncounter = this.availableEncounterExecution.encounterDto;
+              
+              if(result.encounterDto.type == 'Social')
               {
                 this.service.checkIfInRange(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
-                  this.encounterExecutions = result;
+                  this.availableEncounterExecution = result;
+                  this.availableEncounter = this.availableEncounterExecution.encounterDto;
                 });
               }
+              this.changeDetection.detectChanges();
             });
+          this.findCheckpoints();
         });
       }
       this.oldPosition = this.simulatorComponent.selectedPosition;
@@ -166,7 +173,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   addPublicCheckpoinsOnMap(): void{
-    if(this.publicCheckpoints)
+    if((this.publicCheckpoints).length != 0)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
       this.publicCheckpoints.forEach(e => {

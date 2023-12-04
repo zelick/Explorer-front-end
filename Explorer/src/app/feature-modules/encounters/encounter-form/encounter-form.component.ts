@@ -106,8 +106,8 @@ export class EncounterFormComponent implements OnInit{
     formData.append('authorId', this.authorId.toString());
     formData.append('xp', this.encounterForm.value.xp?.toString()||"");
     formData.append('status', "Published");
-    formData.append('longitude',this.encounterForm.value.longitude?.toString()||"");
-    formData.append('latitude',this.encounterForm.value.latitude?.toString()||"" );
+    formData.append('longitude',this.encounterForm.controls.longitude.value?.toString()||"");
+    formData.append('latitude',this.encounterForm.controls.latitude.value?.toString()||"" );
     formData.append('type',this.encounterForm.value.type||"" );
 
     if(this.encounterForm.value.type==="Social")
@@ -118,8 +118,8 @@ export class EncounterFormComponent implements OnInit{
     if (this.encounterForm.value.type==="Location")
     {
       formData.append('range', this.encounterForm.value.range?.toString()||"");
-      formData.append('locationLongitude', this.encounterForm.value.locationLongitude?.toString()||"");
-      formData.append('locationLatitude', this.encounterForm.value.locationLatitude?.toString()||"");
+      formData.append('locationLongitude', this.encounterForm.controls.locationLongitude.value?.toString()||"");
+      formData.append('locationLatitude', this.encounterForm.controls.locationLatitude.value?.toString()||"");
       if (this.encounterForm.value.images) {
         const selectedFiles = this.encounterForm.value.images;
           formData.append('imageF', selectedFiles[0]);
