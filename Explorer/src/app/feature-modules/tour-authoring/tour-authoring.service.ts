@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
+import { TourBundle } from './model/tour-bundle.model';
 import { MapObject } from './model/map-object.model';
 import { TourTime } from './model/tourTime.model';
 import { TourTimes } from './model/tourTimes.model';
@@ -153,4 +154,9 @@ export class TourAuthoringService {
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
+
+  createTourBundle(tourBundle: TourBundle): Observable<TourBundle> {
+    return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
+  }
+
 }

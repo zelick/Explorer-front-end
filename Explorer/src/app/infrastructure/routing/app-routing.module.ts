@@ -45,6 +45,7 @@ import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/t
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
 import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.component';
 import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
+import { TourBundlesComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles/tour-bundles.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -88,6 +89,7 @@ const routes: Routes = [
       { path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard] },
       { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
       {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],},
+      { path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]},
 
       //ALL USERS
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
