@@ -23,9 +23,6 @@
                 <input matInput formControlName="xp" type="number" min="1" />
             </mat-form-field>    
         </div>
-        <div class="map" *ngIf="type=='Location'">
-            <xp-map (mapClick)="onMapClick($event)"></xp-map>
-        </div>
         <div>
             <span>
             <mat-form-field>
@@ -60,6 +57,9 @@
             <mat-label>Range</mat-label>
             <input matInput type="number" formControlName="range">
         </mat-form-field>
+        </div>
+        <div class="map" *ngIf="type=='Location'">
+            <xp-map (mapClick)="onMapClick($event)"></xp-map>
         </div>
         <div *ngIf="type=='Location'">
             <mat-form-field>

@@ -15,5 +15,5 @@ export interface Encounter {
     range?:number,
     requiredPeople?:number
     completedEncounter?:CompletedEncounter,
-    ActiveTouristsIds?: number[]
+    activeTouristsIds?: number[]
 }

@@ -43,6 +43,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   encounterExecutions : EncounterExecution[] = [];
   availableEncounterExecution: EncounterExecution;
   availableEncounter: Encounter;
+  currentlyPeopleOnSocialEncounter: number = 0;
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -112,19 +113,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         this.service.registerPosition(this.tourExecution.id || 0, this.simulatorComponent.selectedPosition).subscribe( result => {
             this.tourExecution = result;
             this.tour = result.tour;
-            console.log("IZVRSENO");
-            console.log(this.tourExecution);
+
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
               this.availableEncounterExecution = result;
-              this.availableEncounter = this.availableEncounterExecution.encounterDto;
-              
-              if(result.encounterDto.type == 'Social')
-              {
-                this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
-                  this.availableEncounterExecution = result;
-                  this.availableEncounter = this.availableEncounterExecution.encounterDto;
-                });
-              }
+              this.availableEncounter = this.availableEncounterExecution.encounterDto; 
               this.changeDetection.detectChanges();
             });
           this.findCheckpoints();
@@ -133,6 +125,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.oldPosition = this.simulatorComponent.selectedPosition;
       this.notifications = [];
     }
+    this.checkSocialEncounterStatus();
     console.log("Check position");
     this.notifications.push(1);
     this.changeDetection.detectChanges();
@@ -165,6 +158,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
                 this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
                   this.availableEncounterExecution = result;
                   this.availableEncounter = this.availableEncounterExecution.encounterDto;
+                  this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+                  this.changeDetection.detectChanges();
                 });
               }
   }
