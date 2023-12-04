@@ -10,6 +10,8 @@ import { TouristPosition } from '../../marketplace/model/position.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
+import { MapComponent } from 'src/app/shared/map/map.component';
+import { PrivateTourExecution } from '../../tour-authoring/model/private-tour-execution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,33 +23,23 @@ import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
-  @ViewChild(SimulatorComponent) simulatorComponent: SimulatorComponent;
+  @ViewChild(MapComponent) mapComponent: MapComponent;
   tour : PrivateTour;
   tourId: number = 0;
   tourist: User;
-  oldPosition: TouristPosition;
-  shouldRenderSimulator: boolean = false;
-  notifications: number[]=[1];
   checkPositions: any;
   completedCheckpoint: Checkpoint[]=[];
-  mapObjects: MapObject[] = [];
-  tourExecution: TourExecution;
   startVisibility: boolean = false;
   nextVisibility: boolean = false;
   finishVisibility: boolean = false;
+  currentCheckpoint: string = "";
+  tourName: string = "";
 
   constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
   }
 
   ngOnInit(): void {
-    this.notifications = [];
-    
-
-    this.service.getMapObjects().subscribe( result => {
-      this.mapObjects = result.results;
-      this.addMapObjectsOnMap();
-    });
 
     this.activatedRoute.params.subscribe(params=>{
       this.tourId = params['id'];
@@ -57,91 +49,39 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       this.service.getPrivateTour(this.tourId).subscribe(result => {
         if(result != null)
         {
-          this.tour = result;   
-          this.findCheckpoints();
+          this.tour = result;
+          this.tourName = this.tour.name;
+          if(this.tour.execution){
+            this.currentCheckpoint = this.tour.checkpoints[this.tour.execution?.lastVisited].name;
+          }
           this.updateButtonVisibilities();
+          this.addPublicCheckpointsOnMap();
         }
       });
     });
   });
-
-  this.checkPositions = setInterval(() => {
-    this.checkPosition();
-  }, 10000);
-
   }
 
   ngAfterViewInit(): void{
-    if(this.tour != null)
-      this.addCheckpointsOnMap();
-    if(this.mapObjects.length > 0)
-      this.addMapObjectsOnMap();
-      if(this.tour.checkpoints.length > 0)
-      this.addPublicCheckpoinsOnMap();
+    this.service.getPrivateTour(this.tourId).subscribe(result => {
+      if(result != null){
+        this.tour = result;
+        this.tourName = this.tour.name;
+      }
+    });
     this.updateButtonVisibilities();
   }
 
-  checkPosition(): void{
-    if(this.oldPosition != this.simulatorComponent.selectedPosition){
-      if(this.oldPosition == undefined)
-        this.oldPosition = this.simulatorComponent.selectedPosition;
-      if(this.simulatorComponent.selectedPosition != undefined)
-      {
-        this.service.registerPosition(this.tourExecution.id || 0, this.simulatorComponent.selectedPosition).subscribe( result => {
-            this.tourExecution = result;
-            console.log("IZVRSENO");
-            console.log(this.tourExecution);
-            this.findCheckpoints();
-        });
-      }
-      this.oldPosition = this.simulatorComponent.selectedPosition;
-      this.notifications = [];
-    }
-    console.log("Check position");
-    this.notifications.push(1);
-    this.changeDetection.detectChanges();
-  }
-
-  openSimulator(): void{
-    this.shouldRenderSimulator = !this.shouldRenderSimulator;
-  }
-
-  addCheckpointsOnMap(): void{
-    if(this.tour.checkpoints)
-    {
-      let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description}];
-      this.tour.checkpoints.forEach(e => {
-          if(e != this.tour.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
-      });
-    }
-  }
-
-  addMapObjectsOnMap(): void{
-    if(this.mapObjects)
-    {
-      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
-      this.mapObjects.forEach(e => {
-          if(e != this.mapObjects[0])
-            if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
-            && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
-            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
-      });
-      this.simulatorComponent.addMapObjects(coords);
-    }
-  }
-
-  addPublicCheckpoinsOnMap(): void{
+  addPublicCheckpointsOnMap(): void{
+    this.mapComponent.reloadMap();
     if(this.tour.checkpoints)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, picture: this.tour.checkpoints[0].pictures[0], name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description}];
       this.tour.checkpoints.forEach(e => {
           if(e != this.tour.checkpoints[0])
-            if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
-            && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
             coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
       });
-      this.simulatorComponent.addPublicCheckpoints(coords);
+      this.mapComponent.setRouteWithPublicInfo(coords,'driving'); 
     }
   }
 
@@ -154,15 +94,15 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       this.updateButtonVisibilities();
       this.tour = result;
       console.log("Checkpoint passed");
-  });
-  
-  }
-
-  start(tour: PrivateTour){
-    this.service.start(tour).subscribe( result => {
-      this.updateButtonVisibilities();
-      this.tour = result;
-      console.log("Private tour has been started.");
+      this.service.getPrivateTour(this.tourId).subscribe(result => {
+        if(result != null){
+          this.tour = result;
+          if(this.tour.execution){
+            this.currentCheckpoint = this.tour.checkpoints[this.tour.execution?.lastVisited].name;
+            this.changeDetection.detectChanges();
+          }
+        }
+      });
   });
   }
 
@@ -175,26 +115,22 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   });
   }
 
-  findCheckpoints(): void{
-    this.tourExecution.completedCheckpoints?.forEach(element => {
-      var c = this.tour.checkpoints.filter(n => n.id == element.checkpointId);
-    });
-    this.completedCheckpoint.forEach(element => {
-      if(element.currentPicture==undefined)
-      {
-        element.currentPicture=0;
-      }
-      element.showedPointPicture=element.pictures[element.currentPointPicture];
-    });
-    this.changeDetection.detectChanges();
-  }
-
   updateButtonVisibilities(): void {
-    if(this.tour.execution){
-      this.startVisibility = !this.tour.execution.startDate;
-      this.nextVisibility = this.tour.execution.startDate && this.tour.execution.lastVisited != (this.tour.checkpoints.length-1);
-      this.finishVisibility = this.tour.execution.lastVisited === (this.tour.checkpoints.length-1);
-    }
-    this.changeDetection.detectChanges();
+    this.service.getPrivateTour(this.tourId).subscribe(result => {
+      if(result != null){
+        this.tour = result;
+        if(this.tour.execution){
+          this.startVisibility = !this.tour.execution?.startDate;
+          if(this.tour.execution?.startDate){
+            this.nextVisibility = this.tour.execution.lastVisited != (this.tour.checkpoints.length-1);
+          }
+          else{
+            this.nextVisibility = false;
+          }
+          this.finishVisibility = this.tour.execution?.lastVisited === (this.tour.checkpoints.length-1);
+        }
+        this.changeDetection.detectChanges();
+      }
+    });
   }
 }
