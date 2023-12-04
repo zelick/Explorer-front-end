@@ -89,7 +89,7 @@ const routes: Routes = [
       { path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard] },
       { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
       {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],},
-      { path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]},
+      
 
       //ALL USERS
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
@@ -142,8 +142,8 @@ const routes: Routes = [
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'sales', component: SaleComponent, canActivate: [AuthGuard],},
-  {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],}
-
+  {path: 'sales-form', component: SaleFormComponent, canActivate: [AuthGuard],},
+  { path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]}
 ];
 
 @NgModule({

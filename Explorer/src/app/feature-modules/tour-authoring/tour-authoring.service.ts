@@ -159,4 +159,19 @@ export class TourAuthoringService {
     return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
   }
 
+  getBundlesByAuthor(authorId: number): Observable<TourBundle[]>{
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/' + authorId);
+  }
+
+  deleteBundle(id: number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + bundle.id || '', bundle);
+  }
+
+  canBePublished(bundle: TourBundle): Observable<boolean>{
+    return this.http.get<boolean>(environment.apiHost + 'api/administration/canBePublished/' + bundle.id || '');
+  }
 }

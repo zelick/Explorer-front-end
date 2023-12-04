@@ -1,1 +1,27 @@
-<p>tour-bundles works!</p>
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div class="tours-heading">My bundles</div>
+    <div id="tour-details">
+        <div>
+            <div class="tour-card" *ngFor="let b of tourBundles">
+                <div class="tour-info">
+                    <p>{{b.name}}, {{b.price}} eur</p>
+                    <p>{{b.status}}</p>
+                </div>
+                <div class="tour-actions">
+                    <button color="accent" mat-icon-button (click)="deleteBundle(b.id || 0)" *ngIf="b.status !== 'Published'">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button *ngIf="canPublish(b)" (click)="publishBundle(b)">
+                        Publish
+                    </button>
+                    <button *ngIf="b.status === 'Published'" (click)="archiveBundle(b)">
+                        Archive
+                    </button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
