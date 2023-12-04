@@ -20,12 +20,12 @@ import { PurchasedToursDetailsComponent } from './purchased-tours-details/purcha
 import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
+import { TourBundleTableComponent } from './tour-bundle-table/tour-bundle-table.component';
 import { SaleComponent } from './sale/sale.component';
 import { SaleFormComponent } from './sale-form/sale-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-
 
 @NgModule({
     declarations: [
@@ -43,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
         PurchasedToursDetailsComponent,
         TourRatingEditFormComponent,
         ForecastPopupComponent,
+        TourBundleTableComponent,
         SaleComponent,
         SaleFormComponent
     ],
@@ -66,7 +67,7 @@ import { MatSelectModule } from '@angular/material/select';
         MatDialogModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatSelectModule,
+        MatSelectModule
     ]
   })
 
