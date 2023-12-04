@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SimulatorComponent } from '../../marketplace/simulator/simulator.component';
 import { TouristPosition } from '../../marketplace/model/position.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
@@ -32,13 +32,17 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
   tourExecution: TourExecution;
+  startVisibility: boolean = false;
+  nextVisibility: boolean = false;
+  finishVisibility: boolean = false;
 
-  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
+  constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
   }
 
   ngOnInit(): void {
     this.notifications = [];
+    
 
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
@@ -55,6 +59,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
         {
           this.tour = result;   
           this.findCheckpoints();
+          this.updateButtonVisibilities();
         }
       });
     });
@@ -73,6 +78,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       this.addMapObjectsOnMap();
       if(this.tour.checkpoints.length > 0)
       this.addPublicCheckpoinsOnMap();
+    this.updateButtonVisibilities();
   }
 
   checkPosition(): void{
@@ -145,13 +151,16 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
 
   nextCheckpoint(tour: PrivateTour){
     this.service.nextCheckpoint(tour).subscribe( result => {
+      this.updateButtonVisibilities();
       this.tour = result;
       console.log("Checkpoint passed");
   });
+  
   }
 
   start(tour: PrivateTour){
     this.service.start(tour).subscribe( result => {
+      this.updateButtonVisibilities();
       this.tour = result;
       console.log("Private tour has been started.");
   });
@@ -159,8 +168,10 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
 
   finish(tour: PrivateTour){
     this.service.finish(tour).subscribe( result => {
+      this.updateButtonVisibilities();
       this.tour = result;
       console.log("Private tour has been finished.");
+      this.router.navigate(['/home']);
   });
   }
 
@@ -175,6 +186,15 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       }
       element.showedPointPicture=element.pictures[element.currentPointPicture];
     });
+    this.changeDetection.detectChanges();
+  }
+
+  updateButtonVisibilities(): void {
+    if(this.tour.execution){
+      this.startVisibility = !this.tour.execution.startDate;
+      this.nextVisibility = this.tour.execution.startDate && this.tour.execution.lastVisited != (this.tour.checkpoints.length-1);
+      this.finishVisibility = this.tour.execution.lastVisited === (this.tour.checkpoints.length-1);
+    }
     this.changeDetection.detectChanges();
   }
 }

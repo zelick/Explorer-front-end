@@ -23,7 +23,11 @@
                                         </ul>
                                     </div>
                                     <div style="height:100%; display: flex; flex-direction: column; justify-content: end;">
-                                        <button (click)="execute(t)">Start adventure</button>
+                                        <button *ngIf="!t.execution" (click)="execute(t)">Start adventure</button>
+                                        <div *ngIf="t.execution">
+                                            <p>Finished on: </p>
+                                            <p> {{formatDate(t.execution.endDate)}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

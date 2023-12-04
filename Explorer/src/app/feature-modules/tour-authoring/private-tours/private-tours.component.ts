@@ -6,11 +6,13 @@ import { PublicCheckpoint } from "src/app/feature-modules/tour-execution/model/p
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Route, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'xp-private-tours',
   templateUrl: './private-tours.component.html',
   styleUrls: ['./private-tours.component.css'],
+  providers: [DatePipe],
   animations: [
     trigger('fade', [
       state('0', style({ opacity: 1 })),
@@ -28,7 +30,7 @@ export class PrivateToursComponent implements OnInit, OnDestroy {
   readonly PICTURE_COUNT = 2;
   readonly CHECKPOINT_COUNT = 3;
 
-  constructor(private service: TourAuthoringService, private authService: AuthService, private router: Router) { }
+  constructor(private datePipe: DatePipe, private service: TourAuthoringService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
       this.touristId = this.authService.user$.value.id;
@@ -50,9 +52,26 @@ export class PrivateToursComponent implements OnInit, OnDestroy {
     clearInterval(this.pictureInterval);
 }
 
+formatDate(date: Date | string): string {
+  if (typeof date === 'string') {
+    return this.datePipe.transform(date, 'short') || '';
+  } else {
+    return this.datePipe.transform(date.toISOString(), 'short') || '';
+  }
+}
+
+
 
 execute(privateTour: PrivateTour){
-  this.router.navigate(['/private-tour-execution/', privateTour.id]);
+  this.service.start(privateTour).subscribe({
+    next:()=>{
+      this.router.navigate(['/private-tour-execution/', privateTour.id]);
+    },
+    error: (error: any)=>{
+      console.log("Error: ", error);
+    }
+  });
+  
 }
 
 startPictureRotation(): void {
@@ -64,7 +83,6 @@ startPictureRotation(): void {
       else
         this.currentCheckpointIndex[i] = 0;
     }
-    
   }, 3000);
 }
 }
