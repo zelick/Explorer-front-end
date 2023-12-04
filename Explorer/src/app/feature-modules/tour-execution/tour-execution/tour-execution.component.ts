@@ -264,6 +264,14 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   onActivate(id: number): void{
     this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
+      this.availableEncounterExecution = result;
+    });
+  }
+
+  onComplete(id: number): void{
+    this.service.completeEncounter(id)
+    .subscribe(result =>{
+      this.availableEncounterExecution = result;
     });
   }
 }

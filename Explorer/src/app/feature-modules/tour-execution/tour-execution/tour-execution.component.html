@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             <button *ngIf="availableEncounterExecution.status == 'Pending'" (click)="onActivate(availableEncounter.id || 0)">Activate</button>
-                            <button>Complete</button>
+                            <button *ngIf="availableEncounterExecution.status == 'Active'"  (click)="onComplete(availableEncounter.id || 0)">Complete</button>
                         </td>
                     </tr>
                 </table>

@@ -40,7 +40,7 @@ export class EncounterFormComponent implements OnInit{
     this.activatedRoute.params.subscribe(params=>{
       this.id=params['id'];
         this.getCheckpoint(this.id);
-        if( this.id > 0)
+        if(this.checkpoint.encounterId > 0)
         {
           if(this.edit)
           {
