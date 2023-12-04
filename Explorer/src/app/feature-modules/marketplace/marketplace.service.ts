@@ -17,6 +17,7 @@ import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
 import { TourBundle } from './model/tour-bundle.model';
+import { Sale } from './model/sale.model';
 
 @Injectable({
   providedIn: 'root'
@@ -182,5 +183,29 @@ export class MarketplaceService {
       .set('pageSize', pageSize.toString());
 
     return this.http.get<PagedResults<TourBundle>>(environment.apiHost + `administration/tour-bundle/published`, { params });
+  }
+
+  getAllSales(): Observable<PagedResults<Sale>>{
+    return this.http.get<PagedResults<Sale>>(environment.apiHost + 'author/sale');
+  }
+
+  createSale(sale: Sale): Observable<Sale>{
+    return this.http.post<Sale>(environment.apiHost + 'author/sale', sale);
+  }
+
+  getAllToursFromSale(saleId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'author/sale/tours-on-sale/' + saleId);
+  }
+
+  deleteSale(saleId: number): Observable<Sale>{
+    return this.http.delete<Sale>(environment.apiHost + 'author/sale/' + saleId);
+  }
+
+  updateSale(sale: Sale): Observable<Sale>{
+    return this.http.put<Sale>(environment.apiHost + 'author/sale', sale);
+  }
+
+  getSale(saleId: number): Observable<Sale>{
+    return this.http.get<Sale>(environment.apiHost + 'author/sale/' + saleId);
   }
 }

@@ -139,6 +139,7 @@ export class TourAuthoringService {
   }
 
   publishTour(tourId: number){
+    console.log(tourId)
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
   }
 

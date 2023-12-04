@@ -7,7 +7,7 @@
         <div *ngIf="orderItems.length > 0; else emptyCart">
             <div class="tour-card" *ngFor="let i of orderItems">
                 <div class="tour-info">
-                    <p>{{i.tourName}}, {{i.price}} eur</p>
+                    <p>{{i.name}}, {{i.price}} eur</p>
                 </div>
                 <div class="tour-actions">
                     <button color="accent" (click)="removeShopppingCartItem(i)" mat-icon-button>

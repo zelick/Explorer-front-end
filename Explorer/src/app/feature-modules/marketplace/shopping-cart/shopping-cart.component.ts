@@ -31,15 +31,6 @@ export class ShoppingCartComponent implements OnInit{
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-
-          if (this.orderItems.length > 0) {
-            this.service.getPublishedTours().subscribe(tourPreviews => {
-              this.orderItems.forEach(item => {
-                const matchingTour = tourPreviews.find(tour => tour.id === item.itemId);
-                item.tourName = matchingTour ? matchingTour.name : 'Tour Name Not Available';
-              });
-            });
-          }
         },
       });
     });
@@ -72,17 +63,4 @@ export class ShoppingCartComponent implements OnInit{
       this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
-  
-/*  increaseQuantity(item: OrderItem): void {
-    item.quantity++; 
-    this.cart.price = this.calculateTotalPrice();
-  }
-
-  decreaseQuantity(item: OrderItem): void {
-    if (item.quantity > 1) {
-      item.quantity--; 
-      this.cart.price = this.calculateTotalPrice();
-      //this.service.updateShoppingCart(this.cart).subscribe(() => {});           //treba mi ?
-    }
-  }*/
 }
