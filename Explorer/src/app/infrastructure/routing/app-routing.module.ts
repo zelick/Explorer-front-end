@@ -44,11 +44,14 @@ import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-auth
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
 import { PlanYourTripComponent } from 'src/app/feature-modules/tour-authoring/plan-your-trip/plan-your-trip.component';
+import { CompositeTourFormComponent } from 'src/app/feature-modules/marketplace/composite-tour-form/composite-tour-form.component';
+import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 import { PrivateToursComponent } from 'src/app/feature-modules/tour-authoring/private-tours/private-tours.component';
 import { PrivateTourExecutionComponent } from 'src/app/feature-modules/tour-execution/private-tour-execution/private-tour-execution.component';
 import { PrivateTourBlogsComponent } from 'src/app/feature-modules/blog/private-tour-blogs/private-tour-blogs.component';
 import { PrivateTourBlogComponent } from 'src/app/feature-modules/blog/private-tour-blog-creation/private-tour-blog.component';
 import { PrivateTourBlogViewComponent } from 'src/app/feature-modules/blog/private-tour-blog-view/private-tour-blog-view.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -86,11 +89,17 @@ const routes: Routes = [
       { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+
+      //campaign expansion(new)
+      { path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard], },
+      { path: 'composite-list', component:CompositeToursComponent,canActivate:[AuthGuard]},
       { path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
       { path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
       { path: 'private-tour-blog-creation/:id', component: PrivateTourBlogComponent, canActivate: [AuthGuard]},
       { path: 'private-tour-blogs', component: PrivateTourBlogsComponent, canActivate: [AuthGuard]},
       { path: 'private-tour-blog-view/:id', component: PrivateTourBlogViewComponent, canActivate: [AuthGuard]},
+
+      
 
       //AUTHOR only
       { path: 'tour', component: TourComponent,canActivate:[AuthGuard] },
@@ -101,8 +110,8 @@ const routes: Routes = [
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
       { path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
       { path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard] },
-      { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard] },
-      { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
+      { path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
+      { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
     ]
   },
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
@@ -147,6 +156,8 @@ const routes: Routes = [
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
+  {path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard]},
+  {path: 'composite-list', component:CompositeToursComponent,canActivate:[AuthGuard]},
   {path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
   {path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'private-tour-blog-creation/:id', component: PrivateTourBlogComponent, canActivate: [AuthGuard]},

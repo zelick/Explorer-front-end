@@ -26,7 +26,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   i: number = 0;
   transport: string = 'driving';
   tours: PublicTour[] = [];
-  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[], execution:null, blog:null};
+  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[]};
   
   constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router){
 
@@ -68,6 +68,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   changeTransport(tr:string){
     if(this.transport!=='tr'){
       this.transport = tr;
+      this.mapComponent.reloadMap();
       this.addPublicCheckpointsOnMap();
     }
   }
@@ -85,7 +86,8 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     
   }
   addCheckpoint(ch:PublicCheckpoint){
-    this.selectedCheckpoints.push(ch);
+    var checkpoint: PublicCheckpoint = {name:ch.name, id:ch.id, longitude:ch.longitude, latitude:ch.latitude, description:ch.description, pictures: ch.pictures}
+    this.selectedCheckpoints.push(checkpoint);
     this.updateTours();
     this.addPublicCheckpointsOnMap();
   } 
@@ -97,7 +99,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
     this.updateTours();
   }
   addPublicCheckpointsOnMap(): void{
-    this.mapComponent.reloadMap();
+    
     if(this.selectedCheckpoints)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.selectedCheckpoints[0].latitude, lon: this.selectedCheckpoints[0].longitude, picture: this.selectedCheckpoints[0].pictures[0], name: this.selectedCheckpoints[0].name, desc: this.selectedCheckpoints[0].description}];
