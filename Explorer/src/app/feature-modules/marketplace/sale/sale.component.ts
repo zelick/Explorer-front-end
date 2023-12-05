@@ -12,29 +12,30 @@ import { Sale } from "../model/sale.model";
     templateUrl: './sale.component.html',
     styleUrls: ['./sale.component.css']
 })
-  export class SaleComponent implements OnInit{
-    
+export class SaleComponent implements OnInit {
+
     user: User;
     isAuthor: boolean = false;
     saleToursMap: { [saleId: number]: Tour[] } = {};
     sales: Sale[];
-    
+    sortOrder: 'asc' | 'desc' = 'asc';
+
     constructor(
         private service: MarketplaceService,
         private authService: AuthService,
-        private router:Router,
+        private router: Router,
         private tourAuthoringService: TourAuthoringService) { }
-  
+
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
             if (this.user.role === 'author') {
                 console.log(this.user.role)
-                this.isAuthor = true
+                this.isAuthor = true;
             }
-            this.getAllSales()
-        })
-
+            this.getAllSales();
+            this.sortSales();
+        });
     }
 
     getAllSales() {
@@ -46,17 +47,17 @@ import { Sale } from "../model/sale.model";
                         this.service.getAllToursFromSale(sale.id).subscribe(
                             (tours) => {
                                 if (sale.id !== undefined) {
-                                this.saleToursMap[sale.id] = tours;
+                                    this.saleToursMap[sale.id] = tours;
                                 }
                             },
                             (error) => {
-                            console.log(`Greška pri dohvatanju tura za sale ID: ${sale.id}`);
+                                console.log(`Greška pri dohvatanju tura za sale ID: ${sale.id}`);
                             }
                         );
                     }
                 }
             },
-            (error) => {
+            () => {
                 console.log('Greska pri ucitavanju svih sales')
             }
         )
@@ -66,21 +67,20 @@ import { Sale } from "../model/sale.model";
         const discountedPrice = originalPrice - (originalPrice * discount / 100);
         return discountedPrice;
     }
-  
+
     createSale() {
         this.router.navigate([`/sales-form/${-1}`]);
     }
 
-    openDetails(tour: Tour):void{
+    openDetails(tour: Tour): void {
         this.router.navigate([`tour-details/${tour.id}`]);
     }
-    
+
     isCurrentUserAuthor(sale: Sale) {
         return sale.authorId === this.user.id
     }
-    
+
     editSale(sale: Sale) {
-        //this.router.navigate([`/sales-form/${sale.id}`]);
         this.router.navigate(['/sales-form/', sale.id]);
     }
 
@@ -94,5 +94,23 @@ import { Sale } from "../model/sale.model";
                 console.log('Greska prilikom brisanja sale-a');
             }
         )
+    }
+
+    toggleSortOrder() {
+        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        this.sortSales();
+    }
+
+    sortSales() {
+        this.sales.sort((a, b) => {
+            const discountA = a.discount;
+            const discountB = b.discount;
+
+            if (this.sortOrder === 'asc') {
+                return discountA - discountB;
+            } else {
+                return discountB - discountA;
+            }
+        });
     }
 }

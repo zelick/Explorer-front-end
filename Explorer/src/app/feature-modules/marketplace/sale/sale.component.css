@@ -1,35 +1,55 @@
 #buttons {
-    padding: 10px;
-    margin-left: 20px;
-  }
-
-.button{
-    width: auto;
-    margin-left: 0px;
-    margin-bottom: 25px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
+  flex-direction: row;
+  margin-left: 650px;
 }
-  
-.container {
+
+.button {
+  margin-bottom: 25px;
+  margin-left: 5px;
+  padding: 0px 10px;
+  width: 90px;
+  font-size: 100%;
+  color: #fff;
+  background-color: #3B846B;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#filter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Puni visinu ekrana */
+  height: 200px;
 }
 
-p {
-  margin: 0 auto;
-  font-size: 4vh;
-  color: #E67840;
-  padding: 1% 2.5%;
+.label-and-select {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.label {
+  font-size: 120%;
+  color: #3B846B;
+  margin-right: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 100%;
+  border-radius: 5px;
 }
 
 .tour-info {
@@ -38,17 +58,12 @@ p {
   flex-direction: column;
 }
 
-.tourName {
+.tour-name {
   font-size: x-large;
-  color: white;
-  padding: 1% 2.5%; 
-  background-color: #1b332b8e;
+  color: #E67840;
   display: flex;
   text-align: center;
-  width: 100px;
-  margin-left: 1px;
-  margin-top: 10px;
-  margin-right: 30%;
+  width: 400px;
   border-radius: 5px;
 }
 
@@ -62,22 +77,31 @@ button[color="primary"]:hover {
   color: white;
 }
 
+label {
+  font-size: 120%;
+  color: #3B846B;
+  margin-right: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 100%;
+  border-radius: 5px;
+}
+
 .tour-card {
-  flex: 0 0 calc(33.33% - 20%);
   background-color: #B6D4AF;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border: 1px solid #3B846B15;
-  color: white;
   text-align: left;
   margin: 10px;
   border-radius: 5px;
-  width: 60%;
+  width: 80%;
   margin-top: 30px;
   padding: 10px;
 }
 
 .sale-card {
-  flex: 0 0 calc(33.33% - 20%);
   background-color: #B6D4AF;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border: 1px solid #3B846B15;
@@ -85,71 +109,43 @@ button[color="primary"]:hover {
   text-align: left;
   margin: 10px;
   border-radius: 5px;
-  width: 30%;
+  width: 50%;
   margin-top: 30px;
   padding: 10px;
 }
 
-.tours-heading{
-  justify-content: left;
-  font-size: 36px;
-  color:#E67840;
-  font-weight: 600;
-  margin-top: 6vh;
-  margin-left: 2vh;
-  margin-bottom: 1vh;
-}
-
-.buttonPlus {
-  width: 80px; /* Širina dugmeta */
-  margin-top: 10px;
-  font-size: 100%;
-  color: #2E6C54;
-  background-color: beige;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px; /* Manji radijus ivice za lepši izgled */
-  cursor: pointer;
-  display: flex; /* Omogućava centriranje teksta i ikone */
-  justify-content: space-around; /* Povećava prostor između teksta i ikone */
-  align-items: center; /* Centrira tekst i ikonu vertikalno */
-  padding: 8px 16px; /* Povećava prostor unutar dugmeta */
-}
-
-.buttonPlus:hover {
-  background-color: dark beige;
-}
-
-/* Dodali novu klasu za ikonu plus (+) */
-.buttonPlus .plusIcon {
-  color: #F9E79F; /* Krem boja za plus simbol */
-}
-
-.buttonMinus {
-  width: 80px; /* Širina dugmeta */
-  margin-top: 10px;
-  font-size: 100%;
-  color: #E67840;
-  background-color: #BDC3C7;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px; /* Manji radijus ivice za lepši izgled */
-  cursor: not-allowed;
-  display: flex; /* Omogućava centriranje teksta i ikone */
-  justify-content: space-around; /* Povećava prostor između teksta i ikone */
-  align-items: center; /* Centrira tekst i ikonu vertikalno */
-  padding: 8px 16px; /* Povećava prostor unutar dugmeta */
-}
-
-.buttonMinus:hover {
-  background-color: #BDC3C7;
-}
-
-.tour-description,
 .tour-price {
-  margin-top: 15px;  /* Dodajte razmak između opisa i cene */
+  margin-top: 15px;
+  color: black;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.tour-description {
+  margin-top: 15px;
+  color: black;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.discount-description {
+  margin-top: 15px;
+  color: black;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 10px;
+}
+
+.tour-details-heading {
+  margin-left: 10px;
+  margin-top: 15px;
+  color: black;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 button[color="warn"] {
-  background-color: #e67e22;  /* Promenite boju u narandžastu */
+  background-color: #e67e22;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -158,26 +154,37 @@ button[color="warn"] {
 }
 
 button[color="warn"]:hover {
-  background-color: #d35400;  /* Tamnija nijansa narandžaste prilikom hovera */
+  background-color: #d35400;
 }
 
 #buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;  /* Dodajte manji razmak iznad dugmadi */
-}
-
-.tour-price {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .original-price {
   text-decoration: line-through;
-  color: #999;  /* Dodajte boju za precrtani tekst (opcionalno) */
-  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+  color: #999;
+  white-space: nowrap;
 }
 
 .discounted-price {
-  color: #E67840;  
-  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+  color: #E67840;
+  white-space: nowrap;
+}
+
+.create-sale {
+  margin-bottom: 25px;
+  padding: 0px 10px;
+  width: 150px;
+  font-size: 120%;
+  color: #fff;
+  background-color: #3B846B;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
