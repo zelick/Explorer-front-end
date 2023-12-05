@@ -6,5 +6,5 @@ export interface PrivateTour{
     touristId: number;
     checkpoints: PublicCheckpoint[];
     name:string; 
-    execution: PrivateTourExecution|null;
+    execution?: PrivateTourExecution;
 }

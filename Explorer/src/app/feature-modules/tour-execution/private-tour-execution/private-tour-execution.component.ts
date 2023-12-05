@@ -1,17 +1,12 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { TourExecution } from '../model/tour_execution.model';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SimulatorComponent } from '../../marketplace/simulator/simulator.component';
-import { TouristPosition } from '../../marketplace/model/position.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
-import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { PrivateTourExecution } from '../../tour-authoring/model/private-tour-execution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +19,7 @@ import { PrivateTourExecution } from '../../tour-authoring/model/private-tour-ex
 })
 export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  tour : PrivateTour;
+  tour : PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[]};
   tourId: number = 0;
   tourist: User;
   checkPositions: any;
@@ -33,7 +28,6 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   nextVisibility: boolean = false;
   finishVisibility: boolean = false;
   currentCheckpoint: string = "";
-  tourName: string = "";
 
   constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -43,14 +37,12 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
 
     this.activatedRoute.params.subscribe(params=>{
       this.tourId = params['id'];
-      this.authService.user$.subscribe(user => {
-      this.tourist = user;
+      this.tourist = this.authService.user$.value;
 
       this.service.getPrivateTour(this.tourId).subscribe(result => {
         if(result != null)
         {
           this.tour = result;
-          this.tourName = this.tour.name;
           if(this.tour.execution){
             this.currentCheckpoint = this.tour.checkpoints[this.tour.execution?.lastVisited].name;
           }
@@ -59,16 +51,9 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
         }
       });
     });
-  });
   }
 
   ngAfterViewInit(): void{
-    this.service.getPrivateTour(this.tourId).subscribe(result => {
-      if(result != null){
-        this.tour = result;
-        this.tourName = this.tour.name;
-      }
-    });
     this.updateButtonVisibilities();
   }
 
