@@ -114,7 +114,6 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       currentPointPicture:0,
       showedPointPicture:"",
       authorId: this.service.user.id
-
     };
 
     const status = this.checkpointForm.value.status || 'Private'

@@ -318,3 +318,22 @@ textarea {
 .tour-info-table{
     margin-left: 0px;
 }
+.availableEncounter{
+    border: 2px solid #E67840;
+    background-color: #B6D4AF;
+}
+.button{
+    width: auto;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    margin-right: 50px;
+    padding: 0px 10px;
+    width: 150px;
+    height: 60px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}

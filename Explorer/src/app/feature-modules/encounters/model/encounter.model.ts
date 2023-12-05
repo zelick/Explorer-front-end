@@ -2,6 +2,7 @@ import { CompletedEncounter } from "./completedEncounter.model";
 export interface Encounter {
     id?: number;
     authorId: number;
+    description: string;
     name: string;
     xp:number;
     longitude:number;

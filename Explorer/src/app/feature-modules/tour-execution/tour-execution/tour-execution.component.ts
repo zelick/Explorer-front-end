@@ -90,7 +90,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
 
   this.checkPositions = setInterval(() => {
     this.checkPosition();
-
   }, 10000);
 
   }
@@ -117,7 +116,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
               this.availableEncounterExecution = result;
               this.availableEncounter = this.availableEncounterExecution.encounterDto; 
-              this.changeDetection.detectChanges();
             });
           this.findCheckpoints();
         });
@@ -125,7 +123,8 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.oldPosition = this.simulatorComponent.selectedPosition;
       this.notifications = [];
     }
-    this.checkSocialEncounterStatus();
+    if(this.availableEncounter)
+      this.checkSocialEncounterStatus();
     console.log("Check position");
     this.notifications.push(1);
     this.changeDetection.detectChanges();
@@ -153,7 +152,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   checkSocialEncounterStatus(): void{
-    if(this.availableEncounter.type == 'Social')
+    if(this.encounterExecutions.find(n => n.encounterDto.type == 'Social'))
               {
                 this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
                   this.availableEncounterExecution = result;
@@ -226,7 +225,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       element.showedPointPicture=element.pictures[element.currentPointPicture];
     });
     this.changeDetection.detectChanges();
-
   }
 
 
@@ -280,6 +278,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.availableEncounterExecution = result;
     });
   }
+
 }
 
 
