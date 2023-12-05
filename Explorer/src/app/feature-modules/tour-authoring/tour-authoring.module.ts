@@ -36,6 +36,7 @@ import { PrivateToursComponent } from './private-tours/private-tours.component';
     CheckpointSecretFormComponent,
     PlanYourTripComponent,
     PrivateToursComponent
+
   ],
   imports: [
     CommonModule,
