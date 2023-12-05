@@ -113,7 +113,8 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.service.user.id
+      authorId: this.service.user.id,
+      isSecretPrerequisite: true
     };
 
     const status = this.checkpointForm.value.status || 'Private'
@@ -147,8 +148,8 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       currentPointPicture:0,
       showedPointPicture:"",
       authorId: this.selectedCheckpoint.authorId,
-      encounterId:this.selectedCheckpoint.encounterId
-
+      encounterId:this.selectedCheckpoint.encounterId,
+      isSecretPrerequisite: this.selectedCheckpoint.isSecretPrerequisite
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))

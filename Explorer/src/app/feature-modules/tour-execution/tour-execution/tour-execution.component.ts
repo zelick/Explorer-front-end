@@ -44,6 +44,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   availableEncounterExecution: EncounterExecution;
   availableEncounter: Encounter;
   currentlyPeopleOnSocialEncounter: number = 0;
+  executions: EncounterExecution[];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -158,6 +159,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
                   this.availableEncounterExecution = result;
                   this.availableEncounter = this.availableEncounterExecution.encounterDto;
                   this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+                  this.encounterExecutions.forEach(e => {
+                    if(e.id == result.id)
+                    {
+                      e = result;
+                    }
+                  });
                   this.changeDetection.detectChanges();
                 });
               }
@@ -229,12 +236,25 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
 
 
   OnViewSecret(c:Checkpoint):void{
-    c.visibleSecret=!c.visibleSecret;
-    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
-    if(c.viewSecretMessage=="Show secret")
-      c.viewSecretMessage="Hide secret";
-    else
-      c.viewSecretMessage="Show secret";
+      if(c.isSecretPrerequisite && c.encounterId != 0)
+      {
+        if(this.availableEncounterExecution.status == 'Completed' && c.encounterId == this.availableEncounterExecution.encounterId)
+        {
+          c.visibleSecret=!c.visibleSecret;
+          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          if(c.viewSecretMessage=="Show secret")
+            c.viewSecretMessage="Hide secret";
+          else
+            c.viewSecretMessage="Show secret";
+        }
+      }else{
+        c.visibleSecret=!c.visibleSecret;
+          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          if(c.viewSecretMessage=="Show secret")
+            c.viewSecretMessage="Hide secret";
+          else
+            c.viewSecretMessage="Show secret";
+      }
   }
 
   OnNext(c:Checkpoint):void{
