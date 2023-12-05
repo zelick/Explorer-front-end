@@ -1,17 +1,12 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { TourExecution } from '../model/tour_execution.model';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SimulatorComponent } from '../../marketplace/simulator/simulator.component';
-import { TouristPosition } from '../../marketplace/model/position.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
-import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { PrivateTourExecution } from '../../tour-authoring/model/private-tour-execution.model';
 
 @Injectable({
   providedIn: 'root'

@@ -46,6 +46,9 @@ import { NotificationsComponent } from 'src/app/feature-modules/administration/n
 import { PlanYourTripComponent } from 'src/app/feature-modules/tour-authoring/plan-your-trip/plan-your-trip.component';
 import { PrivateToursComponent } from 'src/app/feature-modules/tour-authoring/private-tours/private-tours.component';
 import { PrivateTourExecutionComponent } from 'src/app/feature-modules/tour-execution/private-tour-execution/private-tour-execution.component';
+import { PrivateTourBlogsComponent } from 'src/app/feature-modules/blog/private-tour-blogs/private-tour-blogs.component';
+import { PrivateTourBlogComponent } from 'src/app/feature-modules/blog/private-tour-blog-creation/private-tour-blog.component';
+import { PrivateTourBlogViewComponent } from 'src/app/feature-modules/blog/private-tour-blog-view/private-tour-blog-view.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -85,7 +88,9 @@ const routes: Routes = [
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
       { path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
       { path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
-      
+      { path: 'private-tour-blog-creation/:id', component: PrivateTourBlogComponent, canActivate: [AuthGuard]},
+      { path: 'private-tour-blogs', component: PrivateTourBlogsComponent, canActivate: [AuthGuard]},
+      { path: 'private-tour-blog-view/:id', component: PrivateTourBlogViewComponent, canActivate: [AuthGuard]},
 
       //AUTHOR only
       { path: 'tour', component: TourComponent,canActivate:[AuthGuard] },
@@ -143,7 +148,10 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
   {path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
-  {path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]}
+  {path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
+  {path: 'private-tour-blog-creation/:id', component: PrivateTourBlogComponent, canActivate: [AuthGuard]},
+  {path: 'private-tour-blogs', component: PrivateTourBlogsComponent, canActivate: [AuthGuard]},
+  {path: 'private-tour-blog-view/:id', component: PrivateTourBlogViewComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

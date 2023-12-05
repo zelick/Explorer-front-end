@@ -11,6 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { BlogPostTableComponent } from './blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { FormsModule } from '@angular/forms';
+import { PrivateTourBlogsComponent } from './private-tour-blogs/private-tour-blogs.component';
+import { PrivateTourBlogViewComponent } from './private-tour-blog-view/private-tour-blog-view.component';
+import { PrivateTourBlogComponent } from './private-tour-blog-creation/private-tour-blog.component';
     
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { FormsModule } from '@angular/forms';
     BlogCommentComponent,
     BlogCommentFormComponent,
     BlogPostTableComponent,
-    BlogPostComponent
+    BlogPostComponent,
+    PrivateTourBlogComponent,
+    PrivateTourBlogsComponent,
+    PrivateTourBlogViewComponent
   ],
   imports: [
     CommonModule,

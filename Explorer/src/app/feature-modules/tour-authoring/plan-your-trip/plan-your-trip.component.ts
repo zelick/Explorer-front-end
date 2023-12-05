@@ -26,7 +26,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   i: number = 0;
   transport: string = 'driving';
   tours: PublicTour[] = [];
-  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[], execution:null};
+  privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[], execution:null, blog:null};
   
   constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router){
 

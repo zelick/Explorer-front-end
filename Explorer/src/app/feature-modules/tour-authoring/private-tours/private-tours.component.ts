@@ -85,4 +85,9 @@ startPictureRotation(): void {
     }
   }, 3000);
 }
+
+createPrivateTourBlog(privateTour: PrivateTour){
+  this.router.navigate(['/private-tour-blog-creation/', privateTour.id]);
+}
+
 }

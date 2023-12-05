@@ -34,6 +34,11 @@ button{
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+button.blog-button{
+  background-color:rgb(38, 61, 54);
+  border: 2px solid rgb(24, 37, 33);
+}
+
 table {
     border-collapse: collapse;
     font-size: 0.9em;
