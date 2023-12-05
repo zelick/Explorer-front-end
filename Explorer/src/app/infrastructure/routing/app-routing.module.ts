@@ -44,6 +44,7 @@ import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-auth
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
 import { EncounterFormComponent } from 'src/app/feature-modules/encounters/encounter-form/encounter-form.component';
+import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -81,6 +82,7 @@ const routes: Routes = [
       { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+      
 
       //AUTHOR only
       { path: 'tour', component: TourComponent,canActivate:[AuthGuard] },
@@ -136,8 +138,8 @@ const routes: Routes = [
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
   { path: 'encounter-form/:id',component:EncounterFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
-  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],}
-
+  {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
+  { path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
 ];
 
 @NgModule({

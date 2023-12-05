@@ -21,6 +21,14 @@ export class EncounterService {
     return this.http.post<Encounter>(environment.apiHost + 'administration/encounter', encounter,{params});
   }
 
+  addTouristEncounter(encounter: FormData,id:number,isPrerequisite:boolean): Observable<Encounter> {
+
+    const params = new HttpParams()
+                    .set('checkpointId', id)
+                    .set("isSecretPrerequisite", isPrerequisite);
+    return this.http.post<Encounter>(environment.apiHost + 'administration/touristEncounter', encounter,{params});
+  }
+
   getEncounter(id:number): Observable<Encounter> {
     return this.http.get<Encounter>(environment.apiHost + 'administration/encounter/'+id);
   }
