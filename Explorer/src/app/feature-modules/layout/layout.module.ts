@@ -43,7 +43,8 @@ import { PopularBlogsComponent } from './popular-blogs/popular-blogs.component';
   exports: [
     NavbarComponent,
     HomeComponent,
-    ProfileAdministrationComponent
+    ProfileAdministrationComponent,
+    TravelersChoiceComponent
   ]
 })
 export class LayoutModule { }

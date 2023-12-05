@@ -46,6 +46,8 @@ import { NotificationsComponent } from 'src/app/feature-modules/administration/n
 import { PlanYourTripComponent } from 'src/app/feature-modules/tour-authoring/plan-your-trip/plan-your-trip.component';
 import { CompositeTourFormComponent } from 'src/app/feature-modules/marketplace/composite-tour-form/composite-tour-form.component';
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
+import { PrivateToursComponent } from 'src/app/feature-modules/tour-authoring/private-tours/private-tours.component';
+import { PrivateTourExecutionComponent } from 'src/app/feature-modules/tour-execution/private-tour-execution/private-tour-execution.component';
 
 
 const routes: Routes = [
@@ -73,8 +75,8 @@ const routes: Routes = [
 
       //TOURIST only
       { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
-      { path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
-      { path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
+      { path: 'tour-overview', component: TourOverviewComponent, canActivate:[AuthGuard]},
+      { path: 'tour-overview-details/:id', component:TourOverviewDetailsComponent, canActivate: [AuthGuard]},
       { path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard] },
       { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
       //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
@@ -84,9 +86,13 @@ const routes: Routes = [
       { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+
       //campaign expansion(new)
       { path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard], },
       { path: 'composite-list', component:CompositeToursComponent,canActivate:[AuthGuard]},
+      { path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
+      { path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]},
+
       
 
       //AUTHOR only
@@ -144,9 +150,10 @@ const routes: Routes = [
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
-  { path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard], },
-  { path: 'composite-list', component:CompositeToursComponent,canActivate:[AuthGuard]}
-  
+  {path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard]},
+  {path: 'composite-list', component:CompositeToursComponent,canActivate:[AuthGuard]},
+  {path: 'private-tours', component: PrivateToursComponent, canActivate: [AuthGuard]},
+  {path: 'private-tour-execution/:id', component: PrivateTourExecutionComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

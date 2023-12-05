@@ -38,12 +38,12 @@ export class AuthService {
       environment.apiHost + 'users',
       formData,
       { headers }
-    ).pipe(
+    )/*.pipe(
       tap((authenticationResponse) => {
         this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
         this.setUser();
       })
-    );
+    );*/
   }
   
   logout(): void {
@@ -79,5 +79,9 @@ export class AuthService {
     const token = this.tokenStorage.getAccessToken(); 
   
     return token || null;
+  }
+
+  isUserVerified(username: string): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'users/verificationStatus/' + username)
   }
 }

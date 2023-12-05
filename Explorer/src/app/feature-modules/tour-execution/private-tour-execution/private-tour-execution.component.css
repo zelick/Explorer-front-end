@@ -1,0 +1,69 @@
+#top-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 6vh;
+    background-color: #F7F6DC;
+}
+
+button{
+    margin-top: 10%;
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.info{
+    background-color: #3B846B;
+    height: 50%;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 3vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.current-checkpoint{
+    padding-top: 2vh;
+    font-size: 20px;
+    color: rgb(38, 61, 54);
+}
+
+.map{
+    max-width: 1000px;
+    width: 70%;
+    height: 80%;
+    border-radius: 15px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+  color:#E67840;
+  padding: 1% 2.5%; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  
+}
+
+.subtitle{
+    font-size: 2vh;
+  color:#E67840;
+  font-style: bold;
+}

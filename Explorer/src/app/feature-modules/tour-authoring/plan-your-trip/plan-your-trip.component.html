@@ -27,9 +27,20 @@
                 </div>
             </div>
             <div class="right">
-                <div class="availableCheckpoints" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0">
+                <div class="availableCheckpoints" *ngIf="publicCheckpoints && publicCheckpoints.length>0">
                     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                        <label class="tellUs">Checkpoints on your custom tour</label>
+                        <label *ngIf="mode=='Map'" class="tellUs">Checkpoints on your custom tour</label>
+                        <div class="transport-div" *ngIf="mode=='List'">
+                            <button (click)="changeTransport('walking')" [ngClass]="{'walk-selected': transport=='walking', 'transport-button': transport!='walking'}">
+                                🚶‍♂️
+                            </button>
+                            <button (click)="changeTransport('driving')" [ngClass]="{'car-selected': transport=='driving', 'transport-button': transport!='driving'}">
+                                🚗 
+                            </button>
+                            <button (click)="changeTransport('cycling')" [ngClass]="{'bike-selected': transport=='cycling', 'transport-button': transport!='cycling'}">
+                                🚲
+                            </button>
+                        </div>
                         <button style="color: white; width: 4vh; height: 4vh; border: 0px solid black; background-color: transparent; cursor: pointer; margin-right: 8px;" (click)="changeMode()">{{mode}}</button>
                     </div>
                     <div style="overflow-y: auto;" *ngIf="mode==='Map'">
@@ -46,12 +57,36 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="overflow-y: hidden;" *ngIf="mode==='List'">
-                        <xp-map class="map"></xp-map>
+                    <div style="overflow-y: hidden; height: 100%;" *ngIf="mode==='List'">
+                        <xp-map></xp-map>
                     </div>
                 </div>
-                
             </div>
+        </div>
+        <label class="disclaimer" *ngIf="publicCheckpoints && publicCheckpoints.length>0 && selectedCheckpoints.length<2">&#9888; Select at least two checkpoints for your private tour.</label>
+        <h1 style="margin-top: 6vh;" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0" >Tours you may be interested in</h1>
+        <label class="disclaimer" *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0">These tours visit all the checkpoints you chose, and more!</label>
+        <div *ngIf="selectedCheckpoints && selectedCheckpoints.length>0 && tours && tours.length>0" class="travelers-div">
+            <button class="navigation-button" (click)="swipeLeft()"> &#9665;</button>
+            <div class="tour-cards-container" [@slide]="i">
+              <div class="tour-card" *ngFor="let tour of tours" (click)="selectTour(tour)">
+                <div class="image-container">
+                    <img *ngIf="tour.previewCheckpoints[0]" src="{{tour.previewCheckpoints[0].pictures[0]}}" alt="Image1" class="img">
+                </div>
+                    <h2 class="card-header">{{tour.name}}</h2>
+                    <p style="color: white; margin-left: 10px; font-size: x-small;">{{tour.description}}</p>
+                </div>
+              
+            </div>
+            <button class="navigation-button" (click)="swipeRight()">&#9655; </button>
+        </div>
+        <div *ngIf="selectedCheckpoints.length>1" style="width: 50%;">
+            <h1 style="margin-top: 6vh;">One last step</h1>
+            <label class="tellUs">Select a name for your private tour</label>
+            <div class="formaName">
+                <input type="text" placeholder=" Name for your tour" class="destinationInput" [(ngModel)]="privateTour.name"/>
+            </div>
+            <button class="createButton" (click)="createTour()">Create tour</button>
         </div>
     </div>
 </body>

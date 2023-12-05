@@ -17,6 +17,8 @@ import { TourEquipmentComponent } from './tour-equipment/tour-equipment.componen
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
 import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
 import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component';
+import { TravelersChoiceComponent } from '../layout/travelers-choice/travelers-choice.component';
+import { PrivateToursComponent } from './private-tours/private-tours.component';
 
 
 
@@ -33,6 +35,8 @@ import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component
     TourTransportFormComponent,
     CheckpointSecretFormComponent,
     PlanYourTripComponent,
+    PrivateToursComponent
+
   ],
   imports: [
     CommonModule,

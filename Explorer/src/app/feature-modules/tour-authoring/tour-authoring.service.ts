@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Result } from 'postcss';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
+import { PublicTour } from '../marketplace/model/public-tour.model';
+import { PrivateTour } from './model/private-tour.model';
 
 
 @Injectable({
@@ -29,6 +31,14 @@ export class TourAuthoringService {
     });
   }
   
+  getPrivateTours(touristId: number): Observable<PrivateTour[]> {
+    return this.http.get<PrivateTour[]>(environment.apiHost + 'tourist/privateTours/' + touristId);
+  }
+
+  start(privateTour: PrivateTour): Observable<PrivateTour> {
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/start', privateTour);
+  }
+
   getCheckpoints(): Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>(environment.apiHost + 'administration/checkpoint')
   }
@@ -157,5 +167,11 @@ export class TourAuthoringService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint/atPlace/'+longitude+'/'+latitude);
+  }
+  getToursWithPublicCheckpoints(checkpoints: PublicCheckpoint[]): Observable<PublicTour[]>{
+    return this.http.post<PublicTour[]>(environment.apiHost+'tourist/publicTours/byChekpoints', checkpoints);
+  }
+  createPrivateTour(privateTour: PrivateTour): Observable<PrivateTour>{
+    return this.http.post<PrivateTour>(environment.apiHost + 'tourist/privateTours', privateTour);
   }
 }
