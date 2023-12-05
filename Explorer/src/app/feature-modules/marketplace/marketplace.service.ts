@@ -9,7 +9,6 @@ import { TourRating } from './model/tour-rating.model';
 import { TouristPosition } from './model/position.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
-import { Customer } from './model/customer.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
 import { PublicTour } from './model/public-tour.model';
@@ -17,6 +16,7 @@ import { TourExecution } from '../tour-execution/model/tour_execution.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
+import { TourBundle } from './model/tour-bundle.model';
 import { Sale } from './model/sale.model';
 
 @Injectable({
@@ -177,6 +177,14 @@ export class MarketplaceService {
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 
+  getTourBundles(page: number, pageSize: number): Observable<PagedResults<TourBundle>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<PagedResults<TourBundle>>(environment.apiHost + `administration/tour-bundle/published`, { params });
+  }
+
   getAllSales(): Observable<PagedResults<Sale>>{
     return this.http.get<PagedResults<Sale>>(environment.apiHost + 'author/sale');
   }
@@ -200,5 +208,4 @@ export class MarketplaceService {
   getSale(saleId: number): Observable<Sale>{
     return this.http.get<Sale>(environment.apiHost + 'author/sale/' + saleId);
   }
-
 }
