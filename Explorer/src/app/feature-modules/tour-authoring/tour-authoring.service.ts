@@ -160,7 +160,7 @@ export class TourAuthoringService {
   }
 
   getBundlesByAuthor(authorId: number): Observable<TourBundle[]>{
-    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/' + authorId);
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/by-author/' + authorId);
   }
 
   deleteBundle(id: number): Observable<TourBundle>{
@@ -171,7 +171,15 @@ export class TourAuthoringService {
     return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + bundle.id || '', bundle);
   }
 
-  canBePublished(bundle: TourBundle): Observable<boolean>{
-    return this.http.get<boolean>(environment.apiHost + 'api/administration/canBePublished/' + bundle.id || '');
+  getBundleById(id: number): Observable<TourBundle>{
+    return this.http.get<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  removeTourFromBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/remove-tour/' + bundleId + '/' + tourId, null);
+  }
+
+  addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
   }
 }

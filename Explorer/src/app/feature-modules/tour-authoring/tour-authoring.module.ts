@@ -17,6 +17,7 @@ import { TourEquipmentComponent } from './tour-equipment/tour-equipment.componen
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
 import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
 import { TourBundlesComponent } from './tour-bundles/tour-bundles.component';
+import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.component';
 
 
 
@@ -32,7 +33,8 @@ import { TourBundlesComponent } from './tour-bundles/tour-bundles.component';
     TourEquipmentComponent,
     TourTransportFormComponent,
     CheckpointSecretFormComponent,
-    TourBundlesComponent
+    TourBundlesComponent,
+    TourBundleEditComponent
   ],
   imports: [
     CommonModule,

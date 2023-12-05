@@ -28,6 +28,8 @@ export class TourBundlesComponent implements OnInit{
     this.service.getBundlesByAuthor(this.user.id).subscribe({
       next: (result: TourBundle[]) => {
         this.tourBundles = result;
+        console.log('Svi paketi: ');
+        console.log(this.tourBundles);
       },
       error: () => {
       }
@@ -70,18 +72,12 @@ export class TourBundlesComponent implements OnInit{
   }
 
   canPublish(bundle: TourBundle): boolean {
-    let canPublishResult: boolean = false;
-  
-    this.service.canBePublished(bundle).subscribe({
-      next: (result: boolean) => {
-        canPublishResult = result;
-      },
-      error: () => {
-      }
-    });
-  
+    const publishedTours = bundle.tours.filter(tour => tour.status === 'Published');
+    const canPublishResult = publishedTours.length >= 2;
     return canPublishResult;
   }
-  
-  
+
+  editBundle(bundle: TourBundle): void{
+    this.router.navigate(['/tour-bundle-edit/' + bundle.id || '']);
+  }
 }

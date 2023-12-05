@@ -160,3 +160,7 @@ tbody tr.active-row {
     border-radius: 100px;
     cursor: pointer;
 }
+
+div[hidden] {
+  display: none;
+}
