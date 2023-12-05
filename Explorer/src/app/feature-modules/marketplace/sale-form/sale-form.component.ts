@@ -62,6 +62,7 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
                             (tours) => {
                                 if (this.sale.id !== undefined) {
                                     this.tours = tours;
+                                    console.log('ture koje ima: ', this.tours)
                                     this.initializeButtonStatesForUpdate();
                                     for (const tour of this.tours) {
                                         if (tour.id !== undefined) {
@@ -69,13 +70,47 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
                                         }
                                     }
                                 }
+                                if (this.sale.id !== undefined) {
+                                    //ovo je dodato novo
+                                    this.tourAuthoringService.getTour().subscribe(
+                                        (result) => {
+                                            const numberOfToursBefore = this.tours.length;
+                                            const newTours = result.filter(newTour => !this.tours.some(existingTour => existingTour.id === newTour.id && existingTour.status === 'Published'));
+                                            this.tours = this.tours.concat(newTours);
+                                            console.log('nove ture koje treba dodati ako zeli uz stare: ', this.tours)
+                                            const numberOfNewTours = this.tours.length - numberOfToursBefore;
+                                            if (numberOfNewTours > 0) {
+                                            this.initializeButtonStatesForUpdate2(numberOfToursBefore, numberOfNewTours);
+                                            }                                    
+                                        }, 
+                                        (error) => {
+                                            console.log('greska pri ucitavanju autorovih tura')
+                                        }
+                                    )
+                                } 
+
                             },
                             (error) => {
                             console.log(`Greska pri dohvatanju svih tura za ovaj sale`);
                             }
                         );
+                        /* if (this.sale.id !== undefined) {
+                            this.tourAuthoringService.getTour().subscribe(
+                                (result) => {
+                                    const numberOfToursBefore = this.tours.length;
+                                    this.tours = this.tours.concat(result.filter(tour => tour.status === 'Published'));
+                                    const numberOfNewTours = this.tours.length - numberOfToursBefore;
+                                    if (numberOfNewTours > 0) {
+                                    this.initializeButtonStatesForUpdate2(numberOfToursBefore, numberOfNewTours);
+                                    }                                    
+                                }, 
+                                (error) => {
+                                    console.log('greska pri ucitavanju autorovih tura')
+                                }
+                            )
+                        }  */
                     } 
-                    else if (this.sale.id !== undefined && this.sale.toursIds.length == 0) {
+                    if (this.sale.id !== undefined && this.sale.toursIds.length == 0) {
                         this.tourAuthoringService.getTour().subscribe(
                             (result) => {
                                 this.tours = result.filter(tour => tour.status === 'Published')
@@ -85,9 +120,9 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
                                 console.log('greska pri ucitavanju autorovih tura')
                             }
                         )
-                    }
+                    } 
                     this.patchFormValues(); 
-                  });
+                });
             }
             else {
                 this.shouldEdit = false;
@@ -129,6 +164,13 @@ import { TourAuthoringService } from "../../tour-authoring/tour-authoring.servic
         for (let i = 0; i < this.tours.length; i++) {
             this.isAddButtonDisabled[i] = true;
             this.isRemoveButtonDisabled[i] = false;
+          }
+    }
+
+    initializeButtonStatesForUpdate2(numberOfToursBefore : number, numberOfNewTours: number): void {
+        for (let i = numberOfToursBefore; i < numberOfToursBefore + numberOfNewTours; i++) {
+            this.isAddButtonDisabled[i] = false; 
+            this.isRemoveButtonDisabled[i] = true
           }
     }
 
