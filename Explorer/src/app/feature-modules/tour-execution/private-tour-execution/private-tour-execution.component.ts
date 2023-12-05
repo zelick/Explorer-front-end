@@ -28,9 +28,18 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   nextVisibility: boolean = false;
   finishVisibility: boolean = false;
   currentCheckpoint: string = "";
+  transport: string = "walking";
 
   constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
+  }
+
+  changeTransport(tr:string){
+    if(this.transport!==tr){
+      this.transport = tr;
+      this.mapComponent.reloadMap();
+      this.addPublicCheckpointsOnMap();
+    }
   }
 
   ngOnInit(): void {
@@ -58,7 +67,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   addPublicCheckpointsOnMap(): void{
-    this.mapComponent.reloadMap();
+    //this.mapComponent.reloadMap();
     if(this.tour.checkpoints)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, picture: this.tour.checkpoints[0].pictures[0], name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description}];
@@ -66,7 +75,8 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
           if(e != this.tour.checkpoints[0])
             coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
       });
-      this.mapComponent.setRouteWithPublicInfo(coords,'driving'); 
+      if(this.tour.execution)
+        this.mapComponent.setRouteWithPublicInfo(coords,this.transport,this.tour.execution?.lastVisited+1); 
     }
   }
 
@@ -86,6 +96,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
             this.currentCheckpoint = this.tour.checkpoints[this.tour.execution?.lastVisited].name;
             this.changeDetection.detectChanges();
           }
+          this.addPublicCheckpointsOnMap();
         }
       });
   });
@@ -95,8 +106,10 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
     this.service.finish(tour).subscribe( result => {
       this.updateButtonVisibilities();
       this.tour = result;
+      if(this.tour.execution?.lastVisited)
+        this.tour.execution.lastVisited ++;
       console.log("Private tour has been finished.");
-      this.router.navigate(['/home']);
+      //this.router.navigate(['/home']);
   });
   }
 
