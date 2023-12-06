@@ -125,7 +125,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.notifications = [];
     }
     if(this.availableEncounter)
+    {
       this.checkSocialEncounterStatus();
+      this.checkHiddenLocationEncounterStatus();
+    }
+      
     console.log("Check position");
     this.notifications.push(1);
     this.changeDetection.detectChanges();
@@ -169,6 +173,23 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
                 });
               }
   }
+
+  checkHiddenLocationEncounterStatus(): void{
+    if(this.encounterExecutions.find(n => n.encounterDto.type == 'Location'))
+    {
+      this.service.checkIfInRangeLocation(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+      this.availableEncounterExecution = result;
+      this.availableEncounter = this.availableEncounterExecution.encounterDto;
+      this.encounterExecutions.forEach(e => {
+        if(e.id == result.id)
+          {
+            e = result;          
+          }
+        });
+      this.changeDetection.detectChanges();
+      });
+    }
+  }  
 
   addMapObjectsOnMap(): void{
     if(this.mapObjects)

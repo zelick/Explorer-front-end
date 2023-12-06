@@ -80,6 +80,13 @@ export class TourExecutionService {
     return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/social/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
   }
 
+  checkIfInRangeLocation(tourId: number, encounterExecutionId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("touristLatitude", touristLatitude);
+    queryParams = queryParams.append("touristLongitude", touristLongitude);
+    return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/location/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
+  }
+
   getCompleted() : Observable<EncounterExecution[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", 0);
