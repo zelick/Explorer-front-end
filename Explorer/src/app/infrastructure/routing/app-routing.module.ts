@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/feature-modules/layout/home/home.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
-
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
@@ -43,6 +42,7 @@ import { TourRatingEditFormComponent } from 'src/app/feature-modules/marketplace
 import { CheckpointSecretFormComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-secret-form/checkpoint-secret-form.component';
 import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/tour-execution/tour-execution.component';
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
+import { EncounterFormComponent } from 'src/app/feature-modules/encounters/encounter-form/encounter-form.component';
 import { PlanYourTripComponent } from 'src/app/feature-modules/tour-authoring/plan-your-trip/plan-your-trip.component';
 import { CompositeTourFormComponent } from 'src/app/feature-modules/marketplace/composite-tour-form/composite-tour-form.component';
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
@@ -51,7 +51,6 @@ import { PrivateTourExecutionComponent } from 'src/app/feature-modules/tour-exec
 import { PrivateTourBlogsComponent } from 'src/app/feature-modules/blog/private-tour-blogs/private-tour-blogs.component';
 import { PrivateTourBlogComponent } from 'src/app/feature-modules/blog/private-tour-blog-creation/private-tour-blog.component';
 import { PrivateTourBlogViewComponent } from 'src/app/feature-modules/blog/private-tour-blog-view/private-tour-blog-view.component';
-
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -153,6 +152,7 @@ const routes: Routes = [
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
+  { path: 'encounter-form/:id',component:EncounterFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
