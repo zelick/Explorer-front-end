@@ -17,6 +17,8 @@ import { TourExecution } from '../tour-execution/model/tour_execution.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
+import { CompositeForm } from './model/composite-create';
+import { CompositePreview } from './model/composite-preview';
 
 @Injectable({
   providedIn: 'root'
@@ -179,4 +181,17 @@ export class MarketplaceService {
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
+
+  addCompositeTour(compositeTour: CompositeForm): Observable<CompositeForm> {
+    return this.http.post<CompositeForm>(environment.apiHost + 'tourist/compositeTours', compositeTour);
+  }
+
+  getCompositeToursId(tourId:number):Observable<CompositePreview[]> {
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours' + tourId) 
+  }
+
+  getAllCompositeTours():Observable<CompositePreview[]>{
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours') 
+  }
+
 }

@@ -1,0 +1,8 @@
+<body>
+    <div class="blog-container" *ngFor="let tour of toursWithBlogs">
+        <h2>{{ tour.blog?.title }}</h2>
+        <p class="blog-description">{{ tour.blog?.description }}</p>
+        <p class="blog-equipment">{{ tour.blog?.equipment }}</p>
+        <button (click)="readBlog(tour)">Read More</button>
+    </div>  
+</body>

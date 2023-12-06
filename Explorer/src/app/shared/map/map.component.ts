@@ -356,6 +356,80 @@ export class MapComponent implements AfterViewInit {
         });
 
       };
+      setRouteWithPublicInfo(coords: [{ lat: number; lon: number; picture: string; name: string; desc: string }], profile: string, current?: number): void {
+        const waypoints = coords.map((coord) => L.latLng(coord.lat, coord.lon));
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          collapsible: true,
+          show: false,
+      
+          router: L.routing.mapbox(MAPBOX_API_KEY, { profile: `mapbox/${profile}` }),
+          lineOptions: {
+            styles: [{ color: this.setRouteColor(profile), opacity: 1, weight: 5 }],
+            extendToWaypoints: true,
+            missingRouteTolerance: 50,
+          },
+        }).addTo(this.map);
+      
+        routeControl.getWaypoints().forEach((element, index, array) => {
+          this.map.eachLayer((layer: any) => {
+            if (layer instanceof L.Marker) {
+              if (layer.getLatLng().equals(element.latLng)) {
+                const coord = coords.find((n) => n.lat === element.latLng.lat && n.lon === element.latLng.lng);
+      
+                const isLastCheckpoint = index === array.length - 1;
+                var isCurrent = false;
+                if(current)
+                  isCurrent = index === current -1;
+                var iconUrl ='';
+                var icon_Size : L.PointExpression;
+                if(current && isCurrent){
+                  iconUrl = 'https://img.icons8.com/?size=160&id=cZv3EuNAxRru&format=png';
+                  icon_Size = [34, 49];
+                } else if(isLastCheckpoint){
+                  iconUrl = 'https://img.icons8.com/?size=96&id=0eL67ErVxWV1&format=png';
+                  icon_Size = [29, 35];
+                } else{
+                  iconUrl = 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png';
+                  icon_Size = [25, 41];
+                }
+                
+      
+                layer.bindPopup(`<b>${coord?.name}</b><br>${coord?.desc}<br><img src='${coord?.picture}' width=70 height=50>`).addTo(this.map);
+                if(current){
+                  if(index===current-1)
+                  layer.openPopup();
+                }
+                else{
+                  layer.openPopup();
+                }
+                layer.setIcon(
+                    L.icon({
+                      iconUrl: iconUrl,
+                      iconSize: icon_Size,
+                      iconAnchor: [12, 11],
+                      popupAnchor: [1, 0],
+                    })
+                  );
+              }
+            }
+          });
+        });
+      
+        routeControl.on('routesfound', (e) => {
+          var routes = e.routes;
+          var summary = routes[0].summary;
+          const routeResponse: RouteResponse = {
+            totalDistanceMeters: summary.totalDistance,
+            totalTimeMinutes: Math.round(summary.totalTime / 60),
+          };
+          this.dist = summary.totalDistance;
+          this.profile = profile;
+          this.time = summary.totalTime;
+          this.getTimeAndDistance();
+        });
+      };
+      
 
       /*getLocationDetails(lat: number, lon: number): Observable<LocationResponse> {
         return this.mapService.reverseSearch(lat, lon).pipe(

@@ -1,0 +1,28 @@
+.single-blog-container {
+    max-width: 800px;
+    margin: 4vh auto;
+    padding: 20px;
+    background-color: #F7F6DC;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    color: #E67840;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #253B34;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+p:first-of-type {
+    color: #B6D4AF;
+}
+
+p:last-of-type {
+    color: #3B846B;
+}
