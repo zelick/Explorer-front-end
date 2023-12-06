@@ -90,16 +90,16 @@ tbody tr.active-row {
     align-items: center;
 }
 
-.wallet-heading{
-  justify-content: left;
-  font-size: 28px;
-  color:#3B846B15;
-  font-weight: 600;
-  margin-top: 6vh;
-  margin-left: 2vh;
-  margin-bottom: 1vh;
-  display: flex;
-  align-items: center;
+.wallet-heading {
+    justify-content: left;
+    font-size: 28px;
+    color: #3B846B;
+    font-weight: bold;
+    margin-top: 6vh;
+    margin-left: 2vh;
+    margin-bottom: 1vh;
+    display: flex;
+    align-items: center;
 }
 
 .checkout-button {
