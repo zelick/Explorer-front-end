@@ -20,7 +20,7 @@
                         <mat-icon>delete</mat-icon>
                     </button>
                     <button class="edit-button" (click)="editBundle(b)">Edit</button>
-                    <button class="edit-button" *ngIf="canPublish(b) && b.status === 'Draft'" (click)="publishBundle(b)">
+                    <button class="edit-button" *ngIf="canPublish(b) && b.status !== 'Published'" (click)="publishBundle(b)">
                         Publish
                     </button>
                     <button class="edit-button" *ngIf="b.status === 'Published'" (click)="archiveBundle(b)">
