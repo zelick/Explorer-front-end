@@ -29,14 +29,14 @@
                 </div>
                 
         </div>
-        <div [hidden]="!showAdditionalTours">
+        <div class="additional-card" [hidden]="!showAdditionalTours">
             <div class="tours-heading">Add more tours</div>
             <div class="tour-card">
                 <div class="tours-card" *ngFor="let t of additionalTours">
                     <p>{{t.name}}</p>
                     <p>{{t.description}}</p>
                     <p>{{t.status}}</p>
-                    <button (click)="addTourToBundle(t)">
+                    <button class="button1" (click)="addTourToBundle(t)">
                         Add to bundle
                     </button>
                 </div>

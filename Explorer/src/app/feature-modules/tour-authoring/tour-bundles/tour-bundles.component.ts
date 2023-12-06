@@ -25,7 +25,7 @@ export class TourBundlesComponent implements OnInit{
   }
 
   getTourBundles(): void{
-    this.service.getBundlesByAuthor(this.user.id).subscribe({
+    this.service.getBundlesByAuthor().subscribe({
       next: (result: TourBundle[]) => {
         this.tourBundles = result;
         console.log('Svi paketi: ');

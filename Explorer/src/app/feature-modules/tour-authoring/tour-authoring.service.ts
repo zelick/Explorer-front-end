@@ -159,8 +159,8 @@ export class TourAuthoringService {
     return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
   }
 
-  getBundlesByAuthor(authorId: number): Observable<TourBundle[]>{
-    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/by-author/' + authorId);
+  getBundlesByAuthor(): Observable<TourBundle[]>{
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/bundles-by-author');
   }
 
   deleteBundle(id: number): Observable<TourBundle>{
