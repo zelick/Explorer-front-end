@@ -40,7 +40,7 @@ export class CompositeTourFormComponent implements OnInit, AfterViewInit{
       this.user = user;
     });
 
-    this.service.getCustomersPurchasedTours(this.user.id).subscribe({
+    this.service.getTouristsPurchasedTours(this.user.id).subscribe({
       next: (result) => {
         this.purchasedTours = result;
       },
