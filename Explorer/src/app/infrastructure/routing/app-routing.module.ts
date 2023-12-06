@@ -45,6 +45,7 @@ import { TourExecutionComponent } from 'src/app/feature-modules/tour-execution/t
 import { NotificationsComponent } from 'src/app/feature-modules/administration/notifications/notifications.component';
 import { EncounterFormComponent } from 'src/app/feature-modules/encounters/encounter-form/encounter-form.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
+import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -140,6 +141,7 @@ const routes: Routes = [
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   { path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
+  { path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
