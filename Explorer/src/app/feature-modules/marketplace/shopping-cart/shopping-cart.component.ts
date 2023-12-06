@@ -21,6 +21,7 @@ export class ShoppingCartComponent implements OnInit{
   user: User;
   orderItems: OrderItem[] = [];
   cartItemCount : number;
+  coupon: string;
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -36,9 +37,13 @@ export class ShoppingCartComponent implements OnInit{
     });
   }
 
+  calculateTotalPrice(): number {
+    return this.orderItems.reduce((total, item) => total + item.price, 0);
+  }
+
   checkout() {    
     if (this.user && this.user.id !== undefined) {
-      this.service.shoppingCartCheckOut(this.user.id).subscribe(
+      this.service.shoppingCartCheckOut(this.user.id, this.coupon).subscribe(
         (cart) => {
           console.log('Uspešno završena kupovina');
           this.cart = cart;
@@ -47,6 +52,10 @@ export class ShoppingCartComponent implements OnInit{
           this.service.updateCartItemCount(0); 
         },
         (error) => {
+          if (error.status === 402) {
+            console.error('Not enough money:', error);
+            alert('Not enough ACs. Please add more Adventure Coins to your account.');
+          }
           console.error('Greška prilikom završavanja kupovine:', error);
         }
       );

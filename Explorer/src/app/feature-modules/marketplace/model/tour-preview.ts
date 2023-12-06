@@ -14,5 +14,8 @@ export interface TourPreview {
     equipment: Equipment[];
     checkpoint: CheckpointPreview;
     tourRating: TourRating[];
-    tourTime:TourTime[];
+    tourTime: TourTime[];
+    discount: number;
+    salePrice?: number;
+    isOnSale: boolean;
 }

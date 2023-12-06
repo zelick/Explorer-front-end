@@ -114,8 +114,10 @@ export class MarketplaceService {
   }
 
 
-  shoppingCartCheckOut(id: number): Observable<ShoppingCart> {
-    const params = new HttpParams().set('touristId', id.toString());
+  shoppingCartCheckOut(id: number, coupon: string = ""): Observable<ShoppingCart> {
+    const params = new HttpParams()
+      .set('touristId', id.toString())
+      .set('coupon', coupon)
     return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/checkout', null, { params });
   }
 
@@ -140,6 +142,9 @@ export class MarketplaceService {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
   }
 
+  getActiveSales(): Observable<Sale[]> {
+    return this.http.get<Sale[]>(environment.apiHost + 'shopping/sales');
+  }
   //
   private cartItemCountSubject = new BehaviorSubject<number>(0);
   cartItemCount$ = this.cartItemCountSubject.asObservable();
