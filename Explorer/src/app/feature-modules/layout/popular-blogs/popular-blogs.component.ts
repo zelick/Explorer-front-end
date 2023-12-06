@@ -15,9 +15,7 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
   imageIntervals: Map<number, any> = new Map();
   imageIndexes: Map<number, number> = new Map();
 
-  constructor(private service: LayoutService, private router: Router){
-
-  }
+  constructor(private service: LayoutService, private router: Router){ }
 
   ngOnInit(): void {
     /*this.blogs = [

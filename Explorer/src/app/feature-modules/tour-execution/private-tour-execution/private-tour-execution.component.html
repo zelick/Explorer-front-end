@@ -1,0 +1,38 @@
+<body>
+    <div class="transport-div">
+        <button (click)="changeTransport('walking')" [ngClass]="{'walk-selected': transport=='walking', 'transport-button': transport!='walking'}">
+            🚶‍♂️
+        </button>
+        <button (click)="changeTransport('driving')" [ngClass]="{'car-selected': transport=='driving', 'transport-button': transport!='driving'}">
+            🚗 
+        </button>
+        <button (click)="changeTransport('cycling')" [ngClass]="{'bike-selected': transport=='cycling', 'transport-button': transport!='cycling'}">
+            🚲
+        </button>
+    </div>
+    <div class="content">
+        <div class="left">
+            <div class="map">
+            <xp-map></xp-map>
+            </div>
+        </div>
+        <div class="info">
+        <p class="title">Tour: {{tour.name}}</p>
+        <label class="current-checkpoint"> Current checkpoint:</label>
+        <label class="current-checkpoint-name"> {{currentCheckpoint}}</label>
+        <img class="picture" *ngIf="tour.execution" src="{{tour.checkpoints[tour.execution.lastVisited].pictures[0]}}" alt="">
+        <button *ngIf="nextVisibility" (click)="nextCheckpoint(tour)" style="height: 40px;">Next checkpoint</button>
+        <button *ngIf="finishVisibility" (click)="finish(tour)" style="height: 40px;">Finish</button>
+        <div class="allCheckpoints">
+            <h2 class="checkpoints">Checkpoints</h2>
+            <div class="checkpoint" *ngFor="let ch of tour.checkpoints; let i = index">
+                <label class="checkpointLabel">{{ch.name}}</label>
+                <div *ngIf="tour && tour.execution && tour.execution.lastVisited !== undefined">
+                    <img *ngIf="tour.execution.lastVisited > i" class="check" src="https://img.icons8.com/?size=96&id=sz8cPVwzLrMP&format=png" alt="">
+                </div>         
+            </div>
+        </div>
+        </div>
+    </div>
+  </body>
+  

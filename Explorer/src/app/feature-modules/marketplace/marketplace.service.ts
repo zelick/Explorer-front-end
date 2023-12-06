@@ -19,6 +19,8 @@ import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.mode
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
 import { TouristWallet } from './model/tourist-wallet.model';
 import { NgPlural } from '@angular/common';
+import { CompositeForm } from './model/composite-create';
+import { CompositePreview } from './model/composite-preview';
 
 @Injectable({
   providedIn: 'root'
@@ -189,4 +191,17 @@ export class MarketplaceService {
   paymentAdventureCoins(id:number, coins: number): Observable<TouristWallet> {
     return this.http.put<TouristWallet>(environment.apiHost + 'tourist/wallet/payment-adventure-coins/' + id + '/' + coins, null)
   }
+
+  addCompositeTour(compositeTour: CompositeForm): Observable<CompositeForm> {
+    return this.http.post<CompositeForm>(environment.apiHost + 'tourist/compositeTours', compositeTour);
+  }
+
+  getCompositeToursId(tourId:number):Observable<CompositePreview[]> {
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours' + tourId) 
+  }
+
+  getAllCompositeTours():Observable<CompositePreview[]>{
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours') 
+  }
+
 }
