@@ -8,18 +8,23 @@
         <div *ngIf="orderItems.length > 0; else emptyCart">
             <div class="tour-card" *ngFor="let i of orderItems">
                 <div class="tour-info">
-                    <p>{{i.tourName}}, {{i.price}} eur</p>
+                    <p>{{i.name}} - {{i.price}} AC</p>
                 </div>
                 <div class="tour-actions">
-                    <button color="accent" (click)="removeShopppingCartItem(i.itemId || 0)" mat-icon-button>
+                    <button color="accent" (click)="removeShopppingCartItem(i)" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
             </div>
-            <div class="tours-heading">
-                <div *ngIf="cart">Total price: {{cart.price}}</div>
-                <button color="primary" (click)="checkout()" mat-raised-button>Checkout</button>
+            <div class="coupon-code-input">
+                <mat-form-field>
+                    <input matInput placeholder="Enter Coupon Code" [(ngModel)]="coupon" class="coupon-input">
+                </mat-form-field>
             </div>
+            <div class="tours-heading">
+                <div *ngIf="cart">Total price: {{ calculateTotalPrice() }}</div>
+            </div>
+            <button color="primary" class='checkout-button' (click)="checkout()" mat-raised-button>Checkout</button>
         </div>
         <ng-template #emptyCart>
             <p id="empty-cart-message">Your shopping cart is empty.</p>

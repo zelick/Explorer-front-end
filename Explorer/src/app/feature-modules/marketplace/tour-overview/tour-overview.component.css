@@ -13,13 +13,58 @@ h1{
   margin: 0 auto;
 
 }
-.tour-details {
-    margin: 0 auto;
 
+#filter {
     display: flex;
-    flex-direction: row;
-    gap: 50px;
+    flex-direction: column;
     align-items: flex-start;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.label-and-select {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.label {
+    font-size: 120%;
+    color: #3B846B;
+    margin-right: 10px;
+}
+
+.tour-info {
+    flex: 0.5;
+}
+
+.tour-description {
+    margin-top: 15px;
+    color: black;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tour-price {
+    margin-top: 15px;
+    color: black;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    white-space: nowrap;
+}
+
+.discounted-price {
+    color: #E67840;
+    white-space: nowrap;
+}
+
+.card img {
+    align-self: center;
 }
 
 p {
@@ -37,6 +82,7 @@ table {
 
 
 .card{
+    cursor: pointer;
     margin-left: 50px;
     margin-right: 50px;
     width: 680px;
@@ -47,10 +93,12 @@ table {
 
 }
 
-.cinfo{
-    font-style: bold;
-    font-size: 2vh;
+.cinfo {
+    margin-top: 15px;
     color: black;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
 }
 
 td{

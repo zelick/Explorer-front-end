@@ -1,0 +1,33 @@
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div class="tours-heading">My bundles</div>
+    <div id="tour-details">
+        <div>
+            <div class="tour-card" *ngFor="let b of tourBundles">
+                <div class="tour-info">
+                    <p>{{b.name}}, {{b.price}} AC</p>
+                    <p>{{b.status}}</p>
+                </div>
+                <div class="tours-card" *ngFor="let t of b.tours">
+                    <p>{{t.name}}</p>
+                    <p>{{t.description}}</p>
+                    <p>{{t.status}}</p>
+                </div>
+                <div class="tour-actions">
+                    <button color="accent" mat-icon-button (click)="deleteBundle(b.id || 0)" *ngIf="b.status !== 'Published'">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button class="edit-button" (click)="editBundle(b)">Edit</button>
+                    <button class="edit-button" *ngIf="canPublish(b) && b.status !== 'Published'" (click)="publishBundle(b)">
+                        Publish
+                    </button>
+                    <button class="edit-button" *ngIf="b.status === 'Published'" (click)="archiveBundle(b)">
+                        Archive
+                    </button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

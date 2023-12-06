@@ -1,0 +1,190 @@
+#buttons {
+  flex-direction: row;
+  margin-left: 650px;
+}
+
+.button {
+  margin-bottom: 25px;
+  margin-left: 5px;
+  padding: 0px 10px;
+  width: 90px;
+  font-size: 100%;
+  color: #fff;
+  background-color: #3B846B;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#filter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.label-and-select {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.label {
+  font-size: 120%;
+  color: #3B846B;
+  margin-right: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 100%;
+  border-radius: 5px;
+}
+
+.tour-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-name {
+  font-size: x-large;
+  color: #E67840;
+  display: flex;
+  text-align: center;
+  width: 400px;
+  border-radius: 5px;
+}
+
+button[color="primary"] {
+  background-color: #3B846B;
+  color: white;
+}
+
+button[color="primary"]:hover {
+  background-color: #253B34;
+  color: white;
+}
+
+label {
+  font-size: 120%;
+  color: #3B846B;
+  margin-right: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 100%;
+  border-radius: 5px;
+}
+
+.tour-card {
+  background-color: #B6D4AF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #3B846B15;
+  text-align: left;
+  margin: 10px;
+  border-radius: 5px;
+  width: 80%;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.sale-card {
+  background-color: #B6D4AF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #3B846B15;
+  color: white;
+  text-align: left;
+  margin: 10px;
+  border-radius: 5px;
+  width: 50%;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.tour-price {
+  margin-top: 15px;
+  color: black;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.tour-description {
+  margin-top: 15px;
+  color: black;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.discount-description {
+  margin-top: 15px;
+  color: black;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 10px;
+}
+
+.tour-details-heading {
+  margin-left: 10px;
+  margin-top: 15px;
+  color: black;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+button[color="warn"] {
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[color="warn"]:hover {
+  background-color: #d35400;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  white-space: nowrap;
+}
+
+.discounted-price {
+  color: #E67840;
+  white-space: nowrap;
+}
+
+.create-sale {
+  margin-bottom: 25px;
+  padding: 0px 10px;
+  width: 150px;
+  font-size: 120%;
+  color: #fff;
+  background-color: #3B846B;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

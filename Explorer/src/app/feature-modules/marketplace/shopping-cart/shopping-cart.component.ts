@@ -23,6 +23,7 @@ export class ShoppingCartComponent implements OnInit{
   orderItems: OrderItem[] = [];
   cartItemCount : number;
   adventureCoins: number;
+  coupon: string;
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -34,38 +35,39 @@ export class ShoppingCartComponent implements OnInit{
           this.cart = result;
           this.orderItems = this.cart.items;
           this.getAdventureCoins()
-          if (this.orderItems.length > 0) {
-            this.service.getPublishedTours().subscribe(tourPreviews => {
-              this.orderItems.forEach(item => {
-                const matchingTour = tourPreviews.find(tour => tour.id === item.itemId);
-                item.tourName = matchingTour ? matchingTour.name : 'Tour Name Not Available';
-              });
-            });
-          }
         },
       });
     });
   }
 
-  getAdventureCoins() : void {
+  getAdventureCoins(): void {
     this.service.getAdventureCoins(this.user.id).subscribe({
       next: (result: TouristWallet) => {
         this.adventureCoins = result.adventureCoins
       },
     });
   }
+  
+  calculateTotalPrice(): number {
+    return this.orderItems.reduce((total, item) => total + item.price, 0);
+  }
 
   checkout() {    
     if (this.user && this.user.id !== undefined) {
-      this.service.shoppingCartCheckOut(this.user.id).subscribe(
+      this.service.shoppingCartCheckOut(this.user.id, this.coupon).subscribe(
         (cart) => {
           console.log('Uspešno završena kupovina');
           this.cart = cart;
           this.orderItems = this.cart.items;
           this.cart.price = 0;
           this.service.updateCartItemCount(0); 
+          this.getAdventureCoins()
         },
         (error) => {
+          if (error.status === 402) {
+            console.error('Not enough money:', error);
+            alert('Not enough ACs. Please add more Adventure Coins to your account.');
+          }
           console.error('Greška prilikom završavanja kupovine:', error);
         }
       );
@@ -74,26 +76,12 @@ export class ShoppingCartComponent implements OnInit{
     }
   }
 
-  removeShopppingCartItem(tourId: number): void{
-    this.orderItems = this.orderItems.filter(item => item.itemId !== tourId);
-    this.cart.items = this.orderItems
-    this.service.updateShoppingCart(this.cart).subscribe((cart) => {
+  removeShopppingCartItem(item: OrderItem): void{
+    this.service.removeItemFromShoppingCart(item).subscribe((cart) => {
       this.cart = cart;
       this.cart.price = cart.price;
+      this.orderItems = this.cart.items;
       this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
-
-/*  increaseQuantity(item: OrderItem): void {
-    item.quantity++; 
-    this.cart.price = this.calculateTotalPrice();
-  }
-
-  decreaseQuantity(item: OrderItem): void {
-    if (item.quantity > 1) {
-      item.quantity--; 
-      this.cart.price = this.calculateTotalPrice();
-      //this.service.updateShoppingCart(this.cart).subscribe(() => {});           //treba mi ?
-    }
-  }*/
 }

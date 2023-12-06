@@ -6,13 +6,12 @@ import { Observable } from 'rxjs';
 import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
+import { TourBundle } from './model/tour-bundle.model';
 import { MapObject } from './model/map-object.model';
-import { TourTime } from './model/tourTime.model';
 import { TourTimes } from './model/tourTimes.model';
 import { CheckpointSecret } from './model/checkpointSecret.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { Result } from 'postcss';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PublicTour } from '../marketplace/model/public-tour.model';
 import { PrivateTour } from './model/private-tour.model';
@@ -149,6 +148,7 @@ export class TourAuthoringService {
   }
 
   publishTour(tourId: number){
+    console.log(tourId)
     return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
   }
 
@@ -171,7 +171,35 @@ export class TourAuthoringService {
   getToursWithPublicCheckpoints(checkpoints: PublicCheckpoint[]): Observable<PublicTour[]>{
     return this.http.post<PublicTour[]>(environment.apiHost+'tourist/publicTours/byChekpoints', checkpoints);
   }
-  createPrivateTour(privateTour: PrivateTour): Observable<PrivateTour>{
+  createPrivateTour(privateTour: PrivateTour): Observable<PrivateTour> {
     return this.http.post<PrivateTour>(environment.apiHost + 'tourist/privateTours', privateTour);
+  }
+
+  createTourBundle(tourBundle: TourBundle): Observable<TourBundle> {
+    return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
+  }
+
+  getBundlesByAuthor(): Observable<TourBundle[]>{
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/bundles-by-author');
+  }
+
+  deleteBundle(id: number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + bundle.id || '', bundle);
+  }
+
+  getBundleById(id: number): Observable<TourBundle>{
+    return this.http.get<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  removeTourFromBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/remove-tour/' + bundleId + '/' + tourId, null);
+  }
+
+  addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
   }
 }
