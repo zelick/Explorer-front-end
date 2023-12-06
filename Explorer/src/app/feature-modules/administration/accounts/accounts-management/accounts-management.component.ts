@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
 import { TouristWallet } from 'src/app/feature-modules/marketplace/model/tourist-wallet.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 export enum Role {
   Administrator = 0,
@@ -48,10 +48,15 @@ export class AccountsManagementComponent implements OnInit {
     });
   }
   
-  getAdventureCoins(id: number): Observable<number> {
-    return this.marketplaceService.getAdventureCoins(id).pipe(
-      map((result: TouristWallet) => result.adventureCoins)
-    );
+  getAdventureCoins(id: number, role: Role): Observable<number> {
+    if (this.isTourist(role)) {
+      return this.marketplaceService.getAdventureCoins(id).pipe(
+        map((result: TouristWallet) => result.adventureCoins)
+      );
+    }
+    else {
+      return of(0);
+    }
   }
 
   pay(account: { id: number, userId: number, username: string, role: Role, email: string, isActive: boolean, adventureCoins: number, paymentCoins: number }): void {
@@ -88,7 +93,7 @@ export class AccountsManagementComponent implements OnInit {
             paymentCoins: 1
           };
 
-          this.getAdventureCoins(user.id).subscribe((ac: number) => {
+          this.getAdventureCoins(user.id, account.role).subscribe((ac: number) => {
             account.adventureCoins = ac;
           }),         
 
@@ -130,6 +135,7 @@ export class AccountsManagementComponent implements OnInit {
     if (confirmBlock) {
       this.service.block(id).subscribe({
         next: () => {
+          this.bindingAccounts.length = 0;
           this.getAccounts();
         },
         error: () => {
