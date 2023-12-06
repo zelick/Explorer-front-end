@@ -56,6 +56,8 @@ import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.com
 import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
 import { TourBundlesComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles/tour-bundles.component';
 import { TourBundleEditComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-edit/tour-bundle-edit.component';
+import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
+import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -94,6 +96,7 @@ const routes: Routes = [
       { path: 'club-members/:id', component: ClubMembersComponent, canActivate: [AuthGuard]},
       { path: 'preference', component: PreferenceComponent, canActivate:[AuthGuard]},
       { path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
+      
 
       //campaign expansion(new)
       { path: 'composite-creation', component: CompositeTourFormComponent, canActivate: [AuthGuard], },
@@ -160,7 +163,7 @@ const routes: Routes = [
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard]},
   {path: 'checkpoint-secret/:id',component: CheckpointSecretFormComponent,canActivate:[AuthGuard]},
-  { path: 'encounter-form/:id',component:EncounterFormComponent,canActivate:[AuthGuard]},
+  {path: 'encounter-form/:id',component:EncounterFormComponent,canActivate:[AuthGuard]},
   {path: 'tour-execution/:tourId', component: TourExecutionComponent, canActivate: [AuthGuard]},
   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard],},
   {path: 'plan-your-trip', component: PlanYourTripComponent, canActivate: [AuthGuard]},
@@ -175,7 +178,9 @@ const routes: Routes = [
   {path: 'sales', component: SaleComponent, canActivate: [AuthGuard],},
   {path: 'sales-form/:id', component: SaleFormComponent, canActivate: [AuthGuard],},
   {path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]},
-  {path: 'tour-bundle-edit/:id', component: TourBundleEditComponent, canActivate: [AuthGuard]}
+  {path: 'tour-bundle-edit/:id', component: TourBundleEditComponent, canActivate: [AuthGuard]},
+  {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
+  {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

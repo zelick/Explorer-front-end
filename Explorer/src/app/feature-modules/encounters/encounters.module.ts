@@ -7,10 +7,14 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
+import { TouristEncounterFormComponent } from './tourist-encounter-form/tourist-encounter-form.component';
+import { EncounterRequestComponent } from './encounter-request/encounter-request.component';
 
 @NgModule({
   declarations: [
-    EncounterFormComponent
+    EncounterFormComponent,
+    TouristEncounterFormComponent,
+    EncounterRequestComponent
   ],
   imports: [
     CommonModule,
