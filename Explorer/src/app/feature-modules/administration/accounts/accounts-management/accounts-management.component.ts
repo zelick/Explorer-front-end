@@ -3,6 +3,7 @@ import { Account } from '../../model/account.model';
 import { AdministrationService } from '../../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
 
 export enum Role {
   Administrator = 0,
@@ -22,7 +23,8 @@ export class AccountsManagementComponent implements OnInit {
 
   constructor(
     private service: AdministrationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private marketplaceService: MarketplaceService
   ) {}
 
   ngOnInit(): void {

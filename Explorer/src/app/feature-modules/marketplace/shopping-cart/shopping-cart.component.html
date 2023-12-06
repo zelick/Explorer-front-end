@@ -3,6 +3,7 @@
     <br>
     <br>
     <div class="tours-heading">My shopping cart</div>
+    <div class="wallet-heading">The current balance in your wallet: {{adventureCoins}}</div>
     <div id="tour-details">
         <div *ngIf="orderItems.length > 0; else emptyCart">
             <div class="tour-card" *ngFor="let i of orderItems">

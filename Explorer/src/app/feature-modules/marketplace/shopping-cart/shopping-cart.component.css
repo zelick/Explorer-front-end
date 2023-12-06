@@ -130,6 +130,18 @@ tbody tr.active-row {
     align-items: center;
 }
 
+.wallet-heading{
+  justify-content: left;
+  font-size: 28px;
+  color:#3B846B15;
+  font-weight: 600;
+  margin-top: 6vh;
+  margin-left: 2vh;
+  margin-bottom: 1vh;
+  display: flex;
+  align-items: center;
+}
+
 .tours-heading button {
   margin-right: 10px; /* Dodaje razmak između dugmadi po potrebi */
 }
