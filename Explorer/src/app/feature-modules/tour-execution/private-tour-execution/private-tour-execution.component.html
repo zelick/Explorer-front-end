@@ -28,7 +28,7 @@
             <div class="checkpoint" *ngFor="let ch of tour.checkpoints; let i = index">
                 <label class="checkpointLabel">{{ch.name}}</label>
                 <div *ngIf="tour && tour.execution && tour.execution.lastVisited !== undefined">
-                    <img *ngIf="tour.execution.lastVisited > i" class="check" src="https://img.icons8.com/?size=96&id=sz8cPVwzLrMP&format=png" alt="">
+                    <img *ngIf="tour.execution.lastVisited > i-1" class="check" src="https://img.icons8.com/?size=96&id=sz8cPVwzLrMP&format=png" alt="">
                 </div>         
             </div>
         </div>

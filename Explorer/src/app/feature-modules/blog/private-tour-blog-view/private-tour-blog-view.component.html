@@ -1,5 +1,17 @@
-<div class="single-blog-container">
-    <h2>{{ tour.blog?.title }}</h2>
-    <p>Equipment: {{ tour.blog?.equipment }}</p>
-    <p>Description: {{ tour.blog?.description }}</p>
-</div>
+<body>
+    <div class="single-blog-container">
+        <h2>{{ tour.blog?.title }}</h2>
+        <p>Equipment: {{ tour.blog?.equipment }}</p>
+        <p>Description: {{ tour.blog?.description }}</p>
+        <p>Duration: {{durationHours}}h {{durationMinutes}}min</p>
+        <p>Distance: {{ distance | async }}</p>
+        <div class="checkpoints">
+            <ul>
+                <p class="checkpoints-header">Tour checkpoints</p>
+                <li *ngFor="let c of tour.checkpoints">
+                    <label>{{ c.name }}</label>
+                </li>
+            </ul>
+        </div>
+    </div>    
+</body>

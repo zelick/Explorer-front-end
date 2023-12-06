@@ -51,6 +51,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
         this.publicCheckpoints = [];
         this.selectedDestination = "";
         this.selectedCheckpoints = [];
+        this.router.navigate(['/my-profile/private-tours']);
       },
       error: (error)=>{
         alert('Something went wrong try again.');

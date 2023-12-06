@@ -109,7 +109,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
       if(this.tour.execution?.lastVisited)
         this.tour.execution.lastVisited ++;
       console.log("Private tour has been finished.");
-      //this.router.navigate(['/home']);
+      this.router.navigate(['/my-profile/private-tours']);
   });
   }
 
