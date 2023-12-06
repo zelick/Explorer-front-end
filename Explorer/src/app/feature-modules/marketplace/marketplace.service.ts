@@ -17,6 +17,8 @@ import { TourExecution } from '../tour-execution/model/tour_execution.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
+import { TouristWallet } from './model/tourist-wallet.model';
+import { NgPlural } from '@angular/common';
 import { CompositeForm } from './model/composite-create';
 import { CompositePreview } from './model/composite-preview';
 
@@ -180,6 +182,14 @@ export class MarketplaceService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+
+  getAdventureCoins(id:number): Observable<TouristWallet> {
+    return this.http.get<TouristWallet>(environment.apiHost + 'tourist/wallet/get-adventure-coins/' + id)
+  }
+
+  paymentAdventureCoins(id:number, coins: number): Observable<TouristWallet> {
+    return this.http.put<TouristWallet>(environment.apiHost + 'tourist/wallet/payment-adventure-coins/' + id + '/' + coins, null)
   }
 
   addCompositeTour(compositeTour: CompositeForm): Observable<CompositeForm> {

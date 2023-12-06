@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Injectable } from '@angular/core';
+import { TouristWallet } from '../model/tourist-wallet.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class ShoppingCartComponent implements OnInit{
   user: User;
   orderItems: OrderItem[] = [];
   cartItemCount : number;
+  adventureCoins: number;
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -31,7 +33,7 @@ export class ShoppingCartComponent implements OnInit{
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-
+          this.getAdventureCoins()
           if (this.orderItems.length > 0) {
             this.service.getPublishedTours().subscribe(tourPreviews => {
               this.orderItems.forEach(item => {
@@ -42,6 +44,14 @@ export class ShoppingCartComponent implements OnInit{
           }
         },
       });
+    });
+  }
+
+  getAdventureCoins() : void {
+    this.service.getAdventureCoins(this.user.id).subscribe({
+      next: (result: TouristWallet) => {
+        this.adventureCoins = result.adventureCoins
+      },
     });
   }
 
