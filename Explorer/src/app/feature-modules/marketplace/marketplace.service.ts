@@ -18,6 +18,8 @@ import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.mode
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
 import { TourBundle } from './model/tour-bundle.model';
 import { Sale } from './model/sale.model';
+import { CreateCoupon } from './model/create-coupon.model';
+import { Coupon } from './model/coupon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -208,4 +210,21 @@ export class MarketplaceService {
   getSale(saleId: number): Observable<Sale>{
     return this.http.get<Sale>(environment.apiHost + 'author/sale/' + saleId);
   }
+
+  getCoupons(): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(environment.apiHost + 'manipulation/coupon/get-all');
+  }
+
+  createCoupon(coupon: CreateCoupon): Observable<Coupon> {
+    return this.http.post<Coupon>(environment.apiHost + 'manipulation/coupon/create', coupon);
+  }
+
+  updateCoupon(coupon: Coupon, couponId: number): Observable<Coupon> {
+    return this.http.put<Coupon>(environment.apiHost + 'manipulation/coupon/update/' + couponId, coupon);
+  }
+
+  deleteCoupon(couponId: number): Observable<Coupon> {
+    return this.http.delete<Coupon>(environment.apiHost + 'manipulation/coupon/delete/' + couponId);
+  }
+
 }

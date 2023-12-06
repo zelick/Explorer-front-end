@@ -26,6 +26,7 @@ import { SaleFormComponent } from './sale-form/sale-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { CreateCouponFormComponent } from './create-coupon-form/create-coupon-form.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { MatSelectModule } from '@angular/material/select';
         ForecastPopupComponent,
         TourBundleTableComponent,
         SaleComponent,
-        SaleFormComponent
+        SaleFormComponent,
+        CreateCouponFormComponent
     ],
     exports: [
         PreferenceFormComponent,
@@ -53,7 +55,8 @@ import { MatSelectModule } from '@angular/material/select';
         SimulatorComponent,
         PurchasedToursComponent,
         PreferenceFormComponent, 
-        PurchasedToursDetailsComponent
+        PurchasedToursDetailsComponent,
+        CreateCouponFormComponent
     ],
     imports: [
         CommonModule,
