@@ -1,4 +1,3 @@
-import { CompletedEncounter } from "./completedEncounter.model";
 export interface Encounter {
     id?: number;
     authorId: number;
@@ -15,6 +14,5 @@ export interface Encounter {
     imageF?:FileList,
     range?:number,
     requiredPeople?:number
-    completedEncounter?:CompletedEncounter,
     activeTouristsIds?: number[]
 }
