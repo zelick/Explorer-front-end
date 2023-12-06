@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
+import { TourBundle } from './model/tour-bundle.model';
 import { MapObject } from './model/map-object.model';
 import { TourTime } from './model/tourTime.model';
 import { TourTimes } from './model/tourTimes.model';
@@ -152,5 +153,33 @@ export class TourAuthoringService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+
+  createTourBundle(tourBundle: TourBundle): Observable<TourBundle> {
+    return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
+  }
+
+  getBundlesByAuthor(): Observable<TourBundle[]>{
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/bundles-by-author');
+  }
+
+  deleteBundle(id: number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + bundle.id || '', bundle);
+  }
+
+  getBundleById(id: number): Observable<TourBundle>{
+    return this.http.get<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  removeTourFromBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/remove-tour/' + bundleId + '/' + tourId, null);
+  }
+
+  addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
   }
 }

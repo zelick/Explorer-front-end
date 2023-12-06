@@ -73,3 +73,20 @@ td{
     font-size: 2vh;
     font-style: bold;
 }
+
+.addToBundleButton{
+    width: auto;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+div[hidden] {
+    display: none;
+}
