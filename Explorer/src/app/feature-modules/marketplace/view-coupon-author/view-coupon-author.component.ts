@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Coupon } from '../model/coupon.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
-import { CreateCoupon } from '../model/create-coupon.model';
+import { Router } from "@angular/router";
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class ViewCouponAuthorComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private marketPlaceService: MarketplaceService,
-    private tourAuthoringService: TourAuthoringService,){ }
+    private tourAuthoringService: TourAuthoringService,
+    private router: Router,){ }
 
   user: User | undefined;
   coupons: Coupon[];
@@ -86,7 +87,10 @@ export class ViewCouponAuthorComponent implements OnInit{
         this.getCoupons();
       });
     }
-    
+  }
+
+  onCreateCoupnClick(): void {
+    this.router.navigate([`/create-coupon`]);
   }
 
 }

@@ -56,8 +56,6 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'create-coupon', component: CreateCouponFormComponent},
-  {path: 'view-coupons', component: ViewCouponAuthorComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],
@@ -152,7 +150,9 @@ const routes: Routes = [
   {path: 'sales', component: SaleComponent, canActivate: [AuthGuard],},
   {path: 'sales-form/:id', component: SaleFormComponent, canActivate: [AuthGuard],},
   {path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]},
-  {path: 'tour-bundle-edit/:id', component: TourBundleEditComponent, canActivate: [AuthGuard]}
+  {path: 'tour-bundle-edit/:id', component: TourBundleEditComponent, canActivate: [AuthGuard]},
+  {path: 'create-coupon', component: CreateCouponFormComponent, canActivate: [AuthGuard]},
+  {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

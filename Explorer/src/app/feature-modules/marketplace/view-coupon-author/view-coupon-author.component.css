@@ -150,3 +150,9 @@ ul {
     display: inline-block;
     margin-right: 45px;
 }
+
+#create-coupon-button{
+    width: 110px;
+    margin-top: 20px;
+    margin-left: 40px;
+}

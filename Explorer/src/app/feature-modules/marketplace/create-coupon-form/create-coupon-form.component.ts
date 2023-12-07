@@ -5,6 +5,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class CreateCouponFormComponent implements OnInit{
   constructor(
     private marketPlaceService: MarketplaceService, 
     private tourAuthoringService: TourAuthoringService,
-    private authService: AuthService){ }
+    private authService: AuthService,
+    private router: Router,){ }
 
     ngOnInit(): void {
       this.isGlobal = true;
@@ -50,7 +52,7 @@ export class CreateCouponFormComponent implements OnInit{
           tourId: this.selectedTourId
         };
 
-        this.marketPlaceService.createCoupon(coupon).subscribe(() => {});
+        this.marketPlaceService.createCoupon(coupon).subscribe(() => {this.router.navigate([`/view-coupons`]);});
     }
 
     selectTourId(selectedTourId: number): void {
