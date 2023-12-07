@@ -36,6 +36,10 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
   }
 
   ngOnInit(): void {
+    this.service.getCheckpoint(this.selectedCheckpoint.id || 0).subscribe(result =>{
+      this.selectedCheckpoint = result;
+    });
+
     this.service.getPublicCheckpoints().subscribe(result => {
       this.publicCheckpoints = result.results;
       this.addPublicCheckpoinsOnMap();
@@ -95,6 +99,7 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
 
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
+      encounterId:0,
       tourId: this.tourID,
       longitude: this.longitude || 0,
       latitude: this.latitude || 0,
@@ -108,19 +113,19 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.service.user.id
-
+      authorId: this.service.user.id,
+      isSecretPrerequisite: true
     };
 
-    const jwtHelperService = new JwtHelperService();
-    const accessToken = this.tokenStorage.getAccessToken() || "";
     const status = this.checkpointForm.value.status || 'Private'
 
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
-      this.service.addCheckpoint(checkpoint,jwtHelperService.decodeToken(accessToken).id,status).subscribe({
+      this.service.addCheckpoint(checkpoint,status).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }
@@ -134,7 +139,7 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
       pictures: this.pictures || "",
-      requiredTimeInSeconds: this.selectedCheckpoint.requiredTimeInSeconds,
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60,
       checkpointSecret: this.selectedCheckpoint.checkpointSecret,
       currentPicture:0,
       visibleSecret:false,
@@ -142,14 +147,18 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.selectedCheckpoint.authorId
+      authorId: this.selectedCheckpoint.authorId,
+      encounterId:this.selectedCheckpoint.encounterId,
+      isSecretPrerequisite: this.selectedCheckpoint.isSecretPrerequisite
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
       this.service.updateCheckpoint(checkpoint).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }

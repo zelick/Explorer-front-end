@@ -1,3 +1,4 @@
+import { Encounter } from "../../encounters/model/encounter.model";
 import { CheckpointSecret } from "./checkpointSecret.model";
 
 export interface Checkpoint{
@@ -16,5 +17,7 @@ export interface Checkpoint{
     showedPointPicture:string,
     visibleSecret:Boolean,
     showedPicture:string,
-    viewSecretMessage:string
+    viewSecretMessage:string,
+    encounterId:number,
+    isSecretPrerequisite: boolean
 }

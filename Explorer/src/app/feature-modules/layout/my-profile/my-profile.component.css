@@ -1,0 +1,71 @@
+#my-profile {
+    height: 620px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sidenav {
+    padding: 20px;
+    width: 15%;
+    background-color: #B6D4AF;
+}
+
+.sidenav-item {
+    height: fit-content;
+    font-size: medium;
+}
+
+.sidenav-item button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    /* font-weight: bold; */
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #B6D4AF;
+    border-radius: 4px;
+    background-color: #B6D4AF;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+.sidenav-item button:hover {
+    background-color: #b2c4ae;
+}
+
+.horizontal-divider {
+    border-top: 1px solid #253B34; 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+
+.toggle-button-position {
+    margin-top: 10px; 
+    margin-left: 10px; 
+    float: left;
+}
+
+.toggle-button {
+    background-color: #E67840;
+    color: #ffffff; 
+}
+
+.header {
+    margin-top: 20px; 
+    margin-left: 1%; 
+    float: left;
+    font-size: large;
+}
+
+.sidenav-content {
+    display: flex;
+    background-color: #F7F6DC;
+    flex-direction: column;
+    height: 620px;
+}
+
+.content {
+    overflow-x: hidden;
+    overflow-y: auto;
+}

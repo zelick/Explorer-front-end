@@ -1,6 +1,11 @@
 export interface OrderItem{
-    //id?: number, //izbaci
-    tourId: number,
-    tourName: string,
-    price: number
+    itemId: number,
+    name: string,
+    price: number,
+    type: ItemType
+}
+
+export enum ItemType {
+    Tour = 'Tour',
+    Bundle = 'Bundle',
 }

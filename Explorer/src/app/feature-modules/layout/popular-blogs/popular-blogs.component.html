@@ -1,0 +1,22 @@
+<div class="blogs-div">
+    <div class="popular-blogs">
+      <div class="blog-card" *ngFor="let blog of blogs; let cardId = index"
+           (mouseenter)="startImageInterval(cardId, blog.imageNames || [])"
+           (mouseleave)="stopImageInterval(cardId)" (click)="routeToBlog(blog)">
+        <div class="image-container">
+          <img *ngIf="blog.imageNames && blog.imageNames.length > 0"
+               [src]="blog.imageNames[imageIndexes.get(cardId) || 0].toString()" alt="Image1" class="img">
+          <div class="status-label">{{blog.status}}</div>
+          <div class="votes">
+            <div class="upvote">{{thumbsUpEmoji}} {{getUpvoteCount(blog)}}</div>
+            <div class="downvote">{{thumbsDownEmoji}} {{getDownvoteCount(blog)}}</div>
+          </div>
+        </div>
+        <label class="card-header">{{blog.title}}</label>
+        <div class="description-container">
+          <p class="description">{{blog.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

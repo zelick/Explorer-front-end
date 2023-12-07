@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ClubMemebrshipRequest } from '../model/club-membership-request.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -10,12 +10,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./club-membership-request.component.css']
 })
 export class ClubMembershipRequestComponent implements OnInit{
-
+  //@Input() clubId: number;
   requests: ClubMemebrshipRequest[] = [];
   touristName: string;
   clubId: number;
 
-  constructor(private service: AdministrationService, private route: ActivatedRoute) { }
+  constructor(private service: AdministrationService, private route: ActivatedRoute) {
+    console.log('ClubMembershipRequestComponent constructor');
+   }
 
   ngOnInit(): void {
     const urlClubId = this.route.snapshot.paramMap.get('id') || 0;
@@ -29,6 +31,7 @@ export class ClubMembershipRequestComponent implements OnInit{
         this.requests = result.results
       },
       error: () => {
+        console.error("Problem fatching membership requests.");
       }
     })
   }

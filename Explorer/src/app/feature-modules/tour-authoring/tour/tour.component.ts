@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tour } from '../model/tour.model';
+import { TourBundle } from '../model/tour-bundle.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -12,6 +13,11 @@ import { Router } from '@angular/router';
 })
 export class TourComponent implements OnInit{
   tours: Tour[] = [];
+  showBundleTours: boolean = false;
+  bundleTotalPrice: number = 0;
+  bundleName: string = '';
+  bundlePrice: number = 0;
+  bundleTours: Tour[] = [];
   selectedTour: Tour;
   shouldRenderTourForm: boolean = false;
   shouldEdit: boolean = false;
@@ -39,9 +45,11 @@ export class TourComponent implements OnInit{
   }
 
   getTour(): void {
-    this.service.getTour(this.user.id).subscribe({
+    this.service.getTour().subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
+        console.log('Ture: ');
+        console.log(this.tours);
         this.tours.forEach(element => {
           element.checkpoints = element.checkpoints || [];
         });
@@ -70,7 +78,32 @@ export class TourComponent implements OnInit{
     this.router.navigate([`tour-details/${t.id}`]);
   }
 
-
+  addToBundle(tour: Tour): void {
+    const tourExists = this.bundleTours.some(existingTour => existingTour.id === tour.id);
+    if (!tourExists) {
+        this.showBundleTours = true;
+        this.bundleTours.push(tour);
+        this.bundleTotalPrice += tour.price;
+    }
+  }
   
+  createBundle(): void{
+    const tourBundle: TourBundle = {
+      name: this.bundleName,
+      price: this.bundlePrice,
+      authorId: this.user.id, 
+      status: 'Draft',
+      tours: this.bundleTours // obrisala punu listu zapamti ovde 
+    };
 
+    this.service.createTourBundle(tourBundle).subscribe({
+      next: (result: TourBundle) => {
+          this.router.navigate([`tour-bundles/${this.user.id}`]);
+
+      },
+      error: (error: any) => {
+      }
+  });
+  
+  }
 }

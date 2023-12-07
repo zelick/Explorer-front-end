@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AdministrationService } from '../administration.service';
 import { ReportedIssue } from '../model/reported-issue.model';
@@ -28,7 +29,7 @@ export class ReportedIssuesComponent implements OnInit{
   selectedNotifIssueId : number | undefined;
 
   constructor(private service: AdministrationService, private authservice: AuthService, private datePipe: DatePipe, 
-    private activatedRoute : ActivatedRoute) {
+    private activatedRoute : ActivatedRoute, private router: Router) {
     this.user = authservice.user$.value;
     this.newComment = {
       creationTime: new Date(),
@@ -257,5 +258,9 @@ export class ReportedIssuesComponent implements OnInit{
       }
     } else {
     }
+  }
+
+  reportAnIssue(): void{
+    this.router.navigate(['my-profile/reporting-issues']);
   }
 }

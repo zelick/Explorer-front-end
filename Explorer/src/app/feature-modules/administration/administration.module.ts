@@ -12,12 +12,11 @@ import { ClubComponent } from './club/club.component';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { AccountsManagementComponent } from './accounts/accounts-management/accounts-management.component';
 import { ReportedIssuesComponent } from './reported-issues/reported-issues.component';
-import { ReportedIssueNotificationsComponent } from './reported-issue-notifications/reported-issue-notifications.component';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubInvitationsComponent } from './club-invitations/club-invitations.component';
 import { CheckpointRequestReviewComponent } from './checkpoint-request-review/checkpoint-request-review/checkpoint-request-review.component';
 import { ObjectRequestReviewComponent } from './object-request-review/object-request-review/object-request-review.component';
-import { RequestNotificationReviewComponent } from './request-notification-review/request-notification-review/request-notification-review.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +30,11 @@ import { RequestNotificationReviewComponent } from './request-notification-revie
     ClubFormComponent,
     AccountsManagementComponent,
     ReportedIssuesComponent,
-    ReportedIssueNotificationsComponent,
     ClubMembersComponent,
     ClubInvitationsComponent,
     CheckpointRequestReviewComponent,
     ObjectRequestReviewComponent,
-    RequestNotificationReviewComponent
+    NotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -50,13 +48,11 @@ import { RequestNotificationReviewComponent } from './request-notification-revie
     ApplicationGradeComponent,
     CheckpointRequestReviewComponent,
     ObjectRequestReviewComponent,
-    RequestNotificationReviewComponent,
     GradeReviewComponent,
     ClubMembershipRequestComponent,
     ClubComponent,
     AccountsManagementComponent,
-    ReportedIssuesComponent, 
-    ReportedIssueNotificationsComponent
+    ReportedIssuesComponent
   ]
 })
 export class AdministrationModule { }

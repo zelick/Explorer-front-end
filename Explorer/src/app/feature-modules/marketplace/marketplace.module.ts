@@ -12,14 +12,26 @@ import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.com
 import { SimulatorComponent } from './simulator/simulator.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
-import { AllToursComponent } from './all-tours/all-tours.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
 import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
 import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
+import { CompositeTourFormComponent } from './composite-tour-form/composite-tour-form.component';
+import { CompositeToursComponent } from './composite-tours/composite-tours.component';
+import { CompositeEquipmentPopupComponent } from './composite-equipment-popup/composite-equipment-popup.component';
+import { CompositeKeypointPopupComponent } from './composite-keypoint-popup/composite-keypoint-popup.component';
+import { TourBundleTableComponent } from './tour-bundle-table/tour-bundle-table.component';
+import { SaleComponent } from './sale/sale.component';
+import { SaleFormComponent } from './sale-form/sale-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { CreateCouponFormComponent } from './create-coupon-form/create-coupon-form.component';
+import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-author.component';
 
 @NgModule({
     declarations: [
@@ -30,13 +42,22 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         TourRatingFormComponent,
         SimulatorComponent,
         ReportingIssueComponent,
-        AllToursComponent,
         ShoppingCartComponent,
         PurchasedToursComponent,
         TourOverviewComponent,
         TourOverviewDetailsComponent,
         PurchasedToursDetailsComponent,
-        TourRatingEditFormComponent
+        TourRatingEditFormComponent,
+        ForecastPopupComponent,
+        CompositeTourFormComponent,
+        CompositeToursComponent,
+        CompositeEquipmentPopupComponent,
+        CompositeKeypointPopupComponent,
+        TourBundleTableComponent,
+        SaleComponent,
+        SaleFormComponent,
+        CreateCouponFormComponent,
+        ViewCouponAuthorComponent,
     ],
     exports: [
         PreferenceFormComponent,
@@ -44,7 +65,9 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         SimulatorComponent,
         PurchasedToursComponent,
         PreferenceFormComponent, 
-        PurchasedToursDetailsComponent
+        PurchasedToursDetailsComponent,
+        CreateCouponFormComponent,
+        ViewCouponAuthorComponent,
     ],
     imports: [
         CommonModule,
@@ -54,7 +77,11 @@ import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating
         ReactiveFormsModule,
         MaterialModule,
         SharedModule,
-        TourAuthoringModule
+        TourAuthoringModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule
     ]
   })
 

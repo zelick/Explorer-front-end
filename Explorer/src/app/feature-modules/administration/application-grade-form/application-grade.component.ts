@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BlogService } from '../../blog/blog.service';
-import { ApplicationGrade } from '../model/applicationGrade.model';
 import { AdministrationService } from '../administration.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-application-grade',
@@ -18,7 +16,8 @@ export class ApplicationGradeComponent implements OnInit {
   now: Date = new Date();
   
   constructor(private service: AdministrationService, 
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router : Router) { }
   
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -43,10 +42,10 @@ export class ApplicationGradeComponent implements OnInit {
       userId: this.user?.id || -1
     }).subscribe({
       next: (_) => {
-        console.log("Uspješan zahtjev!");
+        alert("App rate added successufully!");
         this.applicationGradeForm.reset();
+        this.router.navigate(['/home']);
       }
     });
   }
-  
 }

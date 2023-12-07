@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,14 +12,16 @@ import { TourExecutionModule } from './feature-modules/tour-execution/tour-execu
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UserSocialProfileModule } from './feature-modules/user-social-profile/user-social-profile.module';
 import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { EncountersModule } from './feature-modules/encounters/encounters.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,11 +35,12 @@ import { SharedModule } from './shared/shared.module';
     TourExecutionModule,
     SharedModule,
     AuthModule,
-    FormsModule,
     HttpClientModule,
     AdministrationModule,
     MatInputModule,
-    UserSocialProfileModule
+    UserSocialProfileModule,
+    FormsModule,
+    EncountersModule
   ],
   providers: [
     {

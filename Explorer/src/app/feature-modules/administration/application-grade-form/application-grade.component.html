@@ -1,36 +1,39 @@
-<h1>Rate the Application</h1>
-<form [formGroup]="applicationGradeForm">
-  <div>
-    <table>
-      <tr>
-        <td>
-          <label for="rating">Enter the rate:</label>
-        </td>
-        <td>
-          <select formControlName="Rating" id="rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="comment">Add a comment:</label>
-        </td>
-        <td>
-          <input type="text" formControlName="Comment" id="comment">
-        </td>
-      </tr>
-      <tr>
-        <td> 
-        </td>
-        <td>
-          <button type="submit" color="primary" (click)="noteTheRate()">Ocijeni</button>
-        </td>
-      </tr>
-    </table>
+<div id="application-grade-form">
+  <div id="application-grade-form-details">
+    <form [formGroup]="applicationGradeForm">
+      <div>
+        <table>
+          <th colspan="2">
+            <h1>Rate the Application</h1>
+          </th>
+          <tr>
+            <td>
+              <label for="rating">Enter the rate:</label>
+            </td>
+            <td>
+              <label *ngFor="let rating of [1, 2, 3, 4, 5]">
+                <input type="radio" formControlName="Rating" [value]="rating" id="rating">
+                {{ rating }}
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="comment">Add a comment:</label>
+            </td>
+            <td>
+              <textarea class="comment-text" type="text" formControlName="Comment" id="comment"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+            </td>
+            <td>
+              <button type="submit" color="primary" (click)="noteTheRate()">Rate</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
   </div>
-</form>
+</div>

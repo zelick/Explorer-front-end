@@ -1,9 +1,121 @@
-.row-hover:hover {
-    background-color: #3b846b6e;
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blog-post-details {
+    width: 100%;
+    padding: 10px;
+}
+.blog-list {
+    width: 70%;
+    overflow-y: auto;
+    height: 80vh;
+}
+.blog-table{
+    width: 100%;
+}
+.blog{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 26vh;
+    border-bottom: 2px solid #E67840;
+}
+.left {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.informations {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+
+.blog:hover {
+    background-color: #F7F6DC;
     cursor: pointer;
 }
 
+.image-container{
+    width: 30%;
+    margin: 2vh;
+}
+
+.picture{
+    width: 26vh;
+    height: 22vh;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.title{
+    margin-top: -6px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #E67840;
+    font-size: x-large;
+}
+.description{
+    margin-top: 4px;
+    text-wrap: wrap;
+    width: 50vh;
+    overflow: hidden;
+}
+.additional-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2vh;
+    align-items: flex-end;
+}
+
+
+.status{
+    font-size: large;
+    font-weight: 500;
+    color: #3B846B;
+}
+.ratings{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.upvote{
+    margin-right: 2vh;
+}
+.filters{
+    width:30%;
+    background-color:#B6D4AF ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.filters-label{
+    margin-top: 20px;
+    font-size: x-large;
+    font-weight: 600;
+    color: #E67840;
+}
+.filter-fields{
+    display: flex;
+    flex-direction: column;
+    margin-top: 6vh;
+    align-items: center;
+}
+.filter-field{
+    width:125%;
+    text-align: center;
+}
 .paginator {
-    color: #3b846b6e;
+    color: #3B846B;
     font-weight: bold;
+    font-size: medium;
 }

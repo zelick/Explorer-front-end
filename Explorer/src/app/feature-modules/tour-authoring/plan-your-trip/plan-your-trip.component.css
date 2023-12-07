@@ -1,0 +1,355 @@
+body{
+    min-height: 100%;
+    height: auto;
+    background-image: url('./background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    padding:20px;
+}
+.container{
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: top;
+    text-align: center;
+    align-items: center;
+    background-color: rgb(37, 60, 53, 0.8);
+    width:74%;
+    height: auto;
+}
+h1{
+    color: #E67840;
+    font-size: 260%;
+    font-weight: 500;
+}
+.content{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+    align-items: left;
+    margin-bottom: 1vh;
+}
+.left{
+    /* border: 1px solid  red;  */
+    margin-left:5px;
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+}
+.tellUs{
+    text-align: center;
+    color: white;
+    font-weight: 400;
+    font-size: 100%;
+    margin-bottom: 10px;
+}
+.forma{
+    align-items: center;
+    height: 5vh;
+    display: flex;
+    width: 45%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.formaName{
+  align-items: center;
+    height: 5vh;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+.destinationInput{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: 1px solid #3B846B;
+    border-radius: 5px;
+    font-size: 120%;
+    background-color: #F7F6DC;
+}
+.go{
+    height:110%;
+    margin-left: 5px;
+    color: #3B846B;
+    font-weight: 700;
+    font-size: 120%;
+    background-color: #F7F6DC;
+    border-radius: 5px;
+    border: 1px solid #253B34;
+    cursor: pointer;
+}
+.createButton{
+    height:5vh;
+    color: white;
+    font-weight: 700;
+    font-size: 120%;
+    background-color: #E67840;
+    border-radius: 5px;
+    border: 1px solid #253B34;
+    cursor: pointer;
+}
+.availableCheckpoints{
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+    margin-top: 10px;
+    height: 55vh;
+    background-color: #3B846B;
+}
+.checkpointsTable{
+    width: 100%;
+    text-align: left;
+    overflow-y: auto;
+}
+.checkpoint{
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    height: 16vh;
+    background-color: #F7F6DC;
+}
+.checkpointPicture{
+    margin: 2px;
+    height: auto;
+    width: 20vh;
+    object-fit: cover;
+}
+.checkpointInfo{
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.name{
+    font-weight: 500;
+    color:#E67840;
+}
+.description{
+    text-wrap: wrap;
+    width:100%;
+    font-size: 70%;
+    color: #253B34;
+    overflow:hidden;
+    height: 9vh;
+}
+.addCheckpointButton{
+    opacity: 1.0;
+    border: 0px solid red;
+    align-self: baseline;
+    border-radius: 50%;
+    color: white;
+    font-size: 120%;
+    font-weight: 600;
+    background-color: #E67840;
+    cursor:pointer;
+    width: 4vh;
+    height: 4vh;
+    margin-left: auto;
+    margin-right: 5px;
+    margin-top:auto;
+}
+
+.right{
+    margin-right:5px;
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+}
+.transport-div{
+  margin-left:10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: start;
+  margin-bottom: 3px;
+}
+.transport-button{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+}
+.car-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid green;
+  background-color: lightgreen;
+  border-radius: 3px;
+}
+.bike-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid blue;
+  background-color: lightblue;
+  border-radius: 3px;
+}
+.walk-selected{
+  height: 5vh;
+  width: 5vh;
+  margin-right: 5px;
+  justify-content: center;
+  border: 2px solid red;
+  background-color: lightcoral;
+  border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tour-cards-container {
+    
+    display: flex;
+    overflow-x: hidden;
+    transition: margin-left 0.5s ease-in-out; 
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    margin-left: 10px;
+    margin-right: 10px ;
+    width: 80%;
+  }
+  .image-container{
+    height: 52%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+  }
+  .tour-cards-container.slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  .navigation-button {
+    margin: 0 5px;
+  }
+  .slide-right {
+    margin-left: -100%; 
+  }
+  
+  .slide-left {
+    margin-left: 0;
+  }
+  
+  .tour-card {
+    flex: 0 0 31.00%;
+    background-color: #3B846B; 
+    scroll-snap-align: start;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px #3b846b15;
+    color: #000;
+    text-align: left;
+    margin: 1.5%; 
+    overflow-y: hidden;
+    font-size: medium;
+    overflow-x: hidden;
+    border-radius: 5px;
+    width: 31%;
+    cursor: pointer;
+    height: 36vh;
+    max-height: 500px;
+  }
+  .tour-card:hover {
+    /*background-color: #26594B; /* Change to the desired hover background color */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add a box shadow on hover */
+    transform: scale(1.01); /* Scale the card by 1.01 on hover */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .tour-card img { 
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover; 
+  }
+  
+  .navigation-button {
+    width: 9vh;
+    height: 9vh;
+    font-size: 4vh;
+    align-self: center;
+    margin: 0 10px;
+    margin-top: 9px;
+    background-color: rgb(0,0,0,0);
+    color: #E67840;
+    border: 1px solid #E67840;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navigation-button:hover {
+    background-color: #E67840;
+    color: white;
+  }
+  
+  
+  .card-header{
+    margin-top: 0px;
+    margin-bottom: -5px;
+    margin-left: 11px;
+    color: #F7F6DC;
+    font-size: medium;
+    font-weight: 500;
+  }
+  
+  .travelers-div {
+    align-self: center;
+    display: flex;
+    font-size: medium;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color:  rgb(0,0,0,0);
+    height: auto; 
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1450px;
+    width: 100%;
+  }
+
+  .disclaimer{
+    color: white;
+    font-size: 80%;
+    font-weight: 500;
+    text-align: center;
+    align-self: center;
+  }

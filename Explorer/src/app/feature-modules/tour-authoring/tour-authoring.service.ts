@@ -6,14 +6,15 @@ import { Observable } from 'rxjs';
 import { Equipment } from './model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from './model/tour.model';
+import { TourBundle } from './model/tour-bundle.model';
 import { MapObject } from './model/map-object.model';
-import { TourTime } from './model/tourTime.model';
 import { TourTimes } from './model/tourTimes.model';
 import { CheckpointSecret } from './model/checkpointSecret.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { Result } from 'postcss';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
+import { PublicTour } from '../marketplace/model/public-tour.model';
+import { PrivateTour } from './model/private-tour.model';
 
 
 @Injectable({
@@ -29,6 +30,14 @@ export class TourAuthoringService {
     });
   }
   
+  getPrivateTours(touristId: number): Observable<PrivateTour[]> {
+    return this.http.get<PrivateTour[]>(environment.apiHost + 'tourist/privateTours/' + touristId);
+  }
+
+  start(privateTour: PrivateTour): Observable<PrivateTour> {
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/start', privateTour);
+  }
+
   getCheckpoints(): Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>(environment.apiHost + 'administration/checkpoint')
   }
@@ -41,19 +50,15 @@ export class TourAuthoringService {
   }
   
   deleteCheckpoint(id: number): Observable<Checkpoint> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id, {params: queryParams});
+    return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id);
   }
 
-  addCheckpoint(checkpoint: Checkpoint, userId: number, status: string): Observable<Checkpoint> {
-    return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${userId}/${status}`, checkpoint);
+  addCheckpoint(checkpoint: Checkpoint, status: string): Observable<Checkpoint> {
+    return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${status}`, checkpoint);
   }
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpoint.id, checkpoint, {params: queryParams});
+    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpoint.id, checkpoint);
   }
 
   addCheckpointSecret(checkpointSecret: CheckpointSecret,id:number): Observable<Checkpoint> {
@@ -111,25 +116,19 @@ export class TourAuthoringService {
   }
 
   updateTour(tour: Tour): Observable<Tour> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/' + tour.id, tour, {params: queryParams});
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/' + tour.id, tour);
   }
 
   archiveTour(tour: Tour): Observable<Tour> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/archivedTours/' + tour.id, tour, {params: queryParams});
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/archivedTours/' + tour.id, null);
   }
 
-  getTour(id: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/by-author/' + id)
+  getTour(): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'administration/tour/by-author')
   }
 
   deleteTour(id: number): Observable<Tour> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.delete<Tour>(environment.apiHost + 'administration/tour/' + id, {params: queryParams});
+    return this.http.delete<Tour>(environment.apiHost + 'administration/tour/' + id);
   }
 
   get(id:number): Observable<Tour> {
@@ -137,15 +136,11 @@ export class TourAuthoringService {
   }
 
   removeEquipment(tourId: number, equipmentId: number): Observable<Tour> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/remove/' + tourId + '/' + equipmentId, null, {params: queryParams});
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/remove/' + tourId + '/' + equipmentId, null);
   }
 
   addEquipment(tourId: number, equipmentId: number): Observable<Tour>{
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/add/' + tourId + '/' + equipmentId, null, {params: queryParams});
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/add/' + tourId + '/' + equipmentId, null);
   }
 
   getAvailableEquipment(currentEquipmentIds: number[], tourId: number): Observable<Equipment[]> {
@@ -153,15 +148,12 @@ export class TourAuthoringService {
   }
 
   publishTour(tourId: number){
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null, {params: queryParams});
+    console.log(tourId)
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/publishedTours/' + tourId, null);
   }
 
   addTourTransportation(tourId: number, tour: TourTimes){
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", this.user.id);
-    return this.http.put<Tour>(environment.apiHost + 'administration/tour/tourTime/' + tourId, tour, {params: queryParams});
+    return this.http.put<Tour>(environment.apiHost + 'administration/tour/tourTime/' + tourId, tour);
   }
 
   getPublicCheckpoints(): Observable<PagedResults<PublicCheckpoint>>{
@@ -169,5 +161,45 @@ export class TourAuthoringService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+  getPublicCheckpointsAtPlace(longitude:number, latitude:number): Observable<PagedResults<PublicCheckpoint>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint/atPlace/'+longitude+'/'+latitude);
+  }
+  getToursWithPublicCheckpoints(checkpoints: PublicCheckpoint[]): Observable<PublicTour[]>{
+    return this.http.post<PublicTour[]>(environment.apiHost+'tourist/publicTours/byChekpoints', checkpoints);
+  }
+  createPrivateTour(privateTour: PrivateTour): Observable<PrivateTour> {
+    return this.http.post<PrivateTour>(environment.apiHost + 'tourist/privateTours', privateTour);
+  }
+
+  createTourBundle(tourBundle: TourBundle): Observable<TourBundle> {
+    return this.http.post<TourBundle>(environment.apiHost + 'administration/tour-bundle', tourBundle);
+  }
+
+  getBundlesByAuthor(): Observable<TourBundle[]>{
+    return this.http.get<TourBundle[]>(environment.apiHost + 'administration/tour-bundle/bundles-by-author');
+  }
+
+  deleteBundle(id: number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + bundle.id || '', bundle);
+  }
+
+  getBundleById(id: number): Observable<TourBundle>{
+    return this.http.get<TourBundle>(environment.apiHost + 'administration/tour-bundle/' + id);
+  }
+
+  removeTourFromBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/remove-tour/' + bundleId + '/' + tourId, null);
+  }
+
+  addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
+    return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
   }
 }

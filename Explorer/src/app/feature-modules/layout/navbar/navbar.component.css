@@ -1,6 +1,7 @@
 .frame {
-    height: 70px;
-  }
+  height: 70px;
+  background: #B6D4AF;
+}
   
 .flex-container {
   margin-left: 2vh;

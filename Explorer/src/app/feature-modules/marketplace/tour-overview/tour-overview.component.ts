@@ -9,6 +9,9 @@ import { PublicTour } from '../model/public-tour.model';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../../tour-execution/model/public_checkpoint.model';
 import { AfterViewInit } from '@angular/core';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Sale } from '../model/sale.model';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -17,7 +20,7 @@ import { AfterViewInit } from '@angular/core';
 })
 export class TourOverviewComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  constructor(private service: MarketplaceService,private router:Router) { }
+  constructor(private service: MarketplaceService,private router:Router, private authService: AuthService) { }
 
   ngAfterViewInit(): void {
     if(this.mapObjects.length > 0)
@@ -36,8 +39,15 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
+  user: User;
+  showOnlyOnSale: boolean = false;
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
       this.addMapObjectsOnMap();
@@ -48,13 +58,70 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       this.addPublicCheckpoinsOnMap();
     });
 
-    this.service.getPublishedTours().subscribe(
-      (response:any)=>{
-        this.publishedTours = response;
-        this.searchTours = response;
+    this.service.getPublishedTours().subscribe((tours: TourPreview[]) => {
+      this.service.getActiveSales().subscribe((activeSales: Sale[]) => {
+        this.publishedTours = this.mapDiscountedPricesToTours(tours, activeSales);
+        this.searchTours = this.publishedTours;
         this.getPublicTours();
+      });
+    });
+  }
+
+  mapDiscountedPricesToTours(tours: TourPreview[], activeSales: Sale[]): TourPreview[] {
+    return tours.map(tour => {
+      const matchingSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
+      const discountedPrice = this.calculateDiscountedPrice(tour, activeSales);
+      const isOnSale = this.isOnSale(tour.id!, activeSales);
+
+      return {
+        ...tour,
+        discount: matchingSale ? matchingSale.discount : 0,
+        salePrice: discountedPrice,
+        isOnSale: isOnSale
+      };
+    });
+  }
+
+  calculateDiscountedPrice(tour: TourPreview, activeSales: Sale[]): number {
+    const activeSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
+    if (activeSale) {
+      const discountPercentage = activeSale.discount;
+      const discountedPrice = tour.price * (1 - discountPercentage / 100);
+      return discountedPrice;
+    } else {
+      return tour.price;
+    }
+  }
+
+  isOnSale(tourId: number, activeSales: Sale[]): boolean {
+    return activeSales.some(sale => sale.toursIds.includes(tourId));
+  }
+
+  filterTours() {
+    if (this.showOnlyOnSale) {
+      this.searchTours = this.searchTours.filter(tour => tour.isOnSale);
+      this.sortToursBySale();
+    } else {
+      this.cancleSearch();
+    }
+  }
+
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.filterTours();
+  }
+
+  sortToursBySale() {
+    this.searchTours.sort((a, b) => {
+      const discountA = a.discount;
+      const discountB = b.discount;
+
+      if (this.sortOrder === 'asc') {
+        return discountA - discountB;
+      } else {
+        return discountB - discountA;
       }
-    )
+    });
   }
 
   getPublicTours():void{
@@ -113,6 +180,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       if (this.foundTours.length > 0) {
         this.searchTours = [];
         this.searchTours = this.foundTours;
+        this.showOnlyOnSale = false;
       }
     });
   }
@@ -183,11 +251,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   }
 
   cancleSearch():void {
-    this.service.getPublishedTours().subscribe(
-      (response:any)=>{
-        this.searchTours = response;
-      }
-    )
+    this.searchTours = this.publishedTours;
     this.mapComponent.reloadMap();
   }
 }

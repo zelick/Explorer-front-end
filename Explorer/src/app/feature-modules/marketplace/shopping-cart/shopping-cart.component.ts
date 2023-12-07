@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Router } from '@angular/router';
 import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { FormsModule } from '@angular/forms'; 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { TouristWallet } from '../model/tourist-wallet.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +22,8 @@ export class ShoppingCartComponent implements OnInit{
   user: User;
   orderItems: OrderItem[] = [];
   cartItemCount : number;
+  adventureCoins: number;
+  coupon: string;
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -35,36 +34,40 @@ export class ShoppingCartComponent implements OnInit{
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-          console.log(this.cart);
-          console.log(this.cart.items);
-      },
-      })
+          this.getAdventureCoins()
+        },
+      });
     });
+  }
+
+  getAdventureCoins(): void {
+    this.service.getAdventureCoins(this.user.id).subscribe({
+      next: (result: TouristWallet) => {
+        this.adventureCoins = result.adventureCoins
+      },
+    });
+  }
+  
+  calculateTotalPrice(): number {
+    return this.orderItems.reduce((total, item) => total + item.price, 0);
   }
 
   checkout() {    
     if (this.user && this.user.id !== undefined) {
-      this.service.shoppingCartCheckOut(this.user.id).subscribe(
-        () => {
+      this.service.shoppingCartCheckOut(this.user.id, this.coupon).subscribe(
+        (cart) => {
           console.log('Uspešno završena kupovina');
-  
-          if (this.cart && this.cart.id !== undefined) {
-            this.service.deleteOrderItems(this.cart.id).subscribe(
-              () => {
-                console.log('Sve stavke su uspešno obrisane iz korpe');
-                this.orderItems = [];
-                this.cart.price = 0;
-                this.service.updateCartItemCount(0); // Postavi na 0 jer su sve stavke obrisane
-              },
-              (deleteOrderItemsError) => {
-                console.error('Greška prilikom brisanja stavki iz korpe:', deleteOrderItemsError);
-              }
-            );
-          } else {
-            console.error('Nemoguće pristupiti cart.id - nije definisano ili ima vrednost undefined.');
-          }
+          this.cart = cart;
+          this.orderItems = this.cart.items;
+          this.cart.price = 0;
+          this.service.updateCartItemCount(0); 
+          this.getAdventureCoins()
         },
         (error) => {
+          if (error.status === 402) {
+            console.error('Not enough money:', error);
+            alert('Not enough ACs. Please add more Adventure Coins to your account.');
+          }
           console.error('Greška prilikom završavanja kupovine:', error);
         }
       );
@@ -73,34 +76,12 @@ export class ShoppingCartComponent implements OnInit{
     }
   }
 
-  removeShopppingCartItem(tourId: number): void{
-    this.orderItems = this.orderItems.filter(item => item.tourId !== tourId);
-    this.cart.items = this.orderItems
-    this.cart.price = this.calculateTotalPrice();
-    this.service.updateShoppingCart(this.cart).subscribe(() => {
-      this.service.updateCartItemCount(this.cart.items.length); //
+  removeShopppingCartItem(item: OrderItem): void{
+    this.service.removeItemFromShoppingCart(item).subscribe((cart) => {
+      this.cart = cart;
+      this.cart.price = cart.price;
+      this.orderItems = this.cart.items;
+      this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
-
-  calculateTotalPrice(): number {
-    let totalPrice = 0;
-    for (const item of this.cart.items) {
-     // totalPrice += item.price * item.quantity;
-      totalPrice += item.price;
-    }
-    return totalPrice;
-  }
-
-/*  increaseQuantity(item: OrderItem): void {
-    item.quantity++; 
-    this.cart.price = this.calculateTotalPrice();
-  }
-
-  decreaseQuantity(item: OrderItem): void {
-    if (item.quantity > 1) {
-      item.quantity--; 
-      this.cart.price = this.calculateTotalPrice();
-      //this.service.updateShoppingCart(this.cart).subscribe(() => {});           //treba mi ?
-    }
-  }*/
 }

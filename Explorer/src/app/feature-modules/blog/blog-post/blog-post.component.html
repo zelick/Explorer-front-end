@@ -1,4 +1,4 @@
-<body>
+<body style="height: auto;">
     <div id="blog-post">
         <div class="center-container">
             <div class="voting-container">
@@ -25,7 +25,13 @@
                 <hr>
                 <p>Status: <i>{{ blogPost.status }}</i></p>
                 <div class="image-container">
-                    <img *ngFor="let imageName of blogPost.imageNames" [src]="getImageUrl(imageName)" alt="Image">
+                    <button class="circle-button previous-button" (click)="previousPicture()" mat-icon-button>
+                        <mat-icon>arrow_left</mat-icon>
+                    </button>
+                    <img class="picture" *ngIf="blogPost.imageNames" [src]="getImageUrl(blogPost.imageNames[i])" alt="Image">
+                    <button class="circle-button next-button" (click)="nextPicture()" mat-icon-button>
+                        <mat-icon>arrow_right</mat-icon>
+                    </button>
                 </div>
                 <div [innerHTML]="blogPost.description"></div>
             </div>

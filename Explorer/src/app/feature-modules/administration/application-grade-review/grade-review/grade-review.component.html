@@ -1,23 +1,25 @@
-<p>Application grade review</p>
-<hr>
-<div id="grade-review">
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rating</th>
-                    <th>Comment</th>
-                    <th>Created date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let gr of grades">
-                    <td>{{gr.rating}}</td>
-                    <td>{{gr.comment}}</td>
-                    <td>{{gr.created}}</td>
-                </tr>
-            </tbody>
-        </table>
+<div id="aplication-grade-review">
+    <h1>Application grade review</h1>
+    <div id="aplication-grade-review-details">
+        <div>
+            <h2 *ngIf="hasRatings"> Average grade is {{average}}, overall {{grades.length}} grades </h2>
+            <h2 *ngIf="!hasRatings">No grades yet!</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Created date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gr of grades">
+                        <td>{{gr.rating}}</td>
+                        <td>{{gr.comment}}</td>
+                        <td>{{gr.created | date: 'dd.mm.yyyy HH:mm'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-

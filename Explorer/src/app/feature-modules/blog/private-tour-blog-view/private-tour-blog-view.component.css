@@ -1,0 +1,48 @@
+body{
+    background-color: #253B34;
+    padding: 20px;
+}
+
+.single-blog-container {
+    max-width: 800px;
+    margin: 4vh auto;
+    padding: 4vh;
+    background-color: #F7F6DC;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 13px;
+}
+
+h2 {
+    color: #E67840;
+    font-size: 38px;
+    margin-bottom: 40px;
+}
+
+p {
+    color: #253B34;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+label{
+    color: #253B34;
+    margin-bottom: 8px;
+}
+
+.checkpoints-header{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkpoints{
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #253B34;
+    border-radius: 13px;
+    max-width: 350px;
+}

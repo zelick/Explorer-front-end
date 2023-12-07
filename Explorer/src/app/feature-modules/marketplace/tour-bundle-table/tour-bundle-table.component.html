@@ -1,0 +1,53 @@
+<div id="tour-bundles" class="row">
+    <div class="tour-bundle-list">
+        <table class="tour-bundle-table">
+            <tr *ngFor="let tourBundle of tourBundles" class="tour-bundle">
+                <td class="left">
+                    <div class="informations">
+                        <div class="title-container">
+                            <label class="title"> {{ tourBundle.name }} </label>
+                            <div class="blob">
+                                <p class="price">
+                                    <span class="amount">{{ tourBundle.price }}</span>
+                                    <span class="currency">AC</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div *ngFor="let tour of tourBundle.tours" class="tours">
+                            <h3 class="tour-name">{{ tour.name }}</h3>
+                            <p class="tour-price">
+                                <span>Original tour price: </span>
+                                <span class="amount">{{ tour.price }}</span>
+                                <span class="currency">AC</span>
+                            </p>
+                            <p class="tour-description"> {{ tour.description }} </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button mat-raised-button class="shop-button" (click)="onAddToCart(tourBundle)"
+                        [disabled]="isBundleInCart(tourBundle.id || 0)"
+                        [ngStyle]="{'background-color': isBundleInCart(tourBundle.id || 0) ? 'gray' : '#E67840'}"> Add
+                        to cart🛒 </button>
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [length]="totalTourBundles" [pageSize]="pageSize" (page)="onPageChange($event)"
+            class="paginator"></mat-paginator>
+    </div>
+
+    <div class="filters">
+        <label class="filters-label">Filters</label>
+        <div class="filter-fields">
+            <mat-form-field class="filter-field">
+                <mat-label>Tour bundles per page</mat-label>
+                <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="20">20</mat-option>
+                    <mat-option value="50">50</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

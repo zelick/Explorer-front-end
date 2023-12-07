@@ -15,6 +15,8 @@ import { CheckpointPreview } from '../../marketplace/model/checkpoint-preview';
 import { MapObject } from '../../tour-authoring/model/map-object.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
+import { Encounter } from '../../encounters/model/encounter.model';
+import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +40,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
   publicCheckpoints: PublicCheckpoint[] = [];
+  encounterExecutions : EncounterExecution[] = [];
+  availableEncounterExecution: EncounterExecution;
+  availableEncounter: Encounter;
+  currentlyPeopleOnSocialEncounter: number = 0;
+  executions: EncounterExecution[];
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
   { 
@@ -61,19 +68,23 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.authService.user$.subscribe(user => {
       this.tourist = user;
 
-      this.service.getTourExecution(this.tourist.id, this.tourId || 0).subscribe(result => {
+      this.service.getTourExecution(this.tourId).subscribe(result => {
         if(result != null)
         {
           this.tourExecution = result;  
           this.tour = result.tour;    
           this.findCheckpoints();
         }else{
-          this.service.startExecution(this.tourId, this.tourist.id).subscribe( result =>{
+          this.service.startExecution(this.tourId).subscribe( result =>{
             this.tourExecution = result;  
             this.tour = result.tour; 
             this.findCheckpoints();
           });
         }
+        this.service.getActiveEncounters(this.tourId).subscribe(rr => {
+          this.encounterExecutions = rr;
+          this.findCheckpoints();
+        });
       });
     });
   });
@@ -102,14 +113,23 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         this.service.registerPosition(this.tourExecution.id || 0, this.simulatorComponent.selectedPosition).subscribe( result => {
             this.tourExecution = result;
             this.tour = result.tour;
-            console.log("IZVRSENO");
-            console.log(this.tourExecution);
-            this.findCheckpoints();
+
+            this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+              this.availableEncounterExecution = result;
+              this.availableEncounter = this.availableEncounterExecution.encounterDto; 
+            });
+          this.findCheckpoints();
         });
       }
       this.oldPosition = this.simulatorComponent.selectedPosition;
       this.notifications = [];
     }
+    if(this.availableEncounter)
+    {
+      this.checkSocialEncounterStatus();
+      this.checkHiddenLocationEncounterStatus();
+    }
+      
     console.log("Check position");
     this.notifications.push(1);
     this.changeDetection.detectChanges();
@@ -136,6 +156,41 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     }
   }
 
+  checkSocialEncounterStatus(): void{
+    if(this.encounterExecutions.find(n => n.encounterDto.type == 'Social'))
+              {
+                this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+                  this.availableEncounterExecution = result;
+                  this.availableEncounter = this.availableEncounterExecution.encounterDto;
+                  this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+                  this.encounterExecutions.forEach(e => {
+                    if(e.id == result.id)
+                    {
+                      e = result;
+                    }
+                  });
+                  this.changeDetection.detectChanges();
+                });
+              }
+  }
+
+  checkHiddenLocationEncounterStatus(): void{
+    if(this.encounterExecutions.find(n => n.encounterDto.type == 'Location'))
+    {
+      this.service.checkIfInRangeLocation(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+      this.availableEncounterExecution = result;
+      this.availableEncounter = this.availableEncounterExecution.encounterDto;
+      this.encounterExecutions.forEach(e => {
+        if(e.id == result.id)
+          {
+            e = result;          
+          }
+        });
+      this.changeDetection.detectChanges();
+      });
+    }
+  }  
+
   addMapObjectsOnMap(): void{
     if(this.mapObjects)
     {
@@ -151,7 +206,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   addPublicCheckpoinsOnMap(): void{
-    if(this.publicCheckpoints)
+    if((this.publicCheckpoints).length != 0)
     {
       let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
       this.publicCheckpoints.forEach(e => {
@@ -198,17 +253,29 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       element.showedPointPicture=element.pictures[element.currentPointPicture];
     });
     this.changeDetection.detectChanges();
-
   }
 
 
   OnViewSecret(c:Checkpoint):void{
-    c.visibleSecret=!c.visibleSecret;
-    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
-    if(c.viewSecretMessage=="Show secret")
-      c.viewSecretMessage="Hide secret";
-    else
-      c.viewSecretMessage="Show secret";
+      if(c.isSecretPrerequisite && c.encounterId != 0)
+      {
+        if(this.availableEncounterExecution.status == 'Completed' && c.encounterId == this.availableEncounterExecution.encounterId)
+        {
+          c.visibleSecret=!c.visibleSecret;
+          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          if(c.viewSecretMessage=="Show secret")
+            c.viewSecretMessage="Hide secret";
+          else
+            c.viewSecretMessage="Show secret";
+        }
+      }else{
+        c.visibleSecret=!c.visibleSecret;
+          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          if(c.viewSecretMessage=="Show secret")
+            c.viewSecretMessage="Hide secret";
+          else
+            c.viewSecretMessage="Show secret";
+      }
   }
 
   OnNext(c:Checkpoint):void{
@@ -238,6 +305,21 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       c.currentPointPicture=c.currentPointPicture-1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
+
+  onActivate(id: number): void{
+    this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
+    .subscribe(result =>{
+      this.availableEncounterExecution = result;
+    });
+  }
+
+  onComplete(): void{
+    this.service.completeEncounter(this.availableEncounterExecution.id)
+    .subscribe(result =>{
+      this.availableEncounterExecution = result;
+    });
+  }
+
 }
 
 
