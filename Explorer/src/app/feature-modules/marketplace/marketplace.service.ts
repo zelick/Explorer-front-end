@@ -215,12 +215,17 @@ export class MarketplaceService {
     return this.http.get<Coupon[]>(environment.apiHost + 'manipulation/coupon/get-all');
   }
 
+  getAuthorCoupons(): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(environment.apiHost + 'manipulation/coupon/get-all-by-user');
+  }
+
+
   createCoupon(coupon: CreateCoupon): Observable<Coupon> {
     return this.http.post<Coupon>(environment.apiHost + 'manipulation/coupon/create', coupon);
   }
 
-  updateCoupon(coupon: Coupon, couponId: number): Observable<Coupon> {
-    return this.http.put<Coupon>(environment.apiHost + 'manipulation/coupon/update/' + couponId, coupon);
+  updateCoupon(coupon: CreateCoupon): Observable<Coupon> {
+    return this.http.put<Coupon>(environment.apiHost + 'manipulation/coupon/update', coupon);
   }
 
   deleteCoupon(couponId: number): Observable<Coupon> {

@@ -49,6 +49,7 @@ import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form
 import { TourBundlesComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles/tour-bundles.component';
 import { TourBundleEditComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-edit/tour-bundle-edit.component';
 import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/create-coupon-form/create-coupon-form.component';
+import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'create-coupon', component: CreateCouponFormComponent},
+  {path: 'view-coupons', component: ViewCouponAuthorComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],

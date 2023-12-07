@@ -4,5 +4,5 @@ export interface Coupon{
     discountPercentage: number,
     expirationDate: Date,
     isGlobal: boolean,
-    tourId: number
+    tourId: number | null
 }
