@@ -30,6 +30,8 @@ import { SaleFormComponent } from './sale-form/sale-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { CreateCouponFormComponent } from './create-coupon-form/create-coupon-form.component';
+import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-author.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import { MatSelectModule } from '@angular/material/select';
         CompositeKeypointPopupComponent,
         TourBundleTableComponent,
         SaleComponent,
-        SaleFormComponent
+        SaleFormComponent,
+        CreateCouponFormComponent,
+        ViewCouponAuthorComponent,
     ],
     exports: [
         PreferenceFormComponent,
@@ -61,7 +65,9 @@ import { MatSelectModule } from '@angular/material/select';
         SimulatorComponent,
         PurchasedToursComponent,
         PreferenceFormComponent, 
-        PurchasedToursDetailsComponent
+        PurchasedToursDetailsComponent,
+        CreateCouponFormComponent,
+        ViewCouponAuthorComponent,
     ],
     imports: [
         CommonModule,

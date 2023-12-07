@@ -56,6 +56,8 @@ import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.com
 import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
 import { TourBundlesComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles/tour-bundles.component';
 import { TourBundleEditComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-edit/tour-bundle-edit.component';
+import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/create-coupon-form/create-coupon-form.component';
+import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
 
@@ -179,6 +181,8 @@ const routes: Routes = [
   {path: 'sales-form/:id', component: SaleFormComponent, canActivate: [AuthGuard],},
   {path: 'tour-bundles/:id', component: TourBundlesComponent , canActivate: [AuthGuard]},
   {path: 'tour-bundle-edit/:id', component: TourBundleEditComponent, canActivate: [AuthGuard]},
+  {path: 'create-coupon', component: CreateCouponFormComponent, canActivate: [AuthGuard]},
+  {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
 ];
