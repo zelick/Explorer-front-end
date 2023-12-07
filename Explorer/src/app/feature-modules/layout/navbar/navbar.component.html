@@ -6,7 +6,6 @@
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour']">Tours</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour-bundles/:id']">Bundles</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['view-coupons']">Coupons</button>
-            <button class="button" *ngIf="user" mat-raised-button [routerLink]="['sales']">Sale Event</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['sales']">Sales</button>
 
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Explore Tours</button>
