@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { TourTransportFormComponent } from './tour-transport-form/tour-transport-form.component';
 import { CheckpointSecretFormComponent } from './checkpoint-secret-form/checkpoint-secret-form.component';
+import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component';
+import { PrivateToursComponent } from './private-tours/private-tours.component';
 import { TourBundlesComponent } from './tour-bundles/tour-bundles.component';
 import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.component';
 
@@ -33,6 +35,8 @@ import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.com
     TourEquipmentComponent,
     TourTransportFormComponent,
     CheckpointSecretFormComponent,
+    PlanYourTripComponent,
+    PrivateToursComponent,
     TourBundlesComponent,
     TourBundleEditComponent
   ],

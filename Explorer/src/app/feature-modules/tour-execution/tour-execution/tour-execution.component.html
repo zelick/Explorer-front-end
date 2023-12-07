@@ -1,7 +1,7 @@
 <div id="tour-execution">
     <div id="top-div">
         <div class="tour-info">
-            <p class="subtitle">Tour: {{tour.name}}</p>
+            <p>Tour: {{tour.name}}</p><br><br>
             <table class="tour-info-table">
                 <tr>
                     <td>Description: </td>
@@ -12,6 +12,40 @@
                     <td>{{tour.demandignessLevel}}</td>
                 </tr>
             </table>
+            <p class="subtitle">Available encounter</p>
+            <div class="availableEncounter">
+                <table *ngIf="availableEncounter">
+                    <tr>
+                        <td>
+                            <h3>{{availableEncounter.name}}</h3>
+                            <label>Type: {{availableEncounter.type}}</label>
+                        </td>
+                        <td>
+                            <label>Status: {{availableEncounter.status}}</label><br>
+                            <label>My status: {{availableEncounterExecution.status}}</label>
+                        </td>
+                        <td *ngIf="availableEncounter.type == 'Location'">
+                            <img src="availableEncounter.image" width="60" height="40">
+                        </td>
+                        <td *ngIf="availableEncounter.type == 'Social'">
+                            <label>Currently {{currentlyPeopleOnSocialEncounter}} people, required {{availableEncounter.requiredPeople}}</label><br>
+                            <label>Range: {{availableEncounter.range}}</label>
+                        </td>
+                        <td>
+                            <button class="button" *ngIf="availableEncounterExecution.status == 'Pending'" (click)="onActivate(availableEncounter.id || 0)">Activate</button>
+                            <button class="button" *ngIf="availableEncounterExecution.status == 'Active' && availableEncounter.type != 'Social'"  (click)="onComplete()">Complete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td>
+                            <label>
+                                {{availableEncounter.description}}
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <button (click)="abandon()" class="buttonAbandon">
@@ -36,6 +70,11 @@
         <p>Completed checkpoints:</p>
         <div>
             <div class="checkpoints-div">
+                <div *ngIf="completedCheckpoint.length == 0">
+                    <br><br>
+                    <label>There are no completed checkpoints</label>
+                    <br><br>
+                </div>
                 <table>
                     <tbody>
                         <tr *ngFor="let e of completedCheckpoint">
@@ -48,7 +87,6 @@
                                         <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
                                         <br>
                                         <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} m </span></div>
-                                        <br>
                                         <hr>
                                     </span>
                                     <span class="cps1">
@@ -65,7 +103,7 @@
                                                 <tr>
                                                     <td>
                                                        <button class="nextbtn" (click)="OnPictureBack(e)">
-                                                        <
+                                                        
                                                         </button>
                                                     </td>
                                                     <td>
@@ -114,6 +152,28 @@
                     </table>
             </div>
         </div>
+        <div class="encounter-div">
+            <p>Your active encounters:</p>
+            <br><br>
+                    <label>Encounters are from all your tours in progress.</label>
+                    <br><br>
+            <table border="1">
+                <tr *ngFor="let e of encounterExecutions">
+                    <td>
+                        <h3>{{e.encounterDto.name}}</h3>
+                        <label>Type: {{e.encounterDto.type}}</label>
+                    </td>
+                    <td>
+                        <label>XP: {{e.encounterDto.xp}}</label>
+                    </td>
+                    <td *ngIf="e.encounterDto.type=='Social'">
+                        To complete encounter required number is {{e.encounterDto.requiredPeople}} people in {{e.encounterDto.range}} meters range.
+                    </td>
+                    <td *ngIf="e.encounterDto.type=='Location'">
+                        <img src="{{e.encounterDto.image}}" width="100" height="60">
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-
 </div>

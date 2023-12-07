@@ -16,6 +16,9 @@ import { TourExecution } from '../tour-execution/model/tour_execution.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PurchasedTourPreview } from '../tour-execution/model/purchased_tour_preview.model';
+import { TouristWallet } from './model/tourist-wallet.model';
+import { CompositeForm } from './model/composite-create';
+import { CompositePreview } from './model/composite-preview';
 import { TourBundle } from './model/tour-bundle.model';
 import { Sale } from './model/sale.model';
 import { CreateCoupon } from './model/create-coupon.model';
@@ -116,8 +119,10 @@ export class MarketplaceService {
   }
 
 
-  shoppingCartCheckOut(id: number): Observable<ShoppingCart> {
-    const params = new HttpParams().set('touristId', id.toString());
+  shoppingCartCheckOut(id: number, coupon: string = ""): Observable<ShoppingCart> {
+    const params = new HttpParams()
+      .set('touristId', id.toString())
+      .set('coupon', coupon)
     return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/checkout', null, { params });
   }
 
@@ -142,6 +147,9 @@ export class MarketplaceService {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
   }
 
+  getActiveSales(): Observable<Sale[]> {
+    return this.http.get<Sale[]>(environment.apiHost + 'shopping/sales');
+  }
   //
   private cartItemCountSubject = new BehaviorSubject<number>(0);
   cartItemCount$ = this.cartItemCountSubject.asObservable();
@@ -177,6 +185,26 @@ export class MarketplaceService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+
+  getAdventureCoins(id:number): Observable<TouristWallet> {
+    return this.http.get<TouristWallet>(environment.apiHost + 'tourist/wallet/get-adventure-coins/' + id)
+  }
+
+  paymentAdventureCoins(id:number, coins: number): Observable<TouristWallet> {
+    return this.http.put<TouristWallet>(environment.apiHost + 'tourist/wallet/payment-adventure-coins/' + id + '/' + coins, null)
+  }
+
+  addCompositeTour(compositeTour: CompositeForm): Observable<CompositeForm> {
+    return this.http.post<CompositeForm>(environment.apiHost + 'tourist/compositeTours', compositeTour);
+  }
+
+  getCompositeToursId(tourId:number):Observable<CompositePreview[]> {
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours' + tourId) 
+  }
+
+  getAllCompositeTours():Observable<CompositePreview[]>{
+    return this.http.get<CompositePreview[]>(environment.apiHost + 'tourist/compositeTours') 
   }
 
   getTourBundles(page: number, pageSize: number): Observable<PagedResults<TourBundle>> {

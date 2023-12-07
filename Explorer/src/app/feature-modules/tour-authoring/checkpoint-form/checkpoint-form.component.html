@@ -31,7 +31,9 @@
             <input matInput type="text" formControlName="address" class="adress-input">
             <button class="buttonPlus" (click)="onAddAddressClick()" mat-raised-button>✔</button>
         </div>
-        <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        <div class="map-div">
+            <xp-map (mapClick)="onMapClick($event)"></xp-map>
+        </div>
         <div class="location">
             <mat-form-field>
                 <mat-label>Longitude:</mat-label>

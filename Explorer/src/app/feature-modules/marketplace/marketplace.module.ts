@@ -18,8 +18,12 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { TourOverviewDetailsComponent } from './tour-overview-details/tour-overview-details.component';
 import { PurchasedToursDetailsComponent } from './purchased-tours-details/purchased-tours-details.component';
 import { TourRatingEditFormComponent } from './tour-rating-edit-form/tour-rating-edit-form.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ForecastPopupComponent } from './forecast-popup/forecast-popup.component';
+import { CompositeTourFormComponent } from './composite-tour-form/composite-tour-form.component';
+import { CompositeToursComponent } from './composite-tours/composite-tours.component';
+import { CompositeEquipmentPopupComponent } from './composite-equipment-popup/composite-equipment-popup.component';
+import { CompositeKeypointPopupComponent } from './composite-keypoint-popup/composite-keypoint-popup.component';
 import { TourBundleTableComponent } from './tour-bundle-table/tour-bundle-table.component';
 import { SaleComponent } from './sale/sale.component';
 import { SaleFormComponent } from './sale-form/sale-form.component';
@@ -45,6 +49,10 @@ import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-auth
         PurchasedToursDetailsComponent,
         TourRatingEditFormComponent,
         ForecastPopupComponent,
+        CompositeTourFormComponent,
+        CompositeToursComponent,
+        CompositeEquipmentPopupComponent,
+        CompositeKeypointPopupComponent,
         TourBundleTableComponent,
         SaleComponent,
         SaleFormComponent,

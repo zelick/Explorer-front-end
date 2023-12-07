@@ -8,5 +8,5 @@ export interface Registration {
     profilePicture: File | null,
     profilePictureUrl: string,
     biography: string,
-    motto: string;
+    motto: string,
 }

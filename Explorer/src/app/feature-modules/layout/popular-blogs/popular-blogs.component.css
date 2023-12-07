@@ -54,7 +54,7 @@
   .blog-card {
     flex: 0 0 23.00%;
     background-color: #E67840;
-    box-shadow: 0 0 13px #E67840;
+    box-shadow: 2px 2px 13px black;
     border: 1px #3b846b15;
     color: #000;
     text-align: left;

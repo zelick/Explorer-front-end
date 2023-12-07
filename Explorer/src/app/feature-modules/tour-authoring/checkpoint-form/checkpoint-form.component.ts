@@ -99,6 +99,7 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
 
   addCheckpoint(): void {
     const checkpoint: Checkpoint = {
+      encounterId:0,
       tourId: this.tourID,
       longitude: this.longitude || 0,
       latitude: this.latitude || 0,
@@ -112,8 +113,8 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.service.user.id
-
+      authorId: this.service.user.id,
+      isSecretPrerequisite: true
     };
 
     const status = this.checkpointForm.value.status || 'Private'
@@ -122,7 +123,9 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     {
       this.service.addCheckpoint(checkpoint,status).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }
@@ -144,14 +147,18 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       viewSecretMessage:"",
       currentPointPicture:0,
       showedPointPicture:"",
-      authorId: this.selectedCheckpoint.authorId
+      authorId: this.selectedCheckpoint.authorId,
+      encounterId:this.selectedCheckpoint.encounterId,
+      isSecretPrerequisite: this.selectedCheckpoint.isSecretPrerequisite
     };
     checkpoint.id = this.selectedCheckpoint.id;
     if(this.validate(checkpoint.name, checkpoint.pictures))
     {
       this.service.updateCheckpoint(checkpoint).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
-          this.router.navigate([`checkpoint-secret/${result.id}`]);
+          //this.router.navigate([`checkpoint-secret/${result.id}`]);
+          this.router.navigate([`encounter-form/${result.id}`]);
+
         }
       });
     }

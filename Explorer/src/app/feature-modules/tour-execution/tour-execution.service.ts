@@ -10,6 +10,10 @@ import { TouristPosition } from '../marketplace/model/position.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PublicCheckpoint } from './model/public_checkpoint.model';
+import { Encounter } from '../encounters/model/encounter.model';
+import { EncounterExecution } from '../encounters/model/encounterExecution.model';
+import { PrivateTourExecution } from '../tour-authoring/model/private-tour-execution.model';
+import { PrivateTour } from '../tour-authoring/model/private-tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +25,22 @@ export class TourExecutionService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("tourId",tourId);
     return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
+  }
+
+  getPrivateTour(id: number): Observable<PrivateTour> {
+    return this.http.get<PrivateTour>(environment.apiHost + 'tourist/privateTours/tour/' + id);
+  }
+
+  nextCheckpoint(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/next-checkpoint', tour);
+  }
+
+  start(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/start', tour);
+  }
+
+  finish(tour: PrivateTour): Observable<PrivateTour>{
+    return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/finish', tour);
   }
 
   startExecution(tourId: number): Observable<TourExecution>{
@@ -47,5 +67,48 @@ export class TourExecutionService {
     queryParams = queryParams.append("page", 0);
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
+  }
+
+  getEncounters(tourId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("touristLatitude", touristLatitude);
+    queryParams = queryParams.append("touristLongitude", touristLongitude);
+    return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/get-by-tour/' + tourId, {params: queryParams});
+  }
+
+  activateEncounter(id: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
+    var form = new FormData();
+    form.append('touristLatitude', touristLatitude.toString());
+    form.append('touristLongitude', touristLongitude.toString());
+    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/activate/' + id, form);
+  }
+
+  completeEncounter(id: number): Observable<EncounterExecution>{
+    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/completed/' + id, null);
+  }
+
+  getActiveEncounters(tourId: number): Observable<EncounterExecution[]>{
+    return this.http.get<EncounterExecution[]>(environment.apiHost + 'tourist/encounter-execution/active/by-tour/' + tourId);
+  }
+
+  checkIfInRange(tourId: number, encounterExecutionId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("touristLatitude", touristLatitude);
+    queryParams = queryParams.append("touristLongitude", touristLongitude);
+    return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/social/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
+  }
+
+  checkIfInRangeLocation(tourId: number, encounterExecutionId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("touristLatitude", touristLatitude);
+    queryParams = queryParams.append("touristLongitude", touristLongitude);
+    return this.http.get<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/location/checkRange/' + encounterExecutionId + "/" + tourId, {params: queryParams});
+  }
+
+  getCompleted() : Observable<EncounterExecution[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page", 0);
+    queryParams = queryParams.append("pageSize", 0);
+    return this.http.get<EncounterExecution[]>(environment.apiHost + 'tourist/encounter-execution/get-all-completed', {params: queryParams});
   }
 }
