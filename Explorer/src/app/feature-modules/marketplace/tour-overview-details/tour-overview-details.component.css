@@ -18,6 +18,7 @@
     margin-top: 4vh;
     background-color: #253B34;
     border-radius: 15px;
+    max-width: 75vh;
 }
 
 .map {
@@ -194,6 +195,7 @@ label{
     color: #F7F6DC;
     display: flex;
     flex-wrap: wrap;
+    text-align: center;
     justify-content: space-around;
 }
 
