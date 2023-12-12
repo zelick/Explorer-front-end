@@ -1,18 +1,77 @@
-
-.tour-details {
-    width: 680px;
-    display:flex;
-    gap: 20px;
-    flex-direction: column;
-    margin: 0 auto;
+.tour-container {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    background-image: url('./tour_overview_background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    overflow: hidden;
+    height: 100%;
 }
 
+.map-checkpoint-container{
+    height: 100%;
+}
+
+.first-checkpoint{
+    margin-top: 4vh;
+    background-color: #253B34;
+    border-radius: 15px;
+    max-width: 75vh;
+}
+
+.map {
+    margin-top: 8vh;
+    width: 75vh;
+    height: 60vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    border: 1px solid black;
+    overflow: hidden;
+    background-color: #3B846B;
+}
+
+.tour-details {
+    margin-top: 8vh;
+    width: 62%;
+    max-width: 85vh;
+    max-height: 70vh;
+    background-color: #F7F6DC;
+    padding: 4vh;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.tour-description{
+    max-width: 50vh;
+}
+
+.checkpoint-image{
+    height: 20vh;
+    width: 20vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #253B34;
+}
+
+.checkpoint-image img {
+    height: 100%;
+    width: 100%;
+}
 
 th{
-    width: 340px;
-    text-align: center;
-    background-color: #E67840;
-    color: white;
+    text-align: left;
+}
+
+td{
+    font-size: 16px;
 }
 
 .buttonEdit{
@@ -24,20 +83,6 @@ th{
     font-size: 100%; 
     color:#fff;
     background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-
-.buttonBack{
-    width: auto;
-    margin-left: 0px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color:#E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
@@ -57,28 +102,6 @@ th{
     cursor: pointer;
 }
 
-td{
-    width: 340px;
-    text-align: center;
-
-}
-.cardcp{
-    width: 600px;
-    display:flex;
-    column-gap: 150px;
-    flex-direction: row;
-    justify-content:justify;
-    background-color: #B6D4AF;
-
-}
-
-.cps2{
-font-weight: 1000;
-}
-
-.cps1{
-    width: 150px;
-}
 #tour-title{
     font-size: 24px;
     font-weight: bold;
@@ -89,72 +112,97 @@ font-weight: 1000;
     padding-left: 25px;
 }
 
-
-
-
-.mapa{
-    width: 680px;
-    height: 400px;
-}
-
 p{
-    margin: 0 auto;
-    font-size: 4vh;
+  margin: 0 auto;
+  font-size: 5vh;
   color:#E67840;
-  padding: 1% 2.5%; 
-  
+  padding: 0 2.5%;
 }
 
 .subtitle{
     font-size: 2vh;
-  color:#E67840;
-  font-style: bold;
-
+    color:#E67840;
+    font-style: bold;
+    padding-top: 3vh;
 }
 
-.cppi{
-    width: 80px;
-    height: 90px;
-    text-align: left;
-    border: 2px solid #3B846B;
-
-}
-
-.cpp{
-    width: 200px;
-    text-align: left;
- 
-}
 .routingButton{
-    width: 680px;
     display:flex;
     gap: 15px;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: auto;
 }
 
-.navButton{
+.button{
     width: auto;
     margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
     color:#fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.button.nav{
     background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
 }
-.shopButton{
-    width: auto;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
+
+.button.shop{
     background-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
+}
+
+.tag-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-button {
+    margin-top: 3vh;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: #fff;
+    background-color: #3B846B;
+    border: none;
+    border-radius: 9px;
     cursor: pointer;
 }
 
+hr{
+    border: 1px solid #ccc;
+    margin: 10px 0 15px 0;
+}
+
+.hr-checkpoint{
+    border: 1px solid #2e5a42;
+    margin: 10px 0 15px 0;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.scrollable-table {
+    max-height: 11vh;
+    overflow-y: auto;
+}
+
+label{
+    font-size: 16px;
+    padding-bottom: 4vh;
+    color: #F7F6DC;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.checkpoint-title{
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 2vh;
+}
