@@ -62,21 +62,18 @@
             </div>
         </div>
        
-    <p class="subtitle">Ratings</p>
+    
     <div>
+        <p class="subtitle">Ratings</p>
         <table>
             <tbody>
                 <tr *ngFor="let e of tour.tourRating" >
                     <td>
                         <div>
-                            <span>
-                                <div><span><span>Comment:</span>{{e.comment}}</span></div>
-                                <div><span><span>Rating:</span>{{e.rating}}</span></div>
-                            </span>
-                            <span>
-                                <div><span><span>Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
-                                <div><span><span>Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
-                            </span>
+                            <div>Comment:{{e.comment}}</div>
+                            <div>Rating:{{e.rating}}</div>
+                            <div>Creation Date:{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</div>
+                            <div>Creation Date:{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</div>
                             <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                             </button> 
@@ -84,8 +81,7 @@
                     </td>
                 </tr>
             </tbody>
-      
-    </table>
+        </table>
     <div>
         <p>Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
     </div>
