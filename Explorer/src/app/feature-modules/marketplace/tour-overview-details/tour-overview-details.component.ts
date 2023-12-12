@@ -137,6 +137,19 @@ export class TourOverviewDetailsComponent implements OnInit {
     return false;
   }
 
+  getFormattedTransportation(transportation: string): string {
+    switch (transportation.toLowerCase()) {
+      case 'cycling':
+        return 'Cycling';
+      case 'walking':
+        return 'Walking';
+      case 'driving':
+        return 'Driving';
+      default:
+        return transportation;
+    }
+  }
+
   findShoppingCart(): void {
     this.service.getShoppingCart(this.user.id).subscribe((result) => {
       if (!result) {
