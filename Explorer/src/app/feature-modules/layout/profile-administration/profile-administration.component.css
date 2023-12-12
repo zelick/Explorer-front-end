@@ -19,3 +19,108 @@ div {
     border-radius: 100px;
     cursor: pointer;
 }
+
+/* Ovo je deo za prikaz profila */
+
+.profile-card {
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.2);
+    margin: 0 auto; /*centar ekrana*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+}
+
+.profile-card-content {
+    align-items: left;
+}
+
+.profile-card-content div{
+    display: inline-block;
+}
+
+.profile-image-section {
+    border-radius: 5px;
+    background: linear-gradient(to right, #3B846B, #B6D4AF);
+    width: 300px;
+    height: auto;
+    padding: 10px;
+}
+
+.user-image {
+    border-radius: 200px;
+    width: 100%; 
+    height: auto;
+}
+
+.profile-details-section {
+    padding: 20px;
+    align-items: center;
+    text-align: left; 
+}
+
+.profile-details {
+    display: flex;
+}
+
+.user-name {
+    font-size: 17px;
+}
+.user-role {
+    color: #fff;
+}
+
+.information-section {
+    padding: 20px;
+    width: 100%;
+    flex-direction: column;
+    align-items: left;
+}
+
+.section-heading {
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.information-column {
+    flex: 0 0 60%; /* Postavljamo širinu kolone */
+}
+
+.information-label {
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.information-value {
+    margin-bottom: 10px;
+    color: #3B846B; 
+}
+
+.button-column {
+    flex: 0 0 60%; /* Postavljamo širinu kolone */
+    align-items: left;
+}
+.custom-button {
+    border: 1px solid #3B846B; 
+    padding: 10px; 
+    border-radius: 5px;
+    background-color: #fff; /* Boja pozadine */
+    color: #3B846B; /* Boja teksta */
+    cursor: pointer; /* Kursor na hover */
+    transition: background-color 0.3s, color 0.3s; /* Animacija promene boje na hover-u */
+    margin-right: 270px;
+    margin-top: 10px;
+}
+
+.custom-button:hover {
+    background-color: #3B846B;
+    color: #fff;
+}
+
+.matt-icon-button {
+    margin-left: 10px; 
+    height: 20px;
+}
+
