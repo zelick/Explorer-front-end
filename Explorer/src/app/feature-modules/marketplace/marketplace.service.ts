@@ -6,7 +6,6 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ReportedIssue } from '../administration/model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
-import { TouristPosition } from './model/position.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 import { Tour } from '../tour-authoring/model/tour.model';
@@ -87,22 +86,6 @@ export class MarketplaceService {
 
   updateTourRating(rating: TourRating): Observable<TourRating> {
     return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
-  }
-
-  addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
-    return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
-  }
-
-  updateTouristPosition(position: TouristPosition): Observable<TouristPosition> {
-    return this.http.put<TouristPosition>(environment.apiHost + 'tourism/position/' + position.id, position);
-  }
-
-  getTouristPosition(id: number): Observable<TouristPosition> {
-    return this.http.get<TouristPosition>(environment.apiHost + 'tourism/position/'+id)
-  }
-
-  deleteTouristPosition(id: number): Observable<TouristPosition> {
-    return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
   getShoppingCart(touristId: number): Observable<ShoppingCart> {

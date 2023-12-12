@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, ViewChild, Output } from '@angular/cor
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TouristPosition } from '../model/position.model';
-import { MarketplaceService } from '../marketplace.service';
+import { TourExecutionService } from '../tour-execution.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class SimulatorComponent implements OnInit {
   @Output() positionUpdated: EventEmitter<null> = new EventEmitter<null>();
 
 
-  constructor(private service: MarketplaceService, private authService: AuthService) { }
+  constructor(private service: TourExecutionService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {

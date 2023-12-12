@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { TourExecution } from './model/tour_execution.model';
 import { query } from '@angular/animations';
-import { TouristPosition } from '../marketplace/model/position.model';
+import { TouristPosition } from './model/position.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PublicCheckpoint } from './model/public_checkpoint.model';
@@ -21,6 +21,25 @@ import { PrivateTour } from '../tour-authoring/model/private-tour.model';
 export class TourExecutionService {
 
   constructor(private http: HttpClient) { }
+
+  // simulator
+  addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
+  }
+
+  updateTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.put<TouristPosition>(environment.apiHost + 'tourism/position/' + position.id, position);
+  }
+
+  getTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.get<TouristPosition>(environment.apiHost + 'tourism/position/'+id)
+  }
+
+  deleteTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
+  }
+
+  // TourExecution
   getTourExecution(tourId: number): Observable<TourExecution> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("tourId",tourId);
@@ -69,6 +88,7 @@ export class TourExecutionService {
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 
+  // Encounters
   getEncounters(tourId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("touristLatitude", touristLatitude);
