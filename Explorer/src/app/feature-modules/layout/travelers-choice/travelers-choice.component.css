@@ -179,12 +179,12 @@
   .startCh{
     position: absolute;
     bottom: 0px;
-    max-width: 100%;
+    max-width: 95%;
     overflow: hidden;
     text-wrap: nowrap;
     left: 7px;
     padding: 3px;
     background-color: rgb(38, 59, 52,0.8);
     color: white;
-    font-size: 100%; 
+    font-size: 85%; 
   }
