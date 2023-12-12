@@ -12,94 +12,88 @@
     </div>
     <div class="tour-details">
         <div class="tour-description">
-        
-        <p>{{tour.name}}</p>
-        
-        <div class="tag-buttons">
-            <button *ngFor="let tag of tour.tags" class="tag-button">{{tag}}</button>
-        </div>
+            <p>{{tour.name}}</p>
+            
+            <div class="tag-buttons">
+                <button *ngFor="let tag of tour.tags" class="tag-button">#{{tag}}</button>
+            </div>
 
-        <p class="subtitle">Information</p>
-        <hr>
-
-        <table id="tour-details-table">
-            <tr>
-                <th>Description:</th>
-                <td>{{tour.description}}</td>
-            </tr>
-            <tr>
-                <th>Price:</th>
-                <td>{{tour.price}} <span style="font-size: larger;">💰</span></td>
-            </tr>
-            <tr>
-                <th>Difficulty:</th>
-                <td>{{tour.demandignessLevel}}</td>
-            </tr>
-            <tr *ngFor="let tt of tour.tourTime">
-                <th>{{ getFormattedTransportation(tt.transportation) }}</th>
-                <td>{{(tt.distance/1000).toFixed(2)}} km ({{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min)</td>
-            </tr>           
-        </table>
-    
-        <div *ngIf="tour.equipment.length > 0">
-            <p class="subtitle">Required equipment</p>
+            <p class="subtitle">Information</p>
             <hr>
-        
-            <div class="scrollable-table">
-                <table>
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </thead>
-                    
-                    <tbody>
-                        <tr *ngFor="let e of tour.equipment">
-                            <td>{{e.name}}</td>
-                            <td>{{e.description}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-       
-    
-    <div>
-        <p class="subtitle">Ratings</p>
-        <table>
-            <tbody>
-                <tr *ngFor="let e of tour.tourRating" >
-                    <td>
-                        <div>
-                            <div>Comment:{{e.comment}}</div>
-                            <div>Rating:{{e.rating}}</div>
-                            <div>Creation Date:{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</div>
-                            <div>Creation Date:{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</div>
-                            <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
-                                <mat-icon>edit</mat-icon>
-                            </button> 
-                        </div>
-                    </td>
+
+            <table id="tour-details-table">
+                <tr>
+                    <th>Description:</th>
+                    <td>{{tour.description}}</td>
                 </tr>
-            </tbody>
-        </table>
-    <div>
-        <p>Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
-    </div>
-    </div>
-        <div class="routingButton">
-            <div>
+                <tr>
+                    <th>Price:</th>
+                    <td>{{tour.price}} <span style="font-size: larger;">💰</span></td>
+                </tr>
+                <tr>
+                    <th>Difficulty:</th>
+                    <td>{{tour.demandignessLevel}}</td>
+                </tr>
+                <tr *ngFor="let tt of tour.tourTime">
+                    <th>{{ getFormattedTransportation(tt.transportation) }}</th>
+                    <td>{{(tt.distance/1000).toFixed(2)}} km ({{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min)</td>
+                </tr>           
+            </table>
+        
+            <div *ngIf="tour.equipment.length > 0">
+                <p class="subtitle">Required equipment</p>
+                <hr>
+            
+                <div class="scrollable-table">
+                    <table>
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor="let e of tour.equipment">
+                                <td>{{e.name}}</td>
+                                <td>{{e.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="routing-buttons">
                 <button mat-raised-button class="button nav" (click)="onBack()">All tours</button>
-            </div>
-            <div>
                 <button mat-raised-button class="button shop" (click)="rateTour(tour)">Rate</button>
-            </div>
-            <div>
                 <button mat-raised-button class="button shop" (click)="onAddToCart(tour)" [disabled]="isTourInCart" [ngStyle]="{ 'background-color': buttonColor }">Add to cart🛒</button>
             </div>
         </div>
-        </div>
-        <div class="checkpoint-image">
-            <img [src]="tour.checkpoint.pictures[0]">
+
+        <div class="checkpoint-image-container">
+            <img class="checkpoint-image" [src]="tour.checkpoint.pictures[0]">
+            <p class="subtitle" style="margin-bottom: 6px;">Ratings</p>
+            <div *ngIf="tour.tourRating.length > 0" class="ratings">
+                <div *ngFor="let e of tour.tourRating" class="rating-item">
+                    <label class="rating-date-label">({{ e.creationDate | date:'dd/MM/yyyy' }})</label>
+                    <div>
+                        <strong>Comment:</strong> {{ e.comment }}
+                    </div>
+                    <div>
+                        <strong>Tour Date:</strong> {{ e.tourDate | date:'dd/MM/yyyy HH:mm' }}
+                    </div>
+                    <div class="all-stars">
+                        <label style="color: rgb(0, 0, 0); font-size: large; font-weight: 400; margin-right: 4px;">{{e.rating}}</label>
+                        <label *ngIf="e.rating < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+                    </div>
+                    <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <p style="font-size: 22px; padding-top: 2vh;">Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
         </div>
     </div>
 </div>

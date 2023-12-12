@@ -23,6 +23,7 @@ import { TourBundle } from './model/tour-bundle.model';
 import { Sale } from './model/sale.model';
 import { CreateCoupon } from './model/create-coupon.model';
 import { Coupon } from './model/coupon.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ export class MarketplaceService {
   }
 
   getTourRating(userType: string): Observable<PagedResults<TourRating>> {
-    let url: string;  // Construct the URL based on the user type
+    let url: string;
     switch (userType) {
       case 'administrator': 
         url = 'administration/tour-rating'; 
@@ -83,7 +84,6 @@ export class MarketplaceService {
   addTourRating(ratingForm: FormData): Observable<TourRating> {
     return this.http.post<TourRating>(environment.apiHost + 'tourist/tour-rating', ratingForm);
   }
-
 
   updateTourRating(rating: TourRating): Observable<TourRating> {
     return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
@@ -117,7 +117,6 @@ export class MarketplaceService {
   removeItemFromShoppingCart(item: OrderItem): Observable<ShoppingCart> {
     return this.http.put<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/remove', item);
   }
-
 
   shoppingCartCheckOut(id: number, coupon: string = ""): Observable<ShoppingCart> {
     const params = new HttpParams()
@@ -246,7 +245,6 @@ export class MarketplaceService {
   getAuthorCoupons(): Observable<Coupon[]> {
     return this.http.get<Coupon[]>(environment.apiHost + 'manipulation/coupon/get-all-by-user');
   }
-
 
   createCoupon(coupon: CreateCoupon): Observable<Coupon> {
     return this.http.post<Coupon>(environment.apiHost + 'manipulation/coupon/create', coupon);

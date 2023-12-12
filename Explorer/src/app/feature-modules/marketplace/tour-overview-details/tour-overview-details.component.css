@@ -50,11 +50,63 @@
     max-width: 50vh;
 }
 
+/* .checkpoint-image-container{
+    
+} */
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 20vh;
+    width: 30vh;
+}
+
+.rating-item {
+    display: flex;
+    height: 12.5vh;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.star {
+    font-size: x-large;
+    color: #253B34;
+    position: relative;
+    display: inline-block;
+}
+
+.rating-item div {
+    margin-bottom: 5px;
+}
+
+.rating-item button {
+    margin-top: 5px;
+    color: #fff;
+    background-color: #3B846B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rating-date-label{
+    color: gray;
+    padding-bottom: 0px;
+    font-size: small;
+    margin-left: auto;
+}
+
 .checkpoint-image{
     height: 20vh;
-    width: 20vh;
+    width: 28vh;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
@@ -65,6 +117,8 @@
 .checkpoint-image img {
     height: 100%;
     width: 100%;
+    margin-left: auto;
+    align-items: end;
 }
 
 th{
@@ -127,17 +181,16 @@ p{
     padding-top: 3vh;
 }
 
-.routingButton{
-    display:flex;
+.routing-buttons{
+    display: flex;
     gap: 15px;
-    flex-direction: row;
     justify-content: space-between;
+    align-content: end;
     margin-top: auto;
 }
 
 .button{
     width: auto;
-    margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
@@ -145,6 +198,7 @@ p{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
+    align-self: flex-end;
 }
 
 .button.nav{
@@ -206,4 +260,12 @@ label{
     flex-wrap: wrap;
     justify-content: space-around;
     padding-top: 2vh;
+}
+
+.all-stars{
+    height: 6vh;
+    width: 22vh;
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
 }
