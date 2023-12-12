@@ -1,9 +1,12 @@
 .tour {
-    width: 680px;
+    width: 80%;
     display:flex;
-    gap: 20px;
+    /* gap: 20px; */
     flex-direction: column;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 14%;
+    padding-right: 14%;
 }
 
 h1{
@@ -11,140 +14,214 @@ h1{
   color:#E67840;
   padding: 1% 2.5%; 
   margin: 0 auto;
-
+  font-weight: 400;
 }
 
+.tour-container {
+    display: flex;
+    flex-wrap: wrap;
+    left: auto;
+    width: auto;
+    padding-left: auto;
+    padding-right: auto;
+    right: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 2px solid #3B846B;
+    border-radius: 10px;
+    row-gap: 50px; 
+    column-gap: 2.5%;
+    padding-left: 4%;
+    padding-right: 4%;
+    grid-row: auto;
+    justify-content: start;
+    margin-bottom: 30px;
+  }
+  .filtersButton{
+    width: 14vh;
+    height: 6vh;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-top:auto;
+    border: none;
+    background-color: #3B846B;
+    color: white;
+    margin-right: 35px;
+    font-size: 110%;
+    cursor: pointer;
+  }
+  .filtersDiv{
+    background-color: #B6D4AF;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    max-width: 100%;
+    border: 2px solid #3B846B;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .tour-card {
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px #3b846b15;
+    color: #000;
+    text-align: left;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 5px;
+    margin-bottom: 0px;
+    width: 31.5%;
+    max-width: 450px;
+    cursor: pointer;
+    height: 46vh;
+    max-height: 400px;
+  }
+  .tour-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
+  .star {
+    font-size:120%;
+    color: #B6D4AF; /* Make the text inside transparent */
+    position: relative;
+    display: inline-block;
+  }
+  .card-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+    height: 52%;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .tour-card-img { 
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover; 
+  }
+  .card-location-header{
+    font-size: 80%;
+    color: white;
+    padding: 1% 2.5%; 
+    background-color: #1b332b8e;
+    max-width: 50%;
+    overflow-x: hidden;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  
+  .card-header{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .price{
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .originalprice{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 120%;
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .Oldprice{
+    background-color: #E67840;
+    padding: 2px;
+    margin-bottom: 5px;
+    font-size: 90%;
+    color: white;
+    font-weight: 200;
+    border-radius: 3px;
+  }
+  .prices{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .discount{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 150%;
+    background-color: red;
+    padding: 2px;
+    color: white;
+    font-weight: 500;
+    border-radius: 3px;
+  }
 #filter {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 20px;
-    margin-top: 20px;
+    justify-content: start;
+    font-size: 130%;
+    width: auto;
 }
-
-.label-and-select {
+.top{
     display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.label {
-    font-size: 120%;
-    color: #3B846B;
-    margin-right: 10px;
-}
-
-.tour-info {
-    flex: 0.5;
-}
-
-.tour-description {
-    margin-top: 15px;
-    color: black;
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.tour-price {
-    margin-top: 15px;
-    color: black;
-    font-size: 20px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.original-price {
-    text-decoration: line-through;
-    color: #999;
-    white-space: nowrap;
-}
-
-.discounted-price {
-    color: #E67840;
-    white-space: nowrap;
-}
-
-.card img {
-    align-self: center;
-}
-
-p {
-    font-size: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-
-
-.card{
-    cursor: pointer;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 680px;
-    display:flex;
-    gap: 15px;
     flex-direction: row;
     justify-content: space-between;
-
+    width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.label-and-select {
+    text-wrap: nowrap;
+    width: fit-content;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
-.cinfo {
-    margin-top: 15px;
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
+.disclaimer{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 100%;
 }
-
-td{
-    border:solid 3px #3B846B;
-    background-color: #B6D4AF;
-    margin-bottom: 50px;
-
-}
-.ch{
-    justify-content: center;
-    font-size: 3vh;
-    font-style: bold;
-    text-align: center;
-
-}
-
-.cttags{
-    margin-left: 50px;
-    justify-content: left;
-    font-size: 2vh;
-    font-style: bold;
-}
-
 .shopButton{
-    width: auto;
     margin-bottom: 15px;
     padding: 0px 10px;
-    width: 120px;
+    width: 20vh;
     font-size: 100%; 
     color:#fff;
     background-color:#E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
+    border-radius: 0px 7px 0px 10px;
     cursor: pointer;
     margin-left: 450px;
 }
 
 .search-controls {
-    position: absolute;
-    width: 900px;
-    height: 100px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
   }
   
   .search-controls input {
@@ -161,6 +238,19 @@ td{
     appearance: none;
     border-radius: 10px; 
     outline: none;
+    color: white;
+  }
+  
+  .apply{
+    margin-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #E67840;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
   }
 
   
