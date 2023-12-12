@@ -88,7 +88,6 @@ const routes: Routes = [
       { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
       { path: 'tour-overview', component: TourOverviewComponent, canActivate:[AuthGuard]},
       { path: 'tour-overview-details/:id', component:TourOverviewDetailsComponent, canActivate: [AuthGuard]},
-      { path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard] },
       { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
       { path: 'tour-bundles', component: TourBundleTableComponent, canActivate:[AuthGuard] },
       //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
