@@ -201,7 +201,10 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
 
   findNearTours(): void{
     const promises = this.publicTours.map(tour => {
-      return this.checkDistance(tour);
+      if(tour)
+        return this.checkDistance(tour);
+      else
+        return 0;
     });
 
     Promise.all(promises).then(() => {
@@ -264,7 +267,10 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
     return this.publishedTours.find(t => t.id === id);
   }
   applyFilters(){
-    this.findNearTours();
+    if(this.selectedLatitude && this.selectedLongitude)
+      this.findNearTours();
+    else if(this.showOnlyOnSale)
+      this.filterTours();
     setTimeout(() => {
       const filtersElement = document.getElementById('title');
       if (filtersElement) {
@@ -296,7 +302,8 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
 
   cancelSearch():void {
     const filtersElement = document.getElementById('title');
-  
+    this.selectedLatitude = 0;
+    this.selectedLongitude = 0;
       if (filtersElement) {
         filtersElement.scrollIntoView({
           behavior: 'smooth',
