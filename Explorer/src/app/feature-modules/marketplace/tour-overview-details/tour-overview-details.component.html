@@ -24,10 +24,6 @@
 
             <table id="tour-details-table">
                 <tr>
-                    <th>Description:</th>
-                    <td>{{tour.description}}</td>
-                </tr>
-                <tr>
                     <th>Price:</th>
                     <td>{{tour.price}} <span style="font-size: larger;">💰</span></td>
                 </tr>
@@ -38,8 +34,14 @@
                 <tr *ngFor="let tt of tour.tourTime">
                     <th>{{ getFormattedTransportation(tt.transportation) }}</th>
                     <td>{{(tt.distance/1000).toFixed(2)}} km ({{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min)</td>
-                </tr>           
+                </tr>
+                <tr>
+                    <!-- <th>Description:</th>
+                    <td>{{tour.description}}</td> -->
+                </tr>     
             </table>
+            <p class="description"><b>Description:</b></p>
+            <p class="description-text">{{tour.description}}</p>
         
             <div *ngIf="tour.equipment.length > 0">
                 <p class="subtitle">Required equipment</p>

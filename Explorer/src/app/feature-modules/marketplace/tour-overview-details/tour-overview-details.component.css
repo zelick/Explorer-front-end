@@ -37,7 +37,9 @@
     margin-top: 8vh;
     width: 62%;
     max-width: 85vh;
-    max-height: 70vh;
+    height: auto;
+    min-height: 50vh;
+    margin-bottom: 10vh;
     background-color: #F7F6DC;
     padding: 4vh;
     border-radius: 15px;
@@ -59,17 +61,24 @@
     
 } */
 
+.description{
+    overflow-y: auto;
+    max-height: ;
+}
+
 .ratings {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    height: 20vh;
+    height: auto;
+    max-height: 20vh;
     width: 30vh;
 }
 
 .rating-item {
     display: flex;
-    height: 12.5vh;
+    height: auto;
+    max-height: 11vh;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 10px;
@@ -160,6 +169,20 @@ td{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
+}
+
+.description{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
+}
+
+.description-text{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
+    overflow-y: auto;
+    height: 7vh;
 }
 
 #tour-title{
