@@ -1,0 +1,37 @@
+<div id="encounter-popup">
+    <div class="encounter-title">
+        <h2 mat-dialog-title>Encounter</h2>
+        <h2 mat-dialog-title>{{data.name}}</h2>
+    </div>
+    <mat-dialog-content>
+        <!-- Misc encounter -->
+        <div *ngIf="data.type == 'Misc'">
+            <label class="encounter-description">Do this chalenge and win {{data.xp}} XP points! </label>
+            <label class="encounter-description">{{data.description}} </label>
+        </div>
+
+        <!-- Social encounter -->
+        <div *ngIf="data.type == 'Social'">
+            <label class="encounter-description">Do this chalenge and win {{data.xp}} XP points! Wait for required amount of tourists to activate this chalenge! </label>
+            <!-- TODO -->
+            <!-- <label class="encounter-description">{{data.encounterDto.description}} </label>
+            <label>Currently {{currentlyPeopleOnSocialEncounter}} people, required {{availableEncounter.requiredPeople}}</label><br>
+            <label>Range: {{data.encounterDto.range}}</label> -->
+
+        </div>
+
+        <!-- Hidden location encounter -->
+        <div *ngIf="data.type == 'Location'">
+            <label class="encounter-description">Do this chalenge and win {{data.xp}} XP points! Find the location where this picuture is taken! Stay in that location for at  least 30 seconds to complete the chalenge. </label>
+            <!-- TODO -->
+            <!-- <label class="encounter-description">{{data.encounterDto.description}} </label> 
+            <img src="data.encounterDto.image">-->
+            <img class="hidden-location-img" src="data.image">
+
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button class="close-button" mat-button [mat-dialog-close]="'close'">Close</button>
+    </mat-dialog-actions>
+</div>

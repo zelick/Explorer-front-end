@@ -19,6 +19,7 @@ import { EncounterExecution } from '../../encounters/model/encounterExecution.mo
 
 import { MatDialog } from '@angular/material/dialog';
 import { SecretDialogComponent } from '../secret-dialog/secret-dialog.component';
+import { EncounterDialogComponent } from '../encounter-dialog/encounter-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -327,6 +328,13 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   viewSecret(ch: Checkpoint): void{
     this.dialog.open(SecretDialogComponent, {
       data: ch 
+    });
+  }
+
+  // EncounterDialogComponent open
+  viewEncounter(encounter: Encounter): void{
+    this.dialog.open(EncounterDialogComponent, {
+      data: encounter
     });
   }
 }

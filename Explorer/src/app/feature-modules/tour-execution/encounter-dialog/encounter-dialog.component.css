@@ -1,0 +1,43 @@
+#encounter-popup {
+    font-family: 'Poppins', sans-serif;
+    height: 50%;
+    min-width: 200px;
+    background: #B6D4AF;
+}
+.encounter-title{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: 20px;
+}
+
+.encounter-description {
+    height: fit-content;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden-location-img{
+    width: 400px;
+    height: 190px;
+    object-fit: cover;
+    margin-top: 2px;
+    border-bottom: 3px solid #E67840;
+    border-top: 3px solid #E67840;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 40px;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}

@@ -7,13 +7,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { PrivateTourExecutionComponent } from './private-tour-execution/private-tour-execution.component';
 import { SecretDialogComponent } from './secret-dialog/secret-dialog.component';
+import { EncounterDialogComponent } from './encounter-dialog/encounter-dialog.component';
 
 @NgModule({
   declarations: [
     TourExecutionComponent,
     PrivateTourExecutionComponent, 
     SimulatorComponent,
-    SecretDialogComponent
+    SecretDialogComponent,
+    EncounterDialogComponent
     ],
   imports: [
     CommonModule,

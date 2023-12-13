@@ -20,6 +20,7 @@
         <div class="right-div">
             <div class="available-encounter-div">
                 <!-- TODO - available encounter button-->
+                <button class="buttonAbandon" *ngIf="availableEncounter" (click)="viewEncounter(availableEncounter)">See Available Encounter</button>
             </div>
             
             <div class="completed-ch-div">
@@ -53,9 +54,9 @@
                                     </div>
                                     
                                     <div>
+                                        <!-- TODO - see only completed encounter and visible secret-->
                                         <button class="secretb" (click)="viewSecret(ch)" *ngIf="ch.checkpointSecret!=null">Show secret</button>
-                                        <button class="secretb">Show encounter</button>
-                                        <!-- TODO - see completed encounter -->
+                                        <button class="secretb" (click)="viewEncounter(availableEncounter)">Show encounter</button>
                                     </div>
                                     
                                 </td>
