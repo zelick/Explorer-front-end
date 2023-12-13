@@ -1,18 +1,191 @@
 #tour-execution{
-    margin: 100px;
-    margin-top: 100px;
-}
-
-.simulator-div{
-    width: 600px;
-    height: 600px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
 #top-div{
+    height: 15%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+.tour-name{
+    font-weight: bold;
+    font-size: 4vh;
+    color:#E67840;
+}
+.tour-info{
+    margin-left: 10px;
+}
+.tour-info-label{
+    margin-left: 0px;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+}
+
+/* simulator - left div */
+.left-div {
+    height: 600px;
+    width: 65%;
+    display: flex;
+    margin-top: 1vh;
+    flex-direction: column;
+    justify-content: start;
+    max-width: 1000px;
+}
+.map{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+
+/* checpoint info - right div */
+.right-div {
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 1vh;
+}
+.available-encounter-div{
+    height: 80px;
+}
+.completed-ch-div {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* align-content: center; */
+    margin-top: 1vh;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.completed-ch-div-content{
+    width: 100%;
+    min-width: 90%;
+    display: flex;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.title{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+}
+.no-completed{
+    margin-left: 15px;
+    font-size: 2.5vh;
+}
+.checkpoint-row {
+    height: fit-content;
+    width: 95%;
+    margin: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #3B846B;
+}
+.checkpoint {
+    height: 100%;
+    width: 100%;
+}
+.ch-title {
+    height: 100%;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 2.5vh;
+    color:#F7F6DC;
+    justify-content: center;
+    align-content: center;
+}
+.ch-img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    margin-top: 2px;
+    border-bottom: 3px solid #E67840;
+    border-top: 3px solid #E67840;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nextbtn{
+    width: 35px;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-top: 0%;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+.img{
+    width: auto;
+    max-width: 80%;
+    height: 185px;
+}
+.ch-description {
+    width: 100%;
+    max-height: 50px;
+    flex-wrap: wrap;
+    margin-left: 2px;
+    text-align: left;
+}
+.secretb{
+    width: auto;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #253B34;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+
+
+/* ****************************************************************************************** */
+
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+    color:#E67840;
+    padding: 1% 2.5%; 
+}
+
+
 
 
 .tour-details {
@@ -145,13 +318,7 @@ color:#3B846B
     height: 600px;
 }
 
-p{
-    margin: 0 auto;
-    font-size: 4vh;
-  color:#E67840;
-  padding: 1% 2.5%; 
-  
-}
+
 
 .subtitle{
     font-size: 2vh;
@@ -196,31 +363,8 @@ img{
     font-style: bold;
 }
 
-.secretb{
-    margin-bottom: 0.5cm;
-    margin-left: 15px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-    width: 110px;
-    height: 30px;
 
-}
-.nextbtn{
-    margin-bottom: 0.5cm;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-    width: 25px;
-    height: 20px;
 
-}
 .secret-span{
     width: 600px;
     display:flex;
@@ -251,9 +395,11 @@ textarea {
 }
 
 .checkpoint-div{
+    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
 }
 
 .managing-transport-div{
@@ -312,12 +458,8 @@ textarea {
     border-radius: 50px;
     cursor: pointer;
 }
-.tour-info{
-    margin-left: 0px;
-}
-.tour-info-table{
-    margin-left: 0px;
-}
+
+
 .availableEncounter{
     border: 2px solid #E67840;
     background-color: #B6D4AF;
