@@ -1,15 +1,22 @@
 <div class="profile-card">
-
   <div class="profile-card-content">
       <div class="profile-image-section">
-          <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+          <img [src]="profileInfoForm.get('profilePictureUrl')?.value"
            class="user-image">
            <div class="profile-details-section">
-            <div class="profile-details">
-                <h6 class="user-name">Kristina Zelic</h6>
-                <p class="user-role">Tourist</p>
-            </div>
-          </div>
+              <div class="profile-details">
+                  <h6 class="user-name">{{profileInfoForm.get('name')?.value }}  {{profileInfoForm.get('surname')?.value }}</h6>
+                  <p class="user-role">Tourist</p>
+
+                  <!-- <div class="xp_level_items">
+                    <p  class="user-name">Level:</p>
+                    <p class="user-role">10</p>
+                    <p  class="user-name">XP:</p>
+                    <p class="user-role">32</p>
+                  </div>
+                   -->
+              </div>
+           </div>
       </div>
   </div>
   
@@ -18,61 +25,68 @@
     <div class="information-row">
         <div class="information-column">
             <p class="information-label">Email:</p>
-            <h4 class="information-value">kristinazelic0908@gmail.com</h4>
+            <h4 class="information-value">{{profileInfoForm.get('email')?.value }}</h4>
         </div>
         <div class="information-column">
             <p class="information-label">Biography:</p>
-            <h4 class="information-value">Ovo je neka biografija</h4>
+            <h4 class="information-value">{{profileInfoForm.get('biography')?.value }}</h4>
         </div>
         <div class="information-column">
           <p class="information-label">Motto:</p>
-          <h4 class="information-value">Ovo je neki motto</h4>
+          <h4 class="information-value">{{profileInfoForm.get('motto')?.value }}</h4>
       </div>
       <div class="button-column">
-        <button class="custom-button">Edit profile
+        <button class="custom-button" (click)="startEditing()">Edit profile
           <mat-icon class="matt-icon-button">edit</mat-icon>
         </button>
       </div>
-      
     </div>
   </div>
 
 </div>
 
-
 <form [formGroup]="profileInfoForm" (ngSubmit)="edit()">
-    <div>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" type="text" [readonly]="!isEditing"/>
-        <mat-error *ngIf="profileInfoForm.get('name')?.hasError('pattern')">Name should start with an uppercase letter</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Surname</mat-label>
-        <input matInput formControlName="surname" type="text" [readonly]="!isEditing"/>
-        <mat-error *ngIf="profileInfoForm.get('surname')?.hasError('pattern')">Surname should start with an uppercase letter</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="text" [readonly]="!isEditing"/>
-        <mat-error *ngIf="profileInfoForm.get('email')?.hasError('email')">Invalid email format</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Biography</mat-label>
-        <input matInput formControlName="biography" type="text" [readonly]="!isEditing"/>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Motto</mat-label>
-        <input matInput formControlName="motto" type="text" [readonly]="!isEditing"/>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Profile Picture</mat-label>
-        <input matInput type="text" formControlName="profilePictureUrl" [readonly]="true" />
-        <input *ngIf="isEditing" type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
-      </mat-form-field>    
-      <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" />                                
-      <button class="button" *ngIf="!isEditing" color="primary" mat-raised-button (click)="startEditing()">Edit</button>
-      <button class="button" *ngIf="isEditing" color="primary" mat-raised-button (click)="saveChanges()">Save</button>
+    <div class="edit_form" *ngIf="showForm">
+
+      <div class="edit_form_row">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" type="text" [readonly]="!isEditing"/>
+          <mat-error *ngIf="profileInfoForm.get('name')?.hasError('pattern')">Name should start with an uppercase letter</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Surname</mat-label>
+          <input matInput formControlName="surname" type="text" [readonly]="!isEditing"/>
+          <mat-error *ngIf="profileInfoForm.get('surname')?.hasError('pattern')">Surname should start with an uppercase letter</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="text" [readonly]="!isEditing"/>
+          <mat-error *ngIf="profileInfoForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Biography</mat-label>
+          <input matInput formControlName="biography" type="text" [readonly]="!isEditing"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Motto</mat-label>
+          <input matInput formControlName="motto" type="text" [readonly]="!isEditing"/>
+        </mat-form-field>
+      </div>
+      
+      <div class="edit_form_row">
+        <mat-form-field>
+          <mat-label>Profile Picture</mat-label>
+          <input matInput type="text" formControlName="profilePictureUrl" [readonly]="true" />
+          <input *ngIf="isEditing" type="file" (change)="onProfilePictureSelected($event)" id="fileInput" />
+        </mat-form-field> 
+        <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image" class="edit_profile_image"/>
+        <div class="button_edit_submit">
+          <!-- <button class="button" *ngIf="!isEditing" color="primary" mat-raised-button (click)="startEditing()">Edit</button> -->
+          <button class="button" *ngIf="isEditing" color="primary" mat-raised-button (click)="saveChanges()">Save changes</button>
+        </div>
+      </div>  
+
     </div>
 </form>
   
