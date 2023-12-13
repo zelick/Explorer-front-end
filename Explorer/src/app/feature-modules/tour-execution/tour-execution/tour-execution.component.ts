@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { ActivatedRoute } from '@angular/router';
-import { MapComponent } from 'src/app/shared/map/map.component';
 import { SimulatorComponent } from '../simulator/simulator.component';
 import { TouristPosition } from '../model/position.model';
 import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
@@ -17,6 +16,9 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
 import { Encounter } from '../../encounters/model/encounter.model';
 import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
+
+import { MatDialog } from '@angular/material/dialog';
+import { SecretDialogComponent } from '../secret-dialog/secret-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +48,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   currentlyPeopleOnSocialEncounter: number = 0;
   executions: EncounterExecution[];
 
-  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
-  { 
-  }
+
+  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef,
+    private dialog: MatDialog) 
+  { }
 
   ngOnInit(): void {
     this.notifications = [];
@@ -320,7 +323,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     });
   }
 
+  // SecretDialogComponent open
+  viewSecret(ch: Checkpoint): void{
+    this.dialog.open(SecretDialogComponent, {
+      data: ch 
+    });
+  }
 }
-
-
-

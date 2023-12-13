@@ -52,12 +52,12 @@
                                         <label class="ch-description">Desecription: {{ch.description}}</label>        
                                     </div>
                                     
-                                    <!-- TODO - see secret button -->
-                                    <!-- TODO - see completed encounter -->
                                     <div>
-                                        <button class="secretb">Show secret</button>
+                                        <button class="secretb" (click)="viewSecret(ch)" *ngIf="ch.checkpointSecret!=null">Show secret</button>
                                         <button class="secretb">Show encounter</button>
+                                        <!-- TODO - see completed encounter -->
                                     </div>
+                                    
                                 </td>
                             </tr>
                         </tbody>
