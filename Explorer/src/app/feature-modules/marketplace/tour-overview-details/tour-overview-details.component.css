@@ -37,7 +37,9 @@
     margin-top: 8vh;
     width: 62%;
     max-width: 85vh;
-    max-height: 70vh;
+    height: auto;
+    min-height: 50vh;
+    margin-bottom: 10vh;
     background-color: #F7F6DC;
     padding: 4vh;
     border-radius: 15px;
@@ -59,17 +61,23 @@
     
 } */
 
+.description{
+    overflow-y: auto;
+}
+
 .ratings {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    height: 20vh;
+    height: auto;
+    max-height: 20vh;
     width: 30vh;
 }
 
 .rating-item {
     display: flex;
-    height: 12.5vh;
+    height: auto;
+    max-height: 11vh;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 10px;
@@ -131,7 +139,7 @@ th{
 }
 
 td{
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .buttonEdit{
@@ -160,6 +168,22 @@ td{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
+}
+
+.description{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
+}
+
+.description-text{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
+    overflow-y: auto;
+    height: 7vh;
+    text-align: justify;
+    text-align-last: justify;
 }
 
 #tour-title{
@@ -249,7 +273,16 @@ hr{
 .scrollable-table {
     max-height: 11vh;
     overflow-y: auto;
-}
+    position: relative;
+  }
+  
+  .scrollable-table table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #3B846B;
+    color: #fff;
+    z-index: 1;
+  }
 
 label{
     font-size: 16px;
@@ -275,4 +308,25 @@ label{
     display: flex;
     justify-content: right;
     margin-left: auto;
+}
+
+.old-price{
+    width: fit-content;
+    background-color: #8a7266;
+    padding: 2px;
+    margin-bottom: 5px;
+    font-size: 80%;
+    color: lightgray;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    margin-right: 1vh;
+}
+
+.price{
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
 }
