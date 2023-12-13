@@ -78,15 +78,35 @@ export class TravelersChoiceComponent implements OnInit{
       const matchingSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
       const discountedPrice = this.calculateDiscountedPrice(tour, activeSales);
       const isOnSale = this.isOnSale(tour.id!, activeSales);
+      const saleExpiration = matchingSale?.end;
 
       return { 
         ...tour,
         discount: matchingSale ? matchingSale.discount : 0,
         salePrice: discountedPrice,
-        isOnSale: isOnSale
+        isOnSale: isOnSale,
+        saleExpiration: saleExpiration,
+        isLastMinute: this.isLastMinute(saleExpiration)
       };
     });
   }
+
+  isLastMinute(saleExpiration?: Date) {
+    var today = new Date();
+    var futureDate = new Date(today.setDate(today.getDate() + 4));
+    today = new Date()
+      if (saleExpiration) {
+        var saleExpirationDate = new Date(saleExpiration);
+          if (saleExpirationDate < futureDate && saleExpirationDate > today) {
+              return true;
+          } else {
+              return false;
+          }
+      } else {
+          return false;
+      }
+  }
+
   calculateDiscountedPrice(tour: TourPreview, activeSales: Sale[]): number {
     const activeSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
     if (activeSale) {

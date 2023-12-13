@@ -4,10 +4,13 @@
           <div class="image-container">
             <label *ngIf="!tour.isOnSale" class="originalprice"> 💰{{tour.price}} AC </label>
             <div class="prices">
-                <label *ngIf="tour.isOnSale" class="Oldprice"> <del>💰{{tour.price}} AC</del></label>
+                <label *ngIf="tour.isOnSale" class="Oldprice">💰{{tour.price}} AC</label>
                 <label *ngIf="tour.isOnSale" class="price"> 💰{{tour.salePrice}} AC </label>
             </div>
-            <label *ngIf="tour.isOnSale" class="discount"> -{{tour.discount}}% </label>
+            <div class="sale">
+                <label *ngIf="tour.isOnSale" class="discount"> -{{tour.discount}}% </label>
+                <img class="last_minute" *ngIf="tour.isLastMinute && tour.isOnSale" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
+            </div>
             <p class="startCh">📍 Starting checkpoint: {{tour.checkpoint.name}}</p>
             <img *ngIf="tour.checkpoint" src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="tour-card-img">
         </div>

@@ -157,7 +157,20 @@
     opacity: 0.9;
     font-weight: 200;
     border-radius: 3px;
+    position: relative;
   }
+
+.Oldprice::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%, transparent 52.5%);
+}
   .prices{
     position: absolute;
     top: 7px;
@@ -167,15 +180,29 @@
     flex-direction: column;
     justify-content: start;
   }
-  .discount{
+  .sale{
     position: absolute;
     top: 7px;
     right: 7px;
     font-size: 170%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .discount{
     background-color: red;
     padding: 5px;
     color: white;
     font-weight: 500;
+    border-radius: 3px;
+    margin-bottom: -7px;
+  }
+  .last_minute{
+    height: 5vh;
+    width: 8vh;
+    object-fit: cover;
+    overflow: hidden;
+    margin-left: auto;
     border-radius: 3px;
   }
   .startCh{
