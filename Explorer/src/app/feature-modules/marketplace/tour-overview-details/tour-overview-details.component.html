@@ -24,8 +24,12 @@
 
             <table id="tour-details-table">
                 <tr>
+                    <th>Location:</th>
+                    <td>{{location}}</td>
+                </tr>
+                <tr>
                     <th>Price:</th>
-                    <td>{{tour.price}} <span style="font-size: larger;">💰</span></td>
+                    <td><span *ngIf="isTourOnSale" class="old-price"><s>{{tour.price}} 💰</s> </span><span class="price">{{tour.salePrice}} 💰</span></td>
                 </tr>
                 <tr>
                     <th>Difficulty:</th>
@@ -34,11 +38,7 @@
                 <tr *ngFor="let tt of tour.tourTime">
                     <th>{{ getFormattedTransportation(tt.transportation) }}</th>
                     <td>{{(tt.distance/1000).toFixed(2)}} km ({{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min)</td>
-                </tr>
-                <tr>
-                    <!-- <th>Description:</th>
-                    <td>{{tour.description}}</td> -->
-                </tr>     
+                </tr>    
             </table>
             <p class="description"><b>Description:</b></p>
             <p class="description-text">{{tour.description}}</p>
@@ -73,7 +73,7 @@
 
         <div class="checkpoint-image-container">
             <img class="checkpoint-image" [src]="tour.checkpoint.pictures[0]">
-            <p class="subtitle" style="margin-bottom: 6px;">Ratings</p>
+            <p *ngIf="tour.tourRating.length > 0" class="subtitle" style="margin-bottom: 6px;">Ratings</p>
             <div *ngIf="tour.tourRating.length > 0" class="ratings">
                 <div *ngFor="let e of tour.tourRating" class="rating-item">
                     <label class="rating-date-label">({{ e.creationDate | date:'dd/MM/yyyy' }})</label>
