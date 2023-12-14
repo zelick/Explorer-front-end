@@ -1,145 +1,65 @@
-<div class="tour-details">
-    <br>
-    <p >{{tour.name}}</p>
-    <br>
-    <br>
-    <p class="subtitle">Information</p>
-    <table id="tour-details-table">
-        <tr>
-            <th>Description:</th>
-            <td>{{tour.description}}</td>
-        </tr>
-        <tr>
-            <th>Price:</th>
-            <td>{{tour.price}}</td>
-        </tr>
-        <tr>
-            <th>Demandigness level:</th>
-            <td>{{tour.demandignessLevel}}</td>
-        </tr>
-        <tr *ngFor="let tt of tour.tourTimes">
-            <th>{{tt.transportation}}</th>
-            <td>{{(tt.distance/1000).toFixed(2)}} km</td>
-            <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
-        </tr>
-        <tr>
-            <th>Tags:</th>
-            <td>
-                <table>
-                    <tr *ngFor="let tag of tour.tags">
-                        <td>{{tag}}</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <br>
-    <p class="subtitle">Required equipment</p>
-    <table>
+<div class="tour-card">
+    <div class="tour-header">
+        <div class="top-section">
+            <h2 class="tour-title">{{ tour.name }}</h2>
+            <div class="tags">
+                <span *ngFor="let tag of tour.tags" class="tag">#{{ tag }}</span>
+            </div>
+        </div>
+        <p class="tour-price">{{ tour.price }} AC</p>
+    </div>
+    <div class="tour-details">
+        <p class="subtitle">Information</p>
+        <div class="detail-row">
+            <div class="detail-label">Description:</div>
+            <div class="detail-value">{{ tour.description }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Difficulty Level:</div>
+            <div class="detail-value" [style.color]="getDemandColor(tour.demandignessLevel)">{{ tour.demandignessLevel }}</div>
+        </div>
+    </div>
+    <div class="tour-details" *ngIf="tour.equipment && tour.equipment.length > 0">
+        <p class="subtitle">Required Equipment</p>
+        <div class="equipment-list">
+            <div *ngFor="let e of tour.equipment" class="equipment-item">
+                <div class="detail-row">
+                    <div class="detail-label">Name:</div>
+                    <div class="detail-value">{{ e.name }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Description:</div>
+                    <div class="detail-value">{{ e.description }}</div>
+                </div>
+            </div>
             
-                <thead>
-                    <th >Name</th>
-                    <th >Description</th>
-                </thead>
-                
-                <tbody>
-                    <tr *ngFor="let e of tour.equipment">
-                        <td>{{e.name}}</td>
-                        <td>{{e.description}}</td>
-
-                    </tr>
-                </tbody>
-          
-    </table>
-    <br>
-    <p class="subtitle">Checkpoints</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Location</th>
-                <!-- <th>Required time</th> -->
-                <th>Picture</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of tour.checkpoints">
-                <td> {{c.name}} </td>
-                <td> {{c.description}}</td>
-                <td>{{c.latitude.toFixed(2)}}, {{c.longitude.toFixed(2)}}</td>
-                <!-- <td>{{(c.requiredTimeInSeconds/3600).toFixed(2)}}h {{(c.requiredTimeInSeconds%3600/60).toFixed(0)}}min</td> -->
-                <td class="cppi"><img [src]="c.pictures[0]" width="80px" height="90px"></td>
-
-                <!-- <td class="cpp">
-                    <div class="cardcp">
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Name:</span>{{c.name}}</span></div>
-                            <br>
-                            <div><span><span class="cps2">Description:</span>{{c.description}}</span></div>
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Longitude:</span>{{c.longitude}}</span></div>
-
-                            <br>
-                            <div><span><span class="cps2">Latitude:</span>{{c.latitude}}</span></div>
-                            <br>
-                        </span>
-                    </div>
-                  
-                </td>
-             
-                <td class="cppi"><img [src]="c.pictures[0]" width="80px" height="90px"></td> -->
-            </tr>
-        </tbody>
-  
-    </table>
-
-    <!-- <div class="mapa">
-        <xp-map></xp-map>
-        <br>
-    </div>
-    -->
-
-
-<!-- <p class="subtitle">Ratings</p>
-<div>
-    <table>
-        <tbody>
-            <tr *ngFor="let e of tour.tourRating" >
-                <td class="cpp">
-                    <div class="cardcp">
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
-                            <br>
-                            <div><span><span class="cps2">Rating:</span>{{e.rating}}</span></div>
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Creation Date:</span>{{e.creationDate}}</span></div>
-                        </span>
-                    </div>
-                  
-                </td>
-            </tr>
-        </tbody>
-  
-</table>
-</div> -->
-    <div class="routingButton">
-        <div>
-            <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
-        </div>
-        <div>
-            <button mat-raised-button class="navButton" (click)="tourExecution()">Take a tour</button>     
         </div>
     </div>
+    <div class="tour-details">
+        <p class="subtitle">Checkpoints</p>
+        <div class="checkpoint-list">
+            <div *ngFor="let c of tour.checkpoints" class="checkpoint-card">
+                <div class="details">
+                    <div class="detail-row">
+                        <div class="check-point-name">{{ c.name }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Description:</div>
+                        <div class="detail-value">{{ c.description }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Location:</div>
+                        <div class="detail-value">{{ c.latitude.toFixed(2) }}, {{ c.longitude.toFixed(2) }}</div>
+                    </div>
+                </div>
+                <div class="picture-container">
+                    <img [src]="c.pictures[0]" width="80px" height="90px" alt="Checkpoint Image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="routing-button">
+        <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
+        <button mat-raised-button class="navButton" (click)="tourExecution()">Take a Tour</button>
+    </div>
+</div>

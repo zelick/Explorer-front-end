@@ -10,7 +10,6 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 
-
 @Component({
   selector: 'xp-purchased-tours-details',
   templateUrl: './purchased-tours-details.component.html',
@@ -57,6 +56,19 @@ export class PurchasedToursDetailsComponent implements OnInit{
     }
 
     onBack():void{
-        this.router.navigate([`purchased-tours`]);
+        this.router.navigate([`/my-profile/purchased-tours`]);
     }
+
+    getDemandColor(demandLevel: string): string {
+        switch (demandLevel.toLowerCase()) {
+          case 'easy':
+            return 'green';
+          case 'medium':
+            return 'orange';
+          case 'hard':
+            return 'red';
+          default:
+            return 'black';
+        }
+      }
 }
