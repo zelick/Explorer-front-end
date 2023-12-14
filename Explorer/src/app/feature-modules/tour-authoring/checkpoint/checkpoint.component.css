@@ -9,7 +9,7 @@ table {
 }
 
 thead tr {
-    background-color: #3B846B;
+    background-color: #E67840;
     color: #ffffff;
     text-align: left;
 }
@@ -59,9 +59,9 @@ tbody tr.active-row {
 
 .transportation-div{
     margin: auto;
-    margin-right: 0 auto;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-right: 100px;
+    margin-left:120px;
 }
 .button-table{
     width: auto;
@@ -72,7 +72,7 @@ tbody tr.active-row {
     width: 100px;
     font-size: 100%; 
     color:#fff;
-    background-color: #3B846B;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
@@ -97,18 +97,18 @@ tbody tr.active-row {
 
 .buttonAdd{
     width: auto;
-    margin-left: 100px;
+    margin-left: 60px;
     margin-bottom: 10px;
-    margin-top: 50px;
+    margin-top: 40px;
     padding: 0px 10px;
-    width: 150px;
+    width: 250px;
     height: 60px;
-    font-size: 100%; 
+    font-size: 150%; 
     color:#fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 50px;
-    font-size:2vh;
+    font-size:20px;
     cursor: pointer;
 }
 .button-route{
