@@ -4,6 +4,41 @@
     flex-direction: column; 
 }
 
+#tour {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #253B34;
+    height: 100%;
+}
+
+.tours-heading{
+    font-size: 36px;
+    color:#E67840;
+    font-weight: 600;
+    margin-top: 6vh;
+    margin-bottom: 1vh;
+}
+
+.cards-container {
+    display: flex;
+    padding-top: 4vh;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 80%;
+    height: 70vh;
+}
+
+.left-card {
+    flex: 62;
+    height: auto;
+}
+
+.right-card{
+    flex: 38;
+    height: auto;
+}
+
 .tourName {
     font-size: x-large;
     color: white;
@@ -78,26 +113,12 @@ tbody tr.active-row {
   border-radius: 5px;
 }
 
-.tours-heading{
-    justify-content: left;
-    font-size: 36px;
-    color:#E67840;
-    font-weight: 600;
-    margin-top: 6vh;
-    margin-left: 2vh;
-    margin-bottom: 1vh;
-    display: flex;
-    align-items: center;
-}
-
 .wallet-heading {
-    justify-content: left;
+    justify-content: right;
+    margin-right: 5vh;
     font-size: 28px;
     color: #3B846B;
-    font-weight: bold;
-    margin-top: 6vh;
-    margin-left: 2vh;
-    margin-bottom: 1vh;
+    font-weight: 500;
     display: flex;
     align-items: center;
 }
@@ -114,4 +135,16 @@ tbody tr.active-row {
 
 mat-form-field {
     width: fit-content;
+}
+
+.total{
+    font-size: 38px;
+    font-weight: 500;
+    color: #E67840;
+    margin-left: 5vh;
+    margin-top: 3vh;
+}
+
+hr{
+    margin: 5vh;
 }
