@@ -5,9 +5,8 @@
            class="user-image">
            <div class="profile-details-section">
               <div class="profile-details">
-                  <h6 class="user-name">{{profileInfoForm.get('name')?.value }}  {{profileInfoForm.get('surname')?.value }}</h6>
+                  <h6 class="user-name" *ngIf="currentUser !== undefined">{{currentUser.name}}  {{currentUser.surname}}</h6>
                   <p class="user-role">Tourist</p>
-
                   <!-- <div class="xp_level_items">
                     <p  class="user-name">Level:</p>
                     <p class="user-role">10</p>
@@ -25,15 +24,15 @@
     <div class="information-row">
         <div class="information-column">
             <p class="information-label">Email:</p>
-            <h4 class="information-value">{{profileInfoForm.get('email')?.value }}</h4>
+            <h4 class="information-value" *ngIf="currentUser !== undefined" >{{currentUser.email}}</h4>
         </div>
         <div class="information-column">
             <p class="information-label">Biography:</p>
-            <h4 class="information-value">{{profileInfoForm.get('biography')?.value }}</h4>
+            <h4 class="information-value" *ngIf="currentUser !== undefined">{{ currentUser.biography }}</h4>
         </div>
         <div class="information-column">
           <p class="information-label">Motto:</p>
-          <h4 class="information-value">{{profileInfoForm.get('motto')?.value }}</h4>
+          <h4 class="information-value"  *ngIf="currentUser !== undefined">{{ currentUser.motto}}</h4>
       </div>
       <div class="button-column">
         <button class="custom-button" (click)="startEditing()">Edit profile
@@ -47,7 +46,6 @@
 
 <form [formGroup]="profileInfoForm" (ngSubmit)="edit()">
     <div class="edit_form" *ngIf="showForm">
-
       <div class="edit_form_row">
         <mat-form-field>
           <mat-label>Name</mat-label>
@@ -86,7 +84,6 @@
           <button class="button" *ngIf="isEditing" color="primary" mat-raised-button (click)="saveChanges()">Save changes</button>
         </div>
       </div>  
-
     </div>
 </form>
   

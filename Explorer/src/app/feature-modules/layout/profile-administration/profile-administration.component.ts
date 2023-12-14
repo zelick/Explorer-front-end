@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProfileInfo } from '../model/profileInfo.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -23,6 +23,8 @@ export class ProfileAdministrationComponent implements OnInit{
 
   isEditing = true;
   showForm = false;
+  @Input() currentUser: ProfileInfo;
+ //currentUser: ProfileInfo;
 
   startEditing() {
     this.isEditing = true; //ovo izbaci u html-u
@@ -30,9 +32,11 @@ export class ProfileAdministrationComponent implements OnInit{
   }
 
   saveChanges() {
-    if (this.profileInfoForm.valid) {
+    //console.log("ne radi")
+    //console.log(this.profileInfoForm.valid)
+    /*if (this.profileInfoForm.valid) {
       this.isEditing = false; 
-    }
+    }*/
     this.edit()
     this.showForm = false;
   }
@@ -49,6 +53,8 @@ export class ProfileAdministrationComponent implements OnInit{
         biography: user.biography,
         motto: user.motto,
       });
+      this.currentUser = user;
+      console.log(this.currentUser);
       this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
     });
   }
@@ -108,11 +114,13 @@ export class ProfileAdministrationComponent implements OnInit{
         }
       });
 
-    if (this.profileInfoForm.valid) {
+    
+    if (this.profileInfoForm.valid == false) {
+      this.currentUser = profileInfo;
       this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
         next: () => {
           //this.router.navigate(['home']);
-          this.showForm = false;
+          //window.location.reload(); //ucitaj ponovo stranicu refresh
         },
       });
     }
