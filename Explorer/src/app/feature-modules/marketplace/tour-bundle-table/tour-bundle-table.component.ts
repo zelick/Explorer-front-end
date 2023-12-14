@@ -6,6 +6,8 @@ import { ItemType, OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 @Component({
   selector: 'xp-tour-bundle-table',
@@ -25,7 +27,7 @@ export class TourBundleTableComponent implements OnInit {
   tourBundleId: number | undefined = undefined;
   user: User;
 
-  constructor(private service: MarketplaceService, private authService: AuthService) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadTourBundles();
@@ -43,6 +45,25 @@ export class TourBundleTableComponent implements OnInit {
     });
   }
 
+  priceSum(tourBundle: TourBundle){
+    var sum = 0;
+    if(!tourBundle.tours){
+      return sum;
+    }
+    for(let tour of tourBundle.tours){
+      sum += tour.price;
+    }
+    return sum;
+  }
+  averageGrade(tour: Tour){
+    var sum = 0;
+    var count = 0;
+    for(let g of tour.tourRatings){
+      sum += g.rating;
+      count ++;
+    }
+    return parseFloat((sum/count).toFixed(1)).toFixed(1);
+  }
   private handleTourBundleLoad(result: any): void {
     this.tourBundles = result.results;
     this.totalTourBundles = result.totalCount;
@@ -99,5 +120,10 @@ export class TourBundleTableComponent implements OnInit {
       return this.userCart.items.some(item => item.itemId === tourBundleId);
     }
     return false;
+  }
+  selectTour(tour:Tour){
+    if(tour.id){
+      this.router.navigate(['/tour-overview-details', tour.id]);
+    }
   }
 }
