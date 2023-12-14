@@ -11,6 +11,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourRating } from '../model/tour-rating.model';
 import { Sale } from '../model/sale.model';
+import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 
 @Component({
   selector: 'xp-tour-overview-details',
@@ -36,6 +37,7 @@ export class TourOverviewDetailsComponent implements OnInit {
   location: string;
   tours: TourPreview[] = [];
   isTourOnSale: boolean = false;
+  purchasedTours: PurchasedTourPreview[] = [];
 
   constructor(private service: MarketplaceService,
     private activatedRoute: ActivatedRoute,
@@ -54,6 +56,11 @@ export class TourOverviewDetailsComponent implements OnInit {
         this.tourID = params['id'];
         this.getPublishedTour(this.tourID);
         this.findShoppingCart();
+      });
+
+      this.service.getTouristsPurchasedTours(this.user.id).subscribe((purchasedTours) => {
+        this.isTourInCart = this.isTourPurchased(purchasedTours);
+        this.buttonColor = this.isTourInCart ? 'gray' : 'orange';
       });
 
       this.service.getAverageRating(this.tourID).subscribe(
@@ -134,6 +141,10 @@ export class TourOverviewDetailsComponent implements OnInit {
     });
   }
 
+  isTourPurchased(purchasedTours: PurchasedTourPreview[]): boolean {
+    return purchasedTours.some(tour => tour.id.toString() === this.tourID.toString());
+  }
+
   getPublishedTour(id: number): void {
     this.service.getPublishedTour(id).subscribe((result: TourPreview) => {
       this.tour = result;
@@ -185,7 +196,6 @@ export class TourOverviewDetailsComponent implements OnInit {
     this.router.navigate(['/tour-rating-edit-form', rating.id]);
   }
 
-  // TODO add check if the tourist owns it already
   checkIsTourInCart(): boolean {
     if (this.userCart.items.length > 0) {
       return this.userCart.items.some(item => item.itemId == this.tourID);

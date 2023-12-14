@@ -13,8 +13,8 @@
                     </div>
                     <div>
                         <button mat-raised-button class="shop-button" (click)="onAddToCart(tourBundle)"
-                            [disabled]="isBundleInCart(tourBundle.id || 0)"
-                            [ngStyle]="{'background-color': isBundleInCart(tourBundle.id || 0) ? 'gray' : '#E67840'}"> Add
+                            [disabled]="areAllToursInBundlePurchased(tourBundle) ||isBundleInCart(tourBundle.id || 0)"
+                            [ngStyle]="{'background-color': areAllToursInBundlePurchased(tourBundle) ||isBundleInCart(tourBundle.id || 0) ? 'gray' : '#E67840'}"> Add
                             to cart       🛒 </button>
                     </div>
                 </div>
