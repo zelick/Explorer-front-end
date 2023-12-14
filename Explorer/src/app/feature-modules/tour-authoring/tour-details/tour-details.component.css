@@ -117,7 +117,7 @@ td{
     font-weight: 500;
 }
 .cardcp{
-    width: 680px;
+    width: 733px;
     display:flex;
     column-gap: 50px;
     flex-direction: row;
@@ -348,7 +348,7 @@ textarea {
     width: 120px;
     font-size: 100%; 
     color:#fff;
-    background-color:#6ea628;
+    background-color:#E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: hand;
@@ -356,7 +356,7 @@ textarea {
 
 .infodiv{
     margin-left: -400px;
-    width: 1400px;
+    width: 1500px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
