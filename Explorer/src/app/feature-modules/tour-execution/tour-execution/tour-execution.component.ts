@@ -16,10 +16,12 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
 import { Encounter } from '../../encounters/model/encounter.model';
 import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
-
+import { ForecastPopupComponent } from '../../marketplace/forecast-popup/forecast-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SecretDialogComponent } from '../secret-dialog/secret-dialog.component';
 import { EncounterDialogComponent } from '../encounter-dialog/encounter-dialog.component';
+import { AbandonDialogComponent } from '../abandon-dialog/abandon-dialog.component';
+import { CompletedEncounterComponent } from '../completed-encounter/completed-encounter.component';
 
 @Injectable({
   providedIn: 'root'
@@ -171,6 +173,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     if(this.encounterExecutions.find(n => n.encounterDto.type == 'Social'))
               {
                 this.service.checkIfInRange(this.tourId, this.availableEncounterExecution.id, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
+                  if(result.status == 'Completed' && this.availableEncounterExecution.status != 'Completed')
+                  {
+                    this.dialog.open(CompletedEncounterComponent, {
+                      data: this.availableEncounter 
+                    });
+                  }
                   this.availableEncounterExecution = result;
                   this.availableEncounter = this.availableEncounterExecution.encounterDto;
                   this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
@@ -180,6 +188,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
                       e = result;
                     }
                   });
+                  
                  //this.changeDetection.detectChanges();
                 });
               }
@@ -231,16 +240,43 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   abandon(): void{
-    this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
-      this.tourExecution = result;
-      this.tour = result.tour;
-      this.findCheckpoints();
-      if(this.tourExecution.executionStatus == 'Abandoned'){
+    // this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
+    //   this.tourExecution = result;
+    //   this.tour = result.tour;
+    //   this.findCheckpoints();
+    //   if(this.tourExecution.executionStatus == 'Abandoned'){
 
-      }else{
+    //   }else{
         
+    //   }
+    // })
+    this.dialog.open(AbandonDialogComponent, {
+      data: this.tourExecution
+    });
+  }
+
+  ShowPopup():void{
+    if(this.tourExecution.tour.checkpoints.length > 0 ){
+
+      var result={
+        lat: this.tourExecution.tour.checkpoints[0].latitude,
+        lon: this.tourExecution.tour.checkpoints[0].longitude,
       }
-    })
+      if(this.oldPosition != undefined)
+      {
+        result={
+          lat: this.oldPosition.latitude,
+          lon: this.oldPosition.longitude,
+        }
+      }
+      this.dialog.open(ForecastPopupComponent, {
+        data: result,
+         width: '500px',
+         height:'520px',
+         panelClass: 'custom-dialog',
+       });
+       console.log(result);
+    }
   }
 
   ngOnDestroy() {
@@ -334,6 +370,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.completeEncounter(this.availableEncounterExecution.id)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
+      this.dialog.open(CompletedEncounterComponent, {
+        data: this.availableEncounter 
+      });
       this.changeDetection.detectChanges();
     });
   }

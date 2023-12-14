@@ -1,0 +1,28 @@
+#encounter-popup {
+    font-family: 'Poppins', sans-serif;
+    height: 50%;
+    min-width: 200px;
+    background: #B6D4AF;
+}
+.encounter-title{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: 60px;
+}
+
+.emoji{
+    font-size: 60px;
+    margin-left: 110px;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 40px;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}

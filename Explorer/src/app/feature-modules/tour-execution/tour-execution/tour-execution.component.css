@@ -32,6 +32,52 @@
     height: 100%;
 }
 
+/* buttons div */
+.button-div{
+    width: 29%;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 4lvh;
+    margin-top: 1vh;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.forecastButton{
+    margin-left: 130px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-right: 50px;
+    padding: 0px 10px;
+    width: 150px;
+    height: 50px;
+    font-size: 100%;  
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+}
+.buttonAbandon{
+    width: auto;
+    margin-left: 130px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-right: 50px;
+    padding: 0px 10px;
+    width: 150px;
+    height: 50px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+}
+
 /* simulator - left div */
 .left-div {
     height: 600px;
@@ -440,23 +486,6 @@ textarea {
     width: 400px;
     height: 200px;
     overflow: scroll;
-}
-
-.buttonAbandon{
-    width: auto;
-    margin-left: 50px;
-    margin-bottom: 10px;
-    margin-top: 50px;
-    margin-right: 50px;
-    padding: 0px 10px;
-    width: 150px;
-    height: 60px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 50px;
-    cursor: pointer;
 }
 
 

@@ -8,6 +8,8 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { PrivateTourExecutionComponent } from './private-tour-execution/private-tour-execution.component';
 import { SecretDialogComponent } from './secret-dialog/secret-dialog.component';
 import { EncounterDialogComponent } from './encounter-dialog/encounter-dialog.component';
+import { AbandonDialogComponent } from './abandon-dialog/abandon-dialog.component';
+import { CompletedEncounterComponent } from './completed-encounter/completed-encounter.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { EncounterDialogComponent } from './encounter-dialog/encounter-dialog.co
     PrivateTourExecutionComponent, 
     SimulatorComponent,
     SecretDialogComponent,
-    EncounterDialogComponent
+    EncounterDialogComponent,
+    AbandonDialogComponent,
+    CompletedEncounterComponent
     ],
   imports: [
     CommonModule,

@@ -5,9 +5,17 @@
             <label class="tour-info-label">Difficulty: {{tour.demandignessLevel}}</label><br>
             <label class="tour-info-label">Description: {{tour.description}} </label><br>
         </div>
-        <button (click)="abandon()" class="buttonAbandon">
-            Abandon ❌
-        </button>
+        <div class="button-div">
+            <div>
+                <button (click)="abandon()" class="buttonAbandon">
+                    Leave tour 🏃
+                </button>
+                <button class="buttonAbandon">
+                    Report an Issue 🚩
+                </button>
+            </div>
+            <button mat-raised-button class="forecastButton" (click)="ShowPopup()" >Weather forecast☀️</button>
+        </div>
     </div>
 
     <div class="content">
