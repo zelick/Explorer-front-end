@@ -73,6 +73,10 @@ getTopRatedBlogs(count: number): Observable<BlogPost[]>{
   return this.http.get<BlogPost[]>(environment.apiHost + 'langing-page/top-rated-blogs/' + count);
 }
 
+checkRatingExistence( personId: number): Observable<boolean> {
+  return this.http.get<boolean>(environment.apiHost + 'langing-page/app-rating-exists/' + personId);
+}
+
 
   
 }

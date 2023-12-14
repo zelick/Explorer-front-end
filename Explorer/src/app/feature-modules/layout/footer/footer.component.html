@@ -27,7 +27,7 @@
         <div class="column">
             <label class="subtitle">Usefull links</label>
             <ul>
-                <li><a href="/application-grade">Rate the app</a></li>
+                <li *ngIf="!ratingExists"><a href="/application-grade">Rate the app</a></li>
                 <li><a href="/home">Help</a></li>
                 <li><a href="/my-profile/reporting-issues">Report an issue</a></li>
                 <li><a href="/home">FAQs</a></li>                
