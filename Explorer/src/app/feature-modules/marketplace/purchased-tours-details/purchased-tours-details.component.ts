@@ -56,7 +56,7 @@ export class PurchasedToursDetailsComponent implements OnInit{
     }
 
     onBack():void{
-        this.router.navigate([`purchased-tours`]);
+        this.router.navigate([`/my-profile/purchased-tours`]);
     }
 
     getDemandColor(demandLevel: string): string {
