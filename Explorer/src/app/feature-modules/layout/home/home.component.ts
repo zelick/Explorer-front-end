@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import { TourPreview } from '../../marketplace/model/tour-preview';
 import { LocationResponse } from 'src/app/shared/model/location-response';
 import { LayoutService } from '../layout.service';
@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit{
   console.log(this.searchLocation);
 
   this.foundTours = []; // Resetovanje foundTours pre svakog pretrage
+  this.scroll();
 
   const observables = this.allTours.map(tour =>
     this.getPlaceInfo(tour.checkpoint.latitude, tour.checkpoint.longitude)
@@ -110,6 +111,22 @@ export class HomeComponent implements OnInit{
     this.findToursLocation();
 
     //console.log('NADJENE TURE:' + JSON.stringify(this.foundTours));
+  });
+}
+
+scroll(): void {
+  const element = document.getElementsByClassName('content')[0];
+  var add = window.scrollY + 700;
+
+  if (element) {
+    const rect = element.getBoundingClientRect();
+    add = rect.top;
+    console.log('OVO JE RECT TOP ' + rect.top);
+  }
+
+  window.scrollTo({
+    top: add,
+    behavior: 'smooth'
   });
 }
 
