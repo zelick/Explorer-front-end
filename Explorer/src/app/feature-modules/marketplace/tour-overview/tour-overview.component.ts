@@ -145,9 +145,9 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   addMapObjectsOnMap(): void{
     if(this.mapObjects)
     {
-      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description, picture: this.mapObjects[0].pictureURL}];
       this.mapObjects.forEach(e => {
-          coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
+          coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description, picture:e.pictureURL});
       });
       this.mapComponent.addMapObjects(coords);
     }

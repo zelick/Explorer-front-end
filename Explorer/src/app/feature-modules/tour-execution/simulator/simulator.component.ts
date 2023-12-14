@@ -65,11 +65,11 @@ export class SimulatorComponent implements OnInit {
     this.searchByCoord(event.lat, event.lon);
   }
 
-  addCheckpoint(coords: [{lat: number, lon: number, name: string, desc: string}], profile: string): void{
+  addCheckpoint(coords: [{lat: number, lon: number, name: string, desc: string, picture: string}], profile: string): void{
     this.mapComponent.setRouteWithInfo(coords, profile);
 
   }
-  addMapObjects(coords: [{lat: number, lon: number, category: string, name: string, desc: string}]): void{
+  addMapObjects(coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}]): void{
     this.mapComponent.addMapObjects(coords);
   }
 

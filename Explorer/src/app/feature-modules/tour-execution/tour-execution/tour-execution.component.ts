@@ -121,6 +121,13 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             this.service.getEncounters(this.tourId, this.simulatorComponent.selectedPosition.longitude, this.simulatorComponent.selectedPosition.latitude).subscribe(result => {
               this.availableEncounterExecution = result;
               this.availableEncounter = this.availableEncounterExecution.encounterDto; 
+              if(this.encounterExecutions && !this.encounterExecutions.find(e => e.id == result.id))
+                this.encounterExecutions.push(result);
+
+              if(this.availableEncounter && this.availableEncounter.type == 'Social')
+              {
+                this.currentlyPeopleOnSocialEncounter = this.availableEncounter.activeTouristsIds?.length || 0;
+              }
             });
           this.findCheckpoints();
         });
@@ -131,7 +138,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     if(this.availableEncounter)
     {
       this.checkSocialEncounterStatus();
-      this.checkHiddenLocationEncounterStatus();
+      //this.checkHiddenLocationEncounterStatus();
     }
       
     console.log("Check position");
@@ -146,10 +153,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   addCheckpointsOnMap(): void{
     if(this.tour.checkpoints)
     {
-      let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description}];
+      let coords: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description, picture: this.tour.checkpoints[0].pictures[0]}];
       this.tour.checkpoints.forEach(e => {
           if(e != this.tour.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures[0]});
       });
       if(this.tour.tourTimes != undefined)
       {
@@ -173,7 +180,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
                       e = result;
                     }
                   });
-                  this.changeDetection.detectChanges();
+                 //this.changeDetection.detectChanges();
                 });
               }
   }
@@ -198,12 +205,12 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   addMapObjectsOnMap(): void{
     if(this.mapObjects)
     {
-      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description, picture: this.mapObjects[0].pictureURL}];
       this.mapObjects.forEach(e => {
           if(e != this.mapObjects[0])
             if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
             && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
-            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
+            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description, picture:e.pictureURL});
       });
       this.simulatorComponent.addMapObjects(coords);
     }
@@ -228,6 +235,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.tourExecution = result;
       this.tour = result.tour;
       this.findCheckpoints();
+      if(this.tourExecution.executionStatus == 'Abandoned'){
+
+      }else{
+        
+      }
     })
   }
 
@@ -314,6 +326,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
+      this.changeDetection.detectChanges();
     });
   }
 
@@ -321,6 +334,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.completeEncounter(this.availableEncounterExecution.id)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
+      this.changeDetection.detectChanges();
     });
   }
 
