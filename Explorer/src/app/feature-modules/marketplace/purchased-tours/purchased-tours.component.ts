@@ -4,6 +4,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { MarketplaceService } from '../marketplace.service';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 import { Router } from '@angular/router';
+import { TourRatingPreview } from "../../marketplace/model/tour-rating-preview";
 
 @Component({
   selector: 'xp-purchased-tours',
@@ -46,5 +47,14 @@ export class PurchasedToursComponent implements OnInit {
       default:
         return 'black';
     }
+  }
+
+  calculateAverageRating(ratings: TourRatingPreview[]): number {
+    if (!ratings || ratings.length === 0) {
+      return 0;
+    }
+  
+    const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    return totalRating / ratings.length;
   }
 }

@@ -1,17 +1,31 @@
-<div class="purchased-tours-heading">Your Purchases</div>
+<div class="purchased-tours-heading">
+    Your Purchases
+</div>
 <div id="tour" class="tours-container">
     <div class="tour-cards-container">
         <article class="tour-card" *ngFor="let t of purchasedTours" (click)="openDetails(t)">
             <div class="tour-info">
-                <h2 class="tour-name">{{ t.name }}</h2>
-                <p class="tour-description">{{ t.description }}</p>
-                <div class="tour-demand-wrapper">
-                    <span class="demand-label">Demandigness Level: </span>
-                    <span class="tour-demand" [style.color]="getDemandColor(t.demandignessLevel)">
-                        {{ t.demandignessLevel }}
-                    </span>
+                <div class="tour-image">
+                    <div class="price-box">
+                        <p class="tour-price">{{ t.price }} AC</p>
+                    </div>
+                    <div class="rating-container">
+                        <p class="tour-rating">{{ calculateAverageRating(t.tourRatings) }}</p>
+                    </div>
+                    <img *ngIf="t.checkpoints && t.checkpoints.length > 0 && t.checkpoints[0].pictures.length > 0" [src]="t.checkpoints[0].pictures[0]" alt="Checkpoint Image" class="checkpoint-image">
                 </div>
-                <p class="tour-price">Total: {{ t.price }} AC</p>
+                <div class="tour-details">
+                    <div class="tour-header">
+                        <h2 class="tour-name">{{ t.name }}</h2>
+                    </div>
+                    <p class="tour-description">{{ t.description }}</p>
+                    <div class="tour-demand-wrapper">
+                        <span class="demand-label">Difficulty Level: </span>
+                        <span class="tour-demand" [style.color]="getDemandColor(t.demandignessLevel)">
+                            {{ t.demandignessLevel }}
+                        </span>
+                    </div>
+                </div>
             </div>
         </article>
     </div>
