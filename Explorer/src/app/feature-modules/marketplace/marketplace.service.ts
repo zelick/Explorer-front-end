@@ -258,4 +258,8 @@ export class MarketplaceService {
     return this.http.delete<Coupon>(environment.apiHost + 'manipulation/coupon/delete/' + couponId);
   }
 
+  getByCode(couponText: string): Observable<Coupon>{
+    return this.http.get<Coupon>(environment.apiHost + 'shopping/shopping-cart/get-by-code/'+ couponText);
+  }
+
 }

@@ -7,6 +7,8 @@ import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Injectable } from '@angular/core';
 import { TouristWallet } from '../model/tourist-wallet.model';
+import { Coupon } from '../model/coupon.model';
+import { TourPreview } from '../model/tour-preview';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +26,8 @@ export class ShoppingCartComponent implements OnInit{
   cartItemCount : number;
   adventureCoins: number;
   coupon: string;
+  coup: Coupon;
+  toursImages: string[] = []; // Just first pictures
 
   constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
 
@@ -34,11 +38,25 @@ export class ShoppingCartComponent implements OnInit{
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-          this.getAdventureCoins()
+          this.getAdventureCoins();
+  
+          const fetchImagePromises = this.orderItems.map(item =>
+            this.service.getPublishedTour(item.itemId).toPromise()
+              .then((result: any) => result.checkpoint.pictures[0])
+              .catch(error => {
+                console.log('Error occurred while fetching tours: ' + error);
+                return null;
+              })
+          );
+  
+          Promise.all(fetchImagePromises).then(tourImages => {
+            this.toursImages = tourImages;
+          });
         },
       });
     });
   }
+  
 
   getAdventureCoins(): void {
     this.service.getAdventureCoins(this.user.id).subscribe({
@@ -48,8 +66,30 @@ export class ShoppingCartComponent implements OnInit{
     });
   }
   
-  calculateTotalPrice(): number {
+  calculateTotalPrice(){
+    if(this.coup){
+      return this.calculateSubtotalPrice() - this.calculateDiscount();
+    }
+    return this.calculateSubtotalPrice();
+  }
+
+  calculateSubtotalPrice(): number {
     return this.orderItems.reduce((total, item) => total + item.price, 0);
+  }
+
+  calculateDiscount(): number{
+    return this.calculateSubtotalPrice()*(this.coup.discountPercentage/100);
+  }
+
+  applyCoupon(){
+    this.service.getByCode(this.coupon).subscribe(
+      (result)=>{
+        this.coup = result;
+      },
+      (error)=>{
+        console.log('Error: ' + error);
+      }
+    )
   }
 
   checkout() {    
