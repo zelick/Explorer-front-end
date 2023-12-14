@@ -1,8 +1,8 @@
 
 p{
     margin: 0 auto;
-    font-size: 4vh;
-  color:#E67840;
+    font-size: 5vh;
+  color:white;
   padding: 1% 2.5%; 
 }
 select{
@@ -11,6 +11,7 @@ select{
     background-color: #f3f3f3;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     margin-left: 100px;
+    
 }
 
 #encounter-form{
@@ -19,22 +20,29 @@ select{
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
+    background-color:#B6D4AF;
+    border-radius:20px;
+    margin-top:40px;
+    padding-left:40px;
+    padding-right: 40px;
 }
 
 mat-form-field{
+    margin-top:10px;
     width:400px
 }
 
 .type{
     font-size: 2vh;
-    color:#E67840;
+    color:white;
     font-style: bold;
+    font-weight:bold;
     margin-top: 10px;
 }
 
 .button{
     width: auto;
-    margin-left: 180px;
+    margin-left: 130px;
     margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
@@ -60,8 +68,18 @@ mat-form-field{
     cursor: pointer;
 }
 
+.preview-text {
+    color: white; /* Changing text color to white */
+    /* Additional styling as needed */
+}
 
 
 .map{
     width: 400px;
 }
+
+.image-container{
+    margin-top:5px;
+    
+}
+

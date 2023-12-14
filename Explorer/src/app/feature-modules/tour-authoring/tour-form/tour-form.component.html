@@ -1,10 +1,9 @@
 <div id="tour-form">
-    <br>
-    <br>
-    <p>Create tour</p>
-    <br>
 <form [formGroup]="tourForm">
     <div>
+        <br>
+        <p class="para-t">Create tour</p>
+        <br>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text"/>
@@ -18,9 +17,9 @@
           cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         <div class="routingButton">
-                <p class="demandignessLevel">Demandigness level</p>
+                <p class="demandignessLevel">Difficulty:</p>
 
-                <select formControlName="demandignessLevel">
+                <select formControlName="demandignessLevel" class="difficulty-select">
                     <option  value="Easy" >Easy</option>
                     <option  value="Medium">Medium</option>
                     <option  value="Hard">Hard</option>
@@ -44,7 +43,7 @@
             <table>
                 <tr *ngFor="let t of tags">    
                     
-                       <td>{{t}}</td>
+                       <td class="bigger-tag">{{t}}</td>
                        
                        <td><button id="tag" class="buttonPlus"  (click)="removeTag(t)" mat-raised-button>-</button></td>
                        

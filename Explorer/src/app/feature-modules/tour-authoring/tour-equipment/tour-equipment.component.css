@@ -1,14 +1,18 @@
 p{
     margin: 0 auto;
     font-size: 4vh;
-  color:#E67840;
+  color:white;
   padding: 1% 2.5%; 
   
 }
+.title{
+    font-weight:bold;
+}
 
 .subtitle{
-    font-size: 2vh;
-  color:#E67840;
+    font-size: 3vh;
+    font-weight: bold;
+  color:white;
   font-style: bold;
 
 }
@@ -16,11 +20,12 @@ p{
     width: auto;
     margin-left: 10px;
     margin-bottom: 15px;
-    padding: 0px 10px;
+    padding: 0px 90px;
+    margin-left:40px;
     width: 120px;
     font-size: 100%; 
     color:#fff;
-    background-color: #E67840;
+    background-color: #3B846B;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
@@ -30,16 +35,20 @@ th{
     width: 150px;
     text-align: center;
     background-color: #E67840;
-    color: white;
+    color: #ffffff;
 }
 
 td{
     width: 150px;
     text-align: center;
+    color:white;
+    background-color: #3B846B
 }
 
 .equipment-details-table{
     width: 400x;
+    border-color:red;
+    border-width: 3px;
 }
 
 .routingButton{
@@ -51,29 +60,34 @@ td{
 }
 
 div {
-    width: 400px;
+    width: 500px;
     display:flex;
     gap: 20px;
     flex-direction: column;
+    background-color:#B6D4AF;
+    border-radius:20px;
 }
 
 #equipment-div{
-    width: 400px;
-    display:flex;
+    width: 500px;
+    border-radius:20px;
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
+    
+    margin-top:40px;
+    background-color:#B6D4AF;
 }
 
 .buttonPlus{
     width: auto;
     
     margin-top: 10px;
-    
+    margin-bottom: 5px;
     width: 15px;
-    font-size: 100%; 
+    font-size: 200%; 
     color:#fff;
-    background-color: #3B846B;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;

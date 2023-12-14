@@ -78,7 +78,7 @@
 
             <span class="type">Image:</span>
             <br>
-            <input type="file" (change)="onImageSelected($event)" id="fileInput"/>
+            <input type="file" title="" (change)="onImageSelected($event)" id="fileInput"/>
 
             <div class="image-container" *ngIf="imagePreview.length > 0">
                 <img *ngFor="let image of imagePreview" [src]="image" alt="Image"

@@ -2,52 +2,53 @@
 <div >
     <br>
     <br>
-<p>Manage tour equipment</p>
+<p class="title">Manage tour equipment</p>
 <br>
 
     <p class="subtitle">Added eqipment</p>
-    <table class="equipment-details-table">
-        <div id="table-equipment-div">
-            <thead>
-                <th class="equipment-th">Name</th>
-                <th class="equipment-th">Description</th>
-                <th class="equipment-th"></th>
-            </thead>
-            
-            <tbody>
-                <tr *ngFor="let e of tour.equipment">
-                    <td>{{e.name}}</td>
-                    <td>{{e.description}}</td>
-                    <td>
-                        <button class="buttonPlus" (click)="removeEquipment(tour.id, e.id)" mat-raised-button>-</button>
-                    </td>
-                </tr>
-            </tbody>
-        </div>
-    </table>
+<table class="equipment-details-table" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr>
+            <th class="equipment-th" style="border: 1px solid white;">Name</th>
+            <th class="equipment-th" style="border: 1px solid white;">Description</th>
+            <th class="equipment-th" style="border: 1px solid white;">Remove</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let e of tour.equipment" style="border: 1px solid white;">
+            <td style="border: 1px solid white;">{{e.name}}</td>
+            <td style="border: 1px solid white;">{{e.description}}</td>
+            <td style="border: 1px solid white;">
+                <button class="buttonPlus" (click)="removeEquipment(tour.id, e.id)" mat-raised-button>-</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 </div>
 
 <!-- Available equipments -->
 <div id="equipment-div">
 <p class="subtitle">Available equipment</p>
-    <table id="equipment-details-table">
-        <div id="table-equipment-div" >
-            <thead>
-                <th class="equipment-th">Name</th>
-                <th class="equipment-th">Description</th>
-                <th class="equipment-th"></th>
-            </thead>
-            
-            <tbody>
-                <tr *ngFor="let e of availableEquipment">
-                    <td>{{e.name}}</td>
-                    <td>{{e.description}}</td>
-                    <td>
-                        <button class="buttonPlus" (click)="addEquipment(tour.id, e.id)" mat-raised-button>+</button>
-                    </td>
-                </tr>
-            </tbody>
-        </div>
+<div id="table-equipment-div">
+    <table id="equipment-details-table" style="border-collapse: collapse; width: 100%; border: 1px solid white;">
+        <thead>
+            <tr>
+                <th class="equipment-th" style="border: 1px solid white;">Name</th>
+                <th class="equipment-th" style="border: 1px solid white;">Description</th>
+                <th class="equipment-th" style="border: 1px solid white;">Add</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let e of availableEquipment" style="border: 1px solid white;">
+                <td style="border: 1px solid white;">{{e.name}}</td>
+                <td style="border: 1px solid white;">{{e.description}}</td>
+                <td style="border: 1px solid white;">
+                    <button class="buttonPlus" (click)="addEquipment(tour.id, e.id)" mat-raised-button>+</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
     
 </div>
