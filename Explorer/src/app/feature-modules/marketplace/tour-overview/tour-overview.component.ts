@@ -12,6 +12,8 @@ import { AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Sale } from '../model/sale.model';
+import { TourLocation } from '../model/tour-location.model';
+import { MapService } from 'src/app/shared/map/map.service';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -20,7 +22,7 @@ import { Sale } from '../model/sale.model';
 })
 export class TourOverviewComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  constructor(private service: MarketplaceService,private router:Router, private authService: AuthService) { }
+  constructor(private service: MarketplaceService,private router:Router, private authService: AuthService, private mapService: MapService) { }
 
   ngAfterViewInit(): void {
     if(this.mapObjects.length > 0)
@@ -42,6 +44,8 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   user: User;
   showOnlyOnSale: boolean = false;
   sortOrder: 'asc' | 'desc' = 'asc';
+  toursLocation: TourLocation[] = [];
+  visibleFilters: boolean = false;
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -62,24 +66,57 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       this.service.getActiveSales().subscribe((activeSales: Sale[]) => {
         this.publishedTours = this.mapDiscountedPricesToTours(tours, activeSales);
         this.searchTours = this.publishedTours;
+        this.findToursLocation();
         this.getPublicTours();
       });
     });
   }
+  averageGrade(tour: TourPreview){
+    var sum = 0;
+    var count = 0;
+    for(let g of tour.tourRating){
+      sum += g.rating;
+      count ++;
+    }
+    return parseFloat((sum/count).toFixed(1)).toFixed(1);
+  }
 
+  getTourLocation(tourid: number): string{
+    const tourLocation = this.toursLocation.find(location => location.tourid === tourid);
+    return tourLocation?.adress || "";
+  }
   mapDiscountedPricesToTours(tours: TourPreview[], activeSales: Sale[]): TourPreview[] {
     return tours.map(tour => {
       const matchingSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
       const discountedPrice = this.calculateDiscountedPrice(tour, activeSales);
       const isOnSale = this.isOnSale(tour.id!, activeSales);
+      const saleExpiration = matchingSale?.end;
 
-      return {
+      return { 
         ...tour,
         discount: matchingSale ? matchingSale.discount : 0,
         salePrice: discountedPrice,
-        isOnSale: isOnSale
+        isOnSale: isOnSale,
+        saleExpiration: saleExpiration,
+        isLastMinute: this.isLastMinute(saleExpiration)
       };
     });
+  }
+
+  isLastMinute(saleExpiration?: Date) {
+    var today = new Date();
+    var futureDate = new Date(today.setDate(today.getDate() + 4));
+    today = new Date()
+      if (saleExpiration) {
+        var saleExpirationDate = new Date(saleExpiration);
+          if (saleExpirationDate < futureDate && saleExpirationDate > today) {
+              return true;
+          } else {
+              return false;
+          }
+      } else {
+          return false;
+      }
   }
 
   calculateDiscountedPrice(tour: TourPreview, activeSales: Sale[]): number {
@@ -96,13 +133,24 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   isOnSale(tourId: number, activeSales: Sale[]): boolean {
     return activeSales.some(sale => sale.toursIds.includes(tourId));
   }
+  scrollToFilters(){
+    this.visibleFilters = true;
+    setTimeout(() => {
+      const filtersElement = document.getElementById('filters');
+  
+      if (filtersElement) {
+        filtersElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 300);
+  }
 
   filterTours() {
     if (this.showOnlyOnSale) {
       this.searchTours = this.searchTours.filter(tour => tour.isOnSale);
       this.sortToursBySale();
-    } else {
-      this.cancleSearch();
     }
   }
 
@@ -168,19 +216,24 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   }
   updateRadius() {
     this.drawCircle();
-    this.findNearTours();
   }
 
   findNearTours(): void{
     const promises = this.publicTours.map(tour => {
-      return this.checkDistance(tour);
+      if(tour)
+        return this.checkDistance(tour);
+      else
+        return 0;
     });
 
     Promise.all(promises).then(() => {
       if (this.foundTours.length > 0) {
         this.searchTours = [];
         this.searchTours = this.foundTours;
-        this.showOnlyOnSale = false;
+        this.foundTours = [];
+      }
+      if(this.showOnlyOnSale){
+        this.filterTours();
       }
     });
   }
@@ -232,6 +285,22 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   findTourById(id: number): TourPreview | undefined{
     return this.publishedTours.find(t => t.id === id);
   }
+  applyFilters(){
+    if(this.selectedLatitude && this.selectedLongitude)
+      this.findNearTours();
+    else if(this.showOnlyOnSale)
+      this.filterTours();
+    setTimeout(() => {
+      const filtersElement = document.getElementById('title');
+      if (filtersElement) {
+        filtersElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 300);
+    
+  }
 
   drowTour(tour: PublicTour): void{
     let coords: [{lat: number, lon: number}] = [{lat: tour.previewCheckpoints[0].latitude, lon: tour.previewCheckpoints[0].longitude}];
@@ -250,8 +319,53 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
     );
   }
 
-  cancleSearch():void {
-    this.searchTours = this.publishedTours;
+  cancelSearch():void {
+    const filtersElement = document.getElementById('title');
+    this.selectedLatitude = 0;
+    this.selectedLongitude = 0;
+      if (filtersElement) {
+        filtersElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      this.searchTours = this.publishedTours;
+      this.showOnlyOnSale = false;
+      this.radius = 100;
+    setTimeout(() => {
+      this.visibleFilters = false;
+    }, 600);
     this.mapComponent.reloadMap();
+  }
+  findToursLocation(): void {
+    this.searchTours.forEach(tour => {
+      this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({
+        next: (location) => {
+          let tourLocation: TourLocation = {
+            tourid: 0,
+            adress: ''
+          };
+  
+          if (location.address.city === undefined) {
+            tourLocation = {
+              tourid: tour.id || 0,
+              adress: location.address.city_district + ' , ' + location.address.country 
+            };
+          }
+          else {
+            tourLocation = {
+              tourid: tour.id || 0,
+              adress: location.address.city + ' , ' + location.address.country 
+            };
+          }
+  
+          console.log(location);
+          this.toursLocation.push(tourLocation);
+        },
+        error: (error) => {
+          console.error('Error in finding location for lon and lat:', error);
+        }
+      });
+    });
   }
 }
