@@ -33,6 +33,7 @@
             <ul>
                 <li *ngIf="user?.role === 'tourist' || user?.role === 'author' || user?.role === ''"><a href="/application-grade">Rate the app</a></li>
                 <li *ngIf="user?.role === 'administrator'"><a href="/notifications">Notifications</a></li>
+                <li *ngIf="!ratingExists"><a href="/application-grade">Rate the app</a></li>
                 <li><a href="/home">Help</a></li>
                 <li><a href="/my-profile/reporting-issues">Report an issue</a></li>
                 <li><a href="/home">FAQs</a></li>                

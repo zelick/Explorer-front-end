@@ -7,6 +7,8 @@ import { MapComponent } from 'src/app/shared/map/map.component'; //dodala
 import { TourLocation } from '../../marketplace/model/tour-location.model';
 import { MapService } from 'src/app/shared/map/map.service';
 import { Router } from '@angular/router';
+import { MarketplaceService } from '../../marketplace/marketplace.service';
+import { Sale } from '../../marketplace/model/sale.model';
 
 @Component({
   selector: 'xp-travelers-choice',
@@ -16,7 +18,7 @@ import { Router } from '@angular/router';
 export class TravelersChoiceComponent implements OnInit{
   
   @ViewChild(MapComponent) mapComponent: MapComponent; //potrebna metoda iz mape
-  constructor(private service: LayoutService, private mapService: MapService, private router: Router) { 
+  constructor(private service: LayoutService, private mapService: MapService, private router: Router, private marketService: MarketplaceService) { 
     
   }
 
@@ -25,9 +27,10 @@ export class TravelersChoiceComponent implements OnInit{
 
       next: (result: TourPreview[]) => {
         this.tours = result;
-        console.log(this.tours);
-        this.findToursLocation();
-        console.log(this.toursLocation);
+        this.marketService.getActiveSales().subscribe((activeSales: Sale[]) => {
+          this.tours = this.mapDiscountedPricesToTours(this.tours, activeSales);
+          this.findToursLocation();
+        });
       },
       error: () => {
           console.log('Nesupesno dobavljanje tura');
@@ -68,6 +71,54 @@ export class TravelersChoiceComponent implements OnInit{
         }
       });
     });
+  }
+
+  mapDiscountedPricesToTours(tours: TourPreview[], activeSales: Sale[]): TourPreview[] {
+    return tours.map(tour => {
+      const matchingSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
+      const discountedPrice = this.calculateDiscountedPrice(tour, activeSales);
+      const isOnSale = this.isOnSale(tour.id!, activeSales);
+      const saleExpiration = matchingSale?.end;
+
+      return { 
+        ...tour,
+        discount: matchingSale ? matchingSale.discount : 0,
+        salePrice: discountedPrice,
+        isOnSale: isOnSale,
+        saleExpiration: saleExpiration,
+        isLastMinute: this.isLastMinute(saleExpiration)
+      };
+    });
+  }
+
+  isLastMinute(saleExpiration?: Date) {
+    var today = new Date();
+    var futureDate = new Date(today.setDate(today.getDate() + 4));
+    today = new Date()
+      if (saleExpiration) {
+        var saleExpirationDate = new Date(saleExpiration);
+          if (saleExpirationDate < futureDate && saleExpirationDate > today) {
+              return true;
+          } else {
+              return false;
+          }
+      } else {
+          return false;
+      }
+  }
+
+  calculateDiscountedPrice(tour: TourPreview, activeSales: Sale[]): number {
+    const activeSale = activeSales.find(sale => sale.toursIds.includes(tour.id!));
+    if (activeSale) {
+      const discountPercentage = activeSale.discount;
+      const discountedPrice = tour.price * (1 - discountPercentage / 100);
+      return discountedPrice;
+    } else {
+      return tour.price;
+    }
+  }
+  isOnSale(tourId: number, activeSales: Sale[]): boolean {
+    return activeSales.some(sale => sale.toursIds.includes(tourId));
   }
 
   getTourLocation(tourid: number): string{
