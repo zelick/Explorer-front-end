@@ -1,5 +1,5 @@
 form {
-    margin-top:150px;
+    margin-top:35px;
     display: flex;
     justify-content: center;
 }
@@ -38,7 +38,6 @@ div {
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.2);
     margin-left: 400px;
     margin-bottom: 2px;
-    display: flex;
     flex-direction: row;
     align-items: center;
     width: 50%;
@@ -142,22 +141,22 @@ div {
     align-items: center;
     width: 130px;
     padding: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
 }
 
 /*ovde za div form*/
 .edit_form{
-    display: flex;
-    flex-direction: row; /* Postavi divove jedan pored drugog */
-    justify-content: space-between; /* Da bi razmak bio između divova */
-    align-items: left; /* Da bi se divovi poravnali prema vrhu */
+    border: 1px solid #3B846B;
+    box-shadow: 0 0 10px #B6D4AF;
+    border-radius: 5px;
+    padding: 10px;
+    flex-direction: row; 
     width: auto;
     height: auto;
     margin-left: 40px;
 }
 
 .edit_form_row {
-    flex: 1; /* Prilagodi divovima proporcionalnu širinu */
     margin-right: 20px; /* Dodaj razmak između divova */
     flex-direction: column;
     width: 320px;
