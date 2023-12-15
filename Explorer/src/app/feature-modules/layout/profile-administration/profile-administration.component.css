@@ -20,6 +20,17 @@ div {
     cursor: pointer;
 }
 
+.header_my_profile{
+    font-size: 28px;
+    color: #E67840;
+    font-weight: 600;
+    margin-bottom: 50px;
+    position: absolute;
+    left: 80px;
+    top: 18px;
+    text-shadow: 0 0 2px #E67840;
+}
+
 
 .profile-card {
     overflow: hidden;

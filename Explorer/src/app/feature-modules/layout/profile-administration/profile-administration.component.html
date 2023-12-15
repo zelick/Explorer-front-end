@@ -1,8 +1,11 @@
+<h1 class="header_my_profile">My profile</h1>
 <div class="profile-card">
   <div class="profile-card-content">
       <div class="profile-image-section">
-          <img [src]="profileInfoForm.get('profilePictureUrl')?.value"
+           <img [src]="profileInfoForm.get('profilePictureUrl')?.value"
            class="user-image">
+           <!-- <img [src]="currentUser.profilePictureUrl"
+           class="user-image">  -->
            <div class="profile-details-section">
               <div class="profile-details">
                   <h6 class="user-name" *ngIf="currentUser !== undefined">{{currentUser.name}}  {{currentUser.surname}}</h6>

@@ -139,7 +139,7 @@ export class ProfileAdministrationComponent implements OnInit{
       this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
         next: () => {
           //this.router.navigate(['home']);
-          //window.location.reload(); //ucitaj ponovo stranicu refresh
+          window.location.reload(); //ucitaj ponovo stranicu refresh, izmeni
         },
       });
     }
