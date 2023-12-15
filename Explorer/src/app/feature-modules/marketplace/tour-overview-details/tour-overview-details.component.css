@@ -77,8 +77,7 @@
 
 .rating-item {
     display: flex;
-    height: auto;
-    max-height: 15vh;
+    height: fit-content;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 10px;
