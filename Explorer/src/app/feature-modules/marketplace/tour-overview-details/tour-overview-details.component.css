@@ -1,13 +1,13 @@
 .tour-container {
     display: flex;
     justify-content: space-around;
-    height: 100%;
+    height: auto;
     background-image: url('./tour_overview_background.jpg'); 
     background-size: cover;
     background-position: center;
     display: flex;
     overflow: hidden;
-    height: 100%;
+    min-height: 100%;
 }
 
 .map-checkpoint-container{
@@ -23,7 +23,7 @@
 }
 
 .map {
-    margin-top: 8vh;
+    margin-top: 4vh;
     width: 75vh;
     height: 60vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -34,12 +34,12 @@
 }
 
 .tour-details {
-    margin-top: 8vh;
+    margin-top: 2vh;
     width: 62%;
     max-width: 85vh;
-    height: auto;
-    min-height: 50vh;
-    margin-bottom: 10vh;
+    height: fit-content;
+    min-height: 70vh;
+    margin-bottom: 2vh;
     background-color: #F7F6DC;
     padding: 4vh;
     border-radius: 15px;
@@ -70,14 +70,15 @@
     flex-direction: column;
     overflow-y: auto;
     height: auto;
-    max-height: 20vh;
+    min-height: 23vh;
+    max-height: 48vh;
     width: 30vh;
 }
 
 .rating-item {
     display: flex;
     height: auto;
-    max-height: 11vh;
+    max-height: 15vh;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 10px;
@@ -181,7 +182,8 @@ td{
     margin-left: -0.9vh;
     color:black;
     overflow-y: auto;
-    height: 7vh;
+    min-height: 10vh;
+    max-height: 11vh;
     text-align: justify;
     text-align-last: justify;
 }
@@ -217,7 +219,7 @@ p{
     gap: 15px;
     justify-content: space-between;
     align-content: end;
-    margin-top: auto;
+    margin-top: 20px;
 }
 
 .button{
@@ -271,9 +273,11 @@ hr{
 }
 
 .scrollable-table {
-    max-height: 11vh;
+    max-height: 30vh;
+    height: auto;
     overflow-y: auto;
     position: relative;
+    margin-bottom: 20px;
   }
   
   .scrollable-table table thead th {
