@@ -25,7 +25,8 @@ div {
     overflow: hidden;
     border-radius: 5px;
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.2);
-    margin: 0 auto; /*centar ekrana*/
+    margin-left: 400px;
+    margin-bottom: 2px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -122,12 +123,15 @@ div {
     margin-left: 10px; 
     height: 20px;
 }
-/*wtf NE RADI */
+
 .xp_level_items{
-    border: 1px solid #ddd; 
+    border: 2px solid #ddd; 
     border-radius: 10px;
     display: flex;
     align-items: center;
+    width: 130px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 /*ovde za div form*/
@@ -138,7 +142,7 @@ div {
     align-items: left; /* Da bi se divovi poravnali prema vrhu */
     width: auto;
     height: auto;
-    margin: 0 auto; /*centar ekrana*/
+    margin-left: 40px;
 }
 
 .edit_form_row {

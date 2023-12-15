@@ -6,14 +6,11 @@
            <div class="profile-details-section">
               <div class="profile-details">
                   <h6 class="user-name" *ngIf="currentUser !== undefined">{{currentUser.name}}  {{currentUser.surname}}</h6>
-                  <p class="user-role">Tourist</p>
-                  <!-- <div class="xp_level_items">
-                    <p  class="user-name">Level:</p>
-                    <p class="user-role">10</p>
-                    <p  class="user-name">XP:</p>
-                    <p class="user-role">32</p>
+                  <p class="user-role">{{user.role}}</p>
+                  <div class="xp_level_items"  *ngIf="isTourist">
+                    <p  class="user-name">Level: {{tourist.level}}</p>
+                    <p  class="user-name">XP: {{ tourist.xp}}</p>
                   </div>
-                   -->
               </div>
            </div>
       </div>

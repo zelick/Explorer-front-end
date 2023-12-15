@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { ImageService } from 'src/app/shared/image/image.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Tourist } from '../model/tourist.model';
 
 @Component({
   selector: 'xp-profile-administration',
@@ -22,18 +23,18 @@ export class ProfileAdministrationComponent implements OnInit{
   ) {}
 
   isEditing = true;
+  isTourist = false;
   showForm = false;
-  @Input() currentUser: ProfileInfo;
- //currentUser: ProfileInfo;
+  user: User; //logged
+  currentUser: ProfileInfo; //profile;
+  tourist: Tourist;
 
   startEditing() {
-    this.isEditing = true; //ovo izbaci u html-u
+    this.isEditing = true; //izbaci
     this.showForm = true;
   }
 
   saveChanges() {
-    //console.log("ne radi")
-    //console.log(this.profileInfoForm.valid)
     /*if (this.profileInfoForm.valid) {
       this.isEditing = false; 
     }*/
@@ -42,6 +43,7 @@ export class ProfileAdministrationComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.checkUserRole();
     this.layoutService.fetchCurrentUser().subscribe((user) => {
       this.profileInfoForm.patchValue({
         id: user.id,
@@ -54,10 +56,27 @@ export class ProfileAdministrationComponent implements OnInit{
         motto: user.motto,
       });
       this.currentUser = user;
-      console.log(this.currentUser);
+      //console.log(this.currentUser);
       this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
     });
   }
+
+  checkUserRole(){
+    this.authService.user$.subscribe(user => {
+      this.user = user; 
+      if(this.user.role.toLowerCase().includes("tourist")){
+        this.user.role = this.user.role.toUpperCase();
+        this.isTourist = true;
+        this.findTourist(user.id)
+      }
+    });
+  }
+
+  findTourist(userId: number){
+    this.layoutService.getTourist(userId).subscribe((result) => {
+        this.tourist = result;
+    });
+  } 
   
   profileInfoForm = new FormGroup({
     id: new FormControl(-1, [Validators.required]),
@@ -115,7 +134,7 @@ export class ProfileAdministrationComponent implements OnInit{
       });
 
     
-    if (this.profileInfoForm.valid == false) {
+    if (this.profileInfoForm.valid) {
       this.currentUser = profileInfo;
       this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
         next: () => {
