@@ -18,7 +18,7 @@ export class AbandonDialogComponent {
   onYes(): void{
     this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
 
-      if(this.tourExecution.executionStatus == 'Abandoned'){
+      if(result.executionStatus == 'Abandoned'){
         this.router.navigate(['home-page']);
       }
     })

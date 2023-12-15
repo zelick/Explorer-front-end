@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecutionService } from '../tour-execution.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SimulatorComponent } from '../simulator/simulator.component';
 import { TouristPosition } from '../model/position.model';
 import { PurchasedTourPreview } from '../model/purchased_tour_preview.model';
@@ -22,6 +22,7 @@ import { SecretDialogComponent } from '../secret-dialog/secret-dialog.component'
 import { EncounterDialogComponent } from '../encounter-dialog/encounter-dialog.component';
 import { AbandonDialogComponent } from '../abandon-dialog/abandon-dialog.component';
 import { CompletedEncounterComponent } from '../completed-encounter/completed-encounter.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
 
 
   constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef,
-    private dialog: MatDialog) 
+    private dialog: MatDialog, private router: Router) 
   { }
 
   ngOnInit(): void {
@@ -240,19 +241,21 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   abandon(): void{
-    // this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
-    //   this.tourExecution = result;
-    //   this.tour = result.tour;
-    //   this.findCheckpoints();
-    //   if(this.tourExecution.executionStatus == 'Abandoned'){
 
-    //   }else{
-        
-    //   }
-    // })
-    this.dialog.open(AbandonDialogComponent, {
-      data: this.tourExecution
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+          title: "Confirm",
+          message: "Are you sure you want to leave?"}
     });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult)
+      {
+        this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
+        });
+        this.router.navigate([`home`]);
+      }
+   });
   }
 
   ShowPopup():void{
@@ -362,6 +365,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
+      this.availableEncounter = this.availableEncounterExecution.encounterDto;
+      if(this.availableEncounterExecution.status == 'Active' && this.availableEncounter.type=='Social')
+      this.currentlyPeopleOnSocialEncounter = this.currentlyPeopleOnSocialEncounter + 1;
       this.changeDetection.detectChanges();
     });
   }
