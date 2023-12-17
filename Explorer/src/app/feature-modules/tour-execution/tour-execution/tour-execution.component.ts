@@ -366,6 +366,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     .subscribe(result =>{
       this.availableEncounterExecution = result;
       this.availableEncounter = this.availableEncounterExecution.encounterDto;
+      this.encounterExecutions.forEach(element => {
+        if(element.id == this.availableEncounterExecution.id)
+          element = this.availableEncounterExecution;
+      });
       if(this.availableEncounterExecution.status == 'Active' && this.availableEncounter.type=='Social')
       this.currentlyPeopleOnSocialEncounter = this.currentlyPeopleOnSocialEncounter + 1;
       this.changeDetection.detectChanges();
@@ -376,6 +380,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.service.completeEncounter(this.availableEncounterExecution.id)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
+      this.availableEncounter = this.availableEncounterExecution.encounterDto;
+      this.encounterExecutions.forEach(element => {
+        if(element.id == this.availableEncounterExecution.id)
+          element = this.availableEncounterExecution;
+      });
       this.dialog.open(CompletedEncounterComponent, {
         data: this.availableEncounter 
       });
@@ -392,8 +401,24 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
 
   // EncounterDialogComponent open
   viewEncounter(encounter: Encounter): void{
-    this.dialog.open(EncounterDialogComponent, {
-      data: encounter
+    const dialogRef = this.dialog.open(EncounterDialogComponent, {
+      data: {
+          encounterExecution: this.availableEncounterExecution,
+          longitude: this.oldPosition.longitude,
+          latitude: this.oldPosition.latitude
+        }
     });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult == 'Activate')
+      {
+        this.onActivate(this.availableEncounter.id || 0);
+      }
+      if(dialogResult == 'Complete')
+      {
+        this.onComplete();
+      }
+   });
   }
+
 }

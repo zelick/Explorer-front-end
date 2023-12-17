@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Encounter } from '../../encounters/model/encounter.model';
 import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
+import { TourExecutionService } from '../tour-execution.service';
+import { DialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'xp-encounter-dialog',
@@ -10,5 +12,20 @@ import { EncounterExecution } from '../../encounters/model/encounterExecution.mo
 })
 export class EncounterDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Encounter) { }//data: EncounterExecution) { }
+  longitude: number;
+  latitude: number;
+  encounterExecution: EncounterExecution;
+  constructor(public dialogRef: MatDialogRef<EncounterDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  
+  onActivate(): void{
+      this.dialogRef.close("Activate");
+  }
+
+  onComplete(): void{
+      this.dialogRef.close("Complete");
+  }
+
+  onClose(): void{
+    this.dialogRef.close();
+  }
 }

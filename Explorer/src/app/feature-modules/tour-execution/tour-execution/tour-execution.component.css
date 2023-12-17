@@ -18,6 +18,7 @@
 }
 .tour-info{
     margin-left: 10px;
+    margin-top: 1vh;
 }
 .tour-info-label{
     margin-left: 0px;
@@ -507,4 +508,14 @@ textarea {
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+}
+
+.equipment-table{
+    margin-top: 20px;
+    margin-left: -120px;
+}
+
+.transportation-table{
+    margin-top: 20px;
+    margin-left: -120px;
 }

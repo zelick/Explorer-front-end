@@ -4,6 +4,22 @@
             <p class="tour-name">{{tour.name}}</p><br>
             <label class="tour-info-label">Difficulty: {{tour.demandignessLevel}}</label><br>
             <label class="tour-info-label">Description: {{tour.description}} </label><br>
+            <div class="transportation-table">
+                <table>
+                    <tr>
+                        <td>Required time:</td>
+                        <td>
+                            <table class="transportation-info">
+                                <tr *ngFor="let e of tour.tourTimes">
+                                    <th>{{e.transportation}}</th>
+                                    <td>{{(e.distance/1000).toFixed(2)}} km</td>
+                                    <td>{{(e.timeInSeconds % 3600).toFixed(0)}} h {{((e.timeInSeconds%3600)/60).toFixed(0)}} min</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="button-div">
             <div>
@@ -76,6 +92,25 @@
         </div>    
     </div>
 
+    <div class="equipment-table">
+        <table *ngIf="tour.equipment.length > 0">
+            <tr>
+                <td>Required equipment:</td>
+                <td>
+                    <table class="equipment-info">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr *ngFor="let e of tour.equipment">
+                            <td>{{e.name}}</td>
+                            <td>{{e.description}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <div>
         
