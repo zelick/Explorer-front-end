@@ -12,7 +12,7 @@
                 <img class="last_minute" *ngIf="tour.isLastMinute && tour.isOnSale" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
             </div>
             <p class="startCh">📍 Starting checkpoint: {{tour.checkpoint.name}}</p>
-            <img *ngIf="tour.checkpoint" src="{{tour.checkpoint.pictures[0]}}" alt="Image1" class="tour-card-img">
+            <img *ngIf="tour.checkpoint.pictures && tour.checkpoint.pictures.length" [src]="getImageUrl(tour.checkpoint.pictures[0])" alt="Image1" class="tour-card-img">
         </div>
           <div class="card-top">
             <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>

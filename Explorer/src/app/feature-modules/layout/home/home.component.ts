@@ -8,6 +8,7 @@ import { TourRating } from '../../marketplace/model/tour-rating.model';
 import { TourLocation } from '../../marketplace/model/tour-location.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapService } from 'src/app/shared/map/map.service';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit{
   searchButtonClicked: boolean = false;
   i:number=0;
 
-  constructor(private layoutService : LayoutService, private marketPlaceService : MarketplaceService, private mapService: MapService) { }
+  constructor(private layoutService: LayoutService, private marketPlaceService: MarketplaceService, private mapService: MapService, private imageService: ImageService) { }
   
   ngOnInit(): void {
     this.layoutService.getAllTours().subscribe({
@@ -205,4 +206,7 @@ findToursLocation(): void {
     return tourLocation?.adress || "";
   }
 
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

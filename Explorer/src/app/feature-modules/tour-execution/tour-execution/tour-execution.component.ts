@@ -17,6 +17,7 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { PublicCheckpoint } from '../model/public_checkpoint.model';
 import { Encounter } from '../../encounters/model/encounter.model';
 import { EncounterExecution } from '../../encounters/model/encounterExecution.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   currentlyPeopleOnSocialEncounter: number = 0;
   executions: EncounterExecution[];
 
-  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
+  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef, private imageService: ImageService) 
   { 
   }
 
@@ -241,7 +242,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       if(element.currentPicture==undefined)
       {
         element.currentPicture=0;
-        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+        element.showedPicture=element.checkpointSecret?.pictures![element.currentPicture]||"";
       }
       if(element.visibleSecret==undefined)
         element.visibleSecret=false;
@@ -250,7 +251,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       if(element.currentPointPicture==undefined)
         element.currentPointPicture=0;
       if(element.showedPointPicture==undefined)
-      element.showedPointPicture=element.pictures[element.currentPointPicture];
+      element.showedPointPicture=element.pictures![element.currentPointPicture];
     });
     this.changeDetection.detectChanges();
   }
@@ -262,7 +263,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         if(this.availableEncounterExecution.status == 'Completed' && c.encounterId == this.availableEncounterExecution.encounterId)
         {
           c.visibleSecret=!c.visibleSecret;
-          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          c.showedPicture=c.checkpointSecret?.pictures![c.currentPicture]||"";
           if(c.viewSecretMessage=="Show secret")
             c.viewSecretMessage="Hide secret";
           else
@@ -270,7 +271,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
         }
       }else{
         c.visibleSecret=!c.visibleSecret;
-          c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+          c.showedPicture=c.checkpointSecret?.pictures![c.currentPicture]||"";
           if(c.viewSecretMessage=="Show secret")
             c.viewSecretMessage="Hide secret";
           else
@@ -279,31 +280,31 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
   }
 
   OnNext(c:Checkpoint):void{
-   let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
+   let secretPicturesLength= c.checkpointSecret?.pictures!.length||0;
    if(c.currentPicture==(secretPicturesLength-1))
       c.currentPicture=0;
     else
       c.currentPicture=c.currentPicture+1;
-      c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+      c.showedPicture=c.checkpointSecret?.pictures![c.currentPicture]||"";
 
   }
 
   OnPictureNext(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
+    let picturesLength= c.pictures!.length;
    if(c.currentPointPicture==(picturesLength-1))
       c.currentPointPicture=0;
     else
       c.currentPointPicture=c.currentPointPicture+1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+      c.showedPointPicture=c.pictures![c.currentPointPicture]||"";
   }
 
   OnPictureBack(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
+    let picturesLength= c.pictures!.length;
    if(c.currentPointPicture==0)
       c.currentPointPicture=(picturesLength-1);
     else
       c.currentPointPicture=c.currentPointPicture-1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+      c.showedPointPicture=c.pictures![c.currentPointPicture]||"";
   }
 
   onActivate(id: number): void{
@@ -320,6 +321,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     });
   }
 
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }
 
 

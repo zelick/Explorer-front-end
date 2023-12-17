@@ -71,7 +71,7 @@
             <div class="tour-cards-container" [@slide]="i">
               <div class="tour-card" *ngFor="let tour of tours" (click)="selectTour(tour)">
                 <div class="image-container">
-                    <img *ngIf="tour.previewCheckpoints[0]" src="{{tour.previewCheckpoints[0].pictures[0]}}" alt="Image1" class="img">
+                    <img *ngIf="tour && tour.previewCheckpoints && tour.previewCheckpoints[0] && tour.previewCheckpoints[0].pictures" src="{{tour.previewCheckpoints[0].pictures[0]}}" alt="Image1" class="img">
                 </div>
                     <h2 class="card-header">{{tour.name}}</h2>
                     <p style="color: white; margin-left: 10px; font-size: x-small;">{{tour.description}}</p>

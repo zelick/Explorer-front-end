@@ -69,3 +69,12 @@
 .map-div{
     height: 600px;
 }
+
+.file-input {
+    display: none;
+}
+
+.upload-btn {
+    background-color: #3B846B;
+    color: white
+}
