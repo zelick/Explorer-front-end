@@ -9,6 +9,7 @@ import { Equipment } from '../model/equipment.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ForecastPopupComponent } from 'src/app/feature-modules/marketplace/forecast-popup/forecast-popup.component';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-tour-details',
@@ -25,7 +26,7 @@ export class TourDetailsComponent implements OnInit{
   secretVisible:Boolean=false;
 
 
-  constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router,public dialog:MatDialog) { }
+  constructor(private service: TourAuthoringService, private activatedRoute: ActivatedRoute, private router: Router, public dialog: MatDialog, private imageService: ImageService) { }
   tourID:number;
   ngOnInit(): void {
    this.activatedRoute.params.subscribe(params=>{
@@ -76,7 +77,7 @@ export class TourDetailsComponent implements OnInit{
         if(element.currentPicture==undefined)
         {
           element.currentPicture=0;
-          element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+          element.showedPicture=element.checkpointSecret?.pictures![element.currentPicture]||"";
         }
         if(element.visibleSecret==undefined)
           element.visibleSecret=false;
@@ -85,7 +86,7 @@ export class TourDetailsComponent implements OnInit{
         if(element.currentPointPicture==undefined)
           element.currentPointPicture=0;
         if(element.showedPointPicture==undefined)
-        element.showedPointPicture=element.pictures[element.currentPointPicture];
+        element.showedPointPicture=element.pictures![element.currentPointPicture];
       });
   
     });
@@ -133,7 +134,7 @@ export class TourDetailsComponent implements OnInit{
       if(element.currentPicture==undefined)
       {
         element.currentPicture=0;
-        element.showedPicture=element.checkpointSecret?.pictures[element.currentPicture]||"";
+        element.showedPicture=element.checkpointSecret?.pictures![element.currentPicture]||"";
       }
       if(element.visibleSecret==undefined)
         element.visibleSecret=false;
@@ -142,7 +143,7 @@ export class TourDetailsComponent implements OnInit{
       if(element.currentPointPicture==undefined)
         element.currentPointPicture=0;
       if(element.showedPointPicture==undefined)
-      element.showedPointPicture=element.pictures[element.currentPointPicture];
+      element.showedPointPicture=element.pictures![element.currentPointPicture];
     });
   }
 
@@ -152,7 +153,7 @@ export class TourDetailsComponent implements OnInit{
 
   OnViewSecret(c:Checkpoint):void{
     c.visibleSecret=!c.visibleSecret;
-    c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture || 0]||"";
+    c.showedPicture=c.checkpointSecret?.pictures![c.currentPicture || 0]||"";
     if(c.viewSecretMessage=="Show secret")
       c.viewSecretMessage="Hide secret";
     else
@@ -160,31 +161,31 @@ export class TourDetailsComponent implements OnInit{
   }
 
   OnNext(c:Checkpoint):void{
-   let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
+   let secretPicturesLength= c.checkpointSecret?.pictures!.length||0;
    if(c.currentPicture==(secretPicturesLength-1))
       c.currentPicture=0;
     else
       c.currentPicture=c.currentPicture || 0+1;
-      c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
+      c.showedPicture=c.checkpointSecret?.pictures![c.currentPicture]||"";
 
   }
 
   OnPictureNext(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
+    let picturesLength= c.pictures!.length;
    if(c.currentPointPicture==(picturesLength-1))
       c.currentPointPicture=0;
     else
       c.currentPointPicture=c.currentPointPicture || 0 +1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+      c.showedPointPicture=c.pictures![c.currentPointPicture]||"";
   }
 
   OnPictureBack(c:Checkpoint):void{
-    let picturesLength= c.pictures.length;
+    let picturesLength= c.pictures!.length;
    if(c.currentPointPicture==0)
       c.currentPointPicture=(picturesLength-1);
     else
       c.currentPointPicture=c.currentPointPicture || 0-1;
-      c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
+      c.showedPointPicture=c.pictures![c.currentPointPicture]||"";
   }
 
   ShowPopup():void{
@@ -204,4 +205,7 @@ export class TourDetailsComponent implements OnInit{
     }
   }
 
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

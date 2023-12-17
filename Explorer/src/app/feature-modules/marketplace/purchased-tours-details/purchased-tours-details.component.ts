@@ -9,6 +9,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-purchased-tours-details',
@@ -19,7 +20,7 @@ import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_
 export class PurchasedToursDetailsComponent implements OnInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
-  constructor(private service: MarketplaceService,private activatedRoute:ActivatedRoute,private router:Router, private authService : AuthService) { }
+  constructor(private service: MarketplaceService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private imageService: ImageService) { }
 
     ngOnInit(): void {
 
@@ -70,5 +71,9 @@ export class PurchasedToursDetailsComponent implements OnInit{
           default:
             return 'black';
         }
-      }
+  }
+  
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

@@ -12,6 +12,7 @@ import { AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Sale } from '../model/sale.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -20,7 +21,7 @@ import { Sale } from '../model/sale.model';
 })
 export class TourOverviewComponent implements OnInit, AfterViewInit{
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  constructor(private service: MarketplaceService,private router:Router, private authService: AuthService) { }
+  constructor(private service: MarketplaceService, private router: Router, private authService: AuthService, private imageService: ImageService) { }
 
   ngAfterViewInit(): void {
     if(this.mapObjects.length > 0)
@@ -253,5 +254,9 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   cancleSearch():void {
     this.searchTours = this.publishedTours;
     this.mapComponent.reloadMap();
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

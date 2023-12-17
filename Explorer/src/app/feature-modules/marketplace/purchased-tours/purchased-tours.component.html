@@ -12,7 +12,8 @@
                     <div class="rating-container">
                         <p class="tour-rating">{{ calculateAverageRating(t.tourRatings) }}</p>
                     </div>
-                    <img *ngIf="t.checkpoints && t.checkpoints.length > 0 && t.checkpoints[0].pictures.length > 0" [src]="t.checkpoints[0].pictures[0]" alt="Checkpoint Image" class="checkpoint-image">
+                    <img *ngIf="t.checkpoints && t.checkpoints.length > 0 && t.checkpoints[0].pictures && t.checkpoints[0].pictures.length > 0"
+                        [src]="getImageUrl(t.checkpoints[0].pictures[0])" alt="Checkpoint Image" class="checkpoint-image">
                 </div>
                 <div class="tour-details">
                     <div class="tour-header">

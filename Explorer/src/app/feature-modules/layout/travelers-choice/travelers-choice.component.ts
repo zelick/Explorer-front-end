@@ -7,6 +7,7 @@ import { MapComponent } from 'src/app/shared/map/map.component'; //dodala
 import { TourLocation } from '../../marketplace/model/tour-location.model';
 import { MapService } from 'src/app/shared/map/map.service';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-travelers-choice',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 export class TravelersChoiceComponent implements OnInit{
   
   @ViewChild(MapComponent) mapComponent: MapComponent; //potrebna metoda iz mape
-  constructor(private service: LayoutService, private mapService: MapService, private router: Router) { 
+  constructor(private service: LayoutService, private mapService: MapService, private router: Router, private imageService: ImageService) { 
     
   }
 
@@ -198,8 +199,8 @@ export class TravelersChoiceComponent implements OnInit{
       });
     }
   }
-  
-  
-  
-  
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

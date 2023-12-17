@@ -5,6 +5,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 import { Router } from '@angular/router';
 import { TourRatingPreview } from "../../marketplace/model/tour-rating-preview";
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-purchased-tours',
@@ -16,7 +17,7 @@ export class PurchasedToursComponent implements OnInit {
   user: User;
   purchasedTours: PurchasedTourPreview[] = [];
 
-  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -56,5 +57,9 @@ export class PurchasedToursComponent implements OnInit {
   
     const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
     return totalRating / ratings.length;
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

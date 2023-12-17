@@ -78,7 +78,10 @@
                   
                 </td>
              
-                <td class="cppi"><img [src]="tour.checkpoint.pictures[0]" width="80px" height="90px"></td>
+                <td class="cppi">
+                    <img *ngIf="tour && tour.checkpoint && tour.checkpoint.pictures && tour.checkpoint.pictures.length > 0"
+                        [src]="getImageUrl(tour.checkpoint.pictures[0])" width="80px" height="90px" alt="Checkpoint Image">
+                </td>
             </tr>
         </tbody>
   

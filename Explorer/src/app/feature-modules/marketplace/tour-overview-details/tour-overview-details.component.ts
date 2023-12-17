@@ -11,6 +11,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourRating } from '../model/tour-rating.model';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-tour-overview-details',
@@ -38,7 +39,8 @@ export class TourOverviewDetailsComponent implements OnInit {
   constructor(private service: MarketplaceService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.service.cartItemCount$.subscribe(count => {
@@ -160,5 +162,9 @@ export class TourOverviewDetailsComponent implements OnInit {
         }
       }
     });
+  }
+  
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }
