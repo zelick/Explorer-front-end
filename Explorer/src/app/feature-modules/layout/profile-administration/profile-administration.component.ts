@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { ImageService } from 'src/app/shared/image/image.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-profile-administration',
@@ -21,6 +22,7 @@ export class ProfileAdministrationComponent implements OnInit{
   ) {}
 
   isEditing = false;
+  user: User | undefined;
 
   startEditing() {
     this.isEditing = true;
@@ -34,20 +36,42 @@ export class ProfileAdministrationComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.layoutService.fetchCurrentUser().subscribe((user) => {
-      this.profileInfoForm.patchValue({
-        id: user.id,
-        userId: user.userId,
-        name: user.name,
-        surname: user.surname,
-        email: user.email,
-        profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
-        biography: user.biography,
-        motto: user.motto,
-      });
-      
-      this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+    this.authService.user$.subscribe(user => {
+      this.user = user;
     });
+
+    if(this.user?.role === 'administrator'){
+      this.layoutService.fetchCurrentAdmin().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
+    else{
+      this.layoutService.fetchCurrentUser().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
   }
   
   profileInfoForm = new FormGroup({
@@ -106,11 +130,20 @@ export class ProfileAdministrationComponent implements OnInit{
       });
 
     if (this.profileInfoForm.valid) {
-      this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
-        next: () => {
-          this.router.navigate(['home']);
-        },
-      });
+      if(this.user?.role === 'administrator'){
+        this.layoutService.saveNewAdminInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
+      else{
+        this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
     }
   }
   }
