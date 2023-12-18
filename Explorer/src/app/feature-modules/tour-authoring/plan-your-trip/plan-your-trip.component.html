@@ -14,7 +14,7 @@
                         <table class="checkpointsTable">
                             <tr *ngFor="let ch of publicCheckpoints">
                                 <div class="checkpoint">
-                                    <img class="checkpointPicture" src="{{ch.pictures[0]}}" alt="image">
+                                    <img class="checkpointPicture" [src]="getImageUrl(ch.pictures[0])" alt="image">
                                     <div class="checkpointInfo">
                                         <label class="name">{{ch.name}}</label>
                                         <p class="description">{{ch.description}}</p>
@@ -47,7 +47,7 @@
                         <table class="checkpointsTable">
                             <tr *ngFor="let ch of selectedCheckpoints">
                                 <div class="checkpoint">
-                                    <img class="checkpointPicture" src="{{ch.pictures[0]}}" alt="image">
+                                    <img class="checkpointPicture" [src]="getImageUrl(ch.pictures[0])" alt="image">
                                     <div class="checkpointInfo">
                                         <label class="name">{{ch.name}}</label>
                                         <p class="description">{{ch.description}}</p>
@@ -71,7 +71,7 @@
             <div class="tour-cards-container" [@slide]="i">
               <div class="tour-card" *ngFor="let tour of tours" (click)="selectTour(tour)">
                 <div class="image-container">
-                    <img *ngIf="tour && tour.previewCheckpoints && tour.previewCheckpoints[0] && tour.previewCheckpoints[0].pictures" src="{{tour.previewCheckpoints[0].pictures[0]}}" alt="Image1" class="img">
+                    <img *ngIf="tour && tour.previewCheckpoints && tour.previewCheckpoints[0] && tour.previewCheckpoints[0].pictures" [src]="getImageUrl(tour.previewCheckpoints[0].pictures[0])" alt="Image1" class="img">
                 </div>
                     <h2 class="card-header">{{tour.name}}</h2>
                     <p style="color: white; margin-left: 10px; font-size: x-small;">{{tour.description}}</p>

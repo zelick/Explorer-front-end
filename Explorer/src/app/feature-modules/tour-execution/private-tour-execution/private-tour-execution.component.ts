@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { PrivateTour } from '../../tour-authoring/model/private-tour.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
   currentCheckpoint: string = "";
   transport: string = "walking";
 
-  constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef) 
+  constructor(private router: Router, private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef, private imageService: ImageService) 
   { 
   }
 
@@ -130,5 +131,9 @@ export class PrivateTourExecutionComponent implements OnInit, AfterViewInit{
         this.changeDetection.detectChanges();
       }
     });
+  } 
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

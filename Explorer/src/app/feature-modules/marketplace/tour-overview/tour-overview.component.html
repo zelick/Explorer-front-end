@@ -15,7 +15,7 @@
                         <label *ngIf="tour.isOnSale" class="discount"> -{{tour.discount}}% </label>
                         <img class="last_minute" *ngIf="tour.isLastMinute && tour.isOnSale" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
                     </div>
-                    <img *ngIf="t.checkpoint.pictures && t.checkpoint.pictures.length > 0" [src]="getImageUrl(t.checkpoint.pictures[0])" alt="Image1" class="tour-card-img">
+                    <img *ngIf="tour.checkpoint.pictures && tour.checkpoint.pictures.length > 0" [src]="getImageUrl(tour.checkpoint.pictures[0])" alt="Image1" class="tour-card-img">
                     
                 </div>
                 <div class="card-top">
