@@ -9,11 +9,13 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+
   ratingExists: boolean = false;
   user: User | undefined;
 
   constructor(private layoutService: LayoutService,private authService: AuthService) {}
   
+
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;

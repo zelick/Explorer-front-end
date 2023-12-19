@@ -76,7 +76,6 @@ const routes: Routes = [
       { path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
       { path: 'grade-review', component: GradeReviewComponent, canActivate: [AuthGuard], },
       { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
-      { path: 'object-request-review', component: ObjectRequestReviewComponent, canActivate: [AuthGuard]},
       { path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent, canActivate: [AuthGuard]},
 
       //TOURIST and AUTHOR
