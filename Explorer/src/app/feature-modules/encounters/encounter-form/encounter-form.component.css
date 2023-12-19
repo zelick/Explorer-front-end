@@ -2,7 +2,8 @@
 p{
     margin: 0 auto;
     font-size: 5vh;
-  color:white;
+    font-weight:bold;
+  color:#E67840;
   padding: 1% 2.5%; 
 }
 select{
@@ -10,7 +11,7 @@ select{
     width : 260px;
     background-color: #f3f3f3;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-left: 100px;
+    margin-left: 90px;
     
 }
 
@@ -20,7 +21,7 @@ select{
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
-    background-color:#B6D4AF;
+    background-color:#F7F6DC;
     border-radius:20px;
     margin-top:40px;
     padding-left:40px;
@@ -34,12 +35,21 @@ mat-form-field{
 
 .type{
     font-size: 2vh;
-    color:white;
+    color:#E67840;
     font-style: bold;
     font-weight:bold;
+    text-align: center;
     margin-top: 10px;
 }
 
+.type2{
+    font-size: 3vh;
+    color:#E67840;
+    font-style: bold;
+    font-weight:bold;
+    text-align: center;
+    margin-top: 10px;
+}
 .button{
     width: auto;
     margin-left: 130px;
@@ -83,3 +93,9 @@ mat-form-field{
     
 }
 
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
+}

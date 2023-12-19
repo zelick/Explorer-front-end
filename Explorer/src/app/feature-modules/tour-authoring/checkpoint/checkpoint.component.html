@@ -1,3 +1,4 @@
+<body>
 <div id="checkpoint">
     <div class="checkpoint">
     <div class="table-div"  *ngIf="!shouldRenderCheckpointForm">
@@ -34,6 +35,8 @@
                 <th>Location</th>
                 <th>Required time</th>
                 <th>Picture</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
     </thead>
     <tbody>
@@ -72,3 +75,4 @@
         <button class="button" (click)="onBack()" mat-raised-button>Back</button>
         <button class="button" (click)="onNext()" mat-raised-button>Finish</button>
     </div>
+</body>

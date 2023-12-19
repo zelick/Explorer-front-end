@@ -1,11 +1,17 @@
 div {
-
-    width: 500px;
+    width: 260px;
     display:flex;
-    gap: 15px;
+    gap: 2px;
     flex-direction: column;
-    background-color:#B6D4AF;
+    background-color:#F7F6DC;
     border-radius:20px;
+}
+
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
 }
 
 .mat-icon {
@@ -16,12 +22,12 @@ div {
     width: 50px;
 }
 mat-form-field {
-    font-size: 22px; /* Adjust the font size as needed */
+    font-size: 16px; /* Adjust the font size as needed */
   }
-  mat-form-field textarea{
-    font-size: 22px; /* Adjust the font size as needed */
-    height: 200px;
-  }
+mat-form-field textarea{
+    font-size: 16px; /* Adjust the font size as needed */
+    height: 50px;
+}
 
 #TagSpan{
     width: 350px;
@@ -31,6 +37,7 @@ mat-form-field {
 }
 
 select{
+    z-index: 5;
     height: 50px;
     width : 210px;
     background-color: #f3f3f3;
@@ -58,7 +65,7 @@ option:checked{
 }
 .buttonPlus{
     margin-top:8px;
-    margin-right:50px;
+    margin-right:140px;
     height:42px;
     width: 10px;
     font-size: 200%; 
@@ -73,16 +80,16 @@ option:checked{
 .subtitle{
     font-size: 28px;
     font-weight: bold;
-  color:white;
+  color:#E67840;
   font-style: bold;
   text-align: left;
 
 }
 .demandignessLevel{
-    font-size: 38px;
-    color:white;
+    font-size: 20px;
+    color:#E67840;
     font-style: bold;
-    margin-top: 20px;
+    margin-bottom: 15px;
     font-weight: bold;
 }
 
@@ -94,56 +101,67 @@ option:checked{
     margin: 0 auto;
     padding-left:30px;
     padding-right: 140px;
-    margin-top:40px;
+    margin-top:2px;
+    margin-bottom:10px;
     
 }
 
 .routingButton{
-    width: 400px;
-    
+    width: 400px;   
     gap: 20px;
     flex-direction: row;
     justify-content: space-between;
 }
+
+.routingButton2{
+    width: 100px;   
+    display: flex;
+    align-items: center;
+   
+}
 p{
-    margin: 0 auto;
-    font-size: 4vh;
-  color:white;
+  margin: 0 auto;
+  font-size: 4vh;
+  color:#E67840;
   padding: 0px 10px;
   
 }
 
+
 .para-t{
     
-    padding: 5px;
-    font-size: 4vh;
-  color:white;
-   
+  padding: 5px;
+  font-size: 4vh;
+  color:#E67840;  
   font-weight:bold;
 }
+
+
 
 .bigger-tag{
 
     font-size: 26px;
-    color:white;
+    color:#E67840;
 }
 
 .difficulty-select {
-    /* Change the select border color to orange */
     border-color: #E67840;
-    /* Change select font */
-    font-size: 30px;
+    font-size: 22px;
     height: 60px;
-    width: 300px;
+    width: 260px;
     color:#E67840;
-    font-style: bold;
     text-align: center;
-    /* Adjust the padding and margin if needed */
-    padding: 5px;
-    margin-left: 120px;
-    margin-right: 0px;
+    font-style: bold;
+    padding: 0px;
     margin-bottom: 20px;
-
-    /* Change the select arrow color */
-    
+    margin-left: 160px;
   }
+
+  .row {
+    position: absolute;
+    flex-direction: row;
+    gap:270px;
+    justify-content: space-between;
+    background-color:transparent;
+    margin-top: 250px;
+}

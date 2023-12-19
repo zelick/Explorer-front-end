@@ -18,6 +18,10 @@ th, td {
     padding: 12px 15px;
 }
 
+td{
+    background-color:#F7F6DC;
+}
+
 .table-fix {
     border-collapse: collapse;
     width: 100%;
@@ -62,6 +66,7 @@ tbody tr.active-row {
     margin-top: 40px;
     margin-right: 100px;
     margin-left:120px;
+    background-color:#F7F6DC;
 }
 .button-table{
     width: auto;
@@ -129,7 +134,7 @@ tbody tr.active-row {
 }
 
 .subtitle{
-    font-size: 3vh;
+    font-size: 4vh;
     font-weight: bold;
   color:#E67840;
   font-style: bold;
@@ -141,13 +146,13 @@ tbody tr.active-row {
     margin-left: 10px;
     margin-bottom: 15px;
     padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
+    width: 150px;
+    font-size: 150%; 
     color:#fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
-    font-size:2vh;
+    font-size:3vh;
     cursor: pointer;
 }
 
@@ -162,13 +167,22 @@ tbody tr.active-row {
 }
 
 .map-div{
-    width: 1200px;
+    width: 900px;
     height: 600px;
     margin-bottom: 20px;
-    margin-left: 170px;
+    margin-left: 130px;
     margin-top: 0px;
+    
 }
 .info-table{
     margin-left: 0px;
     font-size: 3vh;
+    background-color: #F7F6DC;
+}
+
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
 }
