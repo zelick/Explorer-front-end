@@ -47,6 +47,7 @@
     cursor: pointer;
     height: 66vh;
     max-height: 500px;
+    padding-bottom: 4px;
   }
   .tour-card:hover {
     /*background-color: #26594B; /* Change to the desired hover background color */
@@ -67,9 +68,17 @@
     justify-content: space-between;
   }
   
-  .tour-card img { 
-    width: 100%;
+  .image-container {
+    position: relative;
+    display: inline-block;
     height: 52%;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .tour-card-img { 
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
     object-fit: cover; 
   }
@@ -99,13 +108,15 @@
     padding: 1% 2.5%; 
     background-color: #1b332b8e;
     margin-left: 10px;
-    margin-top: 10px;
     border-radius: 5px;
   }
   
   .card-header{
     margin-top: 10px;
     margin-left: 11px;
+    margin-bottom: 10px;
+    font-size: 160%;
+    font-weight: 600;
     color: white;
   }
   
@@ -117,4 +128,92 @@
     margin-right: auto;
     max-width: 1450px;
     width: 100%;
+  }
+  .price{
+    background-color: #E67840;
+    padding: 4px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .originalprice{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    font-size: 140%;
+    background-color: #E67840;
+    padding: 4px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .Oldprice{
+    background-color: #E67840;
+    padding: 4px;
+    margin-bottom: 7px;
+    font-size: 80%;
+    width: fit-content;
+    color: lightgray;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    position: relative;
+  }
+
+.Oldprice::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%, transparent 52.5%);
+}
+  .prices{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    font-size: 140%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .sale{
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    font-size: 170%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .discount{
+    background-color: red;
+    padding: 5px;
+    color: white;
+    font-weight: 500;
+    border-radius: 3px;
+    margin-bottom: -7px;
+  }
+  .last_minute{
+    height: 5vh;
+    width: 8vh;
+    object-fit: cover;
+    overflow: hidden;
+    margin-left: auto;
+    border-radius: 3px;
+  }
+  .startCh{
+    position: absolute;
+    bottom: 0px;
+    max-width: 95%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    left: 7px;
+    padding: 3px;
+    background-color: rgb(38, 59, 52,0.8);
+    color: white;
+    font-size: 85%; 
   }

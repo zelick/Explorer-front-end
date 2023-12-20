@@ -9,6 +9,7 @@ import { PublicTour } from '../../marketplace/model/public-tour.model';
 import { PrivateTour } from '../model/private-tour.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-plan-your-trip',
@@ -28,7 +29,7 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
   tours: PublicTour[] = [];
   privateTour: PrivateTour = {touristId:0, name:"", id: 0, checkpoints:[]};
   
-  constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router){
+  constructor(private service: AuthService,private mapService: MapService, private tourAuthoringService: TourAuthoringService, private router: Router, private imageService: ImageService){
 
   }
   updateTours(){
@@ -173,5 +174,9 @@ export class PlanYourTripComponent implements OnInit, AfterViewInit{
         behavior: 'smooth',
       });
     }
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

@@ -7,6 +7,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Route, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-private-tours',
@@ -30,7 +31,7 @@ export class PrivateToursComponent implements OnInit, OnDestroy {
   readonly PICTURE_COUNT = 2;
   readonly CHECKPOINT_COUNT = 3;
 
-  constructor(private datePipe: DatePipe, private service: TourAuthoringService, private authService: AuthService, private router: Router) { }
+  constructor(private datePipe: DatePipe, private service: TourAuthoringService, private authService: AuthService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
       this.touristId = this.authService.user$.value.id;
@@ -90,4 +91,7 @@ createPrivateTourBlog(privateTour: PrivateTour){
   this.router.navigate(['/private-tour-blog-creation/', privateTour.id]);
 }
 
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

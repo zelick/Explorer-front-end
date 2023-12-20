@@ -1,20 +1,33 @@
-<div id="tour">
-    <br>
-    <br>
-    <br>
-    <div id="tour-details">
-        <div class="tours-heading">Your Purchases</div>
-        <div class="tour-card" *ngFor="let t of purchasedTours">
-            <td (click)="openDetails(t)">
+<div class="purchased-tours-heading">
+    Your Purchases
+</div>
+<div id="tour" class="tours-container">
+    <div class="tour-cards-container">
+        <article class="tour-card" *ngFor="let t of purchasedTours" (click)="openDetails(t)">
             <div class="tour-info">
-                <div>
-                <div class="tourName"><strong>{{t.name}}</strong></div>
+                <div class="tour-image">
+                    <div class="price-box">
+                        <p class="tour-price">{{ t.price }} AC</p>
+                    </div>
+                    <div class="rating-container">
+                        <p class="tour-rating">{{ calculateAverageRating(t.tourRatings) }}</p>
+                    </div>
+                    <img *ngIf="t.checkpoints && t.checkpoints.length > 0 && t.checkpoints[0].pictures && t.checkpoints[0].pictures.length > 0"
+                        [src]="getImageUrl(t.checkpoints[0].pictures[0])" alt="Checkpoint Image" class="checkpoint-image">
                 </div>
-                <br>
-                <p> {{t.description}}</p>
-                <p> {{t.price}} AC</p>
-                <p> Demandigness: {{t.demandignessLevel}}</p>
+                <div class="tour-details">
+                    <div class="tour-header">
+                        <h2 class="tour-name">{{ t.name }}</h2>
+                    </div>
+                    <p class="tour-description">{{ t.description }}</p>
+                    <div class="tour-demand-wrapper">
+                        <span class="demand-label">Difficulty Level: </span>
+                        <span class="tour-demand" [style.color]="getDemandColor(t.demandignessLevel)">
+                            {{ t.demandignessLevel }}
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </article>
     </div>
 </div>

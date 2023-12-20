@@ -32,5 +32,73 @@
             </tbody>
         </table>
     </div>
+    <h1>Map object requests review</h1>
+    <div class="object-request-review-details">
+        <table>
+            <thead>
+                <tr>
+                    <th>Object name</th>
+                    <th>Object description</th>
+                    <th>Author username</th>
+                    <th>Request status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of objectRequestDetails">
+                    <td>{{req.objectName}}</td>
+                    <td>{{req.objectDescription}}</td>
+                    <td>{{req.authorName}}</td>
+                    <td *ngIf="!req.onHold">{{req.status}}</td>
+                    <td *ngIf="req.onHold">
+                        <button mat-icon-button class="cancel-button" (click)="rejectObjectRequest(req)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button  mat-icon-button class="accept-button" (click)="acceptObjectRequest(req)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </td>
+                    <td *ngIf="req.onHold">
+                        <input type="text" [(ngModel)]="req.comment" placeholder="Enter your comment">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h1>Encounter requests review</h1>
+    <div class="object-request-review-details">
+        <table>
+            <thead>
+                <tr>
+                    <th>Encounter name</th>
+                    <th>Encounter xp</th>
+                    <th>Encounter longitude</th>
+                    <th>Encounter latitude</th>
+                    <th>Tourist username</th>
+                    <th>Request status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of encounterRequestDetails">
+                    <td>{{req.encounterName}}</td>
+                    <td>{{req.encounterXp}}</td>
+                    <td>{{req.encounterLongitude}}</td>
+                    <td>{{req.encounterLatitude}}</td>
+                    <td>{{req.touristName}}</td>
+                    <td *ngIf="!req.onHold">{{req.status}}</td>
+                    <td *ngIf="req.onHold">
+                        <button mat-icon-button class="cancel-button" (click)="rejectEncounterRequest(req)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button  mat-icon-button class="accept-button" (click)="acceptEncounterRequest(req)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
