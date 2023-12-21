@@ -156,3 +156,105 @@ ul {
     margin-top: 20px;
     margin-left: 40px;
 }
+
+
+
+.coupons-card {
+    background-color: #B6D4AF;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.coupon-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-data-div {
+    margin-bottom: 8px;
+}
+
+.label {
+    font-weight: bold;
+    color: #E67840;
+    margin-right: 5px;
+}
+
+.data {
+    color: #333; /* Tamnija boja za podatke */
+}
+
+.coupon-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+button {
+    font-weight: bold;
+    background-color: #E67840;
+    color: white;
+    height: 30px;
+    width: 70px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease; /* Dodao efekat prelaska boje */
+}
+
+button:hover {
+    background-color: #FFA07A; /* Promenjena boja na hover */
+}
+
+.coupon-buttons button {
+    margin-right: 10px; /* Dodaj dodatni razmak između dugmadi */
+}
+
+.code-label,
+.discount-label,
+.status-label,
+.expiration-label {
+    font-size: 16px; /* Manje od koda */
+    font-weight: normal;
+    color: #4CAF50; /* Različita boja za svaku etiketu */
+}
+
+.icon-schedule {
+    font-size: 18px; /* Prilagodi veličinu prema potrebi */
+    vertical-align: middle; /* Postavi ikonicu vertikalno usred teksta */
+    margin-left: 5px; /* Dodaj malo razmaka sa leve strane teksta */
+ }
+
+ .button-container {
+    display: flex;
+    gap: 10px; /* Razmak između dugmeta "Update" i "Cancel" */
+    justify-content: center; /* Centriraj dugmad horizontalno */
+    margin-top: 10px; /* Dodaj malo razmaka iznad dugmeta */
+}
+
+#submit-button {
+    background-color: #E67840;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 8px 15px; /* Dodaj malo prostora oko teksta unutar dugmeta */
+    font-size: 14px;
+}
+
+#submit-button:hover {
+    background-color: #D45A15; /* Promeni boju prilikom hovera */
+}
+
+legend {
+    color: #E67840; /* Boja naslova */
+    font-size: 28px; /* Veličina fonta */
+    font-weight: bold;
+    margin-bottom: 10px; /* Dodaj malo razmaka ispod legende */
+    margin-top: 20px; /* Dodaj beli prostor iznad legende */
+}
+

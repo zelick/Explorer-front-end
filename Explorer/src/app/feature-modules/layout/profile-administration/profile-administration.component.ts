@@ -59,6 +59,39 @@ export class ProfileAdministrationComponent implements OnInit{
       //console.log(this.currentUser);
       this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
     });
+
+    if(this.user?.role === 'administrator'){
+      this.layoutService.fetchCurrentAdmin().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
+    else{
+      this.layoutService.fetchCurrentUser().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
   }
 
   checkUserRole(){
@@ -142,6 +175,20 @@ export class ProfileAdministrationComponent implements OnInit{
           window.location.reload(); //ucitaj ponovo stranicu refresh, izmeni
         },
       });
+      if(this.user?.role === 'administrator'){
+        this.layoutService.saveNewAdminInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
+      else{
+        this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
     }
   }
   }

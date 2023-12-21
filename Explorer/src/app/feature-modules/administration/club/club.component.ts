@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router'; 
 import { ClubMemebrshipRequest } from '../model/club-membership-request.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class ClubComponent implements OnChanges, OnInit{
   shouldShowMembershipRequests: boolean = false;
   
 
-  constructor(private authService: AuthService, private service: AdministrationService, private router: Router, private route: ActivatedRoute) 
+  constructor(private authService: AuthService, private service: AdministrationService, private imageService: ImageService,private router: Router, private route: ActivatedRoute) 
   {
     this.getClub();
 
@@ -225,5 +226,8 @@ export class ClubComponent implements OnChanges, OnInit{
     navigateToManageMembers(clubId : number): void{
       this.router.navigate(['/club-members', clubId]);
     }
-    
+   
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

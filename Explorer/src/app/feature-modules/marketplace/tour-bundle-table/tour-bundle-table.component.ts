@@ -6,6 +6,9 @@ import { ItemType, OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
 
 @Component({
   selector: 'xp-tour-bundle-table',
@@ -19,18 +22,17 @@ export class TourBundleTableComponent implements OnInit {
   pageIndex = 1;
   totalTourBundles = 0;
   userCart: ShoppingCart;
-  isInCart: boolean = false;
   cartItemCount: number;
   tourBundle: TourBundle;
   tourBundleId: number | undefined = undefined;
   user: User;
+  purchasedTours: PurchasedTourPreview[] = [];
 
-  constructor(private service: MarketplaceService, private authService: AuthService) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadTourBundles();
     this.service.cartItemCount$.subscribe(count => this.cartItemCount = count);
-
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.findShoppingCart();
@@ -40,12 +42,48 @@ export class TourBundleTableComponent implements OnInit {
   loadTourBundles(): void {
     this.service.getTourBundles(this.pageIndex, this.pageSize).subscribe((result) => {
       this.handleTourBundleLoad(result);
+      this.loadPurchasedTours();
     });
   }
 
+  priceSum(tourBundle: TourBundle){
+    var sum = 0;
+    if(!tourBundle.tours){
+      return sum;
+    }
+    for(let tour of tourBundle.tours){
+      sum += tour.price;
+    }
+    return sum;
+  }
+  averageGrade(tour: Tour){
+    var sum = 0;
+    var count = 0;
+    for(let g of tour.tourRatings){
+      sum += g.rating;
+      count ++;
+    }
+    return parseFloat((sum/count).toFixed(1)).toFixed(1);
+  }
   private handleTourBundleLoad(result: any): void {
     this.tourBundles = result.results;
     this.totalTourBundles = result.totalCount;
+  }
+
+  loadPurchasedTours(): void {
+    if (this.user) {
+      this.service.getTouristsPurchasedTours(this.user.id).subscribe((purchasedTours) => {
+        this.purchasedTours = purchasedTours;
+      });
+    }
+  }
+
+  isTourInBundlePurchased(tourBundle: TourBundle): boolean {
+    return tourBundle.tours?.some(tour => this.purchasedTours.some(purchasedTour => purchasedTour.id === tour.id)) || false;
+  }
+
+  areAllToursInBundlePurchased(tourBundle: TourBundle): boolean {
+    return tourBundle.tours?.every(tour => this.purchasedTours.some(purchasedTour => purchasedTour.id === tour.id)) || false;
   }
 
   onPageChange(event: PageEvent) {
@@ -61,8 +99,11 @@ export class TourBundleTableComponent implements OnInit {
   }
 
   onAddToCart(tourBundle: TourBundle): void {
-    const isConfirmed = window.confirm('Are you sure you want to add this item to the cart?');
-    if (isConfirmed) {
+    if (!window.confirm('Are you sure you want to add this item to the cart?')) {
+      return;
+    }
+  
+    if (this.isTourInBundlePurchased(tourBundle) && window.confirm('Some tours within the bundle have already been purchased. Would you like to purchase the bundle excluding those tours?')) {
       this.tourBundleId = tourBundle.id;
       const orderItem: OrderItem = {
         itemId: tourBundle.id || 0,
@@ -79,18 +120,12 @@ export class TourBundleTableComponent implements OnInit {
       this.cartItemCount = cart.items.length;
       this.service.updateCartItemCount(cart.items.length);
       this.userCart = cart;
-      this.isInCart = this.isBundleInCart(this.tourBundleId || 0);
     });
   }
 
   findShoppingCart(): void {
     this.service.getShoppingCart(this.user.id).subscribe((result) => {
-      if (!result) {
-        this.isInCart = false;
-      } else {
         this.userCart = result;
-        this.isInCart = this.isBundleInCart(this.tourBundleId || 0);
-      }
     });
   }
 
@@ -99,5 +134,10 @@ export class TourBundleTableComponent implements OnInit {
       return this.userCart.items.some(item => item.itemId === tourBundleId);
     }
     return false;
+  }
+  selectTour(tour:Tour){
+    if(tour.id){
+      this.router.navigate(['/tour-overview-details', tour.id]);
+    }
   }
 }

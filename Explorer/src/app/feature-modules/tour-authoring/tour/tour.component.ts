@@ -5,6 +5,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-tour',
@@ -27,7 +28,7 @@ export class TourComponent implements OnInit{
   picture:string="https://conversionfanatics.com/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png";
 
   
-  constructor(private service: TourAuthoringService,private authService: AuthService,private router:Router) { }
+  constructor(private service: TourAuthoringService, private authService: AuthService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -104,6 +105,9 @@ export class TourComponent implements OnInit{
       error: (error: any) => {
       }
   });
-  
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

@@ -14,7 +14,7 @@
             <mat-label>Description:</mat-label>
             <input matInput type="text" formControlName="description">
         </mat-form-field>
-        <mat-label>Required time:</mat-label>
+        <p>Required time:</p>
         <div class="time">
             <mat-form-field>
                 <mat-label>hours</mat-label>
@@ -27,7 +27,7 @@
         </div>
         <p>Input address or choose on map:</p>
         <div class="address">
-            <mat-label>Address:     </mat-label>
+            <p>Address:     </p>
             <input matInput type="text" formControlName="address" class="adress-input">
             <button class="buttonPlus" (click)="onAddAddressClick()" mat-raised-button>✔</button>
         </div>
@@ -44,24 +44,18 @@
                 <input matInput type="number" formControlName="latitude">
             </mat-form-field>
         </div>
-        <form [formGroup]="pictureForm">
-            <div class="address">
-                <mat-form-field>
-                    <mat-label>Picture URL:  </mat-label>
-                    <input matInput type="text" name="picture" formControlName="picture">
-                </mat-form-field>
-                <button mat-raised-button class="buttonPlus" (click)="addPicture()">+</button>
-            </div>
-        </form>
-        <p *ngIf="pictures.length > 0">Pictures preview:</p>
-                <table>
-                    <tr *ngFor="let p of pictures; index as i">
-                        <td><img [src]="p" alt="Checkpoint picture" width="200" height="150"></td>
-                        <td>
-                            <button mat-raised-button class="buttonPlus" (click)="deletePicture(i)">-</button>
-                        </td>
-                    </tr>
-                </table>
+
+        <input type="file" (change)="onImageSelected($event)" class="file-input" multiple #fileUpload/>
+        <div class="file-upload">
+            <button mat-flat-button class="upload-btn" (click)="fileUpload.click()">
+                <mat-icon>insert_photo</mat-icon>
+                <span>Upload images</span>
+            </button>
+        </div>
+
+        <div class="image-container" *ngIf="picturePreview && picturePreview.length > 0">
+            <img *ngFor="let image of picturePreview" [src]="image" alt="Image" style="max-width: 200px; max-height: 200px;">
+        </div>
 
             <mat-form-field *ngIf="!shouldEdit">
                 <label>Checkpoint status</label>
@@ -70,12 +64,12 @@
                   <mat-option value="Public">Public</mat-option>
                 </mat-select>
             </mat-form-field>
-    </div>
-    <div class="routingButton">
-        <button (click)="onBack()" class="button" mat-raised-button>Back</button>
-        <button *ngIf="!shouldEdit" class="button" (click)="addCheckpoint()" mat-raised-button>Add checkpoint</button>
-        <button *ngIf="shouldEdit" class="button" (click)="updateCheckpoint()" mat-raised-button>Next</button>
-
+            <div class="routingButton">
+                <button (click)="onBack()" class="button" mat-raised-button>Back</button>
+                <button *ngIf="!shouldEdit" class="button" (click)="addCheckpoint()" mat-raised-button>Add checkpoint</button>
+                <button *ngIf="shouldEdit" class="button" (click)="updateCheckpoint()" mat-raised-button>Next</button>
+        
+            </div>
     </div>
 </form>
         

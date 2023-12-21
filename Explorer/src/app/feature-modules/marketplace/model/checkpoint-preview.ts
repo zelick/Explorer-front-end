@@ -5,6 +5,6 @@ export interface CheckpointPreview{
     latitude: number,
     name: string,
     description: string,
-    pictures: string[],
+    pictures?: string[],
     requiredTimeInSeconds: number
 }

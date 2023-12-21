@@ -5,7 +5,7 @@
            (mouseleave)="stopImageInterval(cardId)" (click)="routeToBlog(blog)">
         <div class="image-container">
           <img *ngIf="blog.imageNames && blog.imageNames.length > 0"
-               [src]="blog.imageNames[imageIndexes.get(cardId) || 0].toString()" alt="Image1" class="img">
+               [src]="getImageUrl(blog.imageNames[0])" alt="Image1" class="img">
           <div class="status-label">{{blog.status}}</div>
           <div class="votes">
             <div class="upvote">{{thumbsUpEmoji}} {{getUpvoteCount(blog)}}</div>

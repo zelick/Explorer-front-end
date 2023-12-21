@@ -77,12 +77,12 @@ export class AdministrationService {
     return this.http.get<PagedResults<Club>>('https://localhost:44333/api/club');
   }
 
-  addClub(club: Club): Observable<Club> {
+  addClub(club: FormData): Observable<Club> {
     return this.http.post<Club>('https://localhost:44333/api/club', club);
   }
 
-  updateClub(club: Club): Observable<Club> {
-    return this.http.put<Club>('https://localhost:44333/api/club/' + club.id, club);
+  updateClub(clubId: number, club: FormData): Observable<Club> {
+    return this.http.put<Club>('https://localhost:44333/api/club/' + clubId, club);
   }
 
   deleteClub(id: number): Observable<Club> {

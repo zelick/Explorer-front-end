@@ -25,7 +25,7 @@
                             <label>My status: {{availableEncounterExecution.status}}</label>
                         </td>
                         <td *ngIf="availableEncounter.type == 'Location'">
-                            <img src="availableEncounter.image" width="60" height="40">
+                            <img src="getImageUrl(availableEncounter.image)" width="60" height="40">
                         </td>
                         <td *ngIf="availableEncounter.type == 'Social'">
                             <label>Currently {{currentlyPeopleOnSocialEncounter}} people, required {{availableEncounter.requiredPeople}}</label><br>
@@ -107,7 +107,7 @@
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <img [src]=e.showedPointPicture width="200px" height="185px" cover="fill">
+                                                        <img [src]=getImageUrl(e.showedPointPicture) width="200px" height="185px" cover="fill">
                                                     </td>
                                                     <td>
                                                         <button class="nextbtn" (click)="OnPictureBack(e)">
@@ -130,9 +130,9 @@
                                             <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
                                         <div>
                                             <table>
-                                                <tr>
+                                                <tr *ngIf="e.showedPicture">
                                                     <td>
-                                                    <img [src]=e.showedPicture width="100" height="100">
+                                                    <img [src]=getImageUrl(e.showedPicture) width="100" height="100">
                                                     </td>
                                                     <td>
                                                     <button (click)="OnNext(e)"   class="nextbtn">></button>
@@ -170,7 +170,7 @@
                         To complete encounter required number is {{e.encounterDto.requiredPeople}} people in {{e.encounterDto.range}} meters range.
                     </td>
                     <td *ngIf="e.encounterDto.type=='Location'">
-                        <img src="{{e.encounterDto.image}}" width="100" height="60">
+                        <img *ngIf="e.encounterDto && e.encounterDto.image" [src]="getImageUrl(e.encounterDto.image[0])" width="100" height="60">
                     </td>
                 </tr>
             </table>
