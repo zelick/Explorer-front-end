@@ -1,3 +1,4 @@
+<body>
 <div id="checkpoint">
     <div class="checkpoint">
     <div class="table-div"  *ngIf="!shouldRenderCheckpointForm">
@@ -13,7 +14,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>Total required time with all checkpoints: </label>
+                            <label>Overall checkpoint duration:</label>
                         </td>
                         <td>
                             {{(calculateTimeForCheckpoints()/3600).toFixed(0)}} h {{((calculateTimeForCheckpoints()%3600)/60).toFixed(0)}} min
@@ -26,7 +27,7 @@
                 <br>
             </div>
         </div>
-    <table>
+    <table class="table-fix">
         <thead>
             <tr>
                 <th>Name</th>
@@ -34,8 +35,8 @@
                 <th>Location</th>
                 <th>Required time</th>
                 <th>Picture</th>
-                <th></th>
-                <th></th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
     </thead>
     <tbody>
@@ -74,3 +75,4 @@
         <button class="button" (click)="onBack()" mat-raised-button>Back</button>
         <button class="button" (click)="onNext()" mat-raised-button>Finish</button>
     </div>
+</body>
