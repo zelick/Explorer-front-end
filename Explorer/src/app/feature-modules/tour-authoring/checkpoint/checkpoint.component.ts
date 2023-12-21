@@ -12,6 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { Observable } from 'rxjs';
 import { TourTransportFormComponent } from '../tour-transport-form/tour-transport-form.component';
 import { TourTimes } from '../model/tourTimes.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CheckpointComponent implements OnInit{
     tourTimes: TourTime[];
 
 
-    constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
+  constructor(private service: TourAuthoringService, private activatedRoute: ActivatedRoute, private router: Router, private imageService: ImageService) { }
 
     ngOnInit(): void {
       this.activatedRoute.params.subscribe(params=>{
@@ -220,5 +221,9 @@ export class CheckpointComponent implements OnInit{
 
     onNext(): void{
       this.router.navigate([`tour-details/` + this.tourID]);
-    }
+  }
+  
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

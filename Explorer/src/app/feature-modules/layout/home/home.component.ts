@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import { TourPreview } from '../../marketplace/model/tour-preview';
 import { LocationResponse } from 'src/app/shared/model/location-response';
 import { LayoutService } from '../layout.service';
@@ -8,6 +8,7 @@ import { TourRating } from '../../marketplace/model/tour-rating.model';
 import { TourLocation } from '../../marketplace/model/tour-location.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { MapService } from 'src/app/shared/map/map.service';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit{
   searchButtonClicked: boolean = false;
   i:number=0;
 
-  constructor(private layoutService : LayoutService, private marketPlaceService : MarketplaceService, private mapService: MapService) { }
+  constructor(private layoutService: LayoutService, private marketPlaceService: MarketplaceService, private mapService: MapService, private imageService: ImageService) { }
   
   ngOnInit(): void {
     this.layoutService.getAllTours().subscribe({
@@ -86,6 +87,7 @@ export class HomeComponent implements OnInit{
   console.log(this.searchLocation);
 
   this.foundTours = []; // Resetovanje foundTours pre svakog pretrage
+  this.scroll();
 
   const observables = this.allTours.map(tour =>
     this.getPlaceInfo(tour.checkpoint.latitude, tour.checkpoint.longitude)
@@ -110,6 +112,22 @@ export class HomeComponent implements OnInit{
     this.findToursLocation();
 
     //console.log('NADJENE TURE:' + JSON.stringify(this.foundTours));
+  });
+}
+
+scroll(): void {
+  const element = document.getElementsByClassName('content')[0];
+  var add = window.scrollY + 700;
+
+  if (element) {
+    const rect = element.getBoundingClientRect();
+    add = rect.top;
+    console.log('OVO JE RECT TOP ' + rect.top);
+  }
+
+  window.scrollTo({
+    top: add,
+    behavior: 'smooth'
   });
 }
 
@@ -188,4 +206,7 @@ findToursLocation(): void {
     return tourLocation?.adress || "";
   }
 
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }
