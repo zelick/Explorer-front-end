@@ -60,6 +60,7 @@ import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/c
 import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
+import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -184,6 +185,7 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
+  {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({

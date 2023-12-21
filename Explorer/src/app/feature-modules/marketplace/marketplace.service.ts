@@ -261,5 +261,4 @@ export class MarketplaceService {
   getByCode(couponText: string): Observable<Coupon>{
     return this.http.get<Coupon>(environment.apiHost + 'shopping/shopping-cart/get-by-code/'+ couponText);
   }
-
 }
