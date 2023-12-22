@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { TourPreview } from '../../marketplace/model/tour-preview';
 import { TourExecution } from '../model/tour_execution.model';
 import { Injectable } from '@angular/core';
@@ -33,27 +33,30 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirmation-dialog/confi
   styleUrls: ['./tour-execution.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TourExecutionComponent implements OnInit, AfterViewInit{
+export class TourExecutionComponent implements OnInit, AfterViewInit {
   @ViewChild(SimulatorComponent) simulatorComponent: SimulatorComponent;
   tour : PurchasedTourPreview;
   tourId: number = 0;
   tourExecution: TourExecution; 
   tourist: User;
   oldPosition: TouristPosition;
-  shouldRenderSimulator: boolean = false;
-  notifications: number[]=[1];
   checkPositions: any;
+  publicCheckpoints: PublicCheckpoint[] = [];
+
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
-  publicCheckpoints: PublicCheckpoint[] = [];
+  
   encounterExecutions : EncounterExecution[] = [];
   availableEncounterExecution: EncounterExecution;
   availableEncounter: Encounter;
   currentlyPeopleOnSocialEncounter: number = 0;
-  executions: EncounterExecution[];
 
+  completedEncounterExecutions : EncounterExecution[] = [];
 
-  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, private changeDetection: ChangeDetectorRef,
+  notifications: number[]=[1];
+
+  constructor(private service: TourExecutionService, private authService: AuthService, private activatedRoute: ActivatedRoute, 
+    private changeDetection: ChangeDetectorRef,
     private dialog: MatDialog, private router: Router) 
   { }
 
@@ -111,6 +114,92 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       this.addPublicCheckpoinsOnMap();
   }
 
+  addCheckpointsOnMap(): void{
+    if(this.tour.checkpoints)
+    {
+      let coords: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description, picture: this.tour.checkpoints[0].pictures[0]}];
+      this.tour.checkpoints.forEach(e => {
+          if(e != this.tour.checkpoints[0])
+            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures[0]});
+      });
+      if(this.tour.tourTimes != undefined)
+      {
+        this.tour.tourTimes.forEach(element => {
+          this.simulatorComponent.addCheckpoint(coords, element.transportation);
+        });
+      }
+    }
+  }
+  addMapObjectsOnMap(): void{
+    if(this.mapObjects)
+    {
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description, picture: this.mapObjects[0].pictureURL}];
+      this.mapObjects.forEach(e => {
+          if(e != this.mapObjects[0])
+            if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
+            && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
+            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description, picture:e.pictureURL});
+      });
+      this.simulatorComponent.addMapObjects(coords);
+    }
+  }
+  addPublicCheckpoinsOnMap(): void{
+    if((this.publicCheckpoints).length != 0)
+    {
+      let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
+      this.publicCheckpoints.forEach(e => {
+          if(e != this.publicCheckpoints[0])
+            if((e.latitude > (this.publicCheckpoints[0].latitude - 2) && (e.latitude < this.publicCheckpoints[0].latitude + 2))
+            && ((e.longitude > this.publicCheckpoints[0].longitude - 2) && (e.longitude < this.publicCheckpoints[0].longitude + 2)))
+            coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
+      });
+      this.simulatorComponent.addPublicCheckpoints(coords);
+    }
+  }
+
+  // Abandon Tour Execution
+  abandon(): void{
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+          title: "Confirm",
+          message: "Are you sure you want to leave?"}
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult)
+      {
+        this.service.abandon(this.tourExecution.id!).subscribe(result => {
+        });
+        this.router.navigate([`home`]);
+      }
+   });
+  }
+  
+  // Weather Forecast Popup
+  ShowPopup():void{
+    if(this.tourExecution.tour.checkpoints.length > 0 ){
+
+      var result={
+        lat: this.tourExecution.tour.checkpoints[0].latitude,
+        lon: this.tourExecution.tour.checkpoints[0].longitude,
+      }
+      if(this.oldPosition != undefined)
+      {
+        result={
+          lat: this.oldPosition.latitude,
+          lon: this.oldPosition.longitude,
+        }
+      }
+      this.dialog.open(ForecastPopupComponent, {
+        data: result,
+         width: '500px',
+         height:'520px',
+         panelClass: 'custom-dialog',
+       });
+       console.log(result);
+    }
+  }
+
   checkPosition(): void{
     if(this.oldPosition != this.simulatorComponent.selectedPosition){
       if(this.oldPosition == undefined)
@@ -147,27 +236,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     console.log("Check position");
     this.notifications.push(1);
     this.changeDetection.detectChanges();
-  }
-
-  openSimulator(): void{
-    this.shouldRenderSimulator = !this.shouldRenderSimulator;
-  }
-
-  addCheckpointsOnMap(): void{
-    if(this.tour.checkpoints)
-    {
-      let coords: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.tour.checkpoints[0].latitude, lon: this.tour.checkpoints[0].longitude, name: this.tour.checkpoints[0].name, desc: this.tour.checkpoints[0].description, picture: this.tour.checkpoints[0].pictures[0]}];
-      this.tour.checkpoints.forEach(e => {
-          if(e != this.tour.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures[0]});
-      });
-      if(this.tour.tourTimes != undefined)
-      {
-        this.tour.tourTimes.forEach(element => {
-          this.simulatorComponent.addCheckpoint(coords, element.transportation);
-        });
-      }
-    }
   }
 
   checkSocialEncounterStatus(): void{
@@ -207,84 +275,15 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             e = result;          
           }
         });
-      this.changeDetection.detectChanges();
+      //this.changeDetection.detectChanges();
       });
     }
   }  
 
-  addMapObjectsOnMap(): void{
-    if(this.mapObjects)
-    {
-      let coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description, picture: this.mapObjects[0].pictureURL}];
-      this.mapObjects.forEach(e => {
-          if(e != this.mapObjects[0])
-            if((e.latitude > (this.tour.checkpoints[0].latitude - 2) && (e.latitude < this.tour.checkpoints[0].latitude + 2))
-            && ((e.longitude > this.tour.checkpoints[0].longitude - 2) && (e.longitude < this.tour.checkpoints[0].longitude + 2)))
-            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description, picture:e.pictureURL});
-      });
-      this.simulatorComponent.addMapObjects(coords);
-    }
-  }
-
-  addPublicCheckpoinsOnMap(): void{
-    if((this.publicCheckpoints).length != 0)
-    {
-      let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.publicCheckpoints[0].latitude, lon: this.publicCheckpoints[0].longitude, picture: this.publicCheckpoints[0].pictures[0], name: this.publicCheckpoints[0].name, desc: this.publicCheckpoints[0].description}];
-      this.publicCheckpoints.forEach(e => {
-          if(e != this.publicCheckpoints[0])
-            if((e.latitude > (this.publicCheckpoints[0].latitude - 2) && (e.latitude < this.publicCheckpoints[0].latitude + 2))
-            && ((e.longitude > this.publicCheckpoints[0].longitude - 2) && (e.longitude < this.publicCheckpoints[0].longitude + 2)))
-            coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
-      });
-      this.simulatorComponent.addPublicCheckpoints(coords);
-    }
-  }
-
-  abandon(): void{
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-          title: "Confirm",
-          message: "Are you sure you want to leave?"}
-    });
-
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult)
-      {
-        this.service.abandon(this.tourExecution.id || 0).subscribe(result => {
-        });
-        this.router.navigate([`home`]);
-      }
-   });
-  }
-
-  ShowPopup():void{
-    if(this.tourExecution.tour.checkpoints.length > 0 ){
-
-      var result={
-        lat: this.tourExecution.tour.checkpoints[0].latitude,
-        lon: this.tourExecution.tour.checkpoints[0].longitude,
-      }
-      if(this.oldPosition != undefined)
-      {
-        result={
-          lat: this.oldPosition.latitude,
-          lon: this.oldPosition.longitude,
-        }
-      }
-      this.dialog.open(ForecastPopupComponent, {
-        data: result,
-         width: '500px',
-         height:'520px',
-         panelClass: 'custom-dialog',
-       });
-       console.log(result);
-    }
-  }
-
   ngOnDestroy() {
     clearInterval(this.checkPositions);
   }
+
 
   findCheckpoints(): void{
     this.tourExecution.completedCheckpoints?.forEach(element => {
@@ -310,7 +309,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     this.changeDetection.detectChanges();
   }
 
-
+  // Checkpoint Secret
   OnViewSecret(c:Checkpoint):void{
       if(c.isSecretPrerequisite && c.encounterId != 0)
       {
@@ -332,7 +331,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
             c.viewSecretMessage="Show secret";
       }
   }
-
   OnNext(c:Checkpoint):void{
    let secretPicturesLength= c.checkpointSecret?.pictures.length||0;
    if(c.currentPicture==(secretPicturesLength-1))
@@ -340,9 +338,15 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     else
       c.currentPicture=c.currentPicture+1;
       c.showedPicture=c.checkpointSecret?.pictures[c.currentPicture]||"";
-
+  }
+  // SecretDialogComponent open
+  viewSecret(ch: Checkpoint): void{
+    this.dialog.open(SecretDialogComponent, {
+      data: ch 
+    });
   }
 
+  // Checkpoint Pictures change 
   OnPictureNext(c:Checkpoint):void{
     let picturesLength= c.pictures.length;
    if(c.currentPointPicture==(picturesLength-1))
@@ -351,7 +355,6 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       c.currentPointPicture=c.currentPointPicture+1;
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
-
   OnPictureBack(c:Checkpoint):void{
     let picturesLength= c.pictures.length;
    if(c.currentPointPicture==0)
@@ -361,6 +364,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
       c.showedPointPicture=c.pictures[c.currentPointPicture]||"";
   }
 
+  ///// ENCOUNTERS /////
   onActivate(id: number): void{
     this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
@@ -392,33 +396,32 @@ export class TourExecutionComponent implements OnInit, AfterViewInit{
     });
   }
 
-  // SecretDialogComponent open
-  viewSecret(ch: Checkpoint): void{
-    this.dialog.open(SecretDialogComponent, {
-      data: ch 
-    });
-  }
-
   // EncounterDialogComponent open
-  viewEncounter(encounter: Encounter): void{
-    const dialogRef = this.dialog.open(EncounterDialogComponent, {
-      data: {
-          encounterExecution: this.availableEncounterExecution,
-          longitude: this.oldPosition.longitude,
-          latitude: this.oldPosition.latitude
-        }
+  viewEncounter(encounterId: number): void{
+    this.encounterExecutions.forEach(encExecution => {
+      if (encounterId === encExecution.encounterId){
+        
+        const dialogRef = this.dialog.open(EncounterDialogComponent, {
+          data: {
+              encounterExecution: encExecution,
+              longitude: this.oldPosition.longitude,
+              latitude: this.oldPosition.latitude
+            }
+        });
+    
+        dialogRef.afterClosed().subscribe(dialogResult => {
+          if(dialogResult == 'Activate')
+          {
+            encExecution.status = 'Active';
+            this.onActivate(this.availableEncounter.id || 0);
+          }
+          if(dialogResult == 'Complete')
+          {
+            encExecution.status = 'Completed';
+            this.onComplete();
+          }
+       });
+      }
     });
-
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult == 'Activate')
-      {
-        this.onActivate(this.availableEncounter.id || 0);
-      }
-      if(dialogResult == 'Complete')
-      {
-        this.onComplete();
-      }
-   });
   }
-
 }

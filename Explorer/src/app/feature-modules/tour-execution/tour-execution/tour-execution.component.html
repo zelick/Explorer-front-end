@@ -44,7 +44,7 @@
         <div class="right-div">
             <div class="available-encounter-div">
                 <!-- TODO - available encounter button-->
-                <button class="buttonAbandon" *ngIf="availableEncounter" (click)="viewEncounter(availableEncounter)">See Available Encounter</button>
+                <button class="buttonAbandon" *ngIf="availableEncounter" (click)="viewEncounter(availableEncounter.id!)">See Available Encounter</button>
             </div>
             
             <div class="completed-ch-div">
@@ -67,7 +67,7 @@
                                                
                                         </button>
                                         <img class="img" [src]=ch.showedPointPicture >
-                                        <button class="nextbtn" (click)="OnPictureBack(ch)">
+                                        <button class="nextbtn" (click)="OnPictureNext(ch)">
                                             >
                                         </button>
 
@@ -79,8 +79,8 @@
                                     
                                     <div>
                                         <!-- TODO - see only completed encounter and visible secret-->
-                                        <button class="secretb" (click)="viewSecret(ch)" *ngIf="ch.checkpointSecret!=null">Show secret</button>
-                                        <button class="secretb" (click)="viewEncounter(availableEncounter)">Show encounter</button>
+                                        <button *ngIf="ch.checkpointSecret !== null" class="secretb" (click)="viewSecret(ch)">Show secret</button>
+                                        <button *ngIf="ch.encounterId !== 0" class="secretb" (click)="viewEncounter(ch.encounterId)">Show encounter</button>
                                     </div>
                                     
                                 </td>
@@ -112,9 +112,25 @@
         </table>
     </div>
 
+    <div *ngIf="completedEncounterExecutions.length > 0">
+        <p>Encounters for this tour you already completed: </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <label></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
     <div>
         
-        <p>Completed checkpoints:</p>
+        <!-- <p>Completed checkpoints:</p>
         <div>
             <div class="checkpoints-div">
                 <table>
@@ -193,9 +209,9 @@
                     </tbody>
                     </table>
             </div>
-        </div>
+        </div> -->
 
-        <div class="tour-info">
+        <!-- <div class="tour-info">
             <p class="subtitle">Available encounter</p>
             <div class="availableEncounter">
                 <table *ngIf="availableEncounter">
@@ -253,7 +269,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div> -->
 
         <div class="notification-div">
             <table border="1">

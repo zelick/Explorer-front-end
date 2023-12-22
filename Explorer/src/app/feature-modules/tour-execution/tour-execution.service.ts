@@ -39,13 +39,7 @@ export class TourExecutionService {
     return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
-  // TourExecution
-  getTourExecution(tourId: number): Observable<TourExecution> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("tourId",tourId);
-    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
-  }
-
+  // PrivateTour
   getPrivateTour(id: number): Observable<PrivateTour> {
     return this.http.get<PrivateTour>(environment.apiHost + 'tourist/privateTours/tour/' + id);
   }
@@ -62,12 +56,19 @@ export class TourExecutionService {
     return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/finish', tour);
   }
 
+  // TourExecution
+  getTourExecution(tourId: number): Observable<TourExecution> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("tourId",tourId);
+    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
+  }
+
   startExecution(tourId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution' + "/" + tourId, null);
   }
 
   abandon(id: number): Observable<TourExecution>{
-    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/abandoned', id);
+    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/abandoned/', id);
   }
 
   registerPosition(id: number, position: TouristPosition): Observable<TourExecution>{
