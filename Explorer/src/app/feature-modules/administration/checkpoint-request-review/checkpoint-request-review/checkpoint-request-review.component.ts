@@ -160,7 +160,12 @@ export class CheckpointRequestReviewComponent implements OnInit{
               comment: ""
             };
 
-            this.requestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.requestDetails.unshift(req);
+            }
+            else {
+              this.requestDetails.push(req);
+            }
           }
         });
       });
@@ -180,7 +185,12 @@ export class CheckpointRequestReviewComponent implements OnInit{
               comment: ""
             };
 
-            this.objectRequestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.objectRequestDetails.unshift(req);
+            }
+            else {
+              this.objectRequestDetails.push(req);
+            }
           }
         });
       });
@@ -201,11 +211,17 @@ export class CheckpointRequestReviewComponent implements OnInit{
               onHold: this.investigateStatus(request.status),
             };
 
-            this.encounterRequestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.encounterRequestDetails.unshift(req);
+            }
+            else {
+              this.encounterRequestDetails.push(req);
+            }
           }
         });
       });
     });
+
   }
 
   investigateStatus(s: Status): boolean {
