@@ -203,4 +203,21 @@ export class TourAuthoringService {
   addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
     return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
   }
+
+  getAuthorsSoldToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/soldToursNumber/' + authorId);
+  }
+
+  getAuthorsStartedToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/startedToursNumber/' + authorId);
+  }
+
+  getAuthorsFinishedToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/finishedToursNumber/' + authorId);
+  }
+
+  getAuthorsTourCompletionPercentage(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourCompletitionPercentage/' + authorId);
+  }
+
 }

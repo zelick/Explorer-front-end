@@ -60,6 +60,7 @@ import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/c
 import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
+import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -116,6 +117,8 @@ const routes: Routes = [
       { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
       { path: 'sales-form/:id', component: SaleFormComponent, canActivate: [AuthGuard],},
       { path: 'sales', component: SaleComponent, canActivate: [AuthGuard], },
+      { path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
+
 
       //ALL USERS
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
@@ -184,6 +187,7 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
+  {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
 ];
 
 @NgModule({

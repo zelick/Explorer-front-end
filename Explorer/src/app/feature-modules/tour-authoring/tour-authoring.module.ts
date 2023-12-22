@@ -20,6 +20,8 @@ import { PlanYourTripComponent } from './plan-your-trip/plan-your-trip.component
 import { PrivateToursComponent } from './private-tours/private-tours.component';
 import { TourBundlesComponent } from './tour-bundles/tour-bundles.component';
 import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.component';
+import { TourStatisticsComponent } from './tour-statistics/tour-statistics.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 
 
@@ -38,7 +40,8 @@ import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.com
     PlanYourTripComponent,
     PrivateToursComponent,
     TourBundlesComponent,
-    TourBundleEditComponent
+    TourBundleEditComponent,
+    TourStatisticsComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { TourBundleEditComponent } from './tour-bundle-edit/tour-bundle-edit.com
     RouterModule,
     FormsModule,
     SharedModule,
-    MatSelectModule
+    MatSelectModule,
+    CanvasJSAngularChartsModule
   ],
   exports: [
     CheckpointComponent,
