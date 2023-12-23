@@ -142,6 +142,7 @@
     padding-bottom: 2vh;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     color: #253B34;
+    margin: 5px;
 }
 .no-completed{
     margin-left: 15px;
@@ -518,4 +519,71 @@ textarea {
 .transportation-table{
     margin-top: 20px;
     margin-left: -120px;
+}
+
+.all-checkpoints-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 5px;
+}
+.checkpoint-column{
+    height: fit-content;
+    width: 400px;
+    margin: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #3B846B;
+}
+
+.statistics-div{
+    width: 15%;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 4lvh;
+    margin-top: 1vh;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.number{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+
+.text{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
 }

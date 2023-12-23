@@ -42,6 +42,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   oldPosition: TouristPosition;
   checkPositions: any;
   publicCheckpoints: PublicCheckpoint[] = [];
+  percentage: string = '0'
 
   completedCheckpoint: Checkpoint[]=[];
   mapObjects: MapObject[] = [];
@@ -306,6 +307,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
       if(element.showedPointPicture==undefined)
       element.showedPointPicture=element.pictures[element.currentPointPicture];
     });
+    this.calculatePercantage()
     this.changeDetection.detectChanges();
   }
 
@@ -434,5 +436,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
        });
       }
     });
+  }
+
+  calculatePercantage(): void{
+    this.percentage = ((this.completedCheckpoint).length / (this.tour.checkpoints).length * 100).toFixed(0);
   }
 }

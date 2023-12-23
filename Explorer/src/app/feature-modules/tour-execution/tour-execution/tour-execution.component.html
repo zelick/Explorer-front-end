@@ -13,12 +13,19 @@
                                 <tr *ngFor="let e of tour.tourTimes">
                                     <th>{{e.transportation}}</th>
                                     <td>{{(e.distance/1000).toFixed(2)}} km</td>
-                                    <td>{{(e.timeInSeconds % 3600).toFixed(0)}} h {{((e.timeInSeconds%3600)/60).toFixed(0)}} min</td>
+                                    <td>{{(e.timeInSeconds / 3600).toFixed(0)}} h {{((e.timeInSeconds%3600)/60).toFixed(0)}} min</td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                 </table>
+            </div>
+        </div>
+        <div class="statistics-div">
+            <p *ngIf="percentage != '100'">🗺️</p>
+            <p *ngIf="percentage == '100'">🏆</p>
+            <div class="statistics">
+                <p class="number">{{percentage}} %</p><p class="text"> of this tour is completed!</p>
             </div>
         </div>
         <div class="button-div">
@@ -47,7 +54,7 @@
             </div>
             
             <div class="completed-ch-div">
-                <p class="title">Completed checkpoints</p>
+                <p class="title">🏆 Completed checkpoints 🏆</p>
                 <div class="completed-ch-div-content">
                     <div *ngIf="completedCheckpoint.length == 0">
                         <br><br>
@@ -73,7 +80,7 @@
                                     </div>
                                     <div>
                                         <label class="ch-description">Required time: {{(ch.requiredTimeInSeconds/3600).toFixed(0)}} h {{((ch.requiredTimeInSeconds%3600)/60).toFixed(0)}} min</label><br>
-                                        <label class="ch-description">Desecription: {{ch.description}}</label>        
+                                        <label class="ch-description">Description: {{ch.description}}</label>        
                                     </div>
                                     
                                     <div>
@@ -270,7 +277,7 @@
             </table>
         </div> -->
 
-        <div class="notification-div">
+        <!--div class="notification-div">
             <table border="1">
                 <tr *ngFor="let n of notifications">
                     <td>Save your new position!  ⚠️</td>
@@ -279,6 +286,28 @@
                     </td>
                 </tr>
             </table>
+        </div -->
+        <br><br>
+        <p class="title">Checkpoints preview</p>
+        <div class="all-checkpoints-div">
+                        <div class="checkpoint" *ngFor="let ch of tour.checkpoints" class="checkpoint-column">
+                            <label class="ch-title">{{ch.name}}</label>
+                            <div class="ch-img">
+                                
+                                <button class="nextbtn" (click)="OnPictureBack(ch)">
+                                       
+                                </button>
+                                <img class="img" [src]=ch.showedPointPicture >
+                                <button class="nextbtn" (click)="OnPictureNext(ch)">
+                                    >
+                                </button>
+
+                            </div>
+                            <div>
+                                <label class="ch-description">Required time: {{(ch.requiredTimeInSeconds/3600).toFixed(0)}} h {{((ch.requiredTimeInSeconds%3600)/60).toFixed(0)}} min</label><br>
+                                <label class="ch-description">Description: {{ch.description}}</label>        
+                            </div>
+                        </div>
         </div>
     </div>
 </div>
