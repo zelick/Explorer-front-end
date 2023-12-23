@@ -220,4 +220,7 @@ export class TourAuthoringService {
     return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourCompletitionPercentage/' + authorId);
   }
 
+  getToursInCompletionRangeCount(authorId: number, minPercentage: number, maxPercentage: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourCompletitionRangeCount/' + authorId + '/' + minPercentage + '/' + maxPercentage);
+  }
 }
