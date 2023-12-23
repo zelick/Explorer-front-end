@@ -258,7 +258,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
                     }
                   });
                   
-                 //this.changeDetection.detectChanges();
+                 this.changeDetection.detectChanges();
                 });
               }
   }
@@ -275,7 +275,7 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
             e = result;          
           }
         });
-      //this.changeDetection.detectChanges();
+      this.changeDetection.detectChanges();
       });
     }
   }  
@@ -365,30 +365,43 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   }
 
   ///// ENCOUNTERS /////
+  canSeeAvailableEncounter(): boolean{
+    if (this.availableEncounter && this.availableEncounterExecution.status !== 'Completed'){
+      return true;
+    }
+    return false;
+  }
+
   onActivate(id: number): void{
     this.service.activateEncounter(id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
-      this.availableEncounter = this.availableEncounterExecution.encounterDto;
-      this.encounterExecutions.forEach(element => {
-        if(element.id == this.availableEncounterExecution.id)
-          element = this.availableEncounterExecution;
-      });
+      this.availableEncounterExecution.encounterDto = this.availableEncounter;
+      const indexToUpdate = this.encounterExecutions.findIndex(element => element.id === this.availableEncounterExecution.id);
+      if (indexToUpdate !== -1) {
+        this.encounterExecutions[indexToUpdate] = result;
+        this.encounterExecutions[indexToUpdate].encounterDto = this.availableEncounterExecution.encounterDto;
+      }
+      console.log(this.encounterExecutions);
+
       if(this.availableEncounterExecution.status == 'Active' && this.availableEncounter.type=='Social')
       this.currentlyPeopleOnSocialEncounter = this.currentlyPeopleOnSocialEncounter + 1;
       this.changeDetection.detectChanges();
     });
   }
 
-  onComplete(): void{
-    this.service.completeEncounter(this.availableEncounterExecution.id)
+  onComplete(encounterExecution: EncounterExecution): void{
+    this.service.completeEncounter(encounterExecution.id, this.oldPosition.longitude, this.oldPosition.latitude)
     .subscribe(result =>{
       this.availableEncounterExecution = result;
-      this.availableEncounter = this.availableEncounterExecution.encounterDto;
-      this.encounterExecutions.forEach(element => {
-        if(element.id == this.availableEncounterExecution.id)
-          element = this.availableEncounterExecution;
-      });
+      this.availableEncounterExecution.encounterDto = this.availableEncounter;
+      const indexToUpdate = this.encounterExecutions.findIndex(element => element.id === this.availableEncounterExecution.id);
+      if (indexToUpdate !== -1) {
+        this.encounterExecutions[indexToUpdate] = result;
+        this.encounterExecutions[indexToUpdate].encounterDto = this.availableEncounterExecution.encounterDto;
+      }
+      console.log(this.encounterExecutions);
+
       this.dialog.open(CompletedEncounterComponent, {
         data: this.availableEncounter 
       });
@@ -412,13 +425,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
         dialogRef.afterClosed().subscribe(dialogResult => {
           if(dialogResult == 'Activate')
           {
-            encExecution.status = 'Active';
             this.onActivate(this.availableEncounter.id || 0);
           }
           if(dialogResult == 'Complete')
           {
-            encExecution.status = 'Completed';
-            this.onComplete();
+            this.onComplete(this.availableEncounterExecution);
           }
        });
       }

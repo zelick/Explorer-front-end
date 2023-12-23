@@ -43,8 +43,7 @@
     
         <div class="right-div">
             <div class="available-encounter-div">
-                <!-- TODO - available encounter button-->
-                <button class="buttonAbandon" *ngIf="availableEncounter" (click)="viewEncounter(availableEncounter.id!)">See Available Encounter</button>
+                <button class="buttonAbandon" *ngIf="canSeeAvailableEncounter()" (click)="viewEncounter(availableEncounter.id!)">See Available Encounter</button>
             </div>
             
             <div class="completed-ch-div">

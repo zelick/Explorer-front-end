@@ -104,8 +104,11 @@ export class TourExecutionService {
     return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/activate/' + id, form);
   }
 
-  completeEncounter(id: number): Observable<EncounterExecution>{
-    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/completed/' + id, null);
+  completeEncounter(id: number, touristLongitude: number, touristLatitude : number): Observable<EncounterExecution>{
+    var form = new FormData();
+    form.append('touristLatitude', touristLatitude.toString());
+    form.append('touristLongitude', touristLongitude.toString());
+    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/completed/' + id, form);
   }
 
   getActiveEncounters(tourId: number): Observable<EncounterExecution[]>{
