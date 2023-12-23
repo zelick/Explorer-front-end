@@ -37,3 +37,14 @@ div {
     padding: 10px;
     border-radius: 5px;
 }
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-content {
+    width: 50%; 
+}
+

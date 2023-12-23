@@ -115,4 +115,39 @@ export class TourStatisticsComponent implements OnInit {
             };
         }
     }
+
+    chartOptions2 = {
+        theme: "dark2",
+        title: {
+            text: "Distribution of tour completions"
+        },
+        backgroundColor: "#B6D4AF",
+        animationEnabled: true,
+        axisX: {
+            interval: 25,
+            valueFormatString: " "
+        },
+        axisY: {
+            title: "Number of Tours",
+            titleFontSize: 18,
+            labelFontSize: 18
+        },
+        data: [{
+            type: "column",
+            indexLabelFontSize: 18,
+            dataPoints: [
+                { x: 12.5, y: 71, indexLabel: "0% - 25%", indexLabelPlacement: "outside", color: "#E67840" },
+                { x: 37.5, y: 55, indexLabel: "25% - 50%", indexLabelPlacement: "outside", color: "#3B846B" },
+                { x: 62.5, y: 50, indexLabel: "50% - 75%", indexLabelPlacement: "outside", color: "#E67840" },
+                { x: 87.5, y: 65, indexLabel: "75% - 100%", indexLabelPlacement: "outside", color: "#3B846B" }
+            ],
+            toolTipContent: "Number of tours that are in this range: {y}"
+        }]
+    };
+    
+    
+    
+    
+    
+    
 }
