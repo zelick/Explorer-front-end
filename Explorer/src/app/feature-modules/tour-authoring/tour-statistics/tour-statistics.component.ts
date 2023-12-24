@@ -139,7 +139,7 @@ export class TourStatisticsComponent implements OnInit {
             }
         });
 
-        this.service.getToursInCompletionRangeCount(this.user.id, 25, 50).subscribe({
+        this.service.getToursInCompletionRangeCount(this.user.id, 26, 50).subscribe({
             next: (result: number) => {
               console.log('Broj u opsegu: ', result);
               this.y2 = result;
@@ -151,7 +151,7 @@ export class TourStatisticsComponent implements OnInit {
             }
         });
 
-        this.service.getToursInCompletionRangeCount(this.user.id, 50, 75).subscribe({
+        this.service.getToursInCompletionRangeCount(this.user.id, 51, 75).subscribe({
             next: (result: number) => {
               console.log('Broj u opsegu: ', result);
               this.y3 = result;
@@ -163,7 +163,7 @@ export class TourStatisticsComponent implements OnInit {
             }
         });
 
-        this.service.getToursInCompletionRangeCount(this.user.id, 75, 100).subscribe({
+        this.service.getToursInCompletionRangeCount(this.user.id, 76, 100).subscribe({
             next: (result: number) => {
               console.log('Broj u opsegu: ', result);
               this.y4 = result;
@@ -217,9 +217,9 @@ export class TourStatisticsComponent implements OnInit {
                 indexLabelFontSize: 18,
                 dataPoints: [
                     { x: 12.5, y: this.y1, indexLabel: "0% - 25%", indexLabelPlacement: "outside", color: "#E67840" },
-                    { x: 37.5, y: this.y2, indexLabel: "25% - 50%", indexLabelPlacement: "outside", color: "#3B846B" },
-                    { x: 62.5, y: this.y3, indexLabel: "50% - 75%", indexLabelPlacement: "outside", color: "#E67840" },
-                    { x: 87.5, y: this.y4, indexLabel: "75% - 100%", indexLabelPlacement: "outside", color: "#3B846B" }
+                    { x: 37.5, y: this.y2, indexLabel: "26% - 50%", indexLabelPlacement: "outside", color: "#3B846B" },
+                    { x: 62.5, y: this.y3, indexLabel: "51% - 75%", indexLabelPlacement: "outside", color: "#E67840" },
+                    { x: 87.5, y: this.y4, indexLabel: "76% - 100%", indexLabelPlacement: "outside", color: "#3B846B" }
                 ],
                 toolTipContent: "Number of tours that are in this range: {y}"
             }]
