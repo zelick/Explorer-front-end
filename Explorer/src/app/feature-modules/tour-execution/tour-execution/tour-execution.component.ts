@@ -23,6 +23,7 @@ import { EncounterDialogComponent } from '../encounter-dialog/encounter-dialog.c
 import { AbandonDialogComponent } from '../abandon-dialog/abandon-dialog.component';
 import { CompletedEncounterComponent } from '../completed-encounter/completed-encounter.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { UnlockSecretDialogComponent } from '../unlock-secret-dialog/unlock-secret-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -111,8 +112,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
       this.addCheckpointsOnMap();
     if(this.mapObjects.length > 0)
       this.addMapObjectsOnMap();
-      if(this.publicCheckpoints.length > 0)
+    if(this.publicCheckpoints.length > 0)
       this.addPublicCheckpoinsOnMap();
+    if(this.completedCheckpoint.length > 0)
+      this.addCompletedCheckpoinsOnMap();
   }
 
   addCheckpointsOnMap(): void{
@@ -155,6 +158,27 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
             coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
       });
       this.simulatorComponent.addPublicCheckpoints(coords);
+    }
+  }
+
+  addCompletedCheckpoinsOnMap(): void{
+    if((this.completedCheckpoint).length != 0)
+    {
+      let coords: [{lat: number, lon: number, picture: string, name: string, desc: string}] = [{lat: this.completedCheckpoint[0].latitude, lon: this.completedCheckpoint[0].longitude, picture: this.completedCheckpoint[0].pictures[0], name: this.completedCheckpoint[0].name, desc: this.completedCheckpoint[0].description}];
+      this.completedCheckpoint.forEach(e => {
+          if(e != this.completedCheckpoint[0])
+            if((e.latitude > (this.completedCheckpoint[0].latitude - 2) && (e.latitude < this.completedCheckpoint[0].latitude + 2))
+            && ((e.longitude > this.completedCheckpoint[0].longitude - 2) && (e.longitude < this.completedCheckpoint[0].longitude + 2)))
+            coords.push({lat:e.latitude, lon:e.longitude, picture: e.pictures[0], name: e.name, desc: e.description});
+      });
+      this.simulatorComponent.addCompletedCheckpoints(coords);
+    }
+  }
+
+  completeCheckpoinOnMap( coords: [{lat: number, lon: number, picture: string, name: string, desc: string}]): void{
+    if((this.completedCheckpoint).length != 0)
+    {
+      this.simulatorComponent.addCompletedCheckpoints(coords);
     }
   }
 
@@ -290,7 +314,11 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
     this.tourExecution.completedCheckpoints?.forEach(element => {
       var c = this.tour.checkpoints.filter(n => n.id == element.checkpointId);
       if(this.completedCheckpoint.indexOf(this.completedCheckpoint.filter(n=>n.id==element.checkpointId)[0])==-1)
+      {
         this.completedCheckpoint.push(c[0]);
+        this.completeCheckpoinOnMap([{lat: c[0].latitude, lon: c[0].longitude, picture: c[0].pictures[0], name: c[0].name, desc: c[0].description}])
+        this.showUnlockSecretPopup(c[0]);
+      }
     });
     this.completedCheckpoint.forEach(element => {
       if(element.currentPicture==undefined)
@@ -440,5 +468,25 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
 
   calculatePercantage(): void{
     this.percentage = ((this.completedCheckpoint).length / (this.tour.checkpoints).length * 100).toFixed(0);
+  }
+
+  showUnlockSecretPopup(checkpoint: Checkpoint): void{
+    const dialogRef = this.dialog.open(UnlockSecretDialogComponent, {
+      data: {
+          checkpointName: checkpoint.name,
+          unlocked: !checkpoint.isSecretPrerequisite
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult && checkpoint.isSecretPrerequisite)
+      {
+        this.viewEncounter(checkpoint.encounterId);
+      }
+      if(dialogResult && !checkpoint.isSecretPrerequisite)
+      {
+        this.viewSecret(checkpoint);
+      }
+   });
   }
 }

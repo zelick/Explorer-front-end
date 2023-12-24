@@ -30,8 +30,11 @@
         </div>
         <div class="button-div">
             <div>
-                <button (click)="abandon()" class="buttonAbandon">
+                <button (click)="abandon()" class="buttonAbandon" *ngIf="percentage != '100'">
                     Leave tour 🏃
+                </button>
+                <button (click)="abandon()" class="buttonAbandon" *ngIf="percentage == '100'">
+                    Rate tour 💬
                 </button>
                 <button class="buttonAbandon">
                     Report an Issue 🚩

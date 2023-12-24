@@ -12,6 +12,7 @@
                     <label class="encounter-description">{{data.encounterExecution.encounterDto.description}} </label>
                 </div>
                 <label class="social-emoji" *ngIf="data.encounterExecution.status == 'Completed'">🥇</label>
+                <label class="social-emoji" *ngIf="data.encounterExecution.status != 'Completed'">🏃</label>
             </div>
             <button class="button" (click)="onActivate()" *ngIf="data.encounterExecution.status === 'Pending'">Activate</button>
             <button class="button" (click)="onComplete()" *ngIf="data.encounterExecution.status === 'Active'">Complete</button>
@@ -28,7 +29,8 @@
                     <label>Range: {{data.encounterExecution.encounterDto.range}}</label><br>
                     <button class="button" *ngIf="data.encounterExecution.status === 'Pending'" (click)="onActivate()">Activate</button>
                 </div>
-                <label class="social-emoji">🤝🏻</label>
+                <label class="social-emoji" *ngIf="data.encounterExecution.status === 'Completed'">🥇</label>
+                <label class="social-emoji" *ngIf="data.encounterExecution.status != 'Completed'">🤝🏻</label>
             </div>
 
         </div>

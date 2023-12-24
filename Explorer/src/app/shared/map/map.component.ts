@@ -243,6 +243,18 @@ export class MapComponent implements AfterViewInit {
       });
     }
 
+    addCompletedCheckpoints(coords: [{lat: number, lon: number, picture: string, name: string, desc: string}]): void {
+      let defaultIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/8935/8935765.png',
+        iconSize: [35, 45],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).bindPopup("<b>" + element.name + "</b><br>" + element.desc + "<br><img src='" + element.picture + "' width=70 height=50>").addTo(this.map).openPopup();
+      });
+    }
+
     addCheckpoints(coords: [{lat: number, lon: number, name: string, desc: string}]): void {
       let defaultIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',

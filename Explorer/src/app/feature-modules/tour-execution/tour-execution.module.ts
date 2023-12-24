@@ -10,6 +10,7 @@ import { SecretDialogComponent } from './secret-dialog/secret-dialog.component';
 import { EncounterDialogComponent } from './encounter-dialog/encounter-dialog.component';
 import { AbandonDialogComponent } from './abandon-dialog/abandon-dialog.component';
 import { CompletedEncounterComponent } from './completed-encounter/completed-encounter.component';
+import { UnlockSecretDialogComponent } from './unlock-secret-dialog/unlock-secret-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CompletedEncounterComponent } from './completed-encounter/completed-enc
     SecretDialogComponent,
     EncounterDialogComponent,
     AbandonDialogComponent,
-    CompletedEncounterComponent
+    CompletedEncounterComponent,
+    UnlockSecretDialogComponent
     ],
   imports: [
     CommonModule,
