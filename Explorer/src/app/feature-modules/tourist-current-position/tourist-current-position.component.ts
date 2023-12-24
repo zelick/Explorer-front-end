@@ -91,10 +91,6 @@ export class TouristCurrentPositionComponent implements OnInit, AfterViewInit{
         latitude: this.simulatorComponent.selectedPosition.latitude,
         longitude: this.simulatorComponent.selectedPosition.longitude
        }
-       this.marketPlaceService.addTouristPosition(touristPosition).subscribe(result=>{
-          console.log(result)
-       })
-
       }
       this.router.navigate([`/`]);
 
