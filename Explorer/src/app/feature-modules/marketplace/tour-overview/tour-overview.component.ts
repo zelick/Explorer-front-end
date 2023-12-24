@@ -36,6 +36,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   publicTours: PublicTour[] = [];
   foundTours: TourPreview[] = [];
   searchTours: TourPreview[] = [];
+  backupSearchTours: TourPreview[] = [];
   selectedLongitude: number;
   selectedLatitude: number;
   radius: number = 500; // Inicijalna vrednost precnika (scroller)
@@ -47,6 +48,8 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
   sortOrder: 'asc' | 'desc' = 'asc';
   toursLocation: TourLocation[] = [];
   visibleFilters: boolean = false;
+  recommendedTours: TourPreview[] = [];
+  activeTours: TourPreview[] = [];
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -67,10 +70,17 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       this.service.getActiveSales().subscribe((activeSales: Sale[]) => {
         this.publishedTours = this.mapDiscountedPricesToTours(tours, activeSales);
         this.searchTours = this.publishedTours;
+        this.backupSearchTours = this.publishedTours;
         this.findToursLocation();
         this.getPublicTours();
       });
     });
+
+    this.service.getRecommendedTours(this.user.id).subscribe((recommendedTours: TourPreview[])=>{
+      this.recommendedTours = recommendedTours;
+      console.log(this.recommendedTours);
+    });
+
   }
   averageGrade(tour: TourPreview){
     var sum = 0;
@@ -135,6 +145,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
     return activeSales.some(sale => sale.toursIds.includes(tourId));
   }
   scrollToFilters(){
+    this.searchTours = this.backupSearchTours;
     this.visibleFilters = true;
     setTimeout(() => {
       const filtersElement = document.getElementById('filters');
@@ -146,6 +157,16 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
         });
       }
     }, 300);
+  }
+
+  recommendedFilters(){
+    this.searchTours = this.recommendedTours;
+    this.cancelSearchRecommended();
+  }
+
+  activeFilters(){
+    this.searchTours = this.activeTours;
+    this.cancelSearchRecommended();
   }
 
   filterTours() {
@@ -338,6 +359,25 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
     }, 600);
     this.mapComponent.reloadMap();
   }
+
+  cancelSearchRecommended():void {
+    const filtersElement = document.getElementById('title');
+    this.selectedLatitude = 0;
+    this.selectedLongitude = 0;
+      if (filtersElement) {
+        filtersElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      this.showOnlyOnSale = false;
+      this.radius = 100;
+    setTimeout(() => {
+      this.visibleFilters = false;
+    }, 600);
+    this.mapComponent.reloadMap();
+  }
+
   findToursLocation(): void {
     this.searchTours.forEach(tour => {
       this.mapService.reverseSearch(tour.checkpoint.latitude, tour.checkpoint.longitude).subscribe({

@@ -3,6 +3,8 @@
         <div style=" height: 5px"></div>
         <h1 id="title">Find the tour that suits you the best</h1>
         <button class="filtersButton" (click)="scrollToFilters()">Filters</button>
+        <button class="filtersButton" (click)="recommendedFilters()">Recommended</button>
+        <button class="filtersButton" (click)="activeFilters()">Active</button>
         <div class="tour-container">
             <div class="tour-card" *ngFor="let tour of searchTours" (click)="openDetails(tour)">
                 <div class="image-container">
