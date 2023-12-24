@@ -11,12 +11,14 @@ div {
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 50px;
     color: #E67840;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 30px;
     letter-spacing: 2px;
+    font-weight: bold;
+    font-family: cursive;
   }
 
   .chart-container {
@@ -48,3 +50,48 @@ div {
     width: 50%; 
 }
 
+/* */
+
+.chart-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dva stupca jednake širine */
+  gap: 10px; /* Razmak između grafikona */
+  justify-content: center; /* Centriramo elemente po horizontali */
+  width: 100%;
+}
+
+.chart {
+  height: 360px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.2); /* Dodajemo efekat senke */
+  border-radius: 12px; /* Povećavamo ispupčenost ivica */
+  border: 2px solid #ddd;
+  overflow: hidden;
+}
+
+
+.analytics-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: white; /* Postavljanje belog pozadinskog boje */
+}
+
+.analytics-item {
+  text-align: center;
+  margin: 10px;
+}
+
+.green-h3 {
+  font-size: 20px;
+  color: #3B846B;
+  margin-bottom: 10px;
+  font-family: cursive;
+}
+
+.orange-h3 {
+  font-size: 20px;
+  color: #E67840;
+  margin-bottom: 10px;
+  font-family: cursive;
+}

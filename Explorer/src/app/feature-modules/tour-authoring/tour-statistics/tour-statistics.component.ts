@@ -18,6 +18,10 @@ export class TourStatisticsComponent implements OnInit {
     numberOfFinishedTours: number = 0;
     finishedToursPercentage: number = 0;
     numberOfToursInRange: number = 0;
+    y1: number = 0;
+    y2: number = 0;
+    y3: number = 0;
+    y4: number = 0;
 
     chartOptions: any;
     chartOptions2: any;
@@ -36,7 +40,7 @@ export class TourStatisticsComponent implements OnInit {
             this.getAuthorsFinishedToursNumber();
             this.getAuthorsTourCompletionPercentage();
 
-            this.updateChartOptions2();
+            this.getToursInCompletionRangeCount();
         });
     }
 
@@ -122,7 +126,57 @@ export class TourStatisticsComponent implements OnInit {
         }
     }
 
-    /* getToursInCompletionRangeCount(minPercentage: number, maxPercentage: number) {
+    getToursInCompletionRangeCount() {
+        this.service.getToursInCompletionRangeCount(this.user.id, 0, 25).subscribe({
+            next: (result: number) => {
+              console.log('Broj u opsegu: ', result);
+              this.y1 = result;
+              this.updateChartOptions2();
+            },
+            error: (error) => {
+              console.log(error);
+              console.log('Error pri dobavljanju tura u opsegu');
+            }
+        });
+
+        this.service.getToursInCompletionRangeCount(this.user.id, 25, 50).subscribe({
+            next: (result: number) => {
+              console.log('Broj u opsegu: ', result);
+              this.y2 = result;
+              this.updateChartOptions2();
+            },
+            error: (error) => {
+              console.log(error);
+              console.log('Error pri dobavljanju tura u opsegu');
+            }
+        });
+
+        this.service.getToursInCompletionRangeCount(this.user.id, 50, 75).subscribe({
+            next: (result: number) => {
+              console.log('Broj u opsegu: ', result);
+              this.y3 = result;
+              this.updateChartOptions2();
+            },
+            error: (error) => {
+              console.log(error);
+              console.log('Error pri dobavljanju tura u opsegu');
+            }
+        });
+
+        this.service.getToursInCompletionRangeCount(this.user.id, 75, 100).subscribe({
+            next: (result: number) => {
+              console.log('Broj u opsegu: ', result);
+              this.y4 = result;
+              this.updateChartOptions2();
+            },
+            error: (error) => {
+              console.log(error);
+              console.log('Error pri dobavljanju tura u opsegu');
+            }
+        });
+    }
+    /*
+    getToursInCompletionRangeCount(minPercentage: number, maxPercentage: number) {
         this.service.getToursInCompletionRangeCount(this.user.id, minPercentage, maxPercentage).subscribe({
             next: (result: number) => {
               console.log('Broj u opsegu: ', result);
@@ -135,9 +189,13 @@ export class TourStatisticsComponent implements OnInit {
             }
         });
     } 
+    */
 
     updateChartOptions2() {
-        console.log(this.getToursInCompletionRangeCount(0, 25));
+        console.log(this.y1)
+        console.log(this.y2)
+        console.log(this.y3)
+        console.log(this.y4)
         this.chartOptions2 = {
             theme: "dark2",
             title: {
@@ -158,15 +216,17 @@ export class TourStatisticsComponent implements OnInit {
                 type: "column",
                 indexLabelFontSize: 18,
                 dataPoints: [
-                    { x: 12.5, y: this.getToursInCompletionRangeCount(0, 25), indexLabel: "0% - 25%", indexLabelPlacement: "outside", color: "#E67840" },
-                    { x: 37.5, y: this.getToursInCompletionRangeCount(25, 50), indexLabel: "25% - 50%", indexLabelPlacement: "outside", color: "#3B846B" },
-                    { x: 62.5, y: this.getToursInCompletionRangeCount(50, 75), indexLabel: "50% - 75%", indexLabelPlacement: "outside", color: "#E67840" },
-                    { x: 87.5, y: this.getToursInCompletionRangeCount(75, 100), indexLabel: "75% - 100%", indexLabelPlacement: "outside", color: "#3B846B" }
+                    { x: 12.5, y: this.y1, indexLabel: "0% - 25%", indexLabelPlacement: "outside", color: "#E67840" },
+                    { x: 37.5, y: this.y2, indexLabel: "25% - 50%", indexLabelPlacement: "outside", color: "#3B846B" },
+                    { x: 62.5, y: this.y3, indexLabel: "50% - 75%", indexLabelPlacement: "outside", color: "#E67840" },
+                    { x: 87.5, y: this.y4, indexLabel: "75% - 100%", indexLabelPlacement: "outside", color: "#3B846B" }
                 ],
                 toolTipContent: "Number of tours that are in this range: {y}"
             }]
         };
-    } */
+    } 
+
+    /*
 
     updateChartOptions2() {
         forkJoin([
@@ -229,5 +289,7 @@ export class TourStatisticsComponent implements OnInit {
     getToursInCompletionRangeCount(minPercentage: number, maxPercentage: number) {
         return this.service.getToursInCompletionRangeCount(this.user.id, minPercentage, maxPercentage);
     }
+
+    */
     
 }
