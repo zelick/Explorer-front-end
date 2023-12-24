@@ -22,7 +22,7 @@ button[color="accent"] {
     background-color: #E67840;
 }
 
-form button {
+.action-btn {
     display: block;
     background-color: #3B846B;
     color: #ffffff;
@@ -32,11 +32,20 @@ form button {
     width: 100px;
 }
 
-form button mat-icon {
+.action-btn mat-icon {
     color: #ffffff;
 }
 
-form button[color="primary"],
-form button[color="accent"] {
+.action-btn[color="primary"],
+.action-btn[color="accent"] {
     display: block;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-btn {
+    background-color: #3B846B;
+    color: white
 }

@@ -3,6 +3,7 @@ import { BlogPost, BlogPostStatus } from '../../blog/model/blog-post.model';
 import { Rating } from '../../blog/model/blog-rating.model';
 import { LayoutService } from '../layout.service';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-popular-blogs',
@@ -15,7 +16,7 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
   imageIntervals: Map<number, any> = new Map();
   imageIndexes: Map<number, number> = new Map();
 
-  constructor(private service: LayoutService, private router: Router){ }
+  constructor(private service: LayoutService, private router: Router, private imageService: ImageService){ }
 
   ngOnInit(): void {
     /*this.blogs = [
@@ -27,7 +28,6 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
     this.service.getTopRatedBlogs(4).subscribe({
       next: (result: BlogPost[]) => {
        this.blogs = result;
-       this.getImagePaths();
        console.log(this.blogs);
       },
       error: () => {
@@ -50,14 +50,6 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
     if(blog.id){
       this.router.navigate(['/blogs', blog.id]);
     }
-  }
-  getImagePaths() {
-    const baseUrl: string = "https://localhost:44333//images/";
-    this.blogs.forEach(blog => {
-      if (blog.imageNames && blog.imageNames.length > 0) {
-        blog.imageNames = blog.imageNames.map(imageName => baseUrl + imageName);
-      }
-    });
   }
   get thumbsDownEmoji(): string {
     return '\u{1F44E}';
@@ -87,5 +79,9 @@ export class PopularBlogsComponent implements OnInit, OnDestroy {
     }
     this.imageIntervals.delete(cardId);
     this.imageIndexes.delete(cardId);
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

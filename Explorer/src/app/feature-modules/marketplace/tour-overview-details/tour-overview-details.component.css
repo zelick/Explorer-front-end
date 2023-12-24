@@ -1,18 +1,145 @@
-
-.tour-details {
-    width: 680px;
-    display:flex;
-    gap: 20px;
-    flex-direction: column;
-    margin: 0 auto;
+.tour-container {
+    display: flex;
+    justify-content: space-around;
+    height: auto;
+    background-image: url('./tour_overview_background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    overflow: hidden;
+    min-height: 100%;
 }
 
+.map-checkpoint-container{
+    height: 100%;
+}
+
+.first-checkpoint{
+    margin-top: 4vh;
+    background-color: #253B34;
+    border-radius: 15px;
+    max-width: 75vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map {
+    margin-top: 4vh;
+    width: 75vh;
+    height: 60vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    border: 1px solid black;
+    overflow: hidden;
+    background-color: #3B846B;
+}
+
+.tour-details {
+    margin-top: 2vh;
+    width: 62%;
+    max-width: 85vh;
+    height: fit-content;
+    min-height: 70vh;
+    margin-bottom: 2vh;
+    background-color: #F7F6DC;
+    padding: 4vh;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.tour-description{
+    max-width: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+/* .checkpoint-image-container{
+    
+} */
+
+.description{
+    overflow-y: auto;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+    min-height: 23vh;
+    max-height: 48vh;
+    width: 30vh;
+}
+
+.rating-item {
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.star {
+    font-size: x-large;
+    color: #253B34;
+    position: relative;
+    display: inline-block;
+}
+
+.rating-item div {
+    margin-bottom: 5px;
+}
+
+.rating-item button {
+    margin-top: 5px;
+    color: #fff;
+    background-color: #3B846B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rating-date-label{
+    color: gray;
+    padding-bottom: 0px;
+    font-size: small;
+    margin-left: auto;
+}
+
+.checkpoint-image{
+    height: 20vh;
+    width: 28vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #253B34;
+}
+
+.checkpoint-image img {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    align-items: end;
+}
 
 th{
-    width: 340px;
-    text-align: center;
-    background-color: #E67840;
-    color: white;
+    text-align: left;
+}
+
+td{
+    font-size: 14px;
 }
 
 .buttonEdit{
@@ -24,20 +151,6 @@ th{
     font-size: 100%; 
     color:#fff;
     background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-
-.buttonBack{
-    width: auto;
-    margin-left: 0px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color:#E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
@@ -57,28 +170,23 @@ th{
     cursor: pointer;
 }
 
-td{
-    width: 340px;
-    text-align: center;
-
-}
-.cardcp{
-    width: 600px;
-    display:flex;
-    column-gap: 150px;
-    flex-direction: row;
-    justify-content:justify;
-    background-color: #B6D4AF;
-
+.description{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
 }
 
-.cps2{
-font-weight: 1000;
+.description-text{
+    font-size: 15px;
+    margin-left: -0.9vh;
+    color:black;
+    overflow-y: auto;
+    min-height: 10vh;
+    max-height: 11vh;
+    text-align: justify;
+    text-align-last: justify;
 }
 
-.cps1{
-    width: 150px;
-}
 #tour-title{
     font-size: 24px;
     font-weight: bold;
@@ -89,72 +197,139 @@ font-weight: 1000;
     padding-left: 25px;
 }
 
-
-
-
-.mapa{
-    width: 680px;
-    height: 400px;
-}
-
 p{
-    margin: 0 auto;
-    font-size: 4vh;
+  margin: 1vh auto;
+  font-size: 5vh;
   color:#E67840;
-  padding: 1% 2.5%; 
-  
+  padding: 0 2.5%;
 }
 
 .subtitle{
     font-size: 2vh;
-  color:#E67840;
-  font-style: bold;
-
+    color:#E67840;
+    font-style: bold;
+    padding-top: 3vh;
+    margin-left: 5px;
+    padding-bottom: 0px;
 }
 
-.cppi{
-    width: 80px;
-    height: 90px;
-    text-align: left;
-    border: 2px solid #3B846B;
-
-}
-
-.cpp{
-    width: 200px;
-    text-align: left;
- 
-}
-.routingButton{
-    width: 680px;
-    display:flex;
+.routing-buttons{
+    display: flex;
     gap: 15px;
-    flex-direction: row;
     justify-content: space-between;
+    align-content: end;
+    margin-top: 20px;
 }
 
-.navButton{
+.button{
     width: auto;
-    margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
     color:#fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.button.nav{
     background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
 }
-.shopButton{
-    width: auto;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
+
+.button.shop{
     background-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
+}
+
+.tag-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-button {
+    margin-top: 3vh;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: #fff;
+    background-color: #3B846B;
+    border: none;
+    border-radius: 9px;
     cursor: pointer;
 }
 
+hr{
+    border: 1px solid #ccc;
+    margin: 0px 0 15px 0;
+}
+
+.hr-checkpoint{
+    border: 1px solid #2e5a42;
+    margin: 10px 0 15px 0;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.scrollable-table {
+    max-height: 30vh;
+    height: auto;
+    overflow-y: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .scrollable-table table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #3B846B;
+    color: #fff;
+    z-index: 1;
+  }
+
+label{
+    font-size: 16px;
+    padding-bottom: 4vh;
+    color: #F7F6DC;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.checkpoint-title{
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 2vh;
+}
+
+.all-stars{
+    height: 6vh;
+    width: 22vh;
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
+}
+
+.old-price{
+    width: fit-content;
+    background-color: #8a7266;
+    padding: 2px;
+    margin-bottom: 5px;
+    font-size: 80%;
+    color: lightgray;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    margin-right: 1vh;
+}
+
+.price{
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+}

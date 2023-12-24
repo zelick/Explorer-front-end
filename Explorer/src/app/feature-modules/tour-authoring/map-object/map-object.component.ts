@@ -16,7 +16,7 @@ export class MapObjectComponent {
   selectedMapObject: MapObject;
   shouldEdit: boolean = false;
 
-  constructor(private service: TourAuthoringService, private imageService: ImageService,) { }
+  constructor(private service: TourAuthoringService, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.service.getMapObjects().subscribe({
@@ -72,7 +72,7 @@ export class MapObjectComponent {
     });
   }
 
- 
-
-   
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

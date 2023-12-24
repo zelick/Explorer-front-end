@@ -11,6 +11,7 @@ import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from '../marketplace/model/tour-preview';
 import { BlogPost } from '../blog/model/blog-post.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Tourist } from './model/tourist.model';
 
 
 @Injectable({
@@ -31,47 +32,86 @@ export class LayoutService {
     return of(null); 
   }
 
+  fetchCurrentAdmin(): Observable<any> {
+    const jwtHelperService = new JwtHelperService();
+    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const personId = jwtHelperService.decodeToken(accessToken).id;
+    if (personId) {
+      return this.http.get(environment.apiHost + `profile-administration/admin-edit/${personId}`);
+    }
+    return of(null); 
+  }
+
   saveNewInfo(profileInfo: ProfileInfo, formData: FormData): Observable<any> {
     const options = { headers: new HttpHeaders() };
 
-  formData.append('id', profileInfo.id.toString());
-  formData.append('userId', profileInfo.userId.toString());
-  formData.append('name', profileInfo.name);
-  formData.append('surname', profileInfo.surname);
-  formData.append('email', profileInfo.email);
-  formData.append('biography', profileInfo.biography);
-  formData.append('motto', profileInfo.motto);
+    formData.append('id', profileInfo.id.toString());
+    formData.append('userId', profileInfo.userId.toString());
+    formData.append('name', profileInfo.name);
+    formData.append('surname', profileInfo.surname);
+    formData.append('email', profileInfo.email);
+    formData.append('biography', profileInfo.biography);
+    formData.append('motto', profileInfo.motto);
 
-  // Assuming that profilePicture is a File
-  if (profileInfo.profilePicture instanceof File) {
-    formData.append('profilePicture', profileInfo.profilePicture, profileInfo.profilePicture.name);
+    // Assuming that profilePicture is a File
+    if (profileInfo.profilePicture instanceof File) {
+      formData.append('profilePicture', profileInfo.profilePicture, profileInfo.profilePicture.name);
+    }
+
+    // Assuming profilePictureUrl is a string
+    formData.append('profilePictureUrl', profileInfo.profilePictureUrl);
+
+    return this.http.put(environment.apiHost + 'profile-administration/edit', formData, options);
+    
   }
 
-  // Assuming profilePictureUrl is a string
-  formData.append('profilePictureUrl', profileInfo.profilePictureUrl);
+  saveNewAdminInfo(profileInfo: ProfileInfo, formData: FormData): Observable<any> {
+    const options = { headers: new HttpHeaders() };
+    //return this.http.put(environment.apiHost + 'profile-administration/edit', formData, options);
+    formData.append('id', profileInfo.id.toString());
+    formData.append('userId', profileInfo.userId.toString());
+    formData.append('name', profileInfo.name);
+    formData.append('surname', profileInfo.surname);
+    formData.append('email', profileInfo.email);
+    formData.append('biography', profileInfo.biography);
+    formData.append('motto', profileInfo.motto);
 
-  return this.http.put(environment.apiHost + 'profile-administration/edit', formData, options);
-  
-}
+    // Assuming that profilePicture is a File
+    if (profileInfo.profilePicture instanceof File) {
+      formData.append('profilePicture', profileInfo.profilePicture, profileInfo.profilePicture.name);
+    }
+
+    // Assuming profilePictureUrl is a string
+    formData.append('profilePictureUrl', profileInfo.profilePictureUrl);
+
+    return this.http.put(environment.apiHost + 'profile-administration/admin-edit', formData, options);
+  }
 
   getPlaceInfo(latitude: number, longitude: number): Observable<any> {
-    const url = `${this.apiUrl2}&lat=${latitude}&lon=${longitude}`;
+      const url = `${this.apiUrl2}&lat=${latitude}&lon=${longitude}`;
 
-    return this.http.get(url);
+      return this.http.get(url);
   }
 
   getAllTours():  Observable<PagedResults<TourPreview>>{
-    return this.http.get<PagedResults<TourPreview>>('https://localhost:44333/api/langing-page/get-all-tours-preview');
+      return this.http.get<PagedResults<TourPreview>>('https://localhost:44333/api/langing-page/get-all-tours-preview');
   }
-  
+    
 
-getTopRatedTours(count:number): Observable<TourPreview[]> {
-  return this.http.get<TourPreview[]>(environment.apiHost + 'langing-page/top-rated-tours/' + count);
-}
+  getTopRatedTours(count:number): Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'langing-page/top-rated-tours/' + count);
+  }
 
-getTopRatedBlogs(count: number): Observable<BlogPost[]>{
-  return this.http.get<BlogPost[]>(environment.apiHost + 'langing-page/top-rated-blogs/' + count);
-}
+  getTopRatedBlogs(count: number): Observable<BlogPost[]>{
+    return this.http.get<BlogPost[]>(environment.apiHost + 'langing-page/top-rated-blogs/' + count);
+  }
+
+  getTourist(userId: number): Observable<Tourist>{
+    return this.http.get<Tourist>(environment.apiHost + 'profile-administration/edit/getTourist/' + userId);
+  }
+  checkRatingExistence( personId: number): Observable<boolean> {
+   return this.http.get<boolean>(environment.apiHost + 'langing-page/app-rating-exists/' + personId);
+  }
 
 
   

@@ -166,6 +166,15 @@
                 <td></td>
                 <td></td>
 
+
+              
+              
+              
+              
+              
+              
+              
+              
                 <td><span class="transportationspan">Choose transportation: </span>
                     <span>
                         <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
@@ -182,6 +191,91 @@
     <xp-map></xp-map>
             <div class="routingButton">
                 <br>
+
+              
+              
+              
+              
+              
+              
+              
+                                <br>
+                                <div><span><span class="cps2">Latitude: </span>{{(e.latitude).toFixed(3)}}</span></div>
+                                <br>
+                            </span>
+                            <span class="cps1">
+                                <div>
+                                    <table >
+                                        <tr>
+                                            <td>
+                                               <button class="nextbtn" (click)="OnPictureBack(e)">
+                                                
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <img [src]="getImageUrl(e.showedPointPicture)" width="200px" height="185px" cover="fill">
+                                            </td>
+                                            <td>
+                                                <button class="nextbtn" (click)="OnPictureNext(e)">
+                                                    
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </span>
+                        </div>  
+                        <div *ngIf="e.checkpointSecret!=null" class="cardcp">
+                            <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
+                        </div>
+                        <div *ngIf="e.visibleSecret" class="secretdiv">
+                            <p class="secretp">Secret of this place:</p>
+                            <div class="secret-span">
+                               
+                                <div>
+                                    <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
+                                <div>
+                                    <table *ngIf="e.showedPicture">
+                                        <tr>
+                                            <td>
+                                            <img [src]="getImageUrl(e.showedPicture)" width="100" height="100">
+                                            </td>
+                                            <td>
+                                            <button (click)="OnNext(e)"   class="nextbtn">></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <p class="cpmp">🧭</p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                   
+                </tr>
+            </tbody>
+            </table>
+            </div>
+            <div class="managing-transport-div">
+                <p class="subtitle">Choose transportation</p>
+                <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
+                    <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
+                </select>
+               
+            </div>
+            <div class="legend-div">
+                <p class="subtitle">Legend</p>
+
+              
+              
+              
+              
+              
+              
+              
+              
+              
                 <table>
                     <tr><td><br></td></tr>
                     <tr></tr>

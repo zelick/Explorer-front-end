@@ -1,11 +1,11 @@
-import { Component, NgIterable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
-import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
-import { Router } from '@angular/router';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
+import { Router } from '@angular/router';
+import { TourRatingPreview } from "../../marketplace/model/tour-rating-preview";
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Component({
   selector: 'xp-purchased-tours',
@@ -17,7 +17,7 @@ export class PurchasedToursComponent implements OnInit {
   user: User;
   purchasedTours: PurchasedTourPreview[] = [];
 
-  constructor(private service: MarketplaceService, private tourService: TourAuthoringService, private authService: AuthService, private router: Router) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -31,11 +31,35 @@ export class PurchasedToursComponent implements OnInit {
       error: () => {
       }
     });
-
   }
 
-  openDetails(tour: PurchasedTourPreview):void{
+  openDetails(tour: PurchasedTourPreview): void {
     this.router.navigate([`purchased-tours-details/${tour.id}`]);
   }
 
+  getDemandColor(demandLevel: string): string {
+    switch (demandLevel.toLowerCase()) {
+      case 'easy':
+        return 'green';
+      case 'medium':
+        return 'orange';
+      case 'hard':
+        return 'red';
+      default:
+        return 'black';
+    }
+  }
+
+  calculateAverageRating(ratings: TourRatingPreview[]): number {
+    if (!ratings || ratings.length === 0) {
+      return 0;
+    }
+  
+    const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    return totalRating / ratings.length;
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }
