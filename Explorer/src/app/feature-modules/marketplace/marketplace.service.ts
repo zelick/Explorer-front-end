@@ -146,6 +146,10 @@ export class MarketplaceService {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/recommendations/' + id)
   }
 
+  getRecommendedActiveTours(id:number):Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/active-recommendations/' + id)
+  }
+
   getPublishedTour(id:number): Observable<TourPreview> {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
   }

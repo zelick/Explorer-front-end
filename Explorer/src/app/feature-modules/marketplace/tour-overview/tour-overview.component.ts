@@ -81,6 +81,13 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       console.log(this.recommendedTours);
     });
 
+    this.service.getRecommendedActiveTours(this.user.id).subscribe((activeTours: TourPreview[])=>{
+      this.activeTours = activeTours;
+      console.log(this.activeTours);
+    });
+
+    
+
   }
   averageGrade(tour: TourPreview){
     var sum = 0;
