@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../model/login.model';
 import { Observable } from 'rxjs';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'xp-login',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
 
   isVerified: Observable<boolean>
-
+  user:User|undefined;
   constructor(
     private authService: AuthService,
     private router: Router
@@ -36,7 +37,20 @@ export class LoginComponent {
         if (isVerified) {
           this.authService.login(login).subscribe({
             next: () => {
-              this.router.navigate(['/']);
+
+              this.authService.user$.subscribe(user => {
+                this.user = user;
+                console.log("Ulogovani turista je")
+                console.log(this.user)
+                if(this.user.role==="tourist")
+                {
+                  this.router.navigate(['current-location']);
+                }else{
+                  this.router.navigate(['/']);
+                }
+              })
+
+             
             },
             error: (error)=>{
             console.error('Login failed:', error); // Log the error for debugging

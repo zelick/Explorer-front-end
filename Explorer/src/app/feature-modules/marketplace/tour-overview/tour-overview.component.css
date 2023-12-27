@@ -41,17 +41,18 @@ h1{
     margin-bottom: 30px;
   }
   .filtersButton{
-    width: 14vh;
+    width: 18vh;
     height: 6vh;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 5px 5px;
     margin-bottom: 0px;
     margin-left: auto;
     margin-top:auto;
+    margin-bottom: 2px;
     border: none;
     background-color: #3B846B;
     color: white;
-    margin-right: 35px;
-    font-size: 110%;
+    margin-right: 15px;
+    font-size: 120%;
     cursor: pointer;
   }
   .filtersDiv{
@@ -286,6 +287,14 @@ h1{
     color: white;
     font-weight: 400;
     cursor: pointer;
+  }
+
+  .navbar-span{
+    margin-left:auto
+  }
+
+  .title{
+    margin-bottom: 20px;
   }
 
   

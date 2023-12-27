@@ -142,6 +142,14 @@ export class MarketplaceService {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
   }
 
+  getRecommendedTours(id:number):Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/recommendations/' + id)
+  }
+
+  getRecommendedActiveTours(id:number):Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/active-recommendations/' + id)
+  }
+
   getPublishedTour(id:number): Observable<TourPreview> {
     return this.http.get<TourPreview>(environment.apiHost + 'tourist/shopping/details/' + id);
   }
@@ -261,5 +269,4 @@ export class MarketplaceService {
   getByCode(couponText: string): Observable<Coupon>{
     return this.http.get<Coupon>(environment.apiHost + 'shopping/shopping-cart/get-by-code/'+ couponText);
   }
-
 }
