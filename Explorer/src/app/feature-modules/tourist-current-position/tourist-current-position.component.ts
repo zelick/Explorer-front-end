@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Injectable } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { SimulatorComponent } from '../marketplace/simulator/simulator.component';
-import { TouristPosition } from '../marketplace/model/position.model';
+import { SimulatorComponent } from '../tour-execution/simulator/simulator.component';
+import { TouristPosition } from '../tour-execution/model/position.model';
 import { Router } from '@angular/router';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
@@ -59,10 +58,10 @@ export class TouristCurrentPositionComponent implements OnInit, AfterViewInit{
   addMapObjectsOnMap(): void{
     if(this.mapObjects)
     {
-      let coords: [{lat: number, lon: number, category: string, name: string, desc: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description}];
+      let coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}] = [{lat: this.mapObjects[0].latitude, lon: this.mapObjects[0].longitude, category: this.mapObjects[0].category, name: this.mapObjects[0].name, desc: this.mapObjects[0].description, picture: this.mapObjects[0].pictureURL}];
       this.mapObjects.forEach(e => {
           if(e != this.mapObjects[0])
-            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description});
+            coords.push({lat:e.latitude, lon:e.longitude, category: e.category, name: e.name, desc: e.description, picture: e.pictureURL});
       });
       this.simulatorComponent.addMapObjects(coords);
     }

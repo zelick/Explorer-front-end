@@ -50,10 +50,10 @@ export class TourDetailsComponent implements OnInit{
   })
 }
   route(): void{
-    let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
+    let coords: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description, picture: this.checkpoints[0].pictures![0]}];
     this.checkpoints.forEach(e => {
         if(e != this.checkpoints[0])
-          coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+          coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture:e.pictures![0]});
     });
     this.mapComponent.setRouteWithInfo(coords, this.profile);
   }
@@ -61,10 +61,10 @@ export class TourDetailsComponent implements OnInit{
   ngAfterViewInit(): void {
     if(this.checkpoints != null)
     {
-      let coords: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
+      let coords: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description, picture: this.checkpoints[0].pictures![0]}];
       this.checkpoints.forEach(e => {
           if(e != this.checkpoints[0])
-            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+            coords.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures![0]});
       });
       this.mapComponent.setRouteWithInfo(coords, this.profile);
   }

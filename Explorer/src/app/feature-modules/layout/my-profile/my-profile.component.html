@@ -1,6 +1,6 @@
 <div id="my-profile">
     <mat-drawer-container autosize>
-        <mat-drawer #drawer class="sidenav" mode="side">
+        <mat-drawer #drawer class="sidenav" mode="side" opened="true">
             <!-- ADMIN -->
             <div *ngIf="user && user.role === 'administrator'">
                 <div class="sidenav-item"> 
@@ -54,10 +54,6 @@
                     <div class="horizontal-divider"></div>
                 </div>
              -->
-                <div class="sidenav-item"> 
-                    <button [routerLink]="['simulator']">Simulator</button>
-                    <div class="horizontal-divider"></div>
-                </div>
                 <div class="sidenav-item"> 
                     <!-- Trip history  -->
                     <button [routerLink]="['purchased-tours']">My Purchased Tours</button>
