@@ -84,4 +84,13 @@ export class AuthService {
   isUserVerified(username: string): Observable<boolean> {
     return this.http.get<boolean>(environment.apiHost + 'users/verificationStatus/' + username)
   }
+
+  sendPasswordResetEmail(username: string): void {
+    this.http.get(environment.apiHost + 'users/send-password-reset-email/' + username)
+  }
+
+  updatePassword(username: string, password: string): Observable<User> {
+    return this.http.put<User>(environment.apiHost + 'user/update-password/' + username + '/' + password, null)
+  }
+
 }
