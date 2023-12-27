@@ -4,6 +4,8 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { CheckpointStatistics } from '../model/checkpoint-statistics.model';
+import { Tour } from '../model/tour.model';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'xp-checkpoint-statistics',
@@ -14,11 +16,12 @@ export class CheckpointStatisticsComponent implements OnInit {
 
   user: User;
   tourId: number;
+  tour: Tour;
   checkpointStatistics: CheckpointStatistics[] = [];
 
   chartOptionsCheckpoints: any = {};
-
-  constructor(private service: TourAuthoringService, private authService: AuthService, private cdr: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+  chartOptionsCheckpoints2: any = {};
+  constructor(private service: TourAuthoringService, private authService: AuthService, private cdr: ChangeDetectorRef, private activatedRoute: ActivatedRoute,private tourService: TourAuthoringService) {
   
   }
 
@@ -27,12 +30,19 @@ export class CheckpointStatisticsComponent implements OnInit {
       this.tourId = params['id'];
       this.authService.user$.subscribe(user => {
         this.user = user;
-        //dobavi celu turu, zbog prikaza
+        this.getTour(this.tourId);
         this.getNumberOfTourSales();
         this.getNumberOfTourStartings();
         this.getNumberOfTourFinishings();
         this.getCheckpointStatistics();
       });
+    });
+  }
+
+  getTour(tourId: number){
+    this.service.get(tourId).subscribe((result: Tour) => {
+      this.tour = result;
+      console.log(this.tour);
     });
   }
 
@@ -93,6 +103,21 @@ export class CheckpointStatisticsComponent implements OnInit {
         dataPoints: this.checkpointStatistics.map(stat => ({
           label: stat.checkpointName,
           y: stat.arrivalPercentage
+        }))
+      }]
+    };
+
+    this.chartOptionsCheckpoints2 = {
+      title: {
+        text: "Chekpoints encounters statistics"  
+      },
+      animationEnabled: true,
+      colorSet: "customColorSet",
+      data: [{        
+        type: "column",
+        dataPoints: this.checkpointStatistics.map(stat => ({
+          label: stat.checkpointName,
+          y: stat.finishEcnounterPercentage
         }))
       }]
     };	
