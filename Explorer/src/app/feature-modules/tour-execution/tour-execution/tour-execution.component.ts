@@ -199,6 +199,16 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
       }
    });
   }
+
+  // Rate Tour
+  rateTour(): void{
+    this.router.navigate([`tour-rating-form/` + this.tour.id]);
+  }
+
+  // Report an Issue
+  reportIssue(): void{
+    this.router.navigate([`reporting-issues`]);
+  }
   
   // Weather Forecast Popup
   ShowPopup():void{
@@ -488,5 +498,10 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
         this.viewSecret(checkpoint);
       }
    });
+  }
+
+  isHovered = false;
+  toggleHover(hovered: boolean) {
+    this.isHovered = hovered;
   }
 }

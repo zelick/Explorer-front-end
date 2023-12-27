@@ -39,6 +39,7 @@
     background-color: #3B846B;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
+    border: none;
     cursor: pointer;
 }
 .social-emoji{
@@ -68,5 +69,6 @@
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 50px;
+    border: none;
     cursor: pointer;
 }
