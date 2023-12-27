@@ -37,9 +37,46 @@ export class CheckpointRequestReviewComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.getAllRequests();
+    this.getAllCheckpointsRequests();
   }
 
+  getAllCheckpointsRequests(): void {
+    this.adminService.getAllCheckpointRequests().subscribe({
+      next: (requests: CheckpointRequest[]) => {
+          this.allCheckpointRequests = requests;
+          this.getAllObjectRequests();
+      },
+      error: () => {
+          // Handle errors
+      }
+  });
+  }
+
+  getAllObjectRequests(): void {
+    this.adminService.getAllObjectRequests().subscribe({
+      next: (requests: ObjectRequest[]) => {
+          this.allObjectRequests = requests;
+          this.getAllEncounterRequests();
+      },
+      error: () => {
+          // Handle errors
+      }
+  });
+  }
+
+  getAllEncounterRequests(): void {
+    this.encounterService.getAllRequests().subscribe({
+      next: (requests: PagedResults<EncounterRequest>) => {
+          this.allEncounterRequests = requests;
+          this.getAllEncounters();
+      },
+      error: () => {
+          // Handle errors
+      }
+  });
+  }
+
+  /*
   getAllRequests(): void {
     const checkpointRequests$ = this.adminService.getAllCheckpointRequests();
     const objectRequests$ = this.adminService.getAllObjectRequests();
@@ -59,12 +96,12 @@ export class CheckpointRequestReviewComponent implements OnInit{
       }
     });
   }
-
+  */
   getAllEncounters(): void {
     this.encounterService.getEncounters().subscribe({
         next: (objects: PagedResults<Encounter>) => {
             this.allEncounters = objects;
-            this.getAllUsers();
+            this.getAllObjects();
         },
         error: () => {
             // Handle errors
@@ -76,6 +113,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
     this.tourAuthService.getMapObjects().subscribe({
         next: (objects: PagedResults<MapObject>) => {
             this.allObjects = objects;
+            this.getAllCheckpoints()
         },
         error: () => {
             // Handle errors
@@ -87,6 +125,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
     this.tourAuthService.getCheckpoints().subscribe({
         next: (checkpoints: PagedResults<Checkpoint>) => {
             this.allCheckpoints = checkpoints;
+            this.getAllUsers()
         },
         error: () => {
             // Handle errors
@@ -121,7 +160,12 @@ export class CheckpointRequestReviewComponent implements OnInit{
               comment: ""
             };
 
-            this.requestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.requestDetails.unshift(req);
+            }
+            else {
+              this.requestDetails.push(req);
+            }
           }
         });
       });
@@ -141,7 +185,12 @@ export class CheckpointRequestReviewComponent implements OnInit{
               comment: ""
             };
 
-            this.objectRequestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.objectRequestDetails.unshift(req);
+            }
+            else {
+              this.objectRequestDetails.push(req);
+            }
           }
         });
       });
@@ -162,11 +211,17 @@ export class CheckpointRequestReviewComponent implements OnInit{
               onHold: this.investigateStatus(request.status),
             };
 
-            this.encounterRequestDetails.push(req);
+            if(req.status.toString() === 'OnHold') {
+              this.encounterRequestDetails.unshift(req);
+            }
+            else {
+              this.encounterRequestDetails.push(req);
+            }
           }
         });
       });
     });
+
   }
 
   investigateStatus(s: Status): boolean {
@@ -186,7 +241,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
@@ -207,7 +262,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
@@ -228,7 +283,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
@@ -249,7 +304,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
@@ -263,7 +318,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
@@ -277,7 +332,7 @@ export class CheckpointRequestReviewComponent implements OnInit{
         this.requestDetails.length = 0;
         this.objectRequestDetails.length = 0;
         this.encounterRequestDetails.length = 0;
-        this.getAllRequests();
+        this.getAllCheckpointsRequests();
     },
       error: () => {
         // Handle errors
