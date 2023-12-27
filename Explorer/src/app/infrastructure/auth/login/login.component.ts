@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
 
   isVerified: Observable<boolean>
+  sentEmail: boolean = false
+  enterUsername: boolean = false
 
   constructor(
     private authService: AuthService,
@@ -52,4 +54,25 @@ export class LoginComponent {
       alert('Please fill in both username and password.');
     }
   }
+
+  sendEmail(): void {
+    const eneteredUsername = this.loginForm.value.username || ""
+    
+    if(eneteredUsername === ""){
+      this.enterUsername = true;
+      this.sentEmail = false;
+    }
+    else {
+      this.authService.sendPasswordResetEmail(eneteredUsername).subscribe({
+        next: (result: boolean) => {
+            this.sentEmail = true;
+            this.enterUsername = false;
+        },
+        error: () => {
+            // Handle errors
+        }
+    });
+    }
+  }
+
 }

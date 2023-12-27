@@ -17,5 +17,13 @@
             <p style="color: aliceblue;">Don't have an account yet?<a href="/register" class="signup-link" style="color: aqua;">Sign Up</a></p>
             </div>
         </form>
+        
+        <div class="forgot-password-section">
+            <p style="color: aliceblue;">Forgot password?
+                <button class="submit-button" type="button" (click)="sendEmail()" mat-raised-button>Reset password</button>
+            </p>
+            <p *ngIf="enterUsername" style="color: aliceblue;">Please, enter your username and click the 'Reset password' button.</p>
+            <p *ngIf="sentEmail" style="color: aliceblue;">We have sent you an email containing a link through which you can reset your password. You can reset your password in the next two hours.</p>
+        </div>
     </body>
 </html>

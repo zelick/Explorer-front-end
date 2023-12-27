@@ -9,6 +9,7 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
+import { SecureToken } from './model/secure-token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -85,12 +86,24 @@ export class AuthService {
     return this.http.get<boolean>(environment.apiHost + 'users/verificationStatus/' + username)
   }
 
-  sendPasswordResetEmail(username: string): void {
-    this.http.get(environment.apiHost + 'users/send-password-reset-email/' + username)
+  sendPasswordResetEmail(username: string): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'users/send-password-reset-email/' + username)
   }
 
   updatePassword(username: string, password: string): Observable<User> {
     return this.http.put<User>(environment.apiHost + 'user/update-password/' + username + '/' + password, null)
+  }
+
+  getSecureToken(username: string): Observable<SecureToken> {
+    return this.http.get<SecureToken>(environment.apiHost + 'secureTokens/get-secure-token/' + username)
+  }
+
+  getUserIdByTokenData(tokenData: string): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'secureTokens/get-user-id/' + tokenData)
+  }
+
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'user/get-user-by-id/' + userId)
   }
 
 }

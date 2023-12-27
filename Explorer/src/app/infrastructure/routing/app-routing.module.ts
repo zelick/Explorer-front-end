@@ -67,6 +67,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'reset-password/:secureToken', component: ResetPasswordComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],
