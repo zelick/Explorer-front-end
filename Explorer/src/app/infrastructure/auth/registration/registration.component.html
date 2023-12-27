@@ -48,9 +48,14 @@
           <input matInput formControlName="motto" type="text" />
         </mat-form-field>
         <mat-form-field class="profile-picture">
-          <mat-label>Profile Picture</mat-label>
-          <input matInput type="text" [readonly]="true" [value]="registrationForm.get('profilePicture')?.value" />
-          <input type="file" (change)="onProfilePictureSelected($event)" id="fileInput" accept="image/*" />
+          <input matInput type="text" [readonly]="true" [value]="registrationForm.get('profilePicture')?.value" hidden/>
+          <input type="file" (change)="onProfilePictureSelected($event)" class="file-input" #fileUpload />
+          <div class="file-upload">
+            <button mat-flat-button class="upload-btn" (click)="fileUpload.click()">
+              <mat-icon>insert_photo</mat-icon>
+              <span>Upload Profile Picture</span>
+            </button>
+          </div>
         </mat-form-field>        
         <mat-form-field>
           <mat-label>Role</mat-label>
