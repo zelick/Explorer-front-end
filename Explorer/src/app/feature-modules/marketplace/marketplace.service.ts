@@ -105,6 +105,11 @@ export class MarketplaceService {
     return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
+  startShoppingSession(touristId: number): Observable<any> {
+    const params = new HttpParams().set('touristId', touristId.toString());
+    return this.http.post<any>(environment.apiHost + 'shopping/shopping-cart/session/', null, { params });
+  }
+
   getShoppingCart(touristId: number): Observable<ShoppingCart> {
     const params = new HttpParams().set('touristId', touristId.toString());
     return this.http.get<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/', { params });

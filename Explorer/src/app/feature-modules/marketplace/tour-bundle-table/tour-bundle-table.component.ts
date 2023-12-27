@@ -103,19 +103,22 @@ export class TourBundleTableComponent implements OnInit {
       return;
     }
   
-    if (this.isTourInBundlePurchased(tourBundle) && window.confirm('Some tours within the bundle have already been purchased. Would you like to purchase the bundle excluding those tours?')) {
-      this.tourBundleId = tourBundle.id;
-      const orderItem: OrderItem = {
-        itemId: tourBundle.id || 0,
-        name: tourBundle.name,
-        price: tourBundle.price,
-        type: ItemType.Bundle
-      };
-      this.addItemToCart(orderItem);
-    }
+    if (this.isTourInBundlePurchased(tourBundle) && !window.confirm('Some tours within the bundle have already been purchased. Would you like to purchase the bundle excluding those tours?')) {
+      return;
+    } 
+      
+    this.tourBundleId = tourBundle.id;
+    const orderItem: OrderItem = {
+      itemId: tourBundle.id || 0,
+      name: tourBundle.name,
+      price: tourBundle.price,
+      type: ItemType.Bundle
+    };
+    this.addItemToCart(orderItem);
   }
 
   addItemToCart(orderItem: OrderItem): void {
+    console.log('brt jel se ovo pozove');
     this.service.addItemToShoppingCart(orderItem).subscribe((cart) => {
       this.cartItemCount = cart.items.length;
       this.service.updateCartItemCount(cart.items.length);
@@ -125,7 +128,10 @@ export class TourBundleTableComponent implements OnInit {
 
   findShoppingCart(): void {
     this.service.getShoppingCart(this.user.id).subscribe((result) => {
-        this.userCart = result;
+      this.userCart = result;
+      this.service.startShoppingSession(this.user.id).subscribe(_ => {
+        console.log('Shopping session started!')
+      });
     });
   }
 

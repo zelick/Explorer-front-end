@@ -53,6 +53,10 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
       this.user = user;
     });
 
+    this.service.startShoppingSession(this.user.id).subscribe(_ => {
+      console.log('Shopping session started!')
+    });
+  
     this.service.getMapObjects().subscribe( result => {
       this.mapObjects = result.results;
       this.addMapObjectsOnMap();
