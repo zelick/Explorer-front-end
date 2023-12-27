@@ -16,7 +16,8 @@ import {MatCardModule} from '@angular/material/card';
         MatCardModule
     ],
     exports: [
-        MapComponent
+        MapComponent,
+        ConfirmDialogComponent
     ]
 })
 export class SharedModule { }

@@ -8,6 +8,7 @@ import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
+import { TouristPosition } from '../tour-execution/model/position.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
 import { PublicTour } from './model/public-tour.model';
