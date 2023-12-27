@@ -8,6 +8,7 @@ import { RouteResponse } from '../model/RouteResponse';
 import { ElevationResponse } from '../model/elevation-response';
 import { CheckpointPreview } from 'src/app/feature-modules/marketplace/model/checkpoint-preview';
 import 'leaflet-routing-machine';
+import { ImageService } from '../image/image.service';
 
 @Component({
   selector: 'xp-map',
@@ -28,7 +29,7 @@ export class MapComponent implements AfterViewInit {
   private routeLayers = new Map<L.Routing.Control, L.Layer[]>(); //dodala
 
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private imageService: ImageService) { }
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -239,7 +240,8 @@ export class MapComponent implements AfterViewInit {
         popupAnchor: [1, -34],
       });
       coords.forEach(element => {
-        L.marker([element.lat, element.lon], { icon: defaultIcon }).bindPopup("<b>" + element.name + "</b><br>" + element.desc + "<br><img src='" + element.picture + "' width=70 height=50>").addTo(this.map).openPopup();
+        console.log(this.getImageUrl(element.picture))
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).bindPopup("<b>" + element.name + "</b><br>" + element.desc + "<br><img src='" + this.getImageUrl(element.picture) + "' width=70 height=50>").addTo(this.map).openPopup();
       });
     }
 
@@ -407,7 +409,7 @@ export class MapComponent implements AfterViewInit {
                 }
                 
       
-                layer.bindPopup(`<b>${coord?.name}</b><br>${coord?.desc}<br><img src='${coord?.picture}' width=70 height=50>`).addTo(this.map);
+                layer.bindPopup(`<b>${coord?.name}</b><br>${coord?.desc}<br><img src='${this.getImageUrl(coord!.picture)}' width=70 height=50>`).addTo(this.map);
                 if(current){
                   if(index===current-1)
                   layer.openPopup();
@@ -442,7 +444,9 @@ export class MapComponent implements AfterViewInit {
         });
       };
       
-
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
       /*getLocationDetails(lat: number, lon: number): Observable<LocationResponse> {
         return this.mapService.reverseSearch(lat, lon).pipe(
           map((result) => result),

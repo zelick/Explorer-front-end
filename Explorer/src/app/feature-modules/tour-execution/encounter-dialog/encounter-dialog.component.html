@@ -41,7 +41,7 @@
             <label class="encounter-description">Description: {{data.encounterExecution.encounterDto.description}} </label> 
             <div class="social-div">
                 <div>
-                    <img class="hidden-location-img" src="data.encounterExecution.encounterDto.image">
+                    <img class="hidden-location-img" src="getImageUrl(data.encounterExecution.encounterDto.image)">
                     <button class="button" *ngIf="data.encounterExecution.status ==='Pending'" (click)="onActivate()">Activate</button>
                     <button class="button" *ngIf="data.encounterExecution.status === 'Active'" (click)="onComplete()">Complete</button>
                 </div>

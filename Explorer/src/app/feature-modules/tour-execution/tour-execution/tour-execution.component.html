@@ -94,7 +94,7 @@
                                         <label class="ch-title">{{ch.name}}</label>
                                         <div class="ch-img">
                                             <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
-                                            <img class="img" [src]=ch.showedPointPicture >
+                                            <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
                                             <button class="nextbtn" (click)="OnPictureNext(ch)">
                                                 ></button>
                                         </div>
@@ -149,7 +149,7 @@
                     <label class="ch-title">{{ch.name}}</label>
                     <div class="ch-img">
                         <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
-                        <img class="img" [src]=ch.showedPointPicture >
+                        <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
                         <button class="nextbtn" (click)="OnPictureNext(ch)">
                             >
                         </button>

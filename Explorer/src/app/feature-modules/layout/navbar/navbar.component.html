@@ -8,6 +8,7 @@
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['view-coupons']">Coupons</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['sales']">Sales</button>
 
+            
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Explore Tours</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-bundles']">Bundle Offers</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['plan-your-trip']">Plan your trip</button>
@@ -17,8 +18,6 @@
 
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
             <button class="button" *ngIf="user && user.username !== ''" mat-raised-button [routerLink]="['my-profile']">My profile</button> 
-
-            <button class="button" *ngIf="user && user.role === 'administrator'" mat-raised-button [routerLink]="['encounter-request']">Encounter requests</button>
             
             <button class="button" *ngIf="user && user.username === ''"  mat-raised-button [routerLink]="['login']">Login</button>
             <button class="button" *ngIf="user && user.username !== ''"  mat-raised-button (click)="onLogout()">Logout</button>

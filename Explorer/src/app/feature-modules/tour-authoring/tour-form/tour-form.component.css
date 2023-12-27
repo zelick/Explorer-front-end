@@ -1,8 +1,17 @@
 div {
-    width: 400px;
+    width: 260px;
     display:flex;
-    gap: 20px;
+    gap: 2px;
     flex-direction: column;
+    background-color:#F7F6DC;
+    border-radius:20px;
+}
+
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
 }
 
 .mat-icon {
@@ -11,6 +20,13 @@ div {
 
 .tag{
     width: 50px;
+}
+mat-form-field {
+    font-size: 16px; /* Adjust the font size as needed */
+  }
+mat-form-field textarea{
+    font-size: 16px; /* Adjust the font size as needed */
+    height: 50px;
 }
 
 #TagSpan{
@@ -21,6 +37,7 @@ div {
 }
 
 select{
+    z-index: 5;
     height: 50px;
     width : 210px;
     background-color: #f3f3f3;
@@ -35,41 +52,45 @@ option:checked{
     width: auto;
     margin-left: 10px;
     margin-bottom: 15px;
-    padding: 0px 10px;
+    padding: 0px 90px;
+    margin-left:40px;
     width: 120px;
     font-size: 100%; 
     color:#fff;
+    font-size:20px;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
 }
 .buttonPlus{
-    width: auto;
-    
-    margin-top: 10px;
-    
-    width: 30px;
-    font-size: 100%; 
+    margin-top:8px;
+    margin-right:140px;
+    height:42px;
+    width: 10px;
+    font-size: 200%; 
     color:#fff;
-    background-color: #3B846B;
+    gap:120px;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
+    border-radius: 1000px;
+    cursor: pointer;  
 }
 
 .subtitle{
-    font-size: 2vh;
+    font-size: 28px;
+    font-weight: bold;
   color:#E67840;
   font-style: bold;
   text-align: left;
 
 }
 .demandignessLevel{
-    font-size: 2vh;
+    font-size: 20px;
     color:#E67840;
     font-style: bold;
-    margin-top: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 #tour-form{
@@ -78,21 +99,69 @@ option:checked{
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
+    padding-left:30px;
+    padding-right: 140px;
+    margin-top:2px;
+    margin-bottom:10px;
+    
 }
 
 .routingButton{
-    width: 400px;
-    display:flex;
+    width: 400px;   
     gap: 20px;
     flex-direction: row;
     justify-content: space-between;
 }
+
+.routingButton2{
+    width: 100px;   
+    display: flex;
+    align-items: center;
+   
+}
 p{
-    margin: 0 auto;
-    font-size: 4vh;
+  margin: 0 auto;
+  font-size: 4vh;
   color:#E67840;
-  padding: 1% 2.5%; 
+  padding: 0px 10px;
   
 }
 
 
+.para-t{
+    
+  padding: 5px;
+  font-size: 4vh;
+  color:#E67840;  
+  font-weight:bold;
+}
+
+
+
+.bigger-tag{
+
+    font-size: 26px;
+    color:#E67840;
+}
+
+.difficulty-select {
+    border-color: #E67840;
+    font-size: 22px;
+    height: 60px;
+    width: 260px;
+    color:#E67840;
+    text-align: center;
+    font-style: bold;
+    padding: 0px;
+    margin-bottom: 20px;
+    margin-left: 160px;
+  }
+
+  .row {
+    position: absolute;
+    flex-direction: row;
+    gap:270px;
+    justify-content: space-between;
+    background-color:transparent;
+    margin-top: 250px;
+}

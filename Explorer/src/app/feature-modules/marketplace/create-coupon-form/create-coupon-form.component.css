@@ -106,3 +106,49 @@ ul {
     display: inline-block;
     margin-right: 45px;
 }
+
+legend {
+    color: #E67840; /* Boja naslova */
+    font-size: 28px; /* Veličina fonta */
+    font-weight: bold;
+    margin-bottom: 10px; /* Dodaj malo razmaka ispod legende */
+    margin-top: 20px; /* Dodaj beli prostor iznad legende */
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Razmak između dugmeta "Update" i "Cancel" */
+    justify-content: center; /* Centriraj dugmad horizontalno */
+    margin-top: 10px; /* Dodaj malo razmaka iznad dugmeta */
+}
+
+#submit-button {
+    background-color: #E67840;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 8px 15px; /* Dodaj malo prostora oko teksta unutar dugmeta */
+    font-size: 14px;
+}
+
+#submit-button:hover {
+    background-color: #D45A15; /* Promeni boju prilikom hovera */
+}
+
+button {
+    font-weight: bold;
+    background-color: #E67840;
+    color: white;
+    height: 30px;
+    width: 70px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease; /* Dodao efekat prelaska boje */
+}
+
+button:hover {
+    background-color: #FFA07A; /* Promenjena boja na hover */
+}

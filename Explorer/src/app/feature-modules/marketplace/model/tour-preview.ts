@@ -18,4 +18,6 @@ export interface TourPreview {
     discount: number;
     salePrice?: number;
     isOnSale: boolean;
+    saleExpiration?: Date;
+    isLastMinute?: boolean;
 }
