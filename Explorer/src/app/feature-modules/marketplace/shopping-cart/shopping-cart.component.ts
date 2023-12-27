@@ -8,7 +8,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { Injectable } from '@angular/core';
 import { TouristWallet } from '../model/tourist-wallet.model';
 import { Coupon } from '../model/coupon.model';
-import { TourPreview } from '../model/tour-preview';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class ShoppingCartComponent implements OnInit{
   coup: Coupon;
   toursImages: string[] = []; // Just first pictures
 
-  constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -124,4 +124,10 @@ export class ShoppingCartComponent implements OnInit{
       this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
+
+  getImageUrl(imageName: string): string {
+    if (imageName == undefined) return 'https://i.pinimg.com/736x/a7/3c/bf/a73cbfbcf18054bf31ee42e6453c5d94.jpg';
+    
+    return this.imageService.getImageUrl(imageName);
+  }
 }
