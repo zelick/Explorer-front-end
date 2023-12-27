@@ -15,12 +15,7 @@
                 </mat-form-field>
             <button class="submit-button" type="submit" mat-raised-button>Login</button>
             <p style="color: aliceblue;">Don't have an account yet?<a href="/register" class="signup-link" style="color: aqua;">Sign Up</a></p>
-            <p style="color: aliceblue; align-self: auto">Forgot password?</p>
-            <div class="forgot-password-section">
-                <button style="width: 32%;" class="submit-button" type="button" (click)="sendEmail()" mat-raised-button>Reset</button>
-                <p *ngIf="enterUsername" style="color: aliceblue; margin-right: 30%; margin-left: -2%">Please, enter your username and then click the 'Reset' button.</p>
-                <p *ngIf="sentEmail" style="color: aliceblue; margin-right: 30%; margin-left: -2%">We have sent you an email containing a link, through which you can reset your password. You can reset your password in the next two hours.</p>
-            </div>
+            <p style="color: aliceblue; align-self: auto">Forgot password? <a (click)="sendEmail($event)" href="#" class="signup-link" style="color: aqua;">click here</a></p> 
         </div>
         </form>
     </body>

@@ -18,6 +18,10 @@ export class LoginComponent {
   sentEmail: boolean = false
   enterUsername: boolean = false
 
+  forgotPassword(): void {
+    //event.preventDefault();
+    
+  }
   constructor(
     private authService: AuthService,
     private router: Router
@@ -69,18 +73,21 @@ export class LoginComponent {
     }
   }
 
-  sendEmail(): void {
+  sendEmail(event: Event): void {
+    event.preventDefault();
     const eneteredUsername = this.loginForm.value.username || ""
     
     if(eneteredUsername === ""){
       this.enterUsername = true;
       this.sentEmail = false;
+      alert("Please, enter your username and then click the forgot password link.")
     }
     else {
       this.authService.sendPasswordResetEmail(eneteredUsername).subscribe({
         next: (result: boolean) => {
             this.sentEmail = true;
             this.enterUsername = false;
+            alert("We have sent you an email containing a link, through which you can reset your password. This link expires for next two hours.")
         },
         error: () => {
             // Handle errors
