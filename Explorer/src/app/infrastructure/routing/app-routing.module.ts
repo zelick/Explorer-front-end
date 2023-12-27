@@ -61,12 +61,14 @@ import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/v
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
 import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'reset-password/:secureToken', component: ResetPasswordComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],
@@ -183,7 +185,8 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
-  {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]}
+  {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

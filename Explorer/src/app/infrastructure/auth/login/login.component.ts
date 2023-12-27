@@ -15,6 +15,9 @@ export class LoginComponent {
 
   isVerified: Observable<boolean>
   user:User|undefined;
+  sentEmail: boolean = false
+  enterUsername: boolean = false
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -61,9 +64,29 @@ export class LoginComponent {
           // Korisnik nije verifikovan, obradite ovaj slučaj
         }
       });
-    }
-    else{
-      alert('Please fill in both username and password.');
+    } else {
+      // Korisnik nije verifikovan, obradite ovaj slučaj
     }
   }
+
+  sendEmail(): void {
+    const eneteredUsername = this.loginForm.value.username || ""
+    
+    if(eneteredUsername === ""){
+      this.enterUsername = true;
+      this.sentEmail = false;
+    }
+    else {
+      this.authService.sendPasswordResetEmail(eneteredUsername).subscribe({
+        next: (result: boolean) => {
+            this.sentEmail = true;
+            this.enterUsername = false;
+        },
+        error: () => {
+            // Handle errors
+        }
+    });
+    }
+  }
+
 }
