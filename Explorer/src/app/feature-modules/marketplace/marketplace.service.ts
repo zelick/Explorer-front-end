@@ -88,6 +88,27 @@ export class MarketplaceService {
     return this.http.put<TourRating>(environment.apiHost + 'tourist/tour-rating/' + rating.id, rating);
   }
 
+  addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
+  }
+
+  updateTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.put<TouristPosition>(environment.apiHost + 'tourism/position/' + position.id, position);
+  }
+
+  getTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.get<TouristPosition>(environment.apiHost + 'tourism/position/'+id)
+  }
+
+  deleteTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
+  }
+
+  startShoppingSession(touristId: number): Observable<any> {
+    const params = new HttpParams().set('touristId', touristId.toString());
+    return this.http.post<any>(environment.apiHost + 'shopping/shopping-cart/session/', null, { params });
+  }
+
   getShoppingCart(touristId: number): Observable<ShoppingCart> {
     const params = new HttpParams().set('touristId', touristId.toString());
     return this.http.get<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/', { params });
