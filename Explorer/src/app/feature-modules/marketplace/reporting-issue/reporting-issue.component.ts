@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { TourPreview } from '../model/tour-preview';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,14 +23,21 @@ export class ReportingIssueComponent implements OnChanges {
     description: new FormControl('', [Validators.required]),
     priority: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
     time: new FormControl(new Date(), [Validators.required]),
-    tourId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
+    tourId: new FormControl('', [Validators.required]),
     touristId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
   });
+  tours: TourPreview[] = [];
 
-  constructor(private service: MarketplaceService, private authService: AuthService) {}
+  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) {}
 
   ngOnChanges(): void {
     this.reportingIssueForm.reset();
+  }
+
+  ngOnInit(): void {
+    this.service.getPublishedTours().subscribe((result) => {
+      this.tours = result;
+    });
   }
 
   addReportedIssue(): void {
@@ -51,7 +60,7 @@ export class ReportingIssueComponent implements OnChanges {
       this.service.addReportedIssue(message).subscribe({
         next: () => {
           alert('Problem reported successfully.')
-          this.reportingIssueForm.reset();}
+          this.router.navigate([`/home`]);}
       });
     }
   }
