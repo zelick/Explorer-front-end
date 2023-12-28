@@ -61,7 +61,6 @@ import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-auth
         PreferenceFormComponent,
         TourRatingFormComponent,
         PurchasedToursComponent,
-        PreferenceFormComponent, 
         PurchasedToursDetailsComponent,
         CreateCouponFormComponent,
         ViewCouponAuthorComponent,

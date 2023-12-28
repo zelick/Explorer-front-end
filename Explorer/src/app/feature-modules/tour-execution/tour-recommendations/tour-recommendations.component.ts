@@ -130,8 +130,8 @@ export class TourRecommendationsComponent implements OnInit{
 
   getRecommendedTours(): void {
     this.service.getRecommendedTours(this.tourId).subscribe({
-      next: (result: PagedResults<TourPreview>) => {
-        this.recommendedTours = result.results;
+      next: (result: TourPreview[]) => {
+        this.recommendedTours = result;
         console.log('Predložene ture: ');
         console.log(this.recommendedTours);
       },

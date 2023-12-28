@@ -23,7 +23,7 @@ import { TouristCurrentPositionComponent } from './feature-modules/tourist-curre
 @NgModule({
   declarations: [
     AppComponent,
-    TouristCurrentPositionComponent,
+    TouristCurrentPositionComponent
   ],
   imports: [
     BrowserModule,

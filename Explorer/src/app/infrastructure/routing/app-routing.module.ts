@@ -190,7 +190,7 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
-  {path: 'tour-recommendation/:id', component: TourRecommendationsComponent, canActivate: [AuthGuard]}
+  {path: 'tour-recommendation/:id', component: TourRecommendationsComponent, canActivate: [AuthGuard]},
   {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
   {path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
   {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},

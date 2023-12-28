@@ -13,19 +13,13 @@ import { EncounterDialogComponent } from './encounter-dialog/encounter-dialog.co
 import { AbandonDialogComponent } from './abandon-dialog/abandon-dialog.component';
 import { CompletedEncounterComponent } from './completed-encounter/completed-encounter.component';
 import { UnlockSecretDialogComponent } from './unlock-secret-dialog/unlock-secret-dialog.component';
-
+import { MarketplaceModule } from '../marketplace/marketplace.module';
 
 @NgModule({
   declarations: [
     TourExecutionComponent,
     PrivateTourExecutionComponent,
-    TourRecommendationsComponent
-    ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    MarketplaceModule
+    TourRecommendationsComponent,
     PrivateTourExecutionComponent, 
     SimulatorComponent,
     SecretDialogComponent,
@@ -33,7 +27,13 @@ import { UnlockSecretDialogComponent } from './unlock-secret-dialog/unlock-secre
     AbandonDialogComponent,
     CompletedEncounterComponent,
     UnlockSecretDialogComponent,
-    MatDialogModule
+    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    MarketplaceModule,
+    MatDialogModule,
   ],
   exports:[
     TourExecutionComponent,
