@@ -32,6 +32,7 @@ export class ShoppingCartComponent implements OnInit{
   constructor(private service: MarketplaceService, private authService: AuthService, private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.coupon = '';
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.service.getShoppingCart(this.user.id).subscribe({
@@ -82,14 +83,19 @@ export class ShoppingCartComponent implements OnInit{
   }
 
   applyCoupon(){
-    this.service.getByCode(this.coupon).subscribe(
-      (result)=>{
-        this.coup = result;
-      },
-      (error)=>{
-        console.log('Error: ' + error);
-      }
-    )
+    if(this.coupon != ''){
+      this.service.getByCode(this.coupon).subscribe(
+        (result)=>{
+          this.coup = result;
+        },
+        (error)=>{
+          console.log('Error: ' + error);
+        }
+      )
+    }
+    else{
+      alert('Wrong coupon input!');
+    }
   }
 
   checkout() {    
