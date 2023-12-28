@@ -308,7 +308,6 @@ textarea {
 
 .backButton{
     width: auto;
-
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
@@ -320,7 +319,7 @@ textarea {
 }
 .deleteButton{
     width: auto;
-    margin-left: 400px;
+    margin-left: 240px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
@@ -343,7 +342,7 @@ textarea {
 }
 .archiveButton{
     width: auto;
-    margin-left: 500px;
+    margin-left: 400px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
@@ -409,4 +408,16 @@ select{
 .transportationspan{
     color: #E67840;
     font-size: 400;
+}
+
+.buttonTourStatistics{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
 }

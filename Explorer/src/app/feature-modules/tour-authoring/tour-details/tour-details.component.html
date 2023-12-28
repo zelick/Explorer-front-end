@@ -216,14 +216,19 @@
                                 <button mat-raised-button class="backButton" (click)="onBack()">Back</button>
                             </span>
                         </td>
+                        <td>
+                            <span>
+                                <button mat-raised-button *ngIf="tour.status == 'Published'"  class="buttonTourStatistics"  (click)="goToTourStatistics()">Tour statistics</button>
+                            </span>
+                        </td>
                         
                         <td> 
                             <span>
                                 <button *ngIf="tour.status != 'Published'" mat-raised-button class="archiveButton" (click)="publishTour()" >Publish 🚀</button>                        
                                 <button *ngIf="tour.status == 'Published'" mat-raised-button class="archiveButton" (click)="archive()">Archive 🗃️</button>
-    
                             </span>
                         </td>
+                        
                         <td>
                             <span>
                                 <button mat-raised-button class="deleteButton" (click)="onDelete()">Delete🗑️</button>
@@ -243,27 +248,7 @@
                 
                 </div>
             </div>
-        </div>
-    <div class="mapa">
-    <xp-map></xp-map>
-    <br>
-    <div class="routingButton">
-        
-        <div>
-            <button mat-raised-button class="buttonBack" (click)="onBack()">Back</button>
-        </div>
-        <div>
-            <button mat-raised-button class="buttonBack"  (click)="goToTourStatistics()">Tour statistics</button>
-        </div>
-        <div>
-            <button mat-raised-button class="buttonDelete1" (click)="onDelete()">Delete🗑️</button>
-        </div>
-        <div>
-            <button mat-raised-button class="buttonEdit1" (click)="onEdit()">Edit✏️</button>
-        </div>
-        </div>
-    </div>
-</div>
+
 <div class="managing-tour-div">
    
 </div>
