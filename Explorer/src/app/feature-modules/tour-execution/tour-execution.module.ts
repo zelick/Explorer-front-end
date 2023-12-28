@@ -5,15 +5,19 @@ import { TourExecutionComponent } from './tour-execution/tour-execution.componen
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { PrivateTourExecutionComponent } from './private-tour-execution/private-tour-execution.component';
+import { TourRecommendationsComponent } from './tour-recommendations/tour-recommendations.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TourExecutionComponent,
-    PrivateTourExecutionComponent
+    PrivateTourExecutionComponent,
+    TourRecommendationsComponent
     ],
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     MarketplaceModule
   ],
   exports:[

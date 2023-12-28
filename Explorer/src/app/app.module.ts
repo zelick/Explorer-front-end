@@ -21,7 +21,7 @@ import { EncountersModule } from './feature-modules/encounters/encounters.module
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
