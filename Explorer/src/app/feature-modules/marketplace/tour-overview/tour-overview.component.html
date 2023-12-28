@@ -1,8 +1,12 @@
 <div style="background-color: #253B34; display: flex;">
     <div class="tour">
         <div style=" height: 5px"></div>
-        <h1 id="title">Find the tour that suits you the best</h1>
+        <h1 class="title">Find the tour that suits you the best</h1>
+        <span class="navbar-span">
         <button class="filtersButton" (click)="scrollToFilters()">Filters</button>
+        <button class="filtersButton" (click)="recommendedFilters()">Recommended</button>
+        <button class="filtersButton" (click)="activeFilters()">Active</button>
+        </span>
         <div class="tour-container">
             <div class="tour-card" *ngFor="let tour of searchTours" (click)="openDetails(tour)">
                 <div class="image-container">

@@ -1,179 +1,166 @@
 <div id="tour-execution">
-    <div id="top-div">
-        <div class="tour-info">
-            <p>Tour: {{tour.name}}</p><br><br>
-            <table class="tour-info-table">
-                <tr>
-                    <td>Description: </td>
-                    <td>{{tour.description}}</td>
-                </tr>
-                <tr>
-                    <td>Demandigness Level: </td>
-                    <td>{{tour.demandignessLevel}}</td>
-                </tr>
-            </table>
-            <p class="subtitle">Available encounter</p>
-            <div class="availableEncounter">
-                <table *ngIf="availableEncounter">
+    <div class="tour-execution-margin">
+        <div id="top-div">
+            <div class="tour-info">
+                <p class="tour-name">{{tour.name}}</p><br>
+                <label class="tour-info-label">Difficulty: {{tour.demandignessLevel}}</label><br>
+                <div class="hower-expand-container">
+                    <div class="hower-expand-content" [ngClass]="{'expanded': isHovered}" (mouseover)="toggleHover(true)" (mouseout)="toggleHover(false)">
+                        Description: {{tour.description}}
+                    </div>
+                </div>
+                <div id="info-table-div">
+                    <table style="overflow-y: hidden;">
+                        <tr>
+                            <td style="width: 19%;">Required time:</td>
+                            <td>
+                                <table>
+                                    <tr *ngFor="let e of tour.tourTimes">
+                                        <th>{{e.transportation}}</th>
+                                        <td style="width: fit-content;">distance: {{(e.distance/1000).toFixed(2)}} km</td>
+                                        <td style="width: fit-content;">time: {{(e.timeInSeconds / 3600).toFixed(0)}} h {{((e.timeInSeconds%3600)/60).toFixed(0)}} min</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <div *ngIf="tour.equipment.length > 0" id="info-table-div">
+                    <table style="overflow-y: hidden;">
+                        <tr>
+                            <td style="width: 15%;">Required equipment:</td>
+                            <td>
+                                <table>
+                                    <tr *ngFor="let e of tour.equipment">
+                                        <th>{{e.name}}</th>
+                                        <td>{{e.description}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="top-div-right">
+                <div class="statistics-div">
+                    <p *ngIf="percentage != '100'">🗺️</p>
+                    <p *ngIf="percentage == '100'">🏆</p>
+                    <div class="statistics">
+                        <p class="number">{{percentage}} %</p><p class="text"> of this tour is completed!</p>
+                    </div>
+                </div>
+                <br>
+                <div class="button-div">
+                    <button (click)="abandon()" class="button-style" *ngIf="percentage != '100'">
+                        Leave tour 🏃
+                    </button>
+                    <button (click)="rateTour()" class="button-style" *ngIf="percentage == '100'">
+                        Rate tour 💬
+                    </button>
+                    <button (click)="reportIssue()" class="button-style">
+                        Report an Issue 🚩
+                    </button>
+                    <button mat-raised-button class="button-style" (click)="ShowPopup()" >Weather forecast☀️</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="left-div">
+                <div class="map">
+                    <xp-simulator (positionUpdated)="checkPosition()"></xp-simulator>
+                </div>
+            </div>
+        
+            <div class="right-div">
+                <div class="available-encounter-div">
+                    <button class="button-style" *ngIf="canSeeAvailableEncounter()" (click)="viewEncounter(availableEncounter.id!)">See Available Encounter</button>
+                </div>
+                
+                <div class="completed-ch-div">
+                    <p class="title">🏆 Completed checkpoints 🏆</p>
+                    <div class="completed-ch-div-content">
+                        <div *ngIf="completedCheckpoint.length == 0">
+                            <br><br>
+                            <label class="no-completed">There are no completed checkpoints yet!</label>
+                            <br><br>
+                        </div>
+                        <table class="checkpoint-table">
+                            <tbody>
+                                <tr *ngFor="let ch of completedCheckpoint"
+                                    class="checkpoint-row">
+                                    <td class="checkpoint">
+                                        <label class="ch-title">{{ch.name}}</label>
+                                        <div class="ch-img">
+                                            <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
+                                            <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
+                                            <button class="nextbtn" (click)="OnPictureNext(ch)">
+                                                ></button>
+                                        </div>
+                                        <div>
+                                            <label class="ch-description">Required time: {{(ch.requiredTimeInSeconds/3600).toFixed(0)}} h {{((ch.requiredTimeInSeconds%3600)/60).toFixed(0)}} min</label><br>
+                                            <label class="ch-description">Description: {{ch.description}}</label>        
+                                        </div>
+                                        
+                                        <div>
+                                            <button *ngIf="ch.checkpointSecret !== null" class="secretb" (click)="viewSecret(ch)">Show secret</button>
+                                            <button *ngIf="ch.encounterId !== 0" class="secretb" (click)="viewEncounter(ch.encounterId)">Show encounter</button>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        
+
+        <div *ngIf="completedEncounterExecutions.length > 0">
+            <p>Encounters for this tour you already completed: </p>
+            <table>
+                <tbody>
                     <tr>
                         <td>
-                            <h3>{{availableEncounter.name}}</h3>
-                            <label>Type: {{availableEncounter.type}}</label>
-                        </td>
-                        <td>
-                            <label>Status: {{availableEncounter.status}}</label><br>
-                            <label>My status: {{availableEncounterExecution.status}}</label>
-                        </td>
-                        <td *ngIf="availableEncounter.type == 'Location'">
-                            <img src="getImageUrl(availableEncounter.image)" width="60" height="40">
-                        </td>
-                        <td *ngIf="availableEncounter.type == 'Social'">
-                            <label>Currently {{currentlyPeopleOnSocialEncounter}} people, required {{availableEncounter.requiredPeople}}</label><br>
-                            <label>Range: {{availableEncounter.range}}</label>
-                        </td>
-                        <td>
-                            <button class="button" *ngIf="availableEncounterExecution.status == 'Pending'" (click)="onActivate(availableEncounter.id || 0)">Activate</button>
-                            <button class="button" *ngIf="availableEncounterExecution.status == 'Active' && availableEncounter.type != 'Social'"  (click)="onComplete()">Complete</button>
+                            <label></label>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Description: </td>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <!--div class="notification-div">
+                <table border="1">
+                    <tr *ngFor="let n of notifications">
+                        <td>Save your new position!  ⚠️</td>
                         <td>
-                            <label>
-                                {{availableEncounter.description}}
-                            </label>
+                        ({{n}})
                         </td>
                     </tr>
                 </table>
-            </div>
-        </div>
-
-        <button (click)="abandon()" class="buttonAbandon">
-            Abandon ❌
-        </button>
-
-        <div class="notification-div">
-            <table border="1">
-                <tr *ngFor="let n of notifications">
-                    <td>Save your new position!  ⚠️</td>
-                    <td>
-                    ({{n}})
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <div class="simulator-div">
-        <xp-simulator (positionUpdated)="checkPosition()"></xp-simulator>
-        <br>
-        <p>Completed checkpoints:</p>
-        <div>
-            <div class="checkpoints-div">
-                <div *ngIf="completedCheckpoint.length == 0">
-                    <br><br>
-                    <label>There are no completed checkpoints</label>
-                    <br><br>
-                </div>
-                <table>
-                    <tbody>
-                        <tr *ngFor="let e of completedCheckpoint">
-                            <td class="cpp">
-                                <div class="cardcp">
-                                    <span class="cps1">
-                                        <br>
-                                        <div><span><span class="cps2">Name: </span>{{e.name}}</span></div>
-                                        <br>
-                                        <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
-                                        <br>
-                                        <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} m </span></div>
-                                        <hr>
-                                    </span>
-                                    <span class="cps1">
-                                        <br>
-                                        <div><span><span class="cps2">Longitude: </span>{{(e.longitude).toFixed(3)}}</span></div>
-        
-                                        <br>
-                                        <div><span><span class="cps2">Latitude: </span>{{(e.latitude).toFixed(3)}}</span></div>
-                                        <br>
-                                    </span>
-                                    <span class="cps1">
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                       <button class="nextbtn" (click)="OnPictureBack(e)">
-                                                        
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <img [src]=getImageUrl(e.showedPointPicture) width="200px" height="185px" cover="fill">
-                                                    </td>
-                                                    <td>
-                                                        <button class="nextbtn" (click)="OnPictureBack(e)">
-                                                            >
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </span>
-                                </div>  
-                                <div *ngIf="e.checkpointSecret!=null" class="cardcp">
-                                    <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
-                                </div>
-                                <div *ngIf="e.visibleSecret" class="secretdiv">
-                                    <p class="secretp">Secret of this place:</p>
-                                    <div class="secret-span">
-                                       
-                                        <div>
-                                            <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
-                                        <div>
-                                            <table>
-                                                <tr *ngIf="e.showedPicture">
-                                                    <td>
-                                                    <img [src]=getImageUrl(e.showedPicture) width="100" height="100">
-                                                    </td>
-                                                    <td>
-                                                    <button (click)="OnNext(e)"   class="nextbtn">></button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div>
-                                            <p class="cpmp">🧭</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                           
-                        </tr>
-                    </tbody>
-                    </table>
-            </div>
-        </div>
-        <div class="encounter-div">
-            <p>Your active encounters:</p>
+            </div -->
             <br><br>
-                    <label>Encounters are from all your tours in progress.</label>
-                    <br><br>
-            <table border="1">
-                <tr *ngFor="let e of encounterExecutions">
-                    <td>
-                        <h3>{{e.encounterDto.name}}</h3>
-                        <label>Type: {{e.encounterDto.type}}</label>
-                    </td>
-                    <td>
-                        <label>XP: {{e.encounterDto.xp}}</label>
-                    </td>
-                    <td *ngIf="e.encounterDto.type=='Social'">
-                        To complete encounter required number is {{e.encounterDto.requiredPeople}} people in {{e.encounterDto.range}} meters range.
-                    </td>
-                    <td *ngIf="e.encounterDto.type=='Location'">
-                        <img *ngIf="e.encounterDto && e.encounterDto.image" [src]="getImageUrl(e.encounterDto.image[0])" width="100" height="60">
-                    </td>
-                </tr>
-            </table>
+            <p class="title">Checkpoints preview</p>
+            <div class="all-checkpoints-div">
+                <div class="checkpoint" *ngFor="let ch of tour.checkpoints" class="checkpoint-column">
+                    <label class="ch-title">{{ch.name}}</label>
+                    <div class="ch-img">
+                        <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
+                        <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
+                        <button class="nextbtn" (click)="OnPictureNext(ch)">
+                            >
+                        </button>
+
+                    </div>
+                    <div>
+                        <label class="ch-description">Required time: {{(ch.requiredTimeInSeconds/3600).toFixed(0)}} h {{((ch.requiredTimeInSeconds%3600)/60).toFixed(0)}} min</label><br>
+                        <label class="ch-description">Description: {{ch.description}}</label>        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

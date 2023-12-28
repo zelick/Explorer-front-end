@@ -245,6 +245,18 @@ export class MapComponent implements AfterViewInit {
       });
     }
 
+    addCompletedCheckpoints(coords: [{lat: number, lon: number, picture: string, name: string, desc: string}]): void {
+      let defaultIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/8935/8935765.png',
+        iconSize: [35, 45],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+      });
+      coords.forEach(element => {
+        L.marker([element.lat, element.lon], { icon: defaultIcon }).bindPopup("<b>" + element.name + "</b><br>" + element.desc + "<br><img src='" + element.picture + "' width=70 height=50>").addTo(this.map).openPopup();
+      });
+    }
+
     addCheckpoints(coords: [{lat: number, lon: number, name: string, desc: string}]): void {
       let defaultIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
@@ -274,7 +286,7 @@ export class MapComponent implements AfterViewInit {
       );
     }
 
-    addMapObjects(coords: [{lat: number, lon: number, category: string, name: string, desc: string}]): void {
+    addMapObjects(coords: [{lat: number, lon: number, category: string, name: string, desc: string, picture: string}]): void {
 
       let defaultIconWC = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/1257/1257334.png',
@@ -302,17 +314,17 @@ export class MapComponent implements AfterViewInit {
       });
       coords.forEach(element => {
         if(element.category == 'WC')
-          L.marker([element.lat, element.lon], { icon: defaultIconWC }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconWC }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc + "<br> <img src='" + element.picture + "'>").openPopup().addTo(this.map);
         if(element.category == 'Restaurant')
-          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconRestaurant }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc + "<br> <img src='" + element.picture + "'>").openPopup().addTo(this.map);
         if(element.category == 'Parking')
-        L.marker([element.lat, element.lon], { icon: defaultIconParking }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
+        L.marker([element.lat, element.lon], { icon: defaultIconParking }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc + "<br> <img src='" + element.picture + "'>").openPopup().addTo(this.map);
         if(element.category == 'Other')
-          L.marker([element.lat, element.lon], { icon: defaultIconOther }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc).openPopup().addTo(this.map);
+          L.marker([element.lat, element.lon], { icon: defaultIconOther }).bindPopup("<b>" + element.name + "</b><br>" + element.category + "<br>" + element.desc + "<br> <img src='" + element.picture + "'>").openPopup().addTo(this.map);
       });
     }
 
-    setRouteWithInfo(coords: [{lat: number, lon: number, name: string, desc: string}], profile: string): void{
+    setRouteWithInfo(coords: [{lat: number, lon: number, name: string, desc: string, picture: string}], profile: string): void{
     
       const waypoints = coords.map(coord => L.latLng(coord.lat, coord.lon));
         const routeControl = L.Routing.control({
@@ -332,7 +344,7 @@ export class MapComponent implements AfterViewInit {
               if(layer.getLatLng() == element.latLng)
               {
                 var coord = coords.filter(n => n.lat == element.latLng.lat && n.lon == element.latLng.lng)[0];
-                layer.bindPopup("<b>" + coord.name + "</b><br>" + coord.desc).openPopup();
+                layer.bindPopup("<b>" + coord.name + "</b><br>" + coord.desc + "<br> <img width=80 height=60 src='" + coord.picture + "'>").openPopup();
                 layer.setIcon(L.icon({
                   iconUrl: 'https://cdn-icons-png.flaticon.com/512/6303/6303225.png',
                   iconSize: [25, 41],

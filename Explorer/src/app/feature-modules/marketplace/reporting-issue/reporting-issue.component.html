@@ -15,16 +15,22 @@
           cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Time</mat-label>
-            <input matInput formControlName="time" type="datetime"/>
-        </mat-form-field>
-        <mat-form-field>
             <mat-label>Priority</mat-label>
-            <input matInput formControlName="priority" type="number"/>
+        <mat-select formControlName="priority">
+          <mat-option *ngFor="let priority of [1, 2, 3, 4, 5]" [value]="priority">
+            {{ priority }}
+          </mat-option>
+        </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Tour</mat-label>
-            <input matInput formControlName="tourId" type="number"/>
+            <mat-select formControlName="tourId">
+                <mat-option *ngFor="let tour of tours" [value]="tour.id">{{ tour.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+            <input matInput formControlName="time" type="datetime" readonly class="readonly-input"/>
         </mat-form-field>
     <button color="primary" type="submit" (click)="addReportedIssue()" mat-raised-button>Done</button>
     </div>

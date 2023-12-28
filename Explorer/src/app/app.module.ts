@@ -18,10 +18,12 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { EncountersModule } from './feature-modules/encounters/encounters.module';
+import { TouristCurrentPositionComponent } from './feature-modules/tourist-current-position/tourist-current-position.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TouristCurrentPositionComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,9 @@
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour-bundles/:id']">Bundles</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['view-coupons']">Coupons</button>
             <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['sales']">Sales</button>
+            <button class="button" *ngIf="user && user.role === 'author'" mat-raised-button [routerLink]="['tour-statistics']">Tour Statistics</button>
 
+            
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-overview']">Explore Tours</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['tour-bundles']">Bundle Offers</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" mat-raised-button [routerLink]="['plan-your-trip']">Plan your trip</button>

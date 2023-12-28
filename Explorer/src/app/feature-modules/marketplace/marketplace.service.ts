@@ -6,9 +6,9 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ReportedIssue } from '../administration/model/reported-issue.model';
 import { TourPreference } from './model/preference.model';
 import { TourRating } from './model/tour-rating.model';
-import { TouristPosition } from './model/position.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
+import { TouristPosition } from '../tour-execution/model/position.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { TourPreview } from './model/tour-preview';
 import { PublicTour } from './model/public-tour.model';
@@ -105,6 +105,11 @@ export class MarketplaceService {
     return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
   }
 
+  startShoppingSession(touristId: number): Observable<any> {
+    const params = new HttpParams().set('touristId', touristId.toString());
+    return this.http.post<any>(environment.apiHost + 'shopping/shopping-cart/session/', null, { params });
+  }
+
   getShoppingCart(touristId: number): Observable<ShoppingCart> {
     const params = new HttpParams().set('touristId', touristId.toString());
     return this.http.get<ShoppingCart>(environment.apiHost + 'shopping/shopping-cart/', { params });
@@ -140,6 +145,14 @@ export class MarketplaceService {
   
   getPublishedTours():Observable<TourPreview[]> {
     return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping')
+  }
+
+  getRecommendedTours(id:number):Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/recommendations/' + id)
+  }
+
+  getRecommendedActiveTours(id:number):Observable<TourPreview[]> {
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tourist/shopping/active-recommendations/' + id)
   }
 
   getPublishedTour(id:number): Observable<TourPreview> {
@@ -261,5 +274,4 @@ export class MarketplaceService {
   getByCode(couponText: string): Observable<Coupon>{
     return this.http.get<Coupon>(environment.apiHost + 'shopping/shopping-cart/get-by-code/'+ couponText);
   }
-
 }

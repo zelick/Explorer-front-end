@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { TourExecution } from './model/tour_execution.model';
 import { query } from '@angular/animations';
-import { TouristPosition } from '../marketplace/model/position.model';
+import { TouristPosition } from './model/position.model';
 import { MapObject } from '../tour-authoring/model/map-object.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PublicCheckpoint } from './model/public_checkpoint.model';
@@ -21,12 +21,25 @@ import { PrivateTour } from '../tour-authoring/model/private-tour.model';
 export class TourExecutionService {
 
   constructor(private http: HttpClient) { }
-  getTourExecution(tourId: number): Observable<TourExecution> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("tourId",tourId);
-    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
+
+  // simulator
+  addTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.post<TouristPosition>(environment.apiHost + 'tourism/position', position);
   }
 
+  updateTouristPosition(position: TouristPosition): Observable<TouristPosition> {
+    return this.http.put<TouristPosition>(environment.apiHost + 'tourism/position/' + position.id, position);
+  }
+
+  getTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.get<TouristPosition>(environment.apiHost + 'tourism/position/'+id)
+  }
+
+  deleteTouristPosition(id: number): Observable<TouristPosition> {
+    return this.http.delete<TouristPosition>(environment.apiHost + 'tourism/position/' + id);
+  }
+
+  // PrivateTour
   getPrivateTour(id: number): Observable<PrivateTour> {
     return this.http.get<PrivateTour>(environment.apiHost + 'tourist/privateTours/tour/' + id);
   }
@@ -43,12 +56,19 @@ export class TourExecutionService {
     return this.http.put<PrivateTour>(environment.apiHost + 'tourist/privateTours/finish', tour);
   }
 
+  // TourExecution
+  getTourExecution(tourId: number): Observable<TourExecution> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("tourId",tourId);
+    return this.http.get<TourExecution>(environment.apiHost + 'tour-execution', {params: queryParams});
+  }
+
   startExecution(tourId: number): Observable<TourExecution>{
     return this.http.post<TourExecution>(environment.apiHost + 'tour-execution' + "/" + tourId, null);
   }
 
   abandon(id: number): Observable<TourExecution>{
-    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/abandoned', id);
+    return this.http.put<TourExecution>(environment.apiHost + 'tour-execution/abandoned/', id);
   }
 
   registerPosition(id: number, position: TouristPosition): Observable<TourExecution>{
@@ -69,6 +89,7 @@ export class TourExecutionService {
     return this.http.get<PagedResults<PublicCheckpoint>>(environment.apiHost + 'administration/publicCheckpoint');
   }
 
+  // Encounters
   getEncounters(tourId: number, touristLongitude: number, touristLatitude: number): Observable<EncounterExecution>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("touristLatitude", touristLatitude);
@@ -83,8 +104,11 @@ export class TourExecutionService {
     return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/activate/' + id, form);
   }
 
-  completeEncounter(id: number): Observable<EncounterExecution>{
-    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/completed/' + id, null);
+  completeEncounter(id: number, touristLongitude: number, touristLatitude : number): Observable<EncounterExecution>{
+    var form = new FormData();
+    form.append('touristLatitude', touristLatitude.toString());
+    form.append('touristLongitude', touristLongitude.toString());
+    return this.http.put<EncounterExecution>(environment.apiHost + 'tourist/encounter-execution/completed/' + id, form);
   }
 
   getActiveEncounters(tourId: number): Observable<EncounterExecution[]>{

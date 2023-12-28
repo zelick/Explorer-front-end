@@ -1,0 +1,32 @@
+.content{
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+    padding: 10px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    padding-top: 2px;
+    margin: auto;
+}
+
+.button-div{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.title{
+    margin-left: 130px;
+    margin-top: 0px;
+    font-size: 22px;
+}
+
+.button{
+    margin: auto;
+    width: 80px;
+    height: 30px;
+    background-color: #3B846B;
+    cursor: pointer;
+}

@@ -113,7 +113,7 @@
     cursor: pointer;
 }
 .tours-container{
-    width: auto;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -201,7 +201,7 @@
     overflow-x: hidden;
     border-radius: 5px;
     margin-bottom: 0px;
-    width: 31.5%;
+    width: 30%;
     max-width: 450px;
     cursor: pointer;
     height: 46vh;
