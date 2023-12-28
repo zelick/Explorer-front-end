@@ -1,271 +1,385 @@
 #tour-execution{
-    margin: 100px;
-    margin-top: 100px;
+    font-family: 'Poppins', sans-serif;
+    color:#fff;
+    background-color: #253B34;
 }
-
-.simulator-div{
-    width: 600px;
-    height: 600px;
+.tour-execution-margin{
+    padding: 10px;
 }
-
 #top-div{
+    height: 15%;
+    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
 }
 
+.tour-info{
+    height: 100%;
+    width: 65%;
+    margin-left: 20px;
+    margin-top: 1vh;
+    /* width: 100%; */
+}
+.tour-name{
+    margin-left: -20px;
+    font-weight: bold;
+    font-size: 4vh;
+    color:#E67840;
+}
+.tour-info-label{
+    height: fit-content;
+    max-height: 80px;
+    width: 100%;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    text-align: left;
+}
+.hower-expand-container {
+    overflow: hidden;
+    min-height: 20px;
+    max-height: fit-content;
+    transition: max-height 0.3s ease;
+}
+.hower-expand-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}  
+.hower-expand-content.expanded {
+    white-space: normal;
+    max-height: none;
+}
 
-.tour-details {
-    width: 680px;
-    display:flex;
-    gap: 20px;
-    flex-direction: column;
-    margin: 0 auto;
+.tour-description-label{
+    height: fit-content;
+    max-height: 80px;
+    width: 100%;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    text-align: left;
+    flex-wrap: wrap;
+    display: block;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
+
+#info-table-div{
+    margin-top: 10px;
+    padding-left: 0%;
+    align-self: flex-start;
+}
+
+#info-table-div table{
+    margin-left: -12px;
+    width: 100%;
+    max-height: fit-content;
+    display: block;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#info-table-div td {
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: top;
+    height: fit-content;
+    width: fit-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-div-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    width: 30%;
+    height: 100%;
+}
+
+/* statistics style */
+.statistics-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 250px;
+    margin-left: 0px;
+    margin-right: 5px;
+    overflow: hidden;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+.statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.number{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+/* buttons div */
+.button-div{
+    width: 45%;
+    height: 250px;
+    margin-left: auto;
+    margin-right: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+.button-style{
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    width: 150px;
+    height: 50px;
+    font-size: 100%;  
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+/*      simulator and completed checkpoints        */
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+}
+/* simulator - left div */
+.left-div {
+    height: 600px;
+    width: 65%;
+    display: flex;
+    margin-top: 1vh;
+    flex-direction: column;
+    justify-content: start;
+    max-width: 1000px;
+}
+.map{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+
+/* checpoint info - right div */
+.right-div {
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 1vh;
+}
+.available-encounter-div{
+    height: 80px;
+}
+.completed-ch-div {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 1vh;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.completed-ch-div-content{
+    width: 100%;
+    min-width: 90%;
+    display: flex;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.title{
+    width: 95%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+.no-completed{
+    align-self: center;
+    display: flex;
+    min-width: 100px;
+    width: 100%;
+    margin-left: 15px;
+    font-size: 2.5vh;
+    color: black;
+}
+.checkpoint-table{
+    width: 100%;
+}
+.checkpoint-row {
+    background-color: #3B846B;
+    height: fit-content;
+    width: 95%;
+    margin: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    box-shadow: 2px 2px 13px black;
+    border: 1px #3b846b15;
+    border-radius: 15px;
+}
+.checkpoint {
+    height: 100%;
+    width: 100%;
+}
+.ch-title {
+    height: 100%;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 2.5vh;
+    color:#F7F6DC;
+    justify-content: center;
+    align-content: center;
+}
+.ch-img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    margin-top: 2px;
+    border-bottom: 3px solid #E67840;
+    border-top: 3px solid #E67840;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nextbtn{
+    width: 35px;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-top: 0%;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #3B846B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+}
+.img{
+    width: auto;
+    max-width: 80%;
+    height: 185px;
+}
+.ch-description {
+    width: 100%;
+    max-height: 60px;
+    margin-left: 2px;
+    text-align: left;
+    flex-wrap: wrap;
+    display: block;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-overflow: ellipsis;
+}
+.secretb{
+    width: auto;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #253B34;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+}
+
+.all-checkpoints-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 5px;
+}
+.checkpoint-column{
+    height: fit-content;
+    width: 400px;
+    margin: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #3B846B;
+}
+
+.text{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+
+p{
+    margin: 0 auto;
+    font-size: 4vh;
+    color:#E67840;
+    padding: 1% 2.5%; 
+}
 th{
     width: 340px;
     text-align: center;
     background-color: #E67840;
     color: white;
 }
-
-.buttonEdit{
-    width: auto;
-    margin-left: 0px;
-
-    margin-bottom: 200px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-.buttonEdit1{
-    width: auto;
-    margin-left: 50px;
-
-    margin-bottom: 200px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-.buttonBack{
-    width: auto;
-    margin-bottom: 15px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-
-.buttonDelete{
-    width: auto;
-    margin-left: 170px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-.buttonDelete1{
-    width: auto;
-    margin-left: 800px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
 td{
     width: 340px;
     text-align: center;
-
-}
-.cardcp{
-    width: 800px;
-    display:flex;
-    column-gap: 50px;
-    flex-direction: row;
-    justify-content:justify;
-    background-color: #B6D4AF;
-
-}
-
-
-.cp{
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-}
-
-.cps2{
-font-weight: 1000;
-color:#3B846B
-}
-
-.cps1{
-    width: 350px;
-    margin-left: 15px;
-}
-#tour-title{
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#tour-details{
-    padding-top: 25px;
-    padding-left: 25px;
-}
-
-
-.mapa{
-    width: 1300px;
-    height: 600px;
-}
-
-p{
-    margin: 0 auto;
-    font-size: 4vh;
-  color:#E67840;
-  padding: 1% 2.5%; 
-  
-}
-
-.subtitle{
-    font-size: 2vh;
-  color:#E67840;
-  font-style: bold;
-
-}
-
-img{
-    object-fit: cover;
-    border: 2px solid #3B846B;
-
-}
-.cpmp{
-    font-size: 7vh;
-    text-align: right;
-    margin-left: 125px;
-    margin-top: 60px;
-}
-.cpp{
-    width: 200px;
-    text-align: left;
-     border: #3B846B solid 5px;
-
-}
-.routingButton{
-    width: 1200;
-    display:flex;
-    margin-right: 60px;
-    margin-left: 60px;
-    gap: 15px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.secretdiv{
-    background-color: #B6D4AF;
-}
-
-.secretp{
-    font-size: 2vh;
-    color:#3B846B;
-    font-style: bold;
-}
-
-.secretb{
-    margin-bottom: 0.5cm;
-    margin-left: 15px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-    width: 110px;
-    height: 30px;
-
-}
-.nextbtn{
-    margin-bottom: 0.5cm;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-    width: 25px;
-    height: 20px;
-
-}
-.secret-span{
-    width: 600px;
-    display:flex;
-    gap: 10px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-textarea {
-    height: 100px;
-    width: 11cm;
-    resize: none;
-    margin-left: 10px;
-  }
-.managing-tour-div{
-    width: 200px;
-    height: 200px;
-    border: 2px solid #E67840;
-    margin: 50px auto;
-    margin-top:190px;
-    background-color: #B6D4AF;
-    text-align: center;
-}
-
-.tour-div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.checkpoint-div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.managing-transport-div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 200px;
-    height: 100px;
-    border: 2px solid #E67840;
-    margin-top: 450px;
-    margin-left: 230px;
-    background-color: #B6D4AF;
 }
 .legend-div{
     width: 500px;
@@ -282,58 +396,8 @@ textarea {
     width: 70px;
     height: 30px;
 }
-.profile-select{
-    width: 100px;
-    height: 30px;
-    background-color:#fff;
-    border-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
 .notification-div{
     width: 400px;
     height: 200px;
     overflow: scroll;
-}
-
-.buttonAbandon{
-    width: auto;
-    margin-left: 50px;
-    margin-bottom: 10px;
-    margin-top: 50px;
-    margin-right: 50px;
-    padding: 0px 10px;
-    width: 150px;
-    height: 60px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 50px;
-    cursor: pointer;
-}
-.tour-info{
-    margin-left: 0px;
-}
-.tour-info-table{
-    margin-left: 0px;
-}
-.availableEncounter{
-    border: 2px solid #E67840;
-    background-color: #B6D4AF;
-}
-.button{
-    width: auto;
-    margin-left: 50px;
-    margin-bottom: 10px;
-    margin-top: 50px;
-    margin-right: 50px;
-    padding: 0px 10px;
-    width: 150px;
-    height: 60px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
 }

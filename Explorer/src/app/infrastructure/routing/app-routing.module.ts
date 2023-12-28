@@ -29,7 +29,7 @@ import { CheckpointRequestReviewComponent } from 'src/app/feature-modules/admini
 import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
-import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
+import { SimulatorComponent } from 'src/app/feature-modules/tour-execution/simulator/simulator.component';
 import { SocialProfileComponent } from 'src/app/feature-modules/user-social-profile/social-profile/social-profile.component';
 import { ObjectRequestReviewComponent } from 'src/app/feature-modules/administration/object-request-review/object-request-review/object-request-review.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
@@ -62,12 +62,16 @@ import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounter
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
 import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
 import { CheckpointStatisticsComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-statistics/checkpoint-statistics.component';
+import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'reset-password/:secureToken', component: ResetPasswordComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],
@@ -89,7 +93,6 @@ const routes: Routes = [
       { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
       { path: 'tour-overview', component: TourOverviewComponent, canActivate:[AuthGuard]},
       { path: 'tour-overview-details/:id', component:TourOverviewDetailsComponent, canActivate: [AuthGuard]},
-      { path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard] },
       { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
       { path: 'tour-bundles', component: TourBundleTableComponent, canActivate:[AuthGuard] },
       //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
@@ -162,7 +165,6 @@ const routes: Routes = [
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
-  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
   {path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
@@ -190,6 +192,8 @@ const routes: Routes = [
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
   {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
   {path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
+  {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

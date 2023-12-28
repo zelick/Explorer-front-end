@@ -69,9 +69,9 @@ body {
 
   mat-form-field.profile-picture {
     width: 75%;
-    max-height: 100px;
+    max-height: 75px;
   }
-  
+
   .mat-input-element.profile-picture {
     height: 200%;
   }
@@ -123,4 +123,14 @@ body {
     .form-container {
       width: 100%;
     }
+  }
+
+  .file-input {
+    display: none;
+  }
+
+  .upload-btn {
+    background-color: #3B846B;
+    color: white;
+    height: 30px;
   }

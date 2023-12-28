@@ -5,8 +5,6 @@ export interface EncounterExecution {
     encounterId: number,
     encounterDto: Encounter,
     touristId: number,
-    touristLatitude: number,
-    touristLongitude: number,
     status: string,
     startTime: Date
 }

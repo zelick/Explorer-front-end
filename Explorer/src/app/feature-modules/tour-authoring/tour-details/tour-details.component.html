@@ -1,32 +1,30 @@
 <div class="tour-div">
     <div class="tour-details">
     <br>
-    <p >{{tour.name}}</p>
+    <p class="title">{{tour.name}}</p>
     <br>
     <br>
-            <p class="subtitle">Information</p>
-        <table id="tour-details-table">
+            <div class="infodiv">
+        <div class="linfo">
+            <br>
+            <p class="subtitle">Information about tour 🌐</p>
+            <br>
+        <table class="tour-details-table">
             <tr>
                 <th>Description:</th>
-                <td>{{tour.description}}</td>
+                <td class="descriptiontd">{{tour.description}}</td>
             </tr>
             <tr>
                 <th>Price:</th>
-                <td>{{tour.price}}</td>
+                <td>   {{tour.price}} 🪙</td>
             </tr>
             <tr>
                 <th>Status:</th>
-                <td>{{tour.status}}</td>
+                <td>  {{tour.status}}</td>
             </tr>
             <tr>
-                <th>Demandigness level:</th>
-                <td>{{tour.demandignessLevel}}</td>
-            </tr>
-            <tr *ngFor="let tt of tour.tourTimes">
-                <th>{{tt.transportation}}</th>
-                <td>{{(tt.distance/1000).toFixed(2)}} km</td>
-                <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
-
+                <th>Dificility level:</th>
+                <td>  {{tour.demandignessLevel}}</td>
             </tr>
             <tr>
                 <th>Tags:</th>
@@ -38,138 +36,212 @@
                     </table>
                 </td>
             </tr>
-        </table>
+            <tr>
+                <th>Transportation:</th>
+                <td>
+                <table>
+            <tr *ngFor="let tt of tour.tourTimes">
+                <th class="transportth">{{tt.transportation}}</th>
+                <td>{{(tt.distance/1000).toFixed(2)}} km</td>
+                <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
 
-    <br>
-    <p class="subtitle">Added equipment</p>
-    <div>
-        <button mat-raised-button class="forecastButton" (click)="ShowPopup()" >Weather forecast☀️</button>
-    </div>
-    <table>
+            </tr>
+                </table>
+                </td>
+            <tr>
+            <tr>
+                <th>Required equipment</th>
+                <td>
+                    <table>
+                        <thead>
+                            <th class="equipmentth">Name</th>
+                            <th class="equipmentthd">Description</th>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor="let e of tour.equipment">
+                                <td>{{e.name}}</td>
+                                <td>{{e.description}}</td>
+        
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
             
-                <thead>
-                    <th >Name</th>
-                    <th >Description</th>
-                </thead>
-                
-                <tbody>
-                    <tr *ngFor="let e of tour.equipment">
-                        <td>{{e.name}}</td>
-                        <td>{{e.description}}</td>
-
-                    </tr>
-                </tbody>
-          
         </table>
+        </div>
+
+    <div class="equipmentdiv">
     <br>
-    <p class="subtitle">Added checkpoints</p>
+    <p>Checkpoints 📍</p>
 
-    <div class="checkpoint-div">
-    <div>
-        <table>
-            <tbody>
-                <tr *ngFor="let e of tour.checkpoints">
-                    <td class="cpp">
-                        <div class="cardcp">
-                            <span class="cps1">
-                                <br>
-                                <div><span><span class="cps2">Name: </span>{{e.name}}</span></div>
-                                <br>
-                                <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
-                                <br>
-                                <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} m </span></div>
-                                <br>
-                                <hr>
-                            </span>
-                            <span class="cps1">
-                                <br>
-                                <div><span><span class="cps2">Longitude: </span>{{(e.longitude).toFixed(3)}}</span></div>
+    <br>
+    <div >
+            <table class="tablecards">
+                <tbody>
+                    <tr *ngFor="let e of tour.checkpoints">
+                        <td class="cpp">
+                            <div class="cardcp">
+                                <span class="cps1">
+                                    <br>
+                                    <div><span><span class="cps2">Name: </span>{{e.name}}</span></div>
+                                    <br>
+                                    <div><span><span class="cps2">Required time: </span>{{(e.requiredTimeInSeconds/3600).toFixed(0)}} h {{((e.requiredTimeInSeconds%3600)/60).toFixed(0)}} min </span></div>
+                                    <br>
+                                    <div><span><span class="cps2">Description: </span>{{e.description}}</span></div>
+                                    <br>
+                                    <hr>
+                                </span>
 
-                                <br>
-                                <div><span><span class="cps2">Latitude: </span>{{(e.latitude).toFixed(3)}}</span></div>
-                                <br>
-                            </span>
-                            <span class="cps1">
-                                <div>
-                                    <table >
-                                        <tr>
-                                            <td>
-                                               <button class="nextbtn" (click)="OnPictureBack(e)">
-                                                
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <img [src]="getImageUrl(e.showedPointPicture)" width="200px" height="185px" cover="fill">
-                                            </td>
-                                            <td>
-                                                <button class="nextbtn" (click)="OnPictureNext(e)">
-                                                    
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </span>
-                        </div>  
-                        <div *ngIf="e.checkpointSecret!=null" class="cardcp">
-                            <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
-                        </div>
-                        <div *ngIf="e.visibleSecret" class="secretdiv">
-                            <p class="secretp">Secret of this place:</p>
-                            <div class="secret-span">
-                               
-                                <div>
-                                    <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
-                                <div>
-                                    <table *ngIf="e.showedPicture">
-                                        <tr>
-                                            <td>
-                                            <img [src]="getImageUrl(e.showedPicture)" width="100" height="100">
-                                            </td>
-                                            <td>
-                                            <button (click)="OnNext(e)"   class="nextbtn">></button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div>
-                                    <p class="cpmp">🧭</p>
+                                <span class="cps1">
+                                    <div>
+                                        <table >
+                                            <tr>
+                                                <td>
+                                                   <button class="nextbtn" (click)="OnPictureBack(e)">
+                                                    <
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <img [src]=e.showedPointPicture width="200px" height="185px" cover="fill">
+                                                </td>
+                                                <td>
+                                                    <button class="nextbtn" (click)="OnPictureNext(e)">
+                                                        >
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </span>
+                            </div>  
+                            <div *ngIf="e.checkpointSecret!=null" class="cardcp">
+                                <button (click)="OnViewSecret(e)" class="secretb">{{e.viewSecretMessage}}</button>
+                            </div>
+                            <div *ngIf="e.visibleSecret" class="secretdiv">
+                                <p class="secretp">Secret of this place:</p>
+                                <div class="secret-span">
+                                   
+                                    <div>
+                                        <textarea disabled>{{e.checkpointSecret?.description}}</textarea></div>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                <img [src]=e.showedPicture width="100" height="100">
+                                                </td>
+                                                <td>
+                                                <button (click)="OnNext(e)"   class="nextbtn">></button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <p class="cpmp">🧭</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                   
-                </tr>
-            </tbody>
-            </table>
-            </div>
-            <div class="managing-transport-div">
-                <p class="subtitle">Choose transportation</p>
-                <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
-                    <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
-                </select>
+                        </td>
+                       
+                    </tr>
+                </tbody>
+                </table>
+
                
+    
             </div>
-            <div class="legend-div">
-                <p class="subtitle">Legend</p>
+    </div>
+    </div>
+    <br>
+
+
+
+    <div class="mapa">
+    <br>
+        <table>
+            <tr>
+                <td><span class="mapspan">🟥-🚶‍♂️   🟩-🚗    🟦-🚲</span>  </td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+
+              
+              
+              
+              
+              
+              
+              
+              
+                <td><span class="transportationspan">Choose transportation: </span>
+                    <span>
+                        <select class="profile-select" [(ngModel)]="profile" (change)="profileChanged($event)" class="selectTransport">
+                            <option *ngFor="let p of profiles" [ngValue]="p">{{p}}</option>
+                        </select>
+                </span>
+            </td>
+            </tr>
+        </table>
+      
+    <br>
+    <br>
+
+    <xp-map></xp-map>
+            <div class="routingButton">
+                <br>
+
+              
+              
+              
+
+              
+              
+              
+              
+              
+              
+              
+              
+              
                 <table>
+                    <tr><td><br></td></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
                     <tr>
-                        <td>🟥</td>
-                        <td>-</td>
-                        <td>🚶‍♂️</td>
+                        <td>
+                            <span>
+                                <button mat-raised-button class="backButton" (click)="onBack()">Back</button>
+                            </span>
+                        </td>
+                        
+                        <td> 
+                            <span>
+                                <button *ngIf="tour.status != 'Published'" mat-raised-button class="archiveButton" (click)="publishTour()" >Publish 🚀</button>                        
+                                <button *ngIf="tour.status == 'Published'" mat-raised-button class="archiveButton" (click)="archive()">Archive 🗃️</button>
+    
+                            </span>
+                        </td>
+                        <td>
+                            <span>
+                                <button mat-raised-button class="deleteButton" (click)="onDelete()">Delete🗑️</button>
+                            </span>
+                        </td>
+                        <td>
+                            <span>
+                                <button mat-raised-button class="editButton" (click)="onEdit()">Edit✏️</button>
+                            </span>
+                        </td>
+
                     </tr>
-                    <tr>
-                        <td>🟩</td>
-                        <td>-</td>
-                        <td>🚗</td>
-                    </tr>
-                    <tr>
-                        <td>🟦</td>
-                        <td>-</td>
-                        <td>🚲</td>
-                    </tr>
+                    <tr></tr>
+                    <tr><br></tr>
                 </table>
                
+                
+                </div>
             </div>
         </div>
     <div class="mapa">
@@ -193,23 +265,6 @@
     </div>
 </div>
 <div class="managing-tour-div">
-    <p class="subtitle">Manage tour status</p>
-    <br>
-    <br>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <button *ngIf="tour.status != 'Published'" mat-raised-button class="buttonEdit" (click)="publishTour()" >Publish 🚀</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button *ngIf="tour.status == 'Published'" mat-raised-button class="buttonEdit" (click)="archive()">Archive ✏</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
    
 </div>
 </div>

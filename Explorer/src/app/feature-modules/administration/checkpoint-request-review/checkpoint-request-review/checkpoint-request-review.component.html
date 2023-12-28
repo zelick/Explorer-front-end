@@ -26,7 +26,7 @@
                         </button>
                     </td>
                     <td *ngIf="req.onHold">
-                        <input type="text" [(ngModel)]="req.comment" placeholder="Enter your comment">
+                        <textarea [(ngModel)]="req.comment" placeholder="Enter your comment" cols="30" rows="2"></textarea>
                     </td>
                 </tr>
             </tbody>
@@ -59,10 +59,10 @@
                         </button>
                     </td>
                     <td *ngIf="req.onHold">
-                        <input type="text" [(ngModel)]="req.comment" placeholder="Enter your comment">
+                        <textarea [(ngModel)]="req.comment" placeholder="Enter your comment" cols="30" rows="2"></textarea>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> 
         </table>
     </div>
     <h1>Encounter requests review</h1>
