@@ -1,0 +1,19 @@
+<div>
+        <h1>Tour statistic</h1>
+        <div>
+            <p>{{tour.name}}</p>
+            <p>{{tour.description}}</p>
+            <p>{{tour.price}}</p>
+            <p>{{tour.demandignessLevel}}</p>
+        </div>
+        <div>
+            <div>
+                <canvasjs-chart [options]="chartOptionsCheckpoints" [styles]="{width: '50%', height:'360px'}"></canvasjs-chart>    
+            </div>
+            <div>
+                <canvasjs-chart [options]="chartOptionsCheckpoints2" [styles]="{width: '50%', height:'360px'}"></canvasjs-chart>    
+            </div>
+        </div>
+</div>
+
+

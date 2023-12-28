@@ -216,14 +216,19 @@
                                 <button mat-raised-button class="backButton" (click)="onBack()">Back</button>
                             </span>
                         </td>
+                        <td>
+                            <span>
+                                <button mat-raised-button *ngIf="tour.status == 'Published'"  class="buttonTourStatistics"  (click)="goToTourStatistics()">Tour statistics</button>
+                            </span>
+                        </td>
                         
                         <td> 
                             <span>
                                 <button *ngIf="tour.status != 'Published'" mat-raised-button class="archiveButton" (click)="publishTour()" >Publish 🚀</button>                        
                                 <button *ngIf="tour.status == 'Published'" mat-raised-button class="archiveButton" (click)="archive()">Archive 🗃️</button>
-    
                             </span>
                         </td>
+                        
                         <td>
                             <span>
                                 <button mat-raised-button class="deleteButton" (click)="onDelete()">Delete🗑️</button>
