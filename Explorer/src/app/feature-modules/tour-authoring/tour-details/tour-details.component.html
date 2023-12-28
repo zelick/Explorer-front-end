@@ -218,7 +218,7 @@
                         </td>
                         <td>
                             <span>
-                                <button mat-raised-button class="buttonTourStatistics"  (click)="goToTourStatistics()">Tour statistics</button>
+                                <button mat-raised-button *ngIf="tour.status == 'Published'"  class="buttonTourStatistics"  (click)="goToTourStatistics()">Tour statistics</button>
                             </span>
                         </td>
                         
