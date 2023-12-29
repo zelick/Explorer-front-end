@@ -60,11 +60,11 @@ import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/c
 import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
+import { TourRecommendationsComponent } from 'src/app/feature-modules/tour-execution/tour-recommendations/tour-recommendations.component';
 import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
 import { CheckpointStatisticsComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-statistics/checkpoint-statistics.component';
 import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
-
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -190,6 +190,7 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
+  {path: 'tour-recommendation/:id', component: TourRecommendationsComponent, canActivate: [AuthGuard]},
   {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
   {path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
   {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},

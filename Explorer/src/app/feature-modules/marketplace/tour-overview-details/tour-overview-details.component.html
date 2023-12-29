@@ -98,6 +98,7 @@
                 </div>
             </div>
             <p style="font-size: 22px;">Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
+            <button *ngIf="canSeeRecommendedTours()" class="button shop" (click)="seeRecommendedTours()">See recommended tours</button>
         </div>
     </div>
 </div>

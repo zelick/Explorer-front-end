@@ -236,4 +236,19 @@ export class TourOverviewDetailsComponent implements OnInit {
   getImageUrl(imageName: string): string {
     return this.imageService.getImageUrl(imageName);
   }
+
+  canSeeRecommendedTours(): boolean {
+    if (!this.user || !this.tour) {
+      return false; 
+    }
+    const userId = this.user.id;
+    const hasRatingWithUserId = this.tour.tourRating.some(rating => rating.touristId === userId);
+    return hasRatingWithUserId;
+  }
+  
+  
+
+  seeRecommendedTours(): void{ 
+    this.router.navigate(['/tour-recommendation/' +  this.tour.id]);
+  }
 }

@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ResetPasswordComponent } from './reset-password/reset-password/reset-password.component';
 
 
-
 @NgModule({
   declarations: [
     LoginComponent,

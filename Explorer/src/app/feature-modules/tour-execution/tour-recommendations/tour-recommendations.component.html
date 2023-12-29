@@ -1,0 +1,33 @@
+<div id="tour">
+    <br>
+    <br>
+    <br>
+    <div class="tours-heading">Our recommendations</div>
+    <div id="tour-details">
+      <div class="search">
+        <label><input type="radio" [(ngModel)]="filterRating" [value]="1"> 1</label>
+        <label><input type="radio" [(ngModel)]="filterRating" [value]="2"> 2</label>
+        <label><input type="radio" [(ngModel)]="filterRating" [value]="3"> 3</label>
+        <label><input type="radio" [(ngModel)]="filterRating" [value]="4"> 4</label>
+        <label><input type="radio" [(ngModel)]="filterRating" [value]="5"> 5</label>
+        <button class="edit-button" (click)="filterRecommendedTours()">Apply filter</button>
+        <button class="edit-button" (click)="showAll()">Show all</button>
+      </div>
+  
+      <div class="tour-card" *ngFor="let t of recommendedTours">
+        <div class="tour-info">
+          <p>{{ t.name }}, {{ t.price }} AC</p>
+          <p>{{ t.description }} </p>
+          <p *ngIf="t.tourRating.length > 0">Grades: 
+            <span *ngFor="let rating of t.tourRating">{{ rating.rating }} </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <button class="edit-button" (click)="sendToursToMail()">
+      Send recommended tours to mail
+    </button> 
+    <p>{{poruka}}</p>
+  </div>
+  

@@ -135,4 +135,12 @@ export class TourExecutionService {
     queryParams = queryParams.append("pageSize", 0);
     return this.http.get<EncounterExecution[]>(environment.apiHost + 'tourist/encounter-execution/get-all-completed', {params: queryParams});
   }
+
+  getRecommendedTours(tourId: number): Observable<TourPreview[]>{
+    return this.http.get<TourPreview[]>(environment.apiHost + 'tour-execution/get-suggested-tours/' + tourId);
+  }
+
+  sendRecommendedToursToMail(tourId: number): Observable<PagedResults<TourPreview>>{
+    return this.http.get<PagedResults<TourPreview>>(environment.apiHost + 'tour-execution/send-tours-to-mail/' + tourId);
+  }
 }
