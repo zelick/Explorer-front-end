@@ -15,7 +15,11 @@
                 </mat-form-field>
             <button class="submit-button" type="submit" mat-raised-button>Login</button>
             <p style="color: aliceblue;">Don't have an account yet?<a href="/register" class="signup-link" style="color: aqua;">Sign Up</a></p>
-            <p style="color: aliceblue; align-self: auto">Forgot password? <a (click)="sendEmail($event)" href="#" class="signup-link" style="color: aqua;">click here</a></p> 
+             <div *ngIf="forgottenPassword">
+                <p class="password-link" style="color: aliceblue;">Forgot password?
+                    <a class="password-link" (click)="sendEmail($event)" href="#" style="color: aqua;">Click here</a>
+                </p> 
+            </div>
         </div>
         </form>
     </body>

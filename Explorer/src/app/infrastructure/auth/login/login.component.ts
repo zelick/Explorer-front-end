@@ -17,6 +17,7 @@ export class LoginComponent {
   user:User|undefined;
   sentEmail: boolean = false
   enterUsername: boolean = false
+  forgottenPassword: boolean = false
 
   forgotPassword(): void {
     //event.preventDefault();
@@ -62,6 +63,7 @@ export class LoginComponent {
             error: (error)=>{
             console.error('Login failed:', error); // Log the error for debugging
             alert('Incorrect username or password!');
+            this.forgottenPassword = true;
           }
           });
         } else {
@@ -87,7 +89,7 @@ export class LoginComponent {
         next: (result: boolean) => {
             this.sentEmail = true;
             this.enterUsername = false;
-            alert("We have sent you an email containing a link, through which you can reset your password. This link expires for next two hours.")
+            alert("We have sent you an email containing a link, through which you can reset your password. This link expires in next two hours.")
         },
         error: () => {
             // Handle errors

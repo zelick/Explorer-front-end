@@ -109,14 +109,25 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void{
-    if(this.tour != null)
+    if(this.tour != null){
+      this.tourCheckpointsPictureDisplay();
       this.addCheckpointsOnMap();
+    }
     if(this.mapObjects.length > 0)
       this.addMapObjectsOnMap();
     if(this.publicCheckpoints.length > 0)
       this.addPublicCheckpoinsOnMap();
     if(this.completedCheckpoint.length > 0)
       this.addCompletedCheckpoinsOnMap();
+  }
+  
+  tourCheckpointsPictureDisplay(): void {
+    this.tour.checkpoints.forEach(ch => {
+      ch.currentPointPicture = 0;
+      ch.showedPointPicture = ch.pictures![ch.currentPointPicture];
+      ch.currentPicture = 0;
+      ch.showedPicture = ch.checkpointSecret?.pictures![ch.currentPicture]||"";
+    });
   }
 
   addCheckpointsOnMap(): void{

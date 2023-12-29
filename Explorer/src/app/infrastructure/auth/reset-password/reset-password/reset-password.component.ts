@@ -17,9 +17,10 @@ export class ResetPasswordComponent implements OnInit{
   secureToken: SecureToken
   expiredToken: boolean = false
   usedToken: boolean = false
-  
+
   resetPasswordForm = new FormGroup({
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required])
   });
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
@@ -28,8 +29,14 @@ export class ResetPasswordComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.secureTokenData = params['secureToken'];
       //console.log(this.secureTokenData)
-      this.getUserId()
+      this.getUserId();
     });
+  }
+
+  arePasswordsMatching(): boolean {
+    const password = this.resetPasswordForm.get('password')!.value;
+    const confirmPassword = this.resetPasswordForm.get('confirmPassword')!.value;
+    return password === confirmPassword;
   }
 
   getUserId(): void {
@@ -79,17 +86,25 @@ export class ResetPasswordComponent implements OnInit{
       this.expiredToken = false;
     }
     else {
-      this.authService.updatePassword(this.user.username, newPassword).subscribe({
-        next: (result: User) => {
-          this.usedToken = false;
-          this.expiredToken = false;  
-          this.resetPasswordForm.reset();
-          this.router.navigate(["/login"]);
-        },
-        error: () => {
-            // Handle errors
-        }
-    });
+      if(this.arePasswordsMatching()){
+        this.authService.updatePassword(this.user.username, newPassword).subscribe({
+          next: (result: User) => {
+            this.usedToken = false;
+            this.expiredToken = false;  
+            this.resetPasswordForm.reset();
+            this.router.navigate(["/login"]);
+          },
+          error: () => {
+              
+          }
+      });
+      }
+      else{
+        console.log('Error: passwords are not the same!');
+        alert('Wrong input, please try again!');
+        this.resetPasswordForm.get('password')!.setValue('');
+        this.resetPasswordForm.get('confirmPassword')!.setValue('');
+      }
     }
   }
 

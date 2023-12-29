@@ -76,7 +76,7 @@ const routes: Routes = [
     component: MyProfileComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'profile-info', pathMatch: 'full'}, 
+      { path: '', redirectTo: 'notifications', pathMatch: 'full'}, 
       // TODO -> administrator should open accounts first
       //ADMIN
       { path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
