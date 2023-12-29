@@ -110,8 +110,9 @@ export class TourExecutionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void{
     if(this.tour != null){
-      this.tourCheckpointsPictureDisplay();
+      //
       this.addCheckpointsOnMap();
+      this.tourCheckpointsPictureDisplay();
     }
     if(this.mapObjects.length > 0)
       this.addMapObjectsOnMap();
