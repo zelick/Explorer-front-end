@@ -4,9 +4,9 @@
     <div class="cards-container">
         <div class="left-card">
             <div *ngIf="orderItems.length > 0; else emptyCart">
-                <div class="tour-card" *ngFor="let i of orderItems">
+                <div class="tour-card" *ngFor="let i of orderItems; let j = index">
                     <div class="tour-info">
-                        <div class="image-container"><img [src]="getImageUrl(toursImages[i.itemId-1])"></div>
+                        <div class="image-container"><img [src]="getImageUrl(toursImages[j])"></div>
                         <div class="card-details-container">
                             <p>{{i.name}}</p>
                             <p class="price-p">Price: {{i.price}} AC</p>

@@ -94,7 +94,7 @@
                                         <label class="ch-title">{{ch.name}}</label>
                                         <div class="ch-img">
                                             <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
-                                            <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
+                                            <img class="img" [src]="getImageUrl(ch.showedPointPicture)" >
                                             <button class="nextbtn" (click)="OnPictureNext(ch)">
                                                 ></button>
                                         </div>
@@ -104,7 +104,7 @@
                                         </div>
                                         
                                         <div>
-                                            <button *ngIf="ch.checkpointSecret !== null" class="secretb" (click)="viewSecret(ch)">Show secret</button>
+                                            <button *ngIf="ch.checkpointSecret !== null && ch.visibleSecret" class="secretb" (click)="viewSecret(ch)">Show secret</button>
                                             <button *ngIf="ch.encounterId !== 0" class="secretb" (click)="viewEncounter(ch.encounterId)">Show encounter</button>
                                         </div>
                                         
@@ -149,7 +149,7 @@
                     <label class="ch-title">{{ch.name}}</label>
                     <div class="ch-img">
                         <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
-                        <img class="img" [src]=getImageUrl(ch.showedPointPicture) >
+                        <img class="img" [src]="getImageUrl(ch.showedPointPicture)" >
                         <button class="nextbtn" (click)="OnPictureNext(ch)">
                             >
                         </button>
