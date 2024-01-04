@@ -41,8 +41,6 @@ export class LoginComponent {
     };
 
     if (this.loginForm.valid) {
-      this.authService.isUserVerified(this.loginForm.value.username || "").subscribe((isVerified: boolean) => {
-        if (isVerified) {
           this.authService.login(login).subscribe({
             next: () => {
 
@@ -62,17 +60,13 @@ export class LoginComponent {
             },
             error: (error)=>{
             console.error('Login failed:', error); // Log the error for debugging
-            alert('Incorrect username or password!');
+            alert('Incorrect username or password or user is not verified!');
             this.forgottenPassword = true;
           }
           });
         } else {
           // Korisnik nije verifikovan, obradite ovaj slučaj
         }
-      });
-    } else {
-      // Korisnik nije verifikovan, obradite ovaj slučaj
-    }
   }
 
   sendEmail(event: Event): void {
