@@ -162,6 +162,9 @@ export class MarketplaceService {
   getActiveSales(): Observable<Sale[]> {
     return this.http.get<Sale[]>(environment.apiHost + 'shopping/sales');
   }
+  getAuthorsActiveSales(): Observable<Sale[]> {
+    return this.http.get<Sale[]>(environment.apiHost + 'author/sale/active');
+  }
   //
   private cartItemCountSubject = new BehaviorSubject<number>(0);
   cartItemCount$ = this.cartItemCountSubject.asObservable();

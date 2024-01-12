@@ -1,111 +1,98 @@
-<div >
-    <div class="tour">
-        <h1>Tours</h1>
-    <div>
-        <table>
-            <tbody>
-                <tr *ngFor="let t of tours">
-                <td (click)="openDetails(t)">
-                    <div>
-                        <br>
-                            <div class="ch">{{t.name}}</div>
-                        <br>
-                        <div class="card">
-                            <div>
-                               <span class="cinfo"> Distance:</span>
-                                <br>
-                                <table>
-                                    <tr *ngFor="let tt of t.tourTimes">
-                                        <td>{{tt.transportation}}</td>
-                                        <td>{{(tt.distance/1000).toFixed(2)}} km</td>
-                                        <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
-                                    </tr>
-                                </table>
+<div style="background-color: #253B34; min-height: 100%;">
+    <div style=" display: flex;  height: auto;">
+        <div class="tour">
+            <div style=" height: 5px"></div>
+            <h1 class="title">Your tours</h1>
+            <span class="navbar-span">
+                <span style="display: flex; flex-direction: row; justify-content: start;">
+                    <button class="filtersButton" (click)="onAddClicked()">Add a new tour</button>
+                    <button *ngIf="!creatingBundle" class="filtersButton" (click)="onCreatingBundle()">Create a bundle offer</button>
+                    <button *ngIf="creatingBundle" class="filtersButton" (click)="onCreatingBundle()">Cancel bundle offer</button>
+                </span>
+                <button *ngIf="creatingBundle" class="bundleButton" title="Click here to create a bundle offer" (click)="finishBundleInformation()">🛍️ {{bundleTours.length}}</button>
+            </span>
+            <div *ngIf="showBundleTours"  class="tour-bundle-container" style="background-color: #3B846B;">
+                <div class="bundle-top">
+                    <h2 style="color: white; text-align: left; font-size: 190%; margin-left: 10px;">Tours included in the bundle</h2>
+                    <label class="totalPrice">Total price: {{bundleTotalPrice}}💰</label>
+                </div>
+                <div class="tour-horizontal-container" style="background-color: #3B846B;">
+                    <div class="tour-card" *ngFor="let tour of bundleTours">
+                        <div class="image-container" (click)="openDetails(tour)">
+                            <label *ngIf="!isOnSale(tour.id||0)" class="originalprice"> 💰{{tour.price}} AC </label>
+                            <div class="prices">
+                                <label *ngIf="isOnSale(tour.id||0)" class="Oldprice">💰{{tour.price}} AC</label>
+                                <label *ngIf="isOnSale(tour.id||0)" class="price"> 💰{{DiscountedPrice(tour.id||0,tour.price)}} AC </label>
                             </div>
-                            <div>
-                               <span class="cinfo">Price:</span>
-                                <br>
-                                {{t.price}}
+                            <div class="sale">
+                                <label *ngIf="isOnSale(tour.id||0)" class="discount"> -{{Discount(tour.id||0)}}% </label>
+                                <img class="last_minute" *ngIf="isLastMinute(tour.id||0) && isOnSale(tour.id||0)" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
                             </div>
-                            <div>
-                              <span class="cinfo">Status:</span>
-                                <br>
-                                {{t.status}}
-                            </div>
-                            <div *ngIf="t.checkpoints.length>0">
-                                <img *ngIf="t.checkpoints[0].pictures" [src]="getImageUrl(t.checkpoints[0].pictures[0])" width="100" height="100">
-                            </div>
-                            <div *ngIf="t.checkpoints.length==0">
-                                <img  [src]="getImageUrl(picture)" width="100" height="100">
-                            </div>
-                        </div> 
-                            <div class="cinfo">
-                                <div *ngIf="t.tags.length > 0" class="cttags">#{{t.tags}}</div>
-                            </div>                    
+                            <img *ngIf="tour.checkpoints[0].pictures && tour.checkpoints[0].pictures.length > 0" [src]="getImageUrl(tour.checkpoints[0].pictures[0])" alt="Image1" class="tour-card-img">
+                            
                         </div>
-                    </td>
-                    <td>
-                        <button class="addToBundleButton" (click)="addToBundle(t)">Add to bundle</button>
-                    </td>
-                </tr>
-                <tr><button style="color:#E67840" (click)="onAddClicked()" mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button></tr>
-            </tbody>
-        </table>
-    </div>
-   <div [hidden]="!showBundleTours">
-    <h1>Tours for your bundle</h1>
-    <table>
-        <tbody>
-            <tr *ngFor="let t of bundleTours">
-            <td (click)="openDetails(t)">
-                <div>
-                    <br>
-                        <div class="ch">{{t.name}}</div>
-                    <br>
-                    <div class="card">
-                        <div>
-                           <span class="cinfo"> Distance:</span>
-                            <br>
-                            <table>
-                                <tr *ngFor="let tt of t.tourTimes">
-                                    <td>{{tt.transportation}}</td>
-                                    <td>{{(tt.distance/1000).toFixed(2)}} km</td>
-                                    <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
-                                </tr>
-                            </table>
+                        <div class="card-top">
+                          <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
+                         <div *ngIf="tour.tourRatings.length>0" style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
+                            <label style="color: white; font-size: 100%; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
+                            <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                            <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                            <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                            <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                            <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                            <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+                          </div> 
+                          
                         </div>
-                        <div>
-                           <span class="cinfo">Price:</span>
-                            <br>
-                            {{t.price}}
-                        </div>
-                        <div>
-                          <span class="cinfo">Status:</span>
-                            <br>
-                            {{t.status}}
-                        </div>
-                        <div *ngIf="t.checkpoints.length>0">
-                            <img *ngIf="t.checkpoints[0].pictures" [src]="getImageUrl(t.checkpoints[0].pictures[0])" width="100" height="100">
-                        </div>
-                        <div *ngIf="t.checkpoints.length==0">
-                            <img  [src]="getImageUrl(picture)" width="100" height="100">
-                        </div>
-                    </div> 
-                        <div class="cinfo">
-                            <div *ngIf="t.tags.length > 0" class="cttags">#{{t.tags}}</div>
-                        </div>                  
+                        <h2 class="card-header">{{tour.name}}</h2>
+                        <p style="color: #253B34; margin-left: 10px; font-size: 90%; margin-bottom: 4px;">📍 Starting checkpoint: {{tour.checkpoints[0].name}}</p>
+                        <p style="color: #253B34; margin-left: 10px; font-size: 90%;">🏔️ Difficulty: {{tour.demandignessLevel}}</p>
+                        <button *ngIf="creatingBundle && isTourAlreadyInBundle(tour)" style="background-color: #E67840;" (click)="DeleteTourFromBundle(tour)" title="Remove this tour from bundle offer" class="AddButton">-</button>
                     </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p>Total price: {{bundleTotalPrice}}</p>
-    <input type="text" id="bundleName" placeholder="Enter bundle name" [(ngModel)]="bundleName"><br>
-    <input type="number" id="bundlePrice" placeholder="Enter bundle price" [(ngModel)]="bundlePrice"><br>
-    <button class="addToBundleButton" (click) = "createBundle()">Create bundle</button>
-   </div>
+                </div>
+                <label *ngIf="bundleTours.length<2" style=" margin-top: 5px; color: white; text-align: center;">⚠️ Select at least 2 tours for your bundle</label>
+                <div class="bundle-form">
+                    <input type="text" placeholder="Enter a name for your bundle..." class="bundleName" [(ngModel)]="bundleName">
+                    <input type="number" placeholder="Bundle price..." class="bundleName" style="width: 15vh; text-align: center;" [(ngModel)]="bundlePrice">
+                    <button class="create-bundle-button" (click)="createBundle()">Create bundle</button>
+                </div>
+            </div>
+            <div class="tour-container">
+                <div class="tour-card" *ngFor="let tour of tours">
+                    <div class="image-container" (click)="openDetails(tour)">
+                        <label *ngIf="!isOnSale(tour.id||0)" class="originalprice"> 💰{{tour.price}} AC </label>
+                        <div class="prices">
+                            <label *ngIf="isOnSale(tour.id||0)" class="Oldprice">💰{{tour.price}} AC</label>
+                            <label *ngIf="isOnSale(tour.id||0)" class="price"> 💰{{DiscountedPrice(tour.id||0,tour.price)}} AC </label>
+                        </div>
+                        <div class="sale">
+                            <label *ngIf="isOnSale(tour.id||0)" class="discount"> -{{Discount(tour.id||0)}}% </label>
+                            <img class="last_minute" *ngIf="isLastMinute(tour.id||0) && isOnSale(tour.id||0)" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
+                        </div>
+                        <img *ngIf="tour.checkpoints[0].pictures && tour.checkpoints[0].pictures.length > 0" [src]="getImageUrl(tour.checkpoints[0].pictures[0])" alt="Image1" class="tour-card-img">
+                        
+                    </div>
+                    <div class="card-top">
+                      <label class="card-location-header">{{ getTourLocation(tour.id || 0) }}</label>
+                     <div *ngIf="tour.tourRatings.length>0" style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
+                        <label style="color: white; font-size: 100%; font-weight: 400; margin-right: 4px;">{{averageGrade(tour)}}</label>
+                        <label *ngIf="+averageGrade(tour) < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="+averageGrade(tour) < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="+averageGrade(tour) < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="+averageGrade(tour) < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="+averageGrade(tour) < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+                      </div> 
+                      
+                    </div>
+                    <h2 class="card-header">{{tour.name}}</h2>
+                    <p style="color: #253B34; margin-left: 10px; font-size: 90%; margin-bottom: 4px;">📍 Starting checkpoint: {{tour.checkpoints[0].name}}</p>
+                    <p style="color: #253B34; margin-left: 10px; font-size: 90%;">🏔️ Difficulty: {{tour.demandignessLevel}}</p>
+                    <button *ngIf="creatingBundle && !isTourAlreadyInBundle(tour)" (click)="AddTourToBundle(tour)" class="AddButton" title="Add this tour to bundle offer">+</button>
+                    <button *ngIf="creatingBundle && isTourAlreadyInBundle(tour)" (click)="AddTourToBundle(tour)" class="AddButtonDisabled">+</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
