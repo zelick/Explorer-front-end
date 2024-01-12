@@ -25,7 +25,7 @@ td{
 
 .table-fix {
     border-collapse: collapse;
-    width: 100%;
+    width: 800px;
     text-align: center; /* Aligns content within the table center */
 }
 
@@ -63,10 +63,6 @@ tbody tr.active-row {
 }
 
 .transportation-div{
-    margin: auto;
-    margin-top: 110px;
-    margin-right: 100px;
-    margin-left:120px;
     background-color:#F7F6DC;
 }
 .button-table{
@@ -182,6 +178,7 @@ tbody tr.active-row {
     font-size: 2vh;
     background-color: #F7F6DC;
     border: 1px solid white;
+    width: 400px;
 }
 
 body{
@@ -205,11 +202,76 @@ body{
     color:#E67840;
     font-style: bold;
     margin-top: 40px;
-    margin-left: auto;
+    margin-left: 550px;
     margin-bottom: 0px;
 }
 
 #map-container{
     width: 1220px;
     height: 600px;
+}
+
+.titleTransport{
+    font-size: 3.7vh;
+    font-weight: bold;
+    color:#E67840;
+    font-style: bold;
+    margin-bottom: 30px;
+}
+
+.transportation-div-big{
+    margin: auto;
+    margin-top: 320px;
+    margin-right: 120px;
+    margin-left: -1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.statistics-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 300px;
+    height: 180px;
+    margin-left: 80px;
+    margin-top: 10px;
+    overflow: hidden;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+.statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.number{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+.text{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin: 5px;
+}
+.emoji{
+    font-size: 30px;
+    margin: auto;
 }
