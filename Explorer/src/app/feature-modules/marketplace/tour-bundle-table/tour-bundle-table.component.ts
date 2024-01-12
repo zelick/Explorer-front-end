@@ -9,6 +9,8 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Router } from '@angular/router';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { PurchasedTourPreview } from '../../tour-execution/model/purchased_tour_preview.model';
+import { ImageService } from 'src/app/shared/image/image.service';
+import { Sale } from '../model/sale.model';
 
 @Component({
   selector: 'xp-tour-bundle-table',
@@ -26,16 +28,20 @@ export class TourBundleTableComponent implements OnInit {
   tourBundle: TourBundle;
   tourBundleId: number | undefined = undefined;
   user: User;
+  activeSales: Sale[] = [];
   purchasedTours: PurchasedTourPreview[] = [];
 
-  constructor(private service: MarketplaceService, private authService: AuthService, private router: Router) { }
+  constructor(private service: MarketplaceService, private imageService: ImageService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadTourBundles();
     this.service.cartItemCount$.subscribe(count => this.cartItemCount = count);
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.findShoppingCart();
+    });
+    this.service.getActiveSales().subscribe((result: Sale[]) => {
+      this.activeSales = result;
+      this.loadTourBundles();
     });
   }
 
@@ -44,6 +50,10 @@ export class TourBundleTableComponent implements OnInit {
       this.handleTourBundleLoad(result);
       this.loadPurchasedTours();
     });
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 
   priceSum(tourBundle: TourBundle){
@@ -145,5 +155,49 @@ export class TourBundleTableComponent implements OnInit {
     if(tour.id){
       this.router.navigate(['/tour-overview-details', tour.id]);
     }
+  }
+
+
+
+  isLastMinute(tourId: number) {
+    const matchingSale = this.activeSales.find(sale => sale.toursIds.includes(tourId!));
+    var saleExpiration = matchingSale?.end;
+    var today = new Date();
+    var futureDate = new Date(today.setDate(today.getDate() + 4));
+    today = new Date()
+      if (saleExpiration) {
+        var saleExpirationDate = new Date(saleExpiration);
+          if (saleExpirationDate < futureDate && saleExpirationDate > today) {
+              return true;
+          } else {
+              return false;
+          }
+      } else {
+          return false;
+      }
+  }
+
+  DiscountedPrice(tourid: number, tourPrice: number): number {
+    const activeSale = this.activeSales.find(sale => sale.toursIds.includes(tourid!));
+    if (activeSale) {
+      const discountPercentage = activeSale.discount;
+      const discountedPrice = tourPrice * (1 - discountPercentage / 100);
+      return discountedPrice;
+    } else {
+      return tourPrice;
+    }
+  }
+
+  Discount(tourid: number): number {
+    const activeSale = this.activeSales.find(sale => sale.toursIds.includes(tourid!));
+    if (activeSale) {
+      return activeSale.discount;
+    } else {
+      return 0;
+    }
+  }
+
+  isOnSale(tourId: number): boolean {
+    return this.activeSales.some(sale => sale.toursIds.includes(tourId));
   }
 }
