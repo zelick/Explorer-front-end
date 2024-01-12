@@ -17,15 +17,20 @@
     left: auto;
     right: auto;
     overflow-y: auto;
+    overflow-x: hidden;
     height: 80%;
 }
 
 .tour-bundle-table {
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .tour-bundle {
-    width: auto;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     background-color: #F7F6DC;
@@ -53,7 +58,41 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.price {
+.tour-horizontal-container {
+  display: flex;
+  left: auto;
+  width: auto;
+  right: auto;
+  overflow-x: scroll;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  column-gap: 2.5%;
+  margin-left: 20px;
+  margin-right: 20px;
+  grid-row: auto;
+  justify-content: start;
+  max-width: 100%;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle (thumb) of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: #E67840; /* Color of the thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Track (the area on which the thumb moves) of the scrollbar */
+::-webkit-scrollbar-track {
+  background-color: #B6D4AF; /* Color of the track */
+  border-radius: 10px;
+}
+
+/* .price {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -63,7 +102,7 @@
     margin: 0;
     display: flex;
     align-items: center;
-}
+} */
 
 .amount {
     margin-right: 4px;
@@ -157,6 +196,7 @@
     justify-content: end;
     padding-right: 20px;
     padding-bottom: 20px;
+    margin-top: 20px;
 }
 .total-price{
     font-size: 150%;
@@ -164,7 +204,7 @@
     font-weight: 600;
 }
 
-.Oldprice {
+.OldPrice {
     width: fit-content;
     font-size: 80%;
     color: #E67840;
@@ -176,7 +216,7 @@
     margin-right: 20px;
 }
 
-.Oldprice::before {
+.OldPrice::before {
   content: "";
   position: absolute;
   top: 5%;
@@ -206,6 +246,7 @@
     cursor: pointer;
     height: 46vh;
     max-height: 400px;
+    min-width: 40vh;
   }
   .tour-card:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -229,6 +270,7 @@
     height: 55%;
     width: 100%;
     overflow: hidden;
+    cursor: pointer;
   }
   
   .tour-card-img { 
@@ -245,7 +287,7 @@
     padding-left: 2%;
     padding-right: 2%; 
     background-color: #1b332b8e;
-    max-width: 55%;
+    max-width: 60%;
     text-wrap: nowrap;
     height: auto;
     overflow-x: hidden;
@@ -276,6 +318,64 @@
     padding: 2px;
     color: white;
     font-weight: 300;
+    border-radius: 3px;
+  }
+  .Oldprice {
+    width: fit-content;
+    padding: 2px;
+    margin-bottom: 5px;
+    background-color: #E67840;
+    font-size: 80%;
+    color: lightgray;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    position: relative;
+}
+
+.Oldprice::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%, transparent 52.5%);
+}
+  .prices{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .sale{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 140%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .discount{
+    background-color: red;
+    padding: 2px;
+    color: white;
+    font-weight: 500;
+    border-radius: 3px;
+    margin-bottom: -4px;
+  }
+  .last_minute{
+    height: 4vh;
+    width: 7vh;
+    object-fit: cover;
+    overflow: hidden;
+    margin-left: auto;
     border-radius: 3px;
   }
 

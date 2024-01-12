@@ -18,11 +18,19 @@
                             to cart       🛒 </button>
                     </div>
                 </div>
-                <div class="tours-container">
+                <div class="tour-horizontal-container">
                     <div class="tour-card" *ngFor="let tour of tourBundle.tours" (click)="selectTour(tour)">
                         <div class="image-container">
-                            <label class="originalprice"> 💰{{tour.price}} AC </label>
-                            <img src="https://i.pinimg.com/474x/e7/65/b6/e765b6897d461556d4d541796f4930e9.jpg" alt="Image1" class="tour-card-img">
+                            <label *ngIf="!isOnSale(tour.id||0)" class="originalprice"> 💰{{tour.price}} AC </label>
+                        <div class="prices">
+                            <label *ngIf="isOnSale(tour.id||0)" class="Oldprice">💰{{tour.price}} AC</label>
+                            <label *ngIf="isOnSale(tour.id||0)" class="price"> 💰{{DiscountedPrice(tour.id||0,tour.price)}} AC </label>
+                        </div>
+                        <div class="sale">
+                            <label *ngIf="isOnSale(tour.id||0)" class="discount"> -{{Discount(tour.id||0)}}% </label>
+                            <img class="last_minute" *ngIf="isLastMinute(tour.id||0) && isOnSale(tour.id||0)" src="../../../../assets/landing_page/last-minute-offer.png" alt="image1">
+                        </div>
+                            <img *ngIf="tour.checkpoints[0].pictures && tour.checkpoints[0].pictures.length > 0" [src]="getImageUrl(tour.checkpoints[0].pictures[0])" alt="Image1" class="tour-card-img">
                         </div>
                         <div class="card-top"><h2 class="card-header">{{tour.name}}</h2>
                          <div *ngIf="tour.tourRatings.length>0" style="height: auto; width: 22vh; display: flex; justify-content: end; margin-right: 5px;">
@@ -35,12 +43,11 @@
                             <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
                           </div>
                         </div>
-                        
                         <p style="color: white; margin-left: 10px; font-size: 75%; margin-bottom: 4px;">🛈{{tour.description}}</p>
                       </div>
                 </div>
                 <div class="price-container">
-                    <label class="Oldprice">💰{{priceSum(tourBundle)}} AC</label>
+                    <label class="OldPrice">💰{{priceSum(tourBundle)}} AC</label>
                     <label class="total-price">💰{{tourBundle.price}} AC</label>
                 </div>
             </tr>
