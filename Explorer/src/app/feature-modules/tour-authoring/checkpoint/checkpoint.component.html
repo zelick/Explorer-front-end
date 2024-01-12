@@ -76,7 +76,7 @@
     </tbody>
     </table>
     </div>
-    <div class="transportation-div-big" *ngIf="checkpoints.length >= 2">
+    <div class="transportation-div-big" *ngIf="!shouldRenderCheckpointForm">
         <p class="titleTransport" >Manage transportation 🚗</p>
         <div class="transportation-div"  *ngIf="!shouldRenderCheckpointForm">
             <xp-tour-transport-form *ngIf="checkpoints.length >= 2" (changedSelection)="updateProfiles($event)" [tourID]="tourID"></xp-tour-transport-form>
@@ -87,7 +87,7 @@
         <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" [tourID]="tourID" [selectedCheckpoint]="selectedCheckpoint" (checkpointUpdated)="getCheckpoints()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
     </div>
 </div>
-    <p class="titleMap">See your tour on map! 🗺️</p>
+    <p *ngIf="!shouldRenderCheckpointForm" class="titleMap">See your tour on map! 🗺️</p>
     <div class="map-div" *ngIf="!shouldRenderCheckpointForm">
         
         <label class="legend">🟥-🚶‍♂️   🟩-🚗    🟦-🚲</label> 
