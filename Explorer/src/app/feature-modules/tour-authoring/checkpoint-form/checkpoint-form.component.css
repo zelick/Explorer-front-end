@@ -10,7 +10,10 @@
     padding-left:30px;
     padding-right: 30px;
 }
-
+.upload-btn:hover {
+    background-color: #13543d;
+    color: white
+}
 .subtitle{
     margin: 0 auto;
     font-size: 4vh;
@@ -64,7 +67,14 @@
     margin: 0 auto;
     margin-top: 30px;
 }
+.button:hover{
+    background-color: #dc4900;
 
+}
+.buttonPlus:hover{
+    background-color: #dc4900;
+
+}
 .button{
     width: auto;
     margin-left: 10px;
