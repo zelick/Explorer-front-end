@@ -7,6 +7,8 @@
 
 }
 
+
+
 .tour-details-table{
     background-color:  #B6D4AF;
 }
@@ -75,7 +77,6 @@ th{
 
 .buttonDelete{
     width: auto;
-    margin-left: 170px;
     margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
@@ -227,6 +228,10 @@ img{
     height: 30px;
 
 }
+.secretb:hover{
+    background-color: #0d4b36;
+
+}
 .nextbtn{
     margin-bottom: 0.5cm;
     font-size: 100%; 
@@ -237,6 +242,11 @@ img{
     cursor: pointer;
     width: 25px;
     height: 20px;
+
+}
+
+.nextbtn:hover{
+    background-color: #053423;
 
 }
 .secret-span{
@@ -312,7 +322,7 @@ textarea {
     width: 120px;
     font-size: 100%; 
     color:#fff;
-    background-color: #3B846B;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: hand;
@@ -342,7 +352,7 @@ textarea {
 }
 .archiveButton{
     width: auto;
-    margin-left: 400px;
+    margin-left: 500px;
     padding: 0px 10px;
     width: 120px;
     font-size: 100%; 
@@ -351,6 +361,26 @@ textarea {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: hand;
+}
+
+.archiveButton:hover{
+    background-color: #dc4900;
+
+}
+
+.backButton:hover{
+    background-color: #dc4900;
+
+}
+
+.editButton:hover{
+    background-color: #dc4900;
+
+}
+
+.deleteButton:hover{
+    background-color: #dc4900;
+
 }
 
 .infodiv{
@@ -420,4 +450,8 @@ select{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: hand;
+}
+
+.p{
+    text-align: center;
 }
