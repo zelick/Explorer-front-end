@@ -20,6 +20,7 @@
   color:#E67840;
   font-weight:bold;
   padding: 1% 2.5%; 
+  margin-top: 40px;
 
 }
 
@@ -93,14 +94,15 @@
 p{
     color:#E67840;
     font-weight: bold;
-    font-size:18px;
+    font-size:16px;
 }
 
 select{
     height: 50px;
     width : 210px;
-    background-color: white;
+    background-color: #ededed;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border: 0;
 }
 
 mat-form-field {
