@@ -77,7 +77,7 @@
     </table>
     </div>
     <div class="transportation-div-big" *ngIf="!shouldRenderCheckpointForm">
-        <p class="titleTransport" >Manage transportation 🚗</p>
+        <p class="titleTransport" *ngIf="checkpoints.length >= 2">Manage transportation 🚗</p>
         <div class="transportation-div"  *ngIf="!shouldRenderCheckpointForm">
             <xp-tour-transport-form *ngIf="checkpoints.length >= 2" (changedSelection)="updateProfiles($event)" [tourID]="tourID"></xp-tour-transport-form>
         </div>
