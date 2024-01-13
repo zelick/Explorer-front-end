@@ -98,11 +98,14 @@ export class CheckpointStatisticsComponent implements OnInit {
         text: "Chekpoints statistics"  
       },
       animationEnabled: true,
+      backgroundColor: "#B6D4AF",
+      theme:"dark2",
       data: [{        
         type: "column",
         dataPoints: this.checkpointStatistics.map(stat => ({
           label: stat.checkpointName,
-          y: stat.arrivalPercentage
+          y: stat.arrivalPercentage,
+          color:"#3B846B"
         }))
       }]
     };
@@ -113,11 +116,16 @@ export class CheckpointStatisticsComponent implements OnInit {
       },
       animationEnabled: true,
       colorSet: "customColorSet",
+      backgroundColor: "#B6D4AF",
+      theme:"dark2",
       data: [{        
         type: "column",
         dataPoints: this.checkpointStatistics.map(stat => ({
           label: stat.checkpointName,
-          y: stat.finishEcnounterPercentage
+          y: stat.finishEcnounterPercentage,
+           color: "#E67840" ,
+           indexLabelFontSize: 18,
+
         }))
       }]
     };	
