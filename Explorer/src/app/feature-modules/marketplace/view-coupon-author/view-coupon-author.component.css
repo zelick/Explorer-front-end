@@ -8,7 +8,7 @@ h1{
     color:white;
     padding: 1% 2.5%; 
     margin: 0 auto;
-    margin-left: 600px;
+    margin-left: 630px;
     font-weight: 400;
 }
 
@@ -175,7 +175,7 @@ ul {
 #create-coupon-button{
     width: 160px;
     margin-top: 20px;
-    margin-left: 420px;
+    margin-left: 30%;
     margin-bottom: 30px;
     margin-top: 20px;
     padding: 0px 10px;
@@ -186,6 +186,10 @@ ul {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
+}
+
+#create-coupon-button:hover{
+    background-color: #D45A15;
 }
 
 .button-table{
@@ -263,7 +267,7 @@ button {
 }
 
 button:hover {
-    background-color: #FFA07A; /* Promenjena boja na hover */
+    background-color: #D45A15; /* Promenjena boja na hover */
 }
 
 .coupon-buttons button {

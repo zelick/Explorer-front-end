@@ -14,8 +14,9 @@
   color: #1e6149;
   font-size: 6vh;
   font-size: 700;
-  margin-left: 600px;
+  margin-left: 630px;
   margin-bottom: 20px;
+  font-weight: 800;
 }
 .tourName {
     font-size: x-large;
@@ -564,6 +565,9 @@ background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%
   flex-direction: row;
   justify-content: flex-start;
   gap: 50px;
+}
+.edit-button:hover{
+  background-color: #d75210;
 }
 
 .edit-button{

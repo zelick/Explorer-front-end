@@ -1,4 +1,5 @@
 <div id="coupon-div">
+    <br>
     <h1 class="title">My coupons</h1>
     <button id="create-coupon-button" (click)="onCreateCoupnClick()" *ngIf="!isEditing">Create coupon  ➕</button>
     <div id="coupons-div" *ngIf="!isEditing && coupons && coupons.length > 0">
