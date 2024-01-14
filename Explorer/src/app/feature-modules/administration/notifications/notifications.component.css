@@ -21,7 +21,7 @@ table {
 }
 
 thead tr {
-    background-color: #B6D4AF;
+    background-color: #3B846B;
     font-family: 'Poppins', sans-serif;
     font-size: 130%;
     text-align: left;
@@ -34,19 +34,22 @@ th, td {
 tbody tr {
     border-bottom: 1px solid #dddddd;
     cursor: pointer;
+    background-color: #B6D4AF;
 }
 
 tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
+    background-color: #B6D4AF;
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #3B846B;
+    border-bottom: 2px solid #B6D4AF;
+    
 }
 
 tbody tr.active-row {
     font-weight: bold;
-    color: #3f51b5;
+    color: #E67840;
 }
 
 /*  */
@@ -71,6 +74,7 @@ tbody tr.active-row {
     display: flex;
     justify-content: space-between;
     align-items: center; /* Center vertically within the flex container */
+
 }
 
 .post-content {
@@ -80,20 +84,20 @@ tbody tr.active-row {
 }
 
 .new{
-    color: red;
+    color: #E67840;
     font-size: 160%;
-    font-weight: 500;
+    font-weight: bold;
     margin-right: 10px;
 }
 
 .date-and-dissmiss-div  {
     display: flex; 
-    justify-content: space-between;
+    
 }
 
 .date-info {
     font-size: 2vh;
-    color: gray;
+    color: #f3f3f3;
     font-weight: 400;  
     margin-bottom: 0px;
 }
@@ -103,6 +107,7 @@ tbody tr.active-row {
     font-weight: 400;  
     margin-left: 10px;
     margin-bottom: 0px;
+    color:#E67840;
 }
 
 .buttons-div {
@@ -116,10 +121,11 @@ tbody tr.active-row {
     font-weight: 400;  
     margin-top: 8px;
     margin-bottom: 0px;
+    color:#E67840;
 }
 
 .dismiss-all-button{
-    background-color: #3B846B;
+    background-color: #E67840;
     font-family: 'Poppins', sans-serif;
     color: #ffffff;
     border: none;
@@ -127,4 +133,9 @@ tbody tr.active-row {
     cursor: pointer;
     margin-left: auto;
     margin-right: 15px;
+    border-radius: 15%;
+}
+
+.thc{
+    color: #ffffff;
 }
