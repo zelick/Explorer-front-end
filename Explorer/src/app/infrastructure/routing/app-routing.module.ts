@@ -65,6 +65,7 @@ import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/
 import { CheckpointStatisticsComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-statistics/checkpoint-statistics.component';
 import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
+import { VerificationSuccessComponent } from '../auth/verification-success/verification-success.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -194,7 +195,8 @@ const routes: Routes = [
   {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
   {path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
   {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},
-  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]}
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
+  {path: 'verification-success', component: VerificationSuccessComponent}
 ];
 
 @NgModule({
