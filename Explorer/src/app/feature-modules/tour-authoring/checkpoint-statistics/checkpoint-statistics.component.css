@@ -59,7 +59,7 @@ body {
 
 .chart {
   color:#184233;
-  height: 360px;
+  height: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.2); /* Dodajemo efekat senke */
   border-radius: 12px; /* Povećavamo ispupčenost ivica */
   border: 2px solid #ddd;

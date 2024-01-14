@@ -100,6 +100,13 @@ export class CheckpointStatisticsComponent implements OnInit {
       animationEnabled: true,
       backgroundColor: "#B6D4AF",
       theme:"dark2",
+      axisY: {
+        title: "Percentage of tourists who reached the checkpoint", 
+        titleFontSize: 16,     
+        labelFontSize: 14  ,
+        titleFontColor: "#184233"
+            
+      },
       data: [{        
         type: "column",
         dataPoints: this.checkpointStatistics.map(stat => ({
@@ -117,7 +124,15 @@ export class CheckpointStatisticsComponent implements OnInit {
       animationEnabled: true,
       colorSet: "customColorSet",
       backgroundColor: "#B6D4AF",
-      theme:"dark2",
+      theme:"dark2",    
+      axisY: {
+        title: "Percentage of tourists who completed the encounter", 
+        titleFontSize: 16,     
+        labelFontSize: 14  ,
+        titleFontColor: "#184233"
+
+            
+      },
       data: [{        
         type: "column",
         dataPoints: this.checkpointStatistics.map(stat => ({
