@@ -1,5 +1,5 @@
 #my-profile {
-    height: 620px;
+    height: calc(100vh - 70px);
     width: 100%;
     font-family: 'Poppins', sans-serif;
 }
@@ -51,18 +51,11 @@
     color: #ffffff; 
 }
 
-.header {
-    margin-top: 20px; 
-    margin-left: 1%; 
-    float: left;
-    font-size: large;
-}
-
 .sidenav-content {
     display: flex;
     background-color: #F7F6DC;
     flex-direction: column;
-    height: 620px;
+    height: calc(100vh - 70px);
 }
 
 .content {

@@ -23,6 +23,10 @@
                     <button [routerLink]="['reported-issues']">Reported issues</button>
                     <div class="horizontal-divider"></div>
                 </div>
+                <div class="sidenav-item"> 
+                    <button [routerLink]="['tour-rating']">Tour Rating</button> 
+                    <div class="horizontal-divider"></div>
+                </div>
             </div>
             
             <!-- TOURIST AND AUTHOR -->
@@ -44,16 +48,6 @@
             
             <!-- TOURIST only -->
             <div *ngIf="user && user.role === 'tourist'">
-                <!-- 
-                <div class="sidenav-item">
-                    <button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item">
-                    <button [routerLink]="['tour-overview']">Tours</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-             -->
                 <div class="sidenav-item"> 
                     <!-- Trip history  -->
                     <button [routerLink]="['purchased-tours']">My Purchased Tours</button>
@@ -84,21 +78,17 @@
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button [routerLink]="['checkpoint']">Manage checkpoints</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item">
                     <button [routerLink]="['map-object']">Manage Map Objects</button>
                     <div class="horizontal-divider"></div>
-                </div>  
-            </div>
-
-            <!-- ALL USERS -->
-            <div *ngIf="user">
+                </div>
                 <div class="sidenav-item"> 
                     <button [routerLink]="['tour-rating']">Tour Rating</button> 
                     <div class="horizontal-divider"></div>
                 </div>
+            </div>
+
+            <!-- ALL USERS -->
+            <div *ngIf="user">
                 <div class="sidenav-item"> 
                     <button [routerLink]="['social-profile']">Social profile</button> 
                     <div class="horizontal-divider"></div>
@@ -119,9 +109,6 @@
                         </button>
                     </div>
 
-                    <div class="header">
-                        <!-- <h1>Content header</h1> -->
-                    </div>
                 </div>
                 <div class="content">
                     <router-outlet></router-outlet>
