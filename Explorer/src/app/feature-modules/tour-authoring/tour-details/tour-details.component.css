@@ -378,6 +378,11 @@ textarea {
 
 }
 
+.buttonTourStatistics:hover{
+    background-color: #dc4900;
+
+}
+
 .deleteButton:hover{
     background-color: #dc4900;
 
@@ -451,7 +456,17 @@ select{
     border-radius: 100px;
     cursor: hand;
 }
-
+.buttonTourStatistics2{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
 .p{
     text-align: center;
 }
