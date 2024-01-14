@@ -290,6 +290,7 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     formData.append('showedPointPicture', checkpoint.showedPointPicture);
     formData.append('authorId', checkpoint.authorId.toString());
     formData.append('isSecretPrerequisite', checkpoint.isSecretPrerequisite.toString());
+    console.log(JSON.stringify(checkpoint.checkpointSecret));
   }
 
   onImageSelected(event: any): void {

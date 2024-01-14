@@ -415,7 +415,7 @@ textarea {
     height: 600px;
     border: #1e6149 solid 3px;
     border-radius: 10px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 
@@ -454,4 +454,27 @@ select{
 
 .p{
     text-align: center;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scroller::-webkit-scrollbar-thumb {
+    background-color: #E67840; /* Color of the thumb */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute;
+    left: 5px; 
+  }
+  
+  .scroller::-webkit-scrollbar-track {
+    background-color: #B6D4AF; /* Color of the track */
+    border-radius: 10px;
+    position: absolute;
+    left: 5px; 
+  }
+.scroller{
+    overflow-y: auto;
+    height: 100%;
+    position: relative;
 }
