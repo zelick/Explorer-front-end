@@ -155,14 +155,13 @@ body {
 
 .equipment-item {
     display: flex;
-    margin-right: 20px; 
     margin-bottom: 20px;
-    border: 1px solid #F7F6DC;
-    background-color: #fff;
+    border: 1px solid #ddd;
+    background-color: #F7F6DC;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; 
-    flex-basis: 50%;
+    flex-basis: 100%;
     white-space: nowrap;
 }
 
@@ -179,6 +178,7 @@ body {
 .equipment-item .detail-value {
     flex-basis: 68%;
 }
+
 
 .navButtonBack{
     background-color: #F7F6DC;
