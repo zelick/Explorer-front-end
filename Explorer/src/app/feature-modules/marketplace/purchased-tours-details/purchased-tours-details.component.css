@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #253B34;
-    height: 100%;
+    height: auto;
 }
 
 .tour-card {
@@ -154,10 +154,10 @@ body {
 }
 
 .equipment-item {
-    flex: 0 0 calc(20% - 20px); 
+    display: flex;
     margin-right: 20px; 
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #F7F6DC;
     background-color: #fff;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
