@@ -1,5 +1,7 @@
 body{
     background-color: #3B846B;
+    padding-top: 5vh;
+    height: 100%;
 }
 
 .row {
@@ -111,7 +113,7 @@ body{
     margin-right: 2vh;
 }
 .filters{
-    width:30%;
+    width: 30%;
     background-color: #F7F6DC;
     display: flex;
     flex-direction: column;
@@ -134,7 +136,9 @@ body{
     text-align: center;
 }
 .paginator {
-    color: #3B846B;
+    color: #253B34;
+    background-color: #B6D4AF;
     font-weight: bold;
     font-size: medium;
+    border-bottom: 2px solid #253B34;
 }

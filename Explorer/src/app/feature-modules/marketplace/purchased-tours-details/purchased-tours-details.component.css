@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #253B34;
+    height: 100%;
 }
 
 .tour-card {
@@ -106,7 +107,7 @@ body {
 
 .checkpoint-card {
     display: flex;
-    background-color: #fff;
+    background-color: #F7F6DC;
     border: 1px solid #ddd;
     overflow: hidden;
     margin-bottom: 20px;
@@ -177,4 +178,13 @@ body {
 
 .equipment-item .detail-value {
     flex-basis: 68%;
+}
+
+.navButtonBack{
+    background-color: #F7F6DC;
+}
+
+.navButtonStart{
+    background-color: #253B34;
+    color: #F7F6DC;
 }
