@@ -10,7 +10,7 @@
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
-    width: 80%;
+    width: 100%;
 }
 
 p {

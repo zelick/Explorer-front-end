@@ -23,15 +23,14 @@
                 <tr>
                     <td>Walk:</td>
                     <td>
-                        <input type="radio" formControlName="walk" value="1"> 1
+                        <input type="radio" formControlName="walk" value="1" [checked]="preferenceForm.get('walk')?.value === 1"> 1
                     </td>
                     <td>
-                        <input type="radio" formControlName="walk" value="2"> 2
+                        <input type="radio" formControlName="walk" value="2" [checked]="preferenceForm.get('walk')?.value === 2"> 2
                     </td>
                     <td>
-                        <input type="radio" formControlName="walk" value="3"> 3
+                        <input type="radio" formControlName="walk" value="3" [checked]="preferenceForm.get('walk')?.value === 3"> 3
                     </td>
-                    
                 </tr>
                 <tr>
                     <td>Car:</td>

@@ -1,11 +1,14 @@
 <body> 
     <div class="container">
         <h1>Tour preferences</h1>
-        <label class="tellUs">Tell us what are your preferences when traveling</label>
+        <label class="tellUs">Tell us your preferences when traveling</label>
 
 
         <div id="tour" *ngIf="!shouldRenderTourForm">
             <hr>
+            <br>
+            Your current preferences
+            <br><br>
             <div id="tour-details">
             <div>
                 <table>
@@ -15,8 +18,7 @@
                             <th>Walk</th>
                             <th>Bike</th>
                             <th>Car</th>
-                            <th>Boat</th>
-                            <th></th>
+                            <th>Tags</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -26,7 +28,6 @@
                             <td>{{t.walk}}</td>
                             <td>{{t.bike}}</td>
                             <td>{{t.car}}</td>
-                            <td>{{t.boat}}</td>
                             <td>{{t.tags}}</td>
                             <td>
                                 <button color="accent" (click)="deletePreference(t.id || 0)" mat-icon-button>
