@@ -14,7 +14,19 @@ thead tr {
     text-align: left;
     font-size: 15px;
 }
+.buttonAdd:hover{
+    background-color: #dc4900;
 
+}
+
+.button-table:hover{
+    background-color: #dc4900;
+
+}
+.button:hover{
+    background-color: #dc4900;
+
+}
 th, td {
     padding: 12px 15px;
 }
