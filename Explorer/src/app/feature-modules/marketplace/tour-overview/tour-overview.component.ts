@@ -260,16 +260,26 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
         return 0;
     });
 
-    Promise.all(promises).then(() => {
-      if (this.foundTours.length > 0) {
-        this.searchTours = [];
-        this.searchTours = this.foundTours;
-        this.foundTours = [];
-      }
+    setTimeout(() => {
+      this.searchTours = [];
+      this.searchTours = this.foundTours;
+      this.foundTours = [];
       if(this.showOnlyOnSale){
         this.filterTours();
       }
+    }, 2000);
+
+    Promise.all(promises).then(() => {
+      if (this.foundTours.length >= 0) {
+        // this.searchTours = [];
+        // this.searchTours = this.foundTours;
+        // this.foundTours = [];
+      }
+    })
+    .catch(error => {
+      console.error("greskaaaa    " + error); // Handle any errors that occurred during promise resolution
     });
+      
   }
 
   checkDistance(tour: PublicTour): Promise<void> {
@@ -335,7 +345,7 @@ export class TourOverviewComponent implements OnInit, AfterViewInit{
           block: 'start'
         });
       }
-    }, 300);
+    }, 1000);
     
   }
 
