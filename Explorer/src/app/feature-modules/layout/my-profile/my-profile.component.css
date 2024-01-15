@@ -32,7 +32,8 @@
   overflow-y:hidden; /* Add vertical scrollbar if the content overflows the fixed height */
 }
 #my-profile {
-    height: 100%;
+    min-height: calc(100vh - 65px);
+    height: auto;
     width: 100%;
     font-family: 'Poppins', sans-serif;
 }
@@ -89,18 +90,11 @@
     color: #ffffff; 
 }
 
-.header {
-    margin-top: 20px; 
-    margin-left: 1%; 
-    float: left;
-    font-size: large;
-}
-
 .sidenav-content {
     display: flex;
     background-color: #F7F6DC;
     flex-direction: column;
-    height: 620px;
+    height: calc(100vh - 70px);
 }
 
 .content {

@@ -1,5 +1,5 @@
 <div id="notification" >
-  <hr>
+  <h1>Notifications</h1>
   <div>
     <div id="content">
       <div id="notifications-table">
@@ -29,11 +29,11 @@
                       <div class="date-and-dissmiss-div">
                         <p class="date-info">{{n.creationTime | date: 'dd.MM.yyyy  HH:mm'}}</p>
                         
-                        <a class="see-details" *ngIf="reportedIssueNotificationType(n)" href="/reported-issues/{{n.foreignId}}" (click)="dismissOne(n)">
+                        <a class="see-details" *ngIf="reportedIssueNotificationType(n)" href="/my-profile/reported-issues/{{n.foreignId}}" (click)="dismissOne(n)">
                           see details
                         </a>
                         
-                        <a class="see-details" *ngIf="messageNotificationType(n)" href="/social-profile" (click)="dismissOne(n)">
+                        <a class="see-details" *ngIf="messageNotificationType(n)" href="/my-profile/social-profile" (click)="dismissOne(n)">
                           see details
                         </a>
 
