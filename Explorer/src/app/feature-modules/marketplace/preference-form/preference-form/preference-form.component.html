@@ -15,22 +15,43 @@
                     
                 </tr>
             </table>
-            <mat-form-field>
-                <mat-label>Walk</mat-label>
-                <input matInput formControlName="walk" type="number" [defaultValue]="0" min="0" max="3" placeholder="0"/>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Bike</mat-label>
-                <input matInput formControlName="bike" type="number" [defaultValue]="0" min="0" max="3" placeholder="0"/>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Car</mat-label>
-                <input matInput formControlName="car" type="number" [defaultValue]="0" min="0" max="3" placeholder="0"/>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Boat</mat-label>
-                <input matInput formControlName="boat" type="number" [defaultValue]="0" min="0" max="3" placeholder="0"/>
-            </mat-form-field>
+            
+            <div class="radio-button-div">
+                <label class="radio-label">Walk</label> 
+                <mat-radio-group formControlName="walk">
+                    <label *ngFor="let walk of [0, 1, 2, 3]" class="radio-label">
+                      <mat-radio-button [value]="walk">{{ walk }}</mat-radio-button>
+                    </label>
+                </mat-radio-group>
+            </div>
+            
+            <div class="radio-button-div">
+                <label class="radio-label">Bike</label> 
+                <mat-radio-group formControlName="bike">
+                    <label *ngFor="let bike of [0, 1, 2, 3]" class="radio-label">
+                      <mat-radio-button [value]="bike">{{ bike }}</mat-radio-button>
+                    </label>
+                </mat-radio-group>    
+            </div>
+            
+            <div class="radio-button-div">
+                <label class="radio-label">Car</label> 
+                <mat-radio-group formControlName="car">
+                    <label *ngFor="let car of [0, 1, 2, 3]" class="radio-label">
+                      <mat-radio-button [value]="car">{{ car }}</mat-radio-button>
+                    </label>
+                </mat-radio-group>    
+            </div>
+
+            <div class="radio-button-div">
+                <label class="radio-label">Boat</label> 
+                <mat-radio-group formControlName="boat">
+                    <label *ngFor="let boat of [0, 1, 2, 3]" class="radio-label">
+                      <mat-radio-button [value]="boat">{{ boat }}</mat-radio-button>
+                    </label>
+                </mat-radio-group>    
+            </div>
+            
             <form [formGroup]="tagForm">
                 <div>
                     <table>
@@ -62,8 +83,6 @@
             </form>
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addPreference()" mat-raised-button>Done</button>
         <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updatePreference()" mat-raised-button>Done</button>
-    
         </div>
-    </form>
-    
-    </div>
+    </form>    
+</div>
