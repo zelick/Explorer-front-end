@@ -219,4 +219,8 @@ export class ProfileAdministrationComponent implements OnInit{
       this.selectedImage = null;
     }
   }
+
+  createEncounter():void {
+    this.router.navigate(['tourist-encounter-form']);
+  }
 }
