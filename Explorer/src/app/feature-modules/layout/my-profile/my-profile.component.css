@@ -83,11 +83,16 @@
     margin-top: 10px; 
     margin-left: 10px; 
     float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: auto;
 }
 
 .toggle-button {
     background-color: #E67840;
     color: #ffffff; 
+    margin-right: 15px;
 }
 
 .header {
