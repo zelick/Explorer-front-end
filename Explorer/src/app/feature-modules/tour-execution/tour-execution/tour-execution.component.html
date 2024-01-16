@@ -93,7 +93,9 @@
                                     <td class="checkpoint">
                                         <label class="ch-title">{{ch.name}}</label>
                                         <div class="ch-img">
-                                            <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
+                                            <button class="nextbtn" (click)="OnPictureBack(ch)">
+                                                &lt;
+                                            </button>
                                             <img class="img" [src]="getImageUrl(ch.showedPointPicture)" >
                                             <button class="nextbtn" (click)="OnPictureNext(ch)">
                                                 ></button>
@@ -148,12 +150,11 @@
                 <div class="checkpoint" *ngFor="let ch of tour.checkpoints" class="checkpoint-column">
                     <label class="ch-title">{{ch.name}}</label>
                     <div class="ch-img">
-                        <button class="nextbtn" (click)="OnPictureBack(ch)"></button>
-                        <img class="img" [src]="getImageUrl(ch.showedPointPicture)" >
-                        <button class="nextbtn" (click)="OnPictureNext(ch)">
+                        <!-- <button class="nextbtn" (click)="OnPictureBack(ch)"></button> -->
+                        <img class="img" src="https://cdn-icons-png.flaticon.com/512/8935/8935103.png">
+                        <!-- <button class="nextbtn" (click)="OnPictureNext(ch)">
                             >
-                        </button>
-
+                        </button> -->
                     </div>
                     <div>
                         <label class="ch-description">Required time: {{(ch.requiredTimeInSeconds/3600).toFixed(0)}} h {{((ch.requiredTimeInSeconds%3600)/60).toFixed(0)}} min</label><br>

@@ -95,7 +95,7 @@ export class CheckpointStatisticsComponent implements OnInit {
   drawChart(): void {
     this.chartOptionsCheckpoints = {
       title: {
-        text: "Chekpoints statistics"  
+        text: "Checkpoints statistics"  
       },
       animationEnabled: true,
       backgroundColor: "#B6D4AF",
@@ -119,7 +119,7 @@ export class CheckpointStatisticsComponent implements OnInit {
 
     this.chartOptionsCheckpoints2 = {
       title: {
-        text: "Chekpoints encounters statistics"  
+        text: "Checkpoints encounters statistics"  
       },
       animationEnabled: true,
       colorSet: "customColorSet",

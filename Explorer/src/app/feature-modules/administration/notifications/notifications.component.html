@@ -59,7 +59,7 @@
                         <button class="button-table" (click)="deleteNotification(n.id || 0)" mat-raised-button>
                           Delete🗑️
                         </button>
-                        <a class="dismiss" *ngIf="!n.isRead" href="/notifications"  (click)="dismissOne(n)">
+                        <a class="dismiss" *ngIf="!n.isRead" href="/my-profile/notifications"  (click)="dismissOne(n)">
                           dismiss
                         </a>
                       </div>

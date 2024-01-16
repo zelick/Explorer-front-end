@@ -16,9 +16,9 @@
 }
 
 .report-an-issue-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: fixed;
+    top: 80px;
+    right: 30px;
     font-family: 'Poppins', sans-serif;
     width: auto;
     margin-left: 10px;
@@ -61,6 +61,7 @@ p {
 
 .table-wrapper {
     display: flex;
+    min-height: 68vh;
     max-height: 76vh; /* Adjust the maximum height as needed */
     overflow-y: scroll;
 }
@@ -114,7 +115,8 @@ tbody tr:last-of-type {
     margin: 1px;
     margin-right: 20px;
     margin-left: 10px;
-    height: 77vh;
+    min-height: 66vh;
+    height: fit-content;
     width: 40%;
     font-family: 'Poppins', sans-serif;
 }
