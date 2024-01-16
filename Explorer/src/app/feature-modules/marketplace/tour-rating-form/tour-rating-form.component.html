@@ -1,16 +1,16 @@
 <div id="tour-rating-form">
     <form class="rating-form" [formGroup]="tourRatingForm">
         <div class="center-container">
-            <br><br><p>Add new rating</p>
-            <div>
-                <div class="rating-div">
-                    <label>Rating</label> 
+            <br><br><p class="naslov">Add new rating</p>
+                <div class="rating-div1">
+                    <label style="margin-right: 10px;">Rating</label> 
                     <mat-radio-group formControlName="rating">
                         <label *ngFor="let rating of [1, 2, 3, 4, 5]" class="radio-label">
                         <mat-radio-button [value]="rating">{{ rating }}</mat-radio-button>
                         </label>
                     </mat-radio-group>
                 </div>
+
                 <mat-form-field>
                     <mat-label>Comment</mat-label>
                         <textarea matInput
@@ -30,8 +30,7 @@
                         <img *ngFor="let imageName of rating.imageNames" [src]="getImageUrl(imageName)" alt="Image">
                     </div>
                 </div>
-                <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
-            </div>
+            <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourRating()" mat-raised-button>Done</button>
         </div>
     </form>
 </div>

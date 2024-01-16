@@ -69,13 +69,15 @@ export class TourRatingFormComponent implements OnChanges, OnInit {
     
     this.service.addTourRating(formData).subscribe({
       next: () => { 
+        this.imagePreview = [];
         this.ratingUpdated.emit();
         this.tourRatingForm.reset();
-        this.imagePreview = [];
-        this.router.navigate(['/tour-overview-details/', this.rating.tourId]);
+        this.router.navigate(['/tour-overview-details/', this.tourId]);
       },
       error: (err) => {
         console.error('Couldnt add rating: ', err);
+        alert('Couldnt add rating: ');
+        this.router.navigate(['/tour-overview-details/', this.tourId]);
       }
     });
   }
