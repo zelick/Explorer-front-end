@@ -4,15 +4,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.header{
-    font-size: 28px;
-    font-weight: 600;
-    color: #E67840;
-    text-shadow: 0 0 2px #E67840;
-    position: absolute;
-    left: 80px;
-    top: 18px;
-    margin-bottom: 50px;
+.header_page{
+    font-size: 4vh;
+    color:#E67840;
+    padding: 1% 2.5%; 
+    margin: 0;
+    margin-left: 0;
+    font-weight: bold;
 }
 
 .report-an-issue-button {
@@ -28,10 +26,9 @@
     font-size: 100%; 
     color:#fff;
     background-color: #E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border: none;
-    border-radius: 100px;
+    border-radius: 40px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #content{
@@ -203,14 +200,14 @@ tbody tr:last-of-type {
 .resolved{
     color: rgb(11, 179, 11);
     font-size: 120%;
-    font-weight: 500;
+    font-weight: bold;
     margin-right: 10px;
 }
 
 .unresolved{
     color: red;
     font-size: 120%;
-    font-weight: 500;
+    font-weight: bold;
     margin-right: 10px;
 }  
 .comment-input {
@@ -280,4 +277,3 @@ tbody tr:last-of-type {
     height: 26px;
     margin-right: 6px;
 }
-
