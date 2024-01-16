@@ -1,5 +1,4 @@
 #tour-rating-form{
-
     font-family: 'Poppins', sans-serif;
 }
 
@@ -49,8 +48,11 @@ body {
   font-weight:bold;
 }
 
-.prviInput{
+.rating-div1{
     margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 0%;
+    width: fit-content;
 }
 
 .mat-icon {
@@ -62,7 +64,10 @@ p {
 }
 .rating-div{
     flex-direction: row;
-    margin-left: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .rating-form mat-form-field {
     width: 70%;
@@ -90,7 +95,9 @@ p {
 .image-container {
     margin-top: 20px;
     max-width: 200px; 
-    max-height: 200px;
+    max-height: 120px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .image-container img {
@@ -100,9 +107,4 @@ p {
 
 .image-div{
     margin-bottom: 30px;
-}
-
-.forma{
-    margin-left: 100px;
-    margin-top: 20px;
 }
