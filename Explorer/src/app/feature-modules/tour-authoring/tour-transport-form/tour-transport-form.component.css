@@ -8,6 +8,15 @@
     border: 1px solid white;
 }
 
+
+.button:hover{
+    background-color: #da500b;
+}
+
+.buttonSave:hover{
+    background-color: #da500b;
+}
+
 .button{
     width: auto;
     margin-left: 10px;

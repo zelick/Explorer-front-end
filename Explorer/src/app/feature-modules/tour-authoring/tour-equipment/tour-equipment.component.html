@@ -19,7 +19,7 @@
     <tbody>
         <tr *ngFor="let e of tour.equipment" style="border: 1px solid #E67840;">
             <td style="border: 1px solid #E67840;">{{e.name}}</td>
-            <td style="border: 1px solid #E67840;">{{e.description}}</td>
+            <td style="border: 1px solid #E67840;font-size: 80%;" >{{e.description}}</td>
             <td style="border: 1px solid #E67840;">
                 <button class="buttonPlus" (click)="removeEquipment(tour.id, e.id)" mat-raised-button>-</button>
             </td>
@@ -44,7 +44,7 @@
         <tbody>
             <tr *ngFor="let e of availableEquipment" style="border: 1px solid #E67840;">
                 <td style="border: 1px solid #E67840;">{{e.name}}</td>
-                <td style="border: 1px solid #E67840;">{{e.description}}</td>
+                <td style="border: 1px solid #E67840;font-size:80%;">{{e.description}}</td>
                 <td style="border: 1px solid #E67840;">
                     <button class="buttonPlus" (click)="addEquipment(tour.id, e.id)" mat-raised-button>+</button>
                 </td>
