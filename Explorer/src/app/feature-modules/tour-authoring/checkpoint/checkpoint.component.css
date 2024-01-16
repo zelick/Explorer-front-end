@@ -16,7 +16,12 @@ thead tr {
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 5px 5px;
+}
+
+
+.button-table:hover{
+    background-color: #ca4a0a;
 }
 
 td{
@@ -99,7 +104,7 @@ tbody tr.active-row {
 
 .buttonAdd{
     width: auto;
-    margin-left: 50%;
+    margin-left: 75%;
     margin-bottom: 10px;
     margin-top: 50px;
     padding: 0px 10px;
@@ -111,6 +116,10 @@ tbody tr.active-row {
     border-radius: 50px;
     font-size:16px;
     cursor: pointer;
+}
+
+.button-route:hover{
+    background-color: #ca4a0a;
 }
 .button-route{
     width: auto;
@@ -163,7 +172,7 @@ tbody tr.active-row {
 }
 
 .map-div{
-    width: 1220px;
+    width: 1420px;
     height: 700px;
     margin-bottom: 0px;
     margin-left: 120px;
@@ -196,18 +205,22 @@ body{
     margin-left: 120px;
     margin-top: 90px;
 }
+
+.buttonAdd:hover{
+    background-color: #ca4a0a;
+}
 .title{
     font-size: 5vh;
     font-weight: bold;
-    color:#E67840;
+    color:#253B34;
     font-style: bold;
     margin-top: 40px;
-    margin-left: 550px;
+    margin-left: 580px;
     margin-bottom: 0px;
 }
 
 #map-container{
-    width: 1220px;
+    width:1420px;
     height: 600px;
 }
 
@@ -217,24 +230,29 @@ body{
     color:#E67840;
     font-style: bold;
     margin-bottom: 30px;
+
 }
 
 .transportation-div-big{
     margin: auto;
     margin-top: 320px;
-    margin-right: 120px;
-    margin-left: -1000px;
+    margin-right: 350px;
+    margin-left: -130px;
     display: flex;
     flex-direction: column;
+}
+
+.button:hover{
+    background-color: #ca4a0a;
 }
 
 .statistics-div{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     width: 300px;
     height: 180px;
-    margin-left: 80px;
+    margin-left: 100px;
     margin-top: 10px;
     overflow: hidden;
     background-color: #B6D4AF;
@@ -253,11 +271,11 @@ body{
     background-color: #B6D4AF;
     font-size: 40px;
     font-weight: bold;
-    padding-top: 2vh;
     padding-bottom: 2vh;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     color: #253B34;
-    margin: 5px;
+    margin-left:-5px;
+    margin-top: 45px;
 }
 .text{
     width: 100%;
@@ -265,13 +283,13 @@ body{
     background-color: #B6D4AF;
     font-size: 24px;
     font-weight: bold;
-    padding-top: 2vh;
     padding-bottom: 2vh;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     color: #253B34;
-    margin: 5px;
+    margin-left: 0px;
 }
 .emoji{
-    font-size: 30px;
-    margin: auto;
+    padding-top: 5vh;
+    font-size: 25px;
+    margin-left: 135px;
 }
