@@ -113,7 +113,7 @@
         </mat-drawer>
       
         <mat-drawer-content>
-            <div class="sidenav-content">
+            <div id="sidenav-content">
                 <div>
                     <div class="toggle-button-position">
                         <button class="toggle-button" (click)="drawer.toggle()" mat-icon-button>
@@ -125,7 +125,7 @@
                         <!-- <h1>Content header</h1> -->
                     </div>
                 </div>
-                <div class="content">
+                <div id="content" class="scroller">
                     <router-outlet></router-outlet>
                 </div>
             </div>

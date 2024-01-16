@@ -96,14 +96,14 @@
     font-size: large;
 }
 
-.sidenav-content {
+#sidenav-content {
     display: flex;
     background-color: #F7F6DC;
     flex-direction: column;
-    height: 620px;
+    height: 700px;
 }
 
-.content {
+#content {
     overflow-x: hidden;
     overflow-y: auto;
     margin-top: 10px;
