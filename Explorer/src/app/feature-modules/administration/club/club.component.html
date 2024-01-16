@@ -35,7 +35,6 @@
     <div class="club-container">
         <div id="club">
             <div class="header-div">
-                <h1>Club</h1>
                 <div class="add-button-div">
                     <button class="add-button" (click)="onAddClicked()" mat-icon-button>
                         <mat-icon>add</mat-icon>
@@ -87,7 +86,7 @@
                                 </td>
                                 <td class="img-td">
                                     <div class="img-container">
-                                        <img class="img" [src]="c.image" alt="Club Image">
+                                        <img class="img" [src]="getImageUrl(c.image!)" alt="Club Image">
                                     </div>
                                 </td>
                             </tr>

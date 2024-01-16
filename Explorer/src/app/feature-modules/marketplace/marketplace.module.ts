@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatRadioModule } from '@angular/material/radio';
 import { ReportingIssueComponent } from './reporting-issue/reporting-issue.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,7 +10,6 @@ import { PreferenceFormComponent } from './preference-form/preference-form/prefe
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourRatingComponent } from './tour-rating/tour-rating.component';
 import { TourRatingFormComponent } from './tour-rating-form/tour-rating-form.component';
-import { SimulatorComponent } from './simulator/simulator.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TourAuthoringModule } from "../tour-authoring/tour-authoring.module";
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -40,7 +40,6 @@ import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-auth
         PreferenceFormComponent,
         TourRatingComponent,
         TourRatingFormComponent,
-        SimulatorComponent,
         ReportingIssueComponent,
         ShoppingCartComponent,
         PurchasedToursComponent,
@@ -62,9 +61,7 @@ import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-auth
     exports: [
         PreferenceFormComponent,
         TourRatingFormComponent,
-        SimulatorComponent,
         PurchasedToursComponent,
-        PreferenceFormComponent, 
         PurchasedToursDetailsComponent,
         CreateCouponFormComponent,
         ViewCouponAuthorComponent,
@@ -73,6 +70,7 @@ import { ViewCouponAuthorComponent } from './view-coupon-author/view-coupon-auth
         CommonModule,
         MatInputModule,
         MatFormFieldModule,
+        MatRadioModule,
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,

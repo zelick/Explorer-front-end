@@ -1,30 +1,31 @@
 <div id="my-profile">
     <mat-drawer-container autosize>
-        <mat-drawer #drawer class="sidenav" mode="side">
+        <mat-drawer #drawer class="sidenav" mode="side" opened="true">
             <!-- ADMIN -->
+            <div class="scroller">
             <div *ngIf="user && user.role === 'administrator'">
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['accounts']">Accounts management</button>
+                    <button (click)="changeTitle('Accounts management')" [routerLink]="['accounts']">Accounts management</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['grade-review']">Grade review</button>
+                    <button (click)="changeTitle('Grade review')" [routerLink]="['grade-review']">Grade review</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button [routerLink]="['equipment']">Manage equipment</button>
+                    <button (click)="changeTitle('Manage equipment')" [routerLink]="['equipment']">Manage equipment</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['object-request-review']">Object requests</button>
+                    <button (click)="changeTitle('Requests')" [routerLink]="['checkpoint-request-review']">Requests</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['checkpoint-request-review']">Checkpoint requests</button>
+                    <button (click)="changeTitle('Reported issues')" [routerLink]="['reported-issues']">Reported issues</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['reported-issues']">Reported issues</button>
+                    <button (click)="changeTitle('Tour rating')" [routerLink]="['tour-rating']">Tour Rating</button> 
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -33,54 +34,44 @@
             <div *ngIf="user && (user.role === 'author' || user.role === 'tourist')">
                 <div class="sidenav-item"> 
                     <!-- Manage profile  -->
-                    <button [routerLink]="['profile-info']">Profile information</button>
+                    <button (click)="changeTitle('Profile information')" [routerLink]="['profile-info']">Profile information</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['my-blogs']">Manage your blogs</button>
+                    <button (click)="changeTitle('Manage your blogs')" [routerLink]="['my-blogs']">Manage your blogs</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['reported-issues']">My Reported issues</button>
+                    <button (click)="changeTitle('My reported issues')" [routerLink]="['reported-issues']">My Reported issues</button>
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
             
             <!-- TOURIST only -->
             <div *ngIf="user && user.role === 'tourist'">
-                <!-- 
-                <div class="sidenav-item">
-                    <button [routerLink]="['shopping-cart']">Cart({{ cartItemCount }})</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item">
-                    <button [routerLink]="['tour-overview']">Tours</button>
-                    <div class="horizontal-divider"></div>
-                </div>
-             -->
-                <div class="sidenav-item"> 
-                    <button [routerLink]="['simulator']">Simulator</button>
-                    <div class="horizontal-divider"></div>
-                </div>
                 <div class="sidenav-item"> 
                     <!-- Trip history  -->
-                    <button [routerLink]="['purchased-tours']">My Purchased Tours</button>
+                    <button (click)="changeTitle('My purchased tours')" [routerLink]="['purchased-tours']">My Purchased Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['private-tours']">Private tours</button>
+                    <button (click)="changeTitle('Private tours')" [routerLink]="['private-tours']">Private tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['private-tour-blogs']">Private tour blogs</button>
+                    <button (click)="changeTitle('Private tour blogs')" [routerLink]="['private-tour-blogs']">Private tour blogs</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['club']">Clubs</button>
+                    <button (click)="changeTitle('My campaigns')" [routerLink]="['composite-list']">My Campaigns</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['preference']">Manage preference</button>
+                    <button (click)="changeTitle('Clubs')" [routerLink]="['club']">Clubs</button>
+                    <div class="horizontal-divider"></div>
+                </div>
+                <div class="sidenav-item"> 
+                    <button (click)="changeTitle('Manage preference')" [routerLink]="['preference']">Manage preference</button>
                     <div class="horizontal-divider"></div>
                 </div>
             </div>
@@ -88,50 +79,45 @@
              <!-- AUTHOR only -->
              <div *ngIf="user && user.role === 'author'">
                 <div class="sidenav-item">
-                    <button [routerLink]="['tour']">Tours</button>
+                    <button (click)="changeTitle('Tours')" [routerLink]="['tour']">Tours</button>
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item">
-                    <button [routerLink]="['checkpoint']">Manage checkpoints</button>
+                    <button (click)="changeTitle('Manage map objects')" [routerLink]="['map-object']">Manage Map Objects</button>
                     <div class="horizontal-divider"></div>
                 </div>
-                <div class="sidenav-item">
-                    <button [routerLink]="['map-object']">Manage Map Objects</button>
+                <div class="sidenav-item"> 
+                    <button (click)="changeTitle('Tour rating')"  [routerLink]="['tour-rating']">Tour Rating</button> 
                     <div class="horizontal-divider"></div>
-                </div>  
+                </div>
             </div>
 
             <!-- ALL USERS -->
             <div *ngIf="user">
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['tour-rating']">Tour Rating</button> 
+                    <button (click)="changeTitle('Social profile')" [routerLink]="['social-profile']">Social profile</button> 
                     <div class="horizontal-divider"></div>
                 </div>
                 <div class="sidenav-item"> 
-                    <button [routerLink]="['social-profile']">Social profile</button> 
-                    <div class="horizontal-divider"></div>
-                </div>
-                <div class="sidenav-item"> 
-                    <button [routerLink]="['notifications']">Notifications</button> 
-                    <div class="horizontal-divider"></div>
+                    <button (click)="changeTitle('Notifications')" [routerLink]="['notifications']">Notifications</button> 
+                    <div *ngIf="user && user.role === 'author' || user.role === 'administrator'" class="horizontal-divider"></div>
                 </div>
             </div>
+        </div>
         </mat-drawer>
       
         <mat-drawer-content>
-            <div class="sidenav-content">
+            <div id="sidenav-content">
                 <div>
                     <div class="toggle-button-position">
                         <button class="toggle-button" (click)="drawer.toggle()" mat-icon-button>
                             <mat-icon>menu</mat-icon>
                         </button>
+                        <h1 style="color: #E67840; font-size: 220%; text-align: center; vertical-align: center;display: flex;margin: auto; font-weight: 600;">{{title}}</h1>
                     </div>
 
-                    <div class="header">
-                        <!-- <h1>Content header</h1> -->
-                    </div>
                 </div>
-                <div class="content">
+                <div id="content" class="scroller">
                     <router-outlet></router-outlet>
                 </div>
             </div>

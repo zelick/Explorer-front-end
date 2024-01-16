@@ -10,8 +10,8 @@ import { MarketplaceService } from '../../marketplace/marketplace.service';
 })
 export class MyProfileComponent implements OnInit {
   user: User | undefined;
-  header: string = "My profile";
   cartItemCount: number = 0;
+  title: string = 'Notifications';
 
   constructor(private authService: AuthService, private marketplaceService: MarketplaceService){}
 
@@ -22,5 +22,8 @@ export class MyProfileComponent implements OnInit {
     this.marketplaceService.cartItemCount$.subscribe((count) => {
       this.cartItemCount = count;
     });
+  }
+  changeTitle(title:string){
+    this.title = title;
   }
 }

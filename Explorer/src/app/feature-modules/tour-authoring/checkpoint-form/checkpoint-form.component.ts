@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgModel, NgForm } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { Tour } from '../model/tour.model';
-import { DecimalPipe, Time } from '@angular/common';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PublicCheckpoint } from '../../tour-execution/model/public_checkpoint.model';
+import { ImageService } from 'src/app/shared/image/image.service';
+import { NumberInput } from '@angular/cdk/coercion';
 
 
 @Component({
@@ -23,27 +22,28 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
   @Input() selectedCheckpoint: Checkpoint;
   @Input() shouldEdit: boolean = false;
   @Input() tourID: number = 0;
-  picture: string = '';
-  pictures: string[] = [];
   longitude: number = 0;
   latitude: number = 0;
   publicCheckpoints: PublicCheckpoint[] = [];
+  picturePreview: string[] = [];
+  selectPublicCPName: string ='';
 
-  constructor(private service: TourAuthoringService, private router:Router,
+  constructor(private service: TourAuthoringService, private imageService: ImageService, private router:Router,
     private tokenStorage: TokenStorage) {
     this.checkpointForm.controls.latitude.disable();
     this.checkpointForm.controls.longitude.disable();
   }
 
   ngOnInit(): void {
-    this.service.getCheckpoint(this.selectedCheckpoint.id || 0).subscribe(result =>{
-      this.selectedCheckpoint = result;
-    });
 
     this.service.getPublicCheckpoints().subscribe(result => {
       this.publicCheckpoints = result.results;
       this.addPublicCheckpoinsOnMap();
     });
+    this.service.getCheckpoint(this.selectedCheckpoint.id || 0).subscribe(result =>{
+      this.selectedCheckpoint = result;
+    });
+
   }
   ngAfterViewInit(): void {
     if(this.shouldEdit) {
@@ -51,6 +51,9 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       this.longitude=this.selectedCheckpoint.longitude;
       this.searchByCoord(this.latitude, this.longitude);
       this.searchByAddress(this.checkpointForm.controls.address.value || '');
+      this.picturePreview = this.selectedCheckpoint.pictures?.map(imageName => this.getImageUrl(imageName)) || [];
+    } else {
+      this.picturePreview = [];
     }
     if(this.publicCheckpoints.length > 0)
       this.addPublicCheckpoinsOnMap();
@@ -71,12 +74,18 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
   }
   ngOnChanges(): void {
     this.checkpointForm.reset();
-    if(this.shouldEdit) {
-      this.checkpointForm.patchValue(this.selectedCheckpoint);
-      this.pictures = this.selectedCheckpoint.pictures;
+
+    if (this.shouldEdit) {
+      const { requiredTimeInSeconds, pictures, ...checkpointWithoutTimeAndPictures } = this.selectedCheckpoint;
+      this.checkpointForm.patchValue({
+        ...checkpointWithoutTimeAndPictures,
+        hours: Math.round(requiredTimeInSeconds / 3600),
+        minutes: (requiredTimeInSeconds % 3600) / 60,
+      });
       this.tourID = this.selectedCheckpoint.tourId;
-      this.checkpointForm.controls.hours.setValue(Math.round(this.selectedCheckpoint.requiredTimeInSeconds/3600));
-      this.checkpointForm.controls.minutes.setValue(((this.selectedCheckpoint.requiredTimeInSeconds%3600)/60));
+      this.picturePreview = pictures?.map(imageName => this.getImageUrl(imageName)) || [];
+    } else {
+      this.picturePreview = [];
     }
   }
 
@@ -90,38 +99,21 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     hours: new FormControl(0),
     minutes: new FormControl(0),
     status: new FormControl('Private', [Validators.required]),
-    publicCP: new FormControl('')
+    publicCP: new FormControl(''),
+    pictures: new FormControl('')
   });
-  pictureForm = new FormGroup({
-    picture: new FormControl(this.picture, [Validators.required])
-  });
-
 
   addCheckpoint(): void {
-    const checkpoint: Checkpoint = {
-      encounterId:0,
-      tourId: this.tourID,
-      longitude: this.longitude || 0,
-      latitude: this.latitude || 0,
-      name: this.checkpointForm.value.name || "",
-      description: this.checkpointForm.value.description || "",
-      pictures: this.pictures || "",
-      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60,
-      currentPicture:0,
-      visibleSecret:false,
-      showedPicture:"",
-      viewSecretMessage:"",
-      currentPointPicture:0,
-      showedPointPicture:"",
-      authorId: this.service.user.id,
-      isSecretPrerequisite: true
-    };
+    const formData = new FormData();
+
+    const checkpoint = this.fillAddForm();
+    this.fillFormData(formData, checkpoint);
+    this.fillImages(formData);
 
     const status = this.checkpointForm.value.status || 'Private'
-
-    if(this.validate(checkpoint.name, checkpoint.pictures))
+    if (this.validate(checkpoint.name))
     {
-      this.service.addCheckpoint(checkpoint,status).subscribe({
+      this.service.addCheckpoint(formData, status).subscribe({
         next: (result:any) => { this.checkpointUpdated.emit();
           //this.router.navigate([`checkpoint-secret/${result.id}`]);
           this.router.navigate([`encounter-form/${result.id}`]);
@@ -132,30 +124,18 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
   }
 
   updateCheckpoint(): void {
-    const checkpoint: Checkpoint = {
-      tourId: this.tourID,
-      longitude: this.longitude || 0,
-      latitude: this.latitude || 0,
-      name: this.checkpointForm.value.name || "",
-      description: this.checkpointForm.value.description || "",
-      pictures: this.pictures || "",
-      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0)* 3600 + (this.checkpointForm.value.minutes || 0)*60,
-      checkpointSecret: this.selectedCheckpoint.checkpointSecret,
-      currentPicture:0,
-      visibleSecret:false,
-      showedPicture:"",
-      viewSecretMessage:"",
-      currentPointPicture:0,
-      showedPointPicture:"",
-      authorId: this.selectedCheckpoint.authorId,
-      encounterId:this.selectedCheckpoint.encounterId,
-      isSecretPrerequisite: this.selectedCheckpoint.isSecretPrerequisite
-    };
+    const formData = new FormData();
+
+    const checkpoint = this.fillUpdateForm();
+    this.fillFormData(formData, checkpoint);
+    this.fillImages(formData);
+
     checkpoint.id = this.selectedCheckpoint.id;
-    if(this.validate(checkpoint.name, checkpoint.pictures))
+    if(this.validate(checkpoint.name))
     {
-      this.service.updateCheckpoint(checkpoint).subscribe({
-        next: (result:any) => { this.checkpointUpdated.emit();
+      this.service.updateCheckpoint(checkpoint.id!, formData).subscribe({
+        next: (result: any) => {
+          this.checkpointUpdated.emit();
           //this.router.navigate([`checkpoint-secret/${result.id}`]);
           this.router.navigate([`encounter-form/${result.id}`]);
 
@@ -163,19 +143,6 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
       });
     }
   }
-
-  addPicture(): void{
-    this.picture = this.pictureForm.value.picture || '';
-    if(this.picture != '')
-      this.pictures.push(this.picture);
-    this.pictureForm.reset();
-  }
-
-  deletePicture(i: number): void{
-    this.pictures.splice(i, 1);
-  }
-
-
 
   private searchByAddress(inputAddress: string) {
     this.mapComponent.search(inputAddress).subscribe({
@@ -235,20 +202,117 @@ export class CheckpointFormComponent implements OnChanges, OnInit{
     location.reload();
   }
 
-  validate(name: string, pics: string[]): boolean{
-    return name!='' && pics.length>0;
+  validate(name: string): boolean{
+    return name!='';
   }
 
   onPublicCPChange($event: any): void{
-
     var pc = this.publicCheckpoints.filter(n => n.id?.toString() == this.checkpointForm.controls.publicCP.value)[0];
+    this.selectPublicCPName = pc.name;
     this.checkpointForm.reset();
     this.checkpointForm.controls.description.setValue(pc.description);
     this.checkpointForm.controls.name.setValue(pc.name);
     this.checkpointForm.controls.latitude.setValue(pc.latitude);
     this.checkpointForm.controls.longitude.setValue(pc.longitude);
     this.checkpointForm.controls.status.setValue('Private');
-    this.pictures = pc.pictures;
+    this.picturePreview = pc.pictures;
     this.onMapClick({lat: pc.latitude, lon: pc.longitude});
+  }
+
+  private fillImages(formData: FormData) {
+    if (this.checkpointForm.value.pictures) {
+      const selectedFiles = this.checkpointForm.value.pictures;
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('pictures', selectedFiles[i]);
+        console.log(formData.get('pictures'))
+      }
+    }
+  }
+
+  private fillAddForm() {
+    const checkpoint: Checkpoint = {
+      encounterId: 0,
+      tourId: this.tourID,
+      longitude: this.longitude || 0,
+      latitude: this.latitude || 0,
+      name: this.checkpointForm.value.name || "",
+      description: this.checkpointForm.value.description || "",
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0) * 3600 + (this.checkpointForm.value.minutes || 0) * 60,
+      currentPicture: 0,
+      visibleSecret: false,
+      showedPicture: "",
+      viewSecretMessage: "",
+      currentPointPicture: 0,
+      showedPointPicture: "",
+      authorId: this.service.user.id,
+      isSecretPrerequisite: true
+    };
+    return checkpoint;
+  }
+
+  private fillUpdateForm() {
+    const checkpoint: Checkpoint = {
+      tourId: this.tourID,
+      longitude: this.longitude || 0,
+      latitude: this.latitude || 0,
+      name: this.checkpointForm.value.name || "",
+      description: this.checkpointForm.value.description || "",
+      requiredTimeInSeconds: (this.checkpointForm.value.hours || 0) * 3600 + (this.checkpointForm.value.minutes || 0) * 60,
+      checkpointSecret: this.selectedCheckpoint.checkpointSecret,
+      currentPicture: 0,
+      visibleSecret: false,
+      showedPicture: "",
+      viewSecretMessage: "",
+      currentPointPicture: 0,
+      showedPointPicture: "",
+      authorId: this.selectedCheckpoint.authorId,
+      encounterId: this.selectedCheckpoint.encounterId,
+      isSecretPrerequisite: this.selectedCheckpoint.isSecretPrerequisite
+    };
+    return checkpoint;
+  }
+
+
+  private fillFormData(formData: FormData, checkpoint: Checkpoint) {
+    formData.append('encounterId', checkpoint.encounterId.toString());
+    formData.append('tourId', checkpoint.tourId.toString());
+    formData.append('longitude', checkpoint.longitude.toString());
+    formData.append('latitude', checkpoint.latitude.toString());
+    formData.append('name', checkpoint.name);
+    formData.append('description', checkpoint.description);
+    formData.append('requiredTimeInSeconds', checkpoint.requiredTimeInSeconds.toString());
+    formData.append('checkpointSecret', JSON.stringify(checkpoint.checkpointSecret));
+    formData.append('currentPicture', checkpoint.currentPicture.toString());
+    formData.append('visibleSecret', checkpoint.visibleSecret.toString());
+    formData.append('showedPicture', checkpoint.showedPicture);
+    formData.append('viewSecretMessage', checkpoint.viewSecretMessage);
+    formData.append('currentPointPicture', checkpoint.currentPointPicture.toString());
+    formData.append('showedPointPicture', checkpoint.showedPointPicture);
+    formData.append('authorId', checkpoint.authorId.toString());
+    formData.append('isSecretPrerequisite', checkpoint.isSecretPrerequisite.toString());
+    console.log(JSON.stringify(checkpoint.checkpointSecret));
+  }
+
+  onImageSelected(event: any): void {
+    const selectedFiles = event?.target?.files;
+
+    if (selectedFiles && selectedFiles.length > 0) {
+      this.picturePreview = [];
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          this.picturePreview.push(e.target?.result as string);
+        };
+
+        reader.readAsDataURL(selectedFiles[i]);
+      }
+    }
+    this.checkpointForm.get('pictures')?.setValue(selectedFiles);
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
   }
 }

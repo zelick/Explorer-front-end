@@ -1,10 +1,13 @@
+<html>
+<body>
+    <br>
 <div id="tour-form">
-    <br>
-    <br>
-    <p>Create tour</p>
-    <br>
 <form [formGroup]="tourForm">
+    
     <div>
+        <br>
+        <p class="para-t">Create tour</p>
+        <br>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text"/>
@@ -17,17 +20,23 @@
           formControlName="description"
           cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
-        <div class="routingButton">
-                <p class="demandignessLevel">Demandigness level</p>
-
-                <select formControlName="demandignessLevel">
-                    <option  value="Easy" >Easy</option>
-                    <option  value="Medium">Medium</option>
-                    <option  value="Hard">Hard</option>
-                </select>
-            </div>
+        <div class="row">
+            <p class="demandignessLevel">       </p>
+            <img src="https://cdn-icons-png.flaticon.com/512/8171/8171573.png" alt="Lmaooo" style="width: 250px; height: 250px;" />
+        </div>
+        <div >
+            <mat-form-field>
+                <mat-label>Difficulty</mat-label>
+                <mat-select formControlName="demandignessLevel" >
+                    <mat-option  value="Easy" >Easy</mat-option>
+                    <mat-option  value="Medium">Medium</mat-option>
+                    <mat-option  value="Hard">Hard</mat-option>
+                </mat-select>
+           
+        </mat-form-field>
+    </div>
         <mat-form-field>
-            <mat-label>Price</mat-label>
+            <mat-label>Price (AC)</mat-label>
             <input matInput formControlName="price" type="number" [defaultValue]="0" min="0" placeholder="0"/>
         </mat-form-field>
         <form [formGroup]="tagForm">
@@ -44,12 +53,13 @@
             <table>
                 <tr *ngFor="let t of tags">    
                     
-                       <td>{{t}}</td>
+                       <td class="bigger-tag">{{t}}</td>
                        
                        <td><button id="tag" class="buttonPlus"  (click)="removeTag(t)" mat-raised-button>-</button></td>
                        
                    </tr>
             </table>
+            <br>
             </div>
         </form>
         <div class="routingButton">
@@ -59,8 +69,10 @@
     
         </div>
 
-
     </div>
+    
 </form>
 
 </div>
+</body>
+</html>

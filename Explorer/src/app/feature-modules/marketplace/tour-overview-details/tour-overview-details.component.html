@@ -1,139 +1,105 @@
-<div class="tour-details">
-    <br>
-    <p >{{tour.name}}</p>
-    <br>
-    <br>
-    <p class="subtitle">Information</p>
-    <table id="tour-details-table">
-        <tr>
-            <th>Description:</th>
-            <td>{{tour.description}}</td>
-        </tr>
-        <tr>
-            <th>Price:</th>
-            <td>{{tour.price}}</td>
-        </tr>
-        <tr>
-            <th>Demandigness level:</th>
-            <td>{{tour.demandignessLevel}}</td>
-        </tr>
-        <tr *ngFor="let tt of tour.tourTime">
-            <th>{{tt.transportation}}</th>
-            <td>{{(tt.distance/1000).toFixed(2)}} km</td>
-            <td>{{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min </td>
-        </tr>
-        <tr>
-            <th>Tags:</th>
-            <td>
-                <table>
-                    <tr *ngFor="let tag of tour.tags">
-                        <td>{{tag}}</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <br>
-    <p class="subtitle">Required equipment</p>
-    <table>
+<div class="tour-container">
+    <div class="map-checkpoint-container">
+        <div class="map">
+            <xp-map></xp-map>
+        </div>
+        
+        <div class="first-checkpoint">
+            <p class="checkpoint-title">Starting checkpoint: {{tour.checkpoint.name}}</p>
+            <hr class="hr-checkpoint">
+            <label>{{tour.checkpoint.description}}</label>
+        </div>
+    </div>
+    <div class="tour-details">
+        <div class="tour-description">
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+            <p>{{tour.name}}</p>
             
-                <thead>
-                    <th >Name</th>
-                    <th >Description</th>
-                </thead>
-                
-                <tbody>
-                    <tr *ngFor="let e of tour.equipment">
-                        <td>{{e.name}}</td>
-                        <td>{{e.description}}</td>
+            <div class="tag-buttons">
+                <button *ngFor="let tag of tour.tags" class="tag-button">#{{tag}}</button>
+            </div>
 
-                    </tr>
-                </tbody>
-          
-        </table>
-    <br>
-    <p class="subtitle">Starting checkpoint</p>
-    <table>
-        <tbody>
-            <tr>
-                <td class="cpp">
-                    <div class="cardcp">
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Name:</span>{{tour.checkpoint.name}}</span></div>
-                            <br>
-                            <div><span><span class="cps2">Description:</span>{{tour.checkpoint.description}}</span></div>
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Longitude:</span>{{tour.checkpoint.longitude}}</span></div>
+            <p class="subtitle">Information</p>
+            <hr>
 
-                            <br>
-                            <div><span><span class="cps2">Latitude:</span>{{tour.checkpoint.latitude}}</span></div>
-                            <br>
-                        </span>
-                    </div>
-                  
-                </td>
-             
-                <td class="cppi"><img [src]="tour.checkpoint.pictures[0]" width="80px" height="90px"></td>
-            </tr>
-        </tbody>
-  
-</table>
-
-    <div class="mapa">
-    <xp-map></xp-map>
-    <br>
-
-
-<p class="subtitle">Ratings</p>
-<div>
-    <table>
-        <tbody>
-            <tr *ngFor="let e of tour.tourRating" >
-                <td class="cpp">
-                    <div class="cardcp">
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Comment:</span>{{e.comment}}</span></div>
-                            <br>
-                            <div><span><span class="cps2">Rating:</span>{{e.rating}}</span></div>
-                            <br>
-                        </span>
-                        <span class="cps1">
-                            <br>
-                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
-                            <div><span><span class="cps2">Creation Date:</span>{{ e.creationDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
-                        </span>
-                        <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
-                            <mat-icon>edit</mat-icon>
-                        </button> 
-                    </div>
-                  
-                </td>
-             
-                
-            </tr>
-        </tbody>
-  
-</table>
-<div>
-    <p>Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
-</div>
-</div>
-    <div class="routingButton">
-        <div>
-            <button mat-raised-button class="navButton" (click)="onBack()">Back</button>
+            <table id="tour-details-table">
+                <tr>
+                    <th>Location:</th>
+                    <td>{{location}}</td>
+                </tr>
+                <tr>
+                    <th>Price:</th>
+                    <td><span *ngIf="isTourOnSale" class="old-price"><s>{{tour.price}} 💰</s> </span><span class="price">{{tour.salePrice}} 💰</span></td>
+                </tr>
+                <tr>
+                    <th>Difficulty:</th>
+                    <td>{{tour.demandignessLevel}}</td>
+                </tr>
+                <tr *ngFor="let tt of tour.tourTime">
+                    <th>{{ getFormattedTransportation(tt.transportation) }}</th>
+                    <td>{{(tt.distance/1000).toFixed(2)}} km ({{(tt.timeInSeconds/3600).toFixed(0)}} h {{((tt.timeInSeconds%3600)/60).toFixed(0)}} min)</td>
+                </tr>    
+            </table>
+            <p class="description"><b>Description:</b></p>
+            <p class="description-text">{{tour.description}}</p>
+        
+            <div *ngIf="tour.equipment.length > 0">
+                <p class="subtitle">Required equipment</p>
+                <hr>
+            
+                <div class="scrollable-table">
+                    <table>
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor="let e of tour.equipment">
+                                <td>{{e.name}}</td>
+                                <td>{{e.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            <div class="routing-buttons">
+                <button mat-raised-button class="button nav" (click)="onBack()">All tours</button>
+                <button mat-raised-button class="button shop" (click)="rateTour(tour)">Rate</button>
+                <button mat-raised-button class="button shop" (click)="onAddToCart(tour)" [disabled]="isTourInCart" [ngStyle]="{ 'background-color': buttonColor }">Add to cart🛒</button>
+            </div>
         </div>
-        <div>
-            <button mat-raised-button class="shopButton" (click)="rateTour(tour)">Rate</button>
-        </div>
-        <div>
-            <button mat-raised-button class="shopButton" (click)="onAddToCart(tour)" [disabled]="isTourInCart" [ngStyle]="{ 'background-color': buttonColor }">Add to cart🛒</button>
+
+        <div class="checkpoint-image-container">
+            <img class="checkpoint-image" *ngIf="tour && tour.checkpoint && tour.checkpoint.pictures && tour.checkpoint.pictures.length > 0" [src]="getImageUrl(tour.checkpoint.pictures[0])">
+            <p *ngIf="tour.tourRating.length > 0" class="subtitle" style="margin-bottom: 6px;">Ratings</p>
+            <div *ngIf="tour.tourRating.length > 0" class="ratings">
+                <div *ngFor="let e of tour.tourRating" class="rating-item">
+                    <label class="rating-date-label">({{ e.creationDate | date:'dd/MM/yyyy' }})</label>
+                    <div>
+                        <strong>Comment:</strong> {{ e.comment }}
+                    </div>
+                    <div>
+                        <strong>Tour Date:</strong> {{ e.tourDate | date:'dd/MM/yyyy HH:mm' }}
+                    </div>
+                    <div class="all-stars">
+                        <label style="color: rgb(0, 0, 0); font-size: large; font-weight: 400; margin-right: 4px;">{{e.rating}}</label>
+                        <label *ngIf="e.rating < 1; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 2; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 3; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 4; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <label *ngIf="e.rating < 5; else fullStar" class="star" data-text="&#9733;">&#9734;</label>
+                        <ng-template #fullStar><label class="star" data-text="&#9733;">&#9733;</label></ng-template>
+                    </div>
+                    <button *ngIf="isTouristRating(e)" (click)="editRating(e)" color="primary" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <p style="font-size: 22px;">Average Rating: {{ tourAvarageRating | number:'1.2-2' }}</p>
+            <button *ngIf="canSeeRecommendedTours()" class="button shop" (click)="seeRecommendedTours()">See recommended tours</button>
         </div>
     </div>
 </div>
-</div>
+

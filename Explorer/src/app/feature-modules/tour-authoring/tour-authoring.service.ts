@@ -15,6 +15,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { PublicCheckpoint } from '../tour-execution/model/public_checkpoint.model';
 import { PublicTour } from '../marketplace/model/public-tour.model';
 import { PrivateTour } from './model/private-tour.model';
+import { CheckpointStatistics } from './model/checkpoint-statistics.model';
 
 
 @Injectable({
@@ -53,15 +54,16 @@ export class TourAuthoringService {
     return this.http.delete<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + id);
   }
 
-  addCheckpoint(checkpoint: Checkpoint, status: string): Observable<Checkpoint> {
+  addCheckpoint(checkpoint: FormData, status: string): Observable<Checkpoint> {
     return this.http.post<Checkpoint>(environment.apiHost +`administration/checkpoint/create/${status}`, checkpoint);
   }
 
-  updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint> {
-    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpoint.id, checkpoint);
+  updateCheckpoint(checkpointId: number, checkpoint: FormData): Observable<Checkpoint> {
+    console.log(checkpointId);
+    return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/' + checkpointId, checkpoint);
   }
 
-  addCheckpointSecret(checkpointSecret: CheckpointSecret,id:number): Observable<Checkpoint> {
+  addCheckpointSecret(checkpointSecret: FormData, id: number): Observable<Checkpoint> {
     return this.http.put<Checkpoint>(environment.apiHost + 'administration/checkpoint/createSecret/' + id, checkpointSecret);
   }
 
@@ -201,5 +203,42 @@ export class TourAuthoringService {
 
   addTourToBundle(bundleId: number, tourId: number): Observable<TourBundle>{
     return this.http.put<TourBundle>(environment.apiHost + 'administration/tour-bundle/add-tour/' + bundleId + '/' + tourId, null);
+  }
+
+  getAuthorsSoldToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/soldToursNumber/' + authorId);
+  }
+
+  getAuthorsStartedToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/startedToursNumber/' + authorId);
+  }
+
+  getAuthorsFinishedToursNumber(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/finishedToursNumber/' + authorId);
+  }
+
+  getAuthorsTourCompletionPercentage(authorId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourCompletitionPercentage/' + authorId);
+  }
+
+  getToursInCompletionRangeCount(authorId: number, minPercentage: number, maxPercentage: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourCompletitionRangeCount/' + authorId + '/' + minPercentage + '/' + maxPercentage);
+  }
+
+  //checkpint statistics
+  getTourSalesCount(authorId: number, tourId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourSalesCount/' + authorId + '/' + tourId);
+  }
+
+  getTourStartingsCount(authorId: number, tourId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourStartingsCount/' + authorId + '/' + tourId);
+  }
+
+  getTourFinishingCount(authorId: number, tourId: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + 'administration/tourStatistics/tourFinishingCount/' + authorId + '/' + tourId);
+  }
+
+  getCheckpointStatistics(tourId: number): Observable<CheckpointStatistics[]>{
+    return this.http.get<CheckpointStatistics[]>(environment.apiHost + 'administration/tourStatistics/tourCheckpointsStatistics/' + tourId);
   }
 }

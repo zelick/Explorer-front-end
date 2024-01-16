@@ -1,6 +1,10 @@
 .row {
+    background-color: #3B846B;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding-top: 20px;
+    height: auto;
+    min-height: 100%;
 }
 
 .tour-bundle-details {
@@ -10,22 +14,33 @@
 
 .tour-bundle-list {
     width: 70%;
+    left: auto;
+    right: auto;
     overflow-y: auto;
-    height: 80vh;
+    overflow-x: hidden;
+    height: 80%;
 }
 
 .tour-bundle-table {
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .tour-bundle {
-    width: 100%;
+    max-width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    background-color: #F7F6DC;
+    justify-content: start;
     height: auto;
-    border-bottom: 2px solid #E67840;
+    border: 3px solid #E67840;
+    border-radius: 15px;
+    margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 .left {
@@ -43,7 +58,41 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.price {
+.tour-horizontal-container {
+  display: flex;
+  left: auto;
+  width: auto;
+  right: auto;
+  overflow-x: scroll;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  column-gap: 2.5%;
+  margin-left: 20px;
+  margin-right: 20px;
+  grid-row: auto;
+  justify-content: start;
+  max-width: 100%;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle (thumb) of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: #E67840; /* Color of the thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Track (the area on which the thumb moves) of the scrollbar */
+::-webkit-scrollbar-track {
+  background-color: #B6D4AF; /* Color of the track */
+  border-radius: 10px;
+}
+
+/* .price {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -53,20 +102,16 @@
     margin: 0;
     display: flex;
     align-items: center;
-}
+} */
 
 .amount {
     margin-right: 4px;
 }
 
-.tour-bundle:hover {
-    background-color: #F7F6DC;
-    cursor: pointer;
-}
 
 .title-container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .title {
@@ -75,62 +120,62 @@
     font-size: 40px;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 10px;
 }
-
-.filters {
-    width: 30%;
-    background-color: #B6D4AF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.filters-label {
-    margin-top: 20px;
-    font-size: x-large;
-    font-weight: 600;
+.tour-offer{
+    font-weight: 400;
     color: #E67840;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
-.filter-fields {
-    display: flex;
-    flex-direction: column;
-    margin-top: 6vh;
-    align-items: center;
-}
-
-.filter-field {
-    width: 125%;
-    text-align: center;
-}
 
 .paginator {
-    color: #3B846B;
+    margin-top: -10px;
+    color: white;
     font-weight: bold;
     font-size: medium;
+    background-color: #3B846B;
 }
 
 .shop-button {
-    width: auto;
-    margin-top: 30px;
-    margin-right: 10px;
+    margin-top: 0px;
+    margin-right: 0px;
     padding: 0px 10px;
-    width: 120px;
+    width: 150px;
     font-size: 100%;
     color: #fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
+    border-bottom-left-radius: 30px;
     cursor: pointer;
 }
-
+.tours-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+    height: auto;
+}
 .tours {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 8px;
-    margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 400px;
-    margin-top: 20px;
+}
+.tours:hover{
+    cursor: pointer;
+    scale: 1.05;
 }
 
 .tour-name {
@@ -140,17 +185,201 @@
     margin-left: 10px;
 }
 
-.blob {
-    position: relative;
-    border-radius: 50% 80% 85% 55% / 60% 40% 80% 60%;
-    width: 100px;
-    height: 100px;
-    background-color: #E67840;
-    content: '';
-    margin-left: 30px;
-}
 
 .tour-price,
 .tour-description {
     margin-left: 10px;
 }
+.price-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+.total-price{
+    font-size: 150%;
+    color: #E67840;
+    font-weight: 600;
+}
+
+.OldPrice {
+    width: fit-content;
+    font-size: 80%;
+    color: #E67840;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    font-size: 125%;
+    position: relative;
+    margin-right: 20px;
+}
+
+.OldPrice::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%, transparent 52.5%);
+}
+
+
+
+
+.tour-card {
+    background-color: #253B34;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px #3b846b15;
+    color: #000;
+    text-align: left;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 5px;
+    margin-bottom: 0px;
+    width: 30%;
+    max-width: 450px;
+    cursor: pointer;
+    height: 46vh;
+    max-height: 400px;
+    min-width: 40vh;
+  }
+  .tour-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
+  .star {
+    font-size:120%;
+    color: #B6D4AF; /* Make the text inside transparent */
+    position: relative;
+    display: inline-block;
+  }
+  .card-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+    height: 55%;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .tour-card-img { 
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover; 
+  }
+  .card-location-header{
+    font-size: 80%;
+    color: white;
+    padding-top: -1%;
+    padding-bottom: -1%;
+    padding-left: 2%;
+    padding-right: 2%; 
+    background-color: #1b332b8e;
+    max-width: 60%;
+    text-wrap: nowrap;
+    height: auto;
+    overflow-x: hidden;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  
+  .card-header{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: white;
+    font-size: 120%;
+    margin-bottom: 4px;
+  }
+  .price{
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .originalprice{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 120%;
+    background-color: #E67840;
+    padding: 2px;
+    color: white;
+    font-weight: 300;
+    border-radius: 3px;
+  }
+  .Oldprice {
+    width: fit-content;
+    padding: 2px;
+    margin-bottom: 5px;
+    background-color: #E67840;
+    font-size: 80%;
+    color: lightgray;
+    opacity: 0.9;
+    font-weight: 200;
+    border-radius: 3px;
+    position: relative;
+}
+
+.Oldprice::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to top left, transparent 47.5%, red 47.5%, red 52.5%, transparent 52.5%);
+}
+  .prices{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .sale{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 140%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .discount{
+    background-color: red;
+    padding: 2px;
+    color: white;
+    font-weight: 500;
+    border-radius: 3px;
+    margin-bottom: -4px;
+  }
+  .last_minute{
+    height: 4vh;
+    width: 7vh;
+    object-fit: cover;
+    overflow: hidden;
+    margin-left: auto;
+    border-radius: 3px;
+  }
+
+
+
+
+

@@ -5,16 +5,43 @@ table {
     min-width: 300px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     margin-left: 100px;
+    text-align: center;
 }
 
 thead tr {
-    background-color: #3B846B;
+    background-color: #E67840;
     color: #ffffff;
     text-align: left;
+    font-size: 15px;
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 5px 5px;
+}
+
+
+.button-table:hover{
+    background-color: #ca4a0a;
+}
+
+td{
+    background-color:#F7F6DC;
+}
+
+.table-fix {
+    border-collapse: collapse;
+    width: 800px;
+    text-align: center; /* Aligns content within the table center */
+}
+
+.table-fix th {
+    border: 1px solid white;
+    font-size: 15px; /* Adjust font size for header content */
+}
+
+.table-fix td {
+    border: 1px solid white;
+    
 }
 
 tbody tr {
@@ -41,10 +68,7 @@ tbody tr.active-row {
 }
 
 .transportation-div{
-    margin: auto;
-    margin-right: 0 auto;
-    margin-top: 20px;
-    margin-right: 100px;
+    background-color:#F7F6DC;
 }
 .button-table{
     width: auto;
@@ -55,7 +79,7 @@ tbody tr.active-row {
     width: 100px;
     font-size: 100%; 
     color:#fff;
-    background-color: #3B846B;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
@@ -80,18 +104,22 @@ tbody tr.active-row {
 
 .buttonAdd{
     width: auto;
-    margin-left: 100px;
+    margin-left: 75%;
     margin-bottom: 10px;
     margin-top: 50px;
     padding: 0px 10px;
-    width: 150px;
+    width: 250px;
     height: 60px;
-    font-size: 100%; 
     color:#fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 50px;
+    font-size:16px;
     cursor: pointer;
+}
+
+.button-route:hover{
+    background-color: #ca4a0a;
 }
 .button-route{
     width: auto;
@@ -102,7 +130,7 @@ tbody tr.active-row {
     padding: 0px 10px;
     width: 120px;
     height: 30px;
-    font-size: 100%; 
+    font-size: 16px; 
     color:#fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -111,10 +139,11 @@ tbody tr.active-row {
 }
 
 .subtitle{
-    font-size: 2vh;
-  color:#E67840;
-  font-style: bold;
-
+    font-size: 4vh;
+    font-weight: bold;
+    color:#E67840;
+    font-style: bold;
+    margin: auto;
 }
 
 .button{
@@ -122,12 +151,13 @@ tbody tr.active-row {
     margin-left: 10px;
     margin-bottom: 15px;
     padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
+    width: 150px;
+    font-size: 150%; 
     color:#fff;
     background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
+    font-size:16px;
     cursor: pointer;
 }
 
@@ -135,19 +165,131 @@ tbody tr.active-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 20px;
     margin-left: 100px;
     margin-right: 100px;
 }
 
 .map-div{
-    width: 1200px;
-    height: 600px;
-    margin-bottom: 20px;
-    margin-left: 170px;
-    margin-top: 0px;
+    width: 1420px;
+    height: 700px;
+    margin-bottom: 0px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: #F7F6DC;
+    border: 1px solid white;
+    padding: 20px;
+    padding-top: 50px;
 }
 .info-table{
     margin-left: 0px;
+    font-size: 2vh;
+    background-color: #F7F6DC;
+    border: 1px solid white;
+    width: 400px;
+}
+
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
+}
+
+.titleMap{
+    font-size: 4vh;
+    font-weight: bold;
+  color:#E67840;
+  font-style: bold;
+    margin-left: 120px;
+    margin-top: 90px;
+}
+
+.buttonAdd:hover{
+    background-color: #ca4a0a;
+}
+.title{
+    font-size: 5vh;
+    font-weight: bold;
+    color:#253B34;
+    font-style: bold;
+    margin-top: 40px;
+    margin-left: 580px;
+    margin-bottom: 0px;
+}
+
+#map-container{
+    width:1420px;
+    height: 600px;
+}
+
+.titleTransport{
+    font-size: 3.7vh;
+    font-weight: bold;
+    color:#E67840;
+    font-style: bold;
+    margin-bottom: 30px;
+
+}
+
+.transportation-div-big{
+    margin: auto;
+    margin-top: 320px;
+    margin-right: 350px;
+    margin-left: -130px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button:hover{
+    background-color: #ca4a0a;
+}
+
+.statistics-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 300px;
+    height: 180px;
+    margin-left: 100px;
+    margin-top: 10px;
+    overflow: hidden;
+    background-color: #B6D4AF;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+.statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.number{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin-left:-5px;
+    margin-top: 45px;
+}
+.text{
+    width: 100%;
+    text-align: center;
+    background-color: #B6D4AF;
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 2vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #253B34;
+    margin-left: 0px;
+}
+.emoji{
+    padding-top: 5vh;
+    font-size: 25px;
+    margin-left: 135px;
 }

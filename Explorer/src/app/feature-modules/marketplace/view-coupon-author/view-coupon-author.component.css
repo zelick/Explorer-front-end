@@ -1,3 +1,17 @@
+#coupon-div{
+    background-color: #253B34;
+    min-height: 100%;
+    margin: auto;
+}
+h1{
+    font-size: 6vh;
+    color:white;
+    padding: 1% 2.5%; 
+    margin: 0 auto;
+    margin-left: 630px;
+    font-weight: 400;
+}
+
 .label-data-div {
     display: flex;
     flex-direction: row;    
@@ -8,16 +22,24 @@
 }
 
 .coupons-list {
-    list-style-type: none;
+    margin: auto;
+    padding: 25px;
+    padding-bottom: 25px;
+    border: 2px solid #3B846B;
+    border-radius: 10px;
 }
 
-.coupon-div {
+.coupons-div {
     display: flex;
     flex-direction: row;
 }
 
 .coupon-buttons {
     padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .coupon-div {
@@ -51,22 +73,21 @@ body {
 }
 
 #create-coupon-div {
-    position:fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
     text-align: center;
-    width: 400px;
+    width: 600px;
+    margin-left: 600px;
 }
 
 #create-coupon-fieldset{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 300px;
     background: #B6D4AF;
     font-size: 24px;
     border: none;
     border-radius: 50px;
+    
 }
 
 legend {
@@ -152,7 +173,148 @@ ul {
 }
 
 #create-coupon-button{
-    width: 110px;
+    width: 160px;
     margin-top: 20px;
-    margin-left: 40px;
+    margin-left: 30%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 0px 10px;
+    font-size: 100%; 
+    color:#fff;
+    height: 50px;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
 }
+
+#create-coupon-button:hover{
+    background-color: #D45A15;
+}
+
+.button-table{
+    width: auto;
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 0px 10px;
+    width: 100px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.emoji{
+    margin-bottom: 20px;
+    margin-left: 150px;
+    margin-top: 20px;
+    font-size: 60px;
+}
+
+.coupons-card {
+    background-color: #B6D4AF;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    padding-top: 20px;
+    color: #253B34;
+}
+
+.coupon-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-data-div {
+    margin-bottom: 8px;
+    margin-left: 10px;
+}
+
+.label {
+    font-weight: bold;
+    color: #E67840;
+    margin-right: 5px;
+}
+
+.data {
+    color: #333; /* Tamnija boja za podatke */
+}
+
+.coupon-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    gap: 50px;
+    margin-left: -40px;
+}
+
+button {
+    font-weight: bold;
+    background-color: #E67840;
+    color: white;
+    height: 30px;
+    width: 70px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease; /* Dodao efekat prelaska boje */
+}
+
+button:hover {
+    background-color: #D45A15; /* Promenjena boja na hover */
+}
+
+.coupon-buttons button {
+    margin-right: 10px; /* Dodaj dodatni razmak između dugmadi */
+}
+
+.code-label,
+.discount-label,
+.status-label,
+.expiration-label {
+    font-size: 16px; /* Manje od koda */
+    font-weight: normal;
+    color: #4CAF50; /* Različita boja za svaku etiketu */
+}
+
+.icon-schedule {
+    font-size: 18px; /* Prilagodi veličinu prema potrebi */
+    vertical-align: middle; /* Postavi ikonicu vertikalno usred teksta */
+    margin-left: 5px; /* Dodaj malo razmaka sa leve strane teksta */
+ }
+
+ .button-container {
+    display: flex;
+    gap: 10px; /* Razmak između dugmeta "Update" i "Cancel" */
+    justify-content: center; /* Centriraj dugmad horizontalno */
+    margin-top: 10px; /* Dodaj malo razmaka iznad dugmeta */
+}
+
+#submit-button {
+    background-color: #E67840;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 8px 15px; /* Dodaj malo prostora oko teksta unutar dugmeta */
+    font-size: 14px;
+}
+
+#submit-button:hover {
+    background-color: #D45A15; /* Promeni boju prilikom hovera */
+}
+
+legend {
+    color: #E67840; /* Boja naslova */
+    font-size: 28px; /* Veličina fonta */
+    font-weight: bold;
+    margin-bottom: 10px; /* Dodaj malo razmaka ispod legende */
+    margin-top: 20px; /* Dodaj beli prostor iznad legende */
+}
+

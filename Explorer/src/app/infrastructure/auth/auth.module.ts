@@ -7,13 +7,16 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { ResetPasswordComponent } from './reset-password/reset-password/reset-password.component';
+import { VerificationSuccessComponent } from './verification-success/verification-success.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ResetPasswordComponent,
+    VerificationSuccessComponent
   ],
   imports: [
     CommonModule,

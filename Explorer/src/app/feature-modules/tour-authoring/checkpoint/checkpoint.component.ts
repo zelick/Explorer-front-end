@@ -12,6 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { Observable } from 'rxjs';
 import { TourTransportFormComponent } from '../tour-transport-form/tour-transport-form.component';
 import { TourTimes } from '../model/tourTimes.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CheckpointComponent implements OnInit{
     tourTimes: TourTime[];
 
 
-    constructor(private service: TourAuthoringService,private activatedRoute:ActivatedRoute,private router:Router) { }
+  constructor(private service: TourAuthoringService, private activatedRoute: ActivatedRoute, private router: Router, private imageService: ImageService) { }
 
     ngOnInit(): void {
       this.activatedRoute.params.subscribe(params=>{
@@ -55,12 +56,12 @@ export class CheckpointComponent implements OnInit{
 
    route(): void{
     let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
-    let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
+    let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description, picture: this.checkpoints[0].pictures![0]}];
     this.checkpoints.forEach(e => {
         if(e != this.checkpoints[0])
         {
           coords.push({lat:e.latitude, lon:e.longitude});
-          coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+          coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures![0]});
         }
     });
     if(coords.length >= 2)
@@ -75,12 +76,12 @@ export class CheckpointComponent implements OnInit{
     if(this.checkpoints != null && this.checkpoints.length > 0)
     {
        let coords: [{lat: number, lon: number}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude}];
-       let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description}];
+       let coordsWithInfo: [{lat: number, lon: number, name: string, desc: string, picture: string}] = [{lat: this.checkpoints[0].latitude, lon: this.checkpoints[0].longitude, name: this.checkpoints[0].name, desc: this.checkpoints[0].description, picture: this.checkpoints[0].pictures![0]}];
        this.checkpoints.forEach(e => {
            if(e != this.checkpoints[0])
            {
              coords.push({lat:e.latitude, lon:e.longitude});
-             coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description});
+             coordsWithInfo.push({lat:e.latitude, lon:e.longitude, name: e.name, desc: e.description, picture: e.pictures![0]});
            }
        });
        this.profiles.forEach(element => {
@@ -220,5 +221,9 @@ export class CheckpointComponent implements OnInit{
 
     onNext(): void{
       this.router.navigate([`tour-details/` + this.tourID]);
-    }
+  }
+  
+  getImageUrl(imageName: string): string {
+    return this.imageService.getImageUrl(imageName);
+  }
 }

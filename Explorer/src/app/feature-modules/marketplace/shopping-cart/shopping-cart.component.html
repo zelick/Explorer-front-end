@@ -1,33 +1,53 @@
 <div id="tour">
-    <br>
-    <br>
-    <br>
     <div class="tours-heading">My shopping cart</div>
-    <div class="wallet-heading">Wallet Balance: {{adventureCoins}} AC</div>
-    <div id="tour-details">
-        <div *ngIf="orderItems.length > 0; else emptyCart">
-            <div class="tour-card" *ngFor="let i of orderItems">
-                <div class="tour-info">
-                    <p>{{i.name}} - {{i.price}} AC</p>
+
+    <div class="cards-container">
+        <div class="left-card">
+            <div *ngIf="orderItems.length > 0; else emptyCart">
+                <div class="tour-card" *ngFor="let i of orderItems; let j = index">
+                    <div class="tour-info">
+                        <div class="image-container"><img [src]="getImageUrl(toursImages[j])"></div>
+                        <div class="card-details-container">
+                            <p>{{i.name}}</p>
+                            <p class="price-p">Price: {{i.price}} AC</p>
+                        </div>
+                    </div>
+                    <div class="tour-actions">
+                        <button color="accent" (click)="removeShopppingCartItem(i)" mat-icon-button style="height: 20px;">❌</button>
+                    </div>
                 </div>
-                <div class="tour-actions">
-                    <button color="accent" (click)="removeShopppingCartItem(i)" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
             </div>
-            <div class="coupon-code-input">
-                <mat-form-field>
-                    <input matInput placeholder="Enter Coupon Code" [(ngModel)]="coupon" class="coupon-input">
-                </mat-form-field>
-            </div>
-            <div class="tours-heading">
-                <div *ngIf="cart">Total price: {{ calculateTotalPrice() }}</div>
-            </div>
-            <button color="primary" class='checkout-button' (click)="checkout()" mat-raised-button>Checkout</button>
         </div>
-        <ng-template #emptyCart>
-            <p id="empty-cart-message">Your shopping cart is empty.</p>
-        </ng-template>
+    
+        <div class="right-card">
+            <p class="total">Total  🛒<p>
+            <hr>
+            <div class="wallet-heading">Wallet Balance: {{adventureCoins}} AC</div>
+            <div id="tour-details">
+                <div *ngIf="orderItems.length > 0;">
+                    <div class="coupon-code-input">
+                        <input placeholder="Enter Coupon Code" [(ngModel)]="coupon" class="coupon-input">
+                        <button class="apply-button" (click)="applyCoupon()">Apply</button>
+                    </div>
+                    <table>
+                        <tr>
+                            <th *ngIf="cart" class="left-th"><span>Subtotal</span> price:</th>
+                            <th *ngIf="cart" class="right-th">{{ calculateSubtotalPrice() }}</th>
+                        </tr>
+                        <tr>
+                            <th *ngIf="cart && coup" class="left-th">Coupon:</th>
+                            <th *ngIf="cart && coup" class="right-th">-{{ calculateDiscount() }}</th>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div *ngIf="cart" class="wallet-heading">💰  Total price: {{ calculateTotalPrice() }}</div>
+                    <button color="primary" class='checkout-button' (click)="checkout()" mat-raised-button>Checkout</button>
+                </div>
+                <ng-template #emptyCart>
+                    <p id="empty-cart-message">Your shopping cart is empty.</p>
+                </ng-template>
+            </div>
+        </div>
     </div>
+    
 </div>

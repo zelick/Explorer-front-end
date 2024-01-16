@@ -5,9 +5,13 @@ p{
   padding: 1% 2.5%; 
   
 }
+.title{
+    font-weight:bold;
+}
 
 .subtitle{
-    font-size: 2vh;
+    font-size: 3vh;
+    font-weight: bold;
   color:#E67840;
   font-style: bold;
 
@@ -16,7 +20,8 @@ p{
     width: auto;
     margin-left: 10px;
     margin-bottom: 15px;
-    padding: 0px 10px;
+    padding: 0px 90px;
+    margin-left:40px;
     width: 120px;
     font-size: 100%; 
     color:#fff;
@@ -26,20 +31,29 @@ p{
     cursor: pointer;
 }
 
+.button:hover{
+    background-color: #dc4900;
+}
+
 th{
     width: 150px;
     text-align: center;
     background-color: #E67840;
-    color: white;
+    color: #ffffff;
 }
 
 td{
     width: 150px;
     text-align: center;
+    color:#E67840;
+    background-color: #c3dfad;
+    font-weight:bold;
 }
 
 .equipment-details-table{
     width: 400x;
+    border-color:red;
+    border-width: 3px;
 }
 
 .routingButton{
@@ -50,31 +64,49 @@ td{
     justify-content: space-between;
 }
 
+
+
 div {
-    width: 400px;
+    width: 500px;
     display:flex;
     gap: 20px;
     flex-direction: column;
+    background-color:#F7F6DC;    border-radius:20px;
 }
 
 #equipment-div{
-    width: 400px;
-    display:flex;
+    width: 500px;
+    border-radius:20px;
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
+    
+    margin-top:40px;
+    margin-bottom:20px;
+    background-color:#F7F6DC;
 }
 
 .buttonPlus{
     width: auto;
     
     margin-top: 10px;
-    
+    margin-bottom: 5px;
     width: 15px;
-    font-size: 100%; 
+    font-size: 200%; 
     color:#fff;
-    background-color: #3B846B;
+    background-color: #E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
     cursor: pointer;
+}
+.buttonPlus:hover{
+    background-color: #dc4900;
+
+}
+
+body{
+    background-color: #3B846B!important;
+    height: 100%;
+    margin: 0;
+    overflow:auto;
 }

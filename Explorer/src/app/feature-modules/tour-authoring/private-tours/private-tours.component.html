@@ -1,7 +1,5 @@
 
-    <body>
-    <div style="height: 50px"></div>
-    <h1>Your private tours</h1>
+<body>
     <div>
         <table>
             <tbody>
@@ -11,7 +9,7 @@
                             <div class="ch">{{ t.name }}</div>
                             <div class="card">
                                 <div class="image-container">
-                                    <img [src]="t.checkpoints[0].pictures[0]" width="140" height="140">
+                                    <img [src]="getImageUrl(t.checkpoints[0].pictures[0])" width="140" height="140">
                                 </div>
                                 <div class="rightCardPart">
                                     <div>

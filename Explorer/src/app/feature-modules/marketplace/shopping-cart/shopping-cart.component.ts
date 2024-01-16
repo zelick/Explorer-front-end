@@ -7,6 +7,8 @@ import { OrderItem } from '../model/order-item.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Injectable } from '@angular/core';
 import { TouristWallet } from '../model/tourist-wallet.model';
+import { Coupon } from '../model/coupon.model';
+import { ImageService } from 'src/app/shared/image/image.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,21 +26,38 @@ export class ShoppingCartComponent implements OnInit{
   cartItemCount : number;
   adventureCoins: number;
   coupon: string;
+  coup: Coupon;
+  toursImages: string[] = []; // Just first pictures
 
-  constructor(private service: MarketplaceService,private authService: AuthService,private router:Router) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.coupon = '';
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.service.getShoppingCart(this.user.id).subscribe({
         next: (result: ShoppingCart) => {
           this.cart = result;
           this.orderItems = this.cart.items;
-          this.getAdventureCoins()
+          this.getAdventureCoins();
+  
+          const fetchImagePromises = this.orderItems.map(item =>
+            this.service.getPublishedTour(item.itemId).toPromise()
+              .then((result: any) => result.checkpoint.pictures[0])
+              .catch(error => {
+                console.log('Error occurred while fetching tours: ' + error);
+                return null;
+              })
+          );
+  
+          Promise.all(fetchImagePromises).then(tourImages => {
+            this.toursImages = tourImages;
+          });
         },
       });
     });
   }
+  
 
   getAdventureCoins(): void {
     this.service.getAdventureCoins(this.user.id).subscribe({
@@ -48,8 +67,35 @@ export class ShoppingCartComponent implements OnInit{
     });
   }
   
-  calculateTotalPrice(): number {
+  calculateTotalPrice(){
+    if(this.coup){
+      return this.calculateSubtotalPrice() - this.calculateDiscount();
+    }
+    return this.calculateSubtotalPrice();
+  }
+
+  calculateSubtotalPrice(): number {
     return this.orderItems.reduce((total, item) => total + item.price, 0);
+  }
+
+  calculateDiscount(): number{
+    return this.calculateSubtotalPrice()*(this.coup.discountPercentage/100);
+  }
+
+  applyCoupon(){
+    if(this.coupon != ''){
+      this.service.getByCode(this.coupon).subscribe(
+        (result)=>{
+          this.coup = result;
+        },
+        (error)=>{
+          console.log('Error: ' + error);
+        }
+      )
+    }
+    else{
+      alert('Wrong coupon input!');
+    }
   }
 
   checkout() {    
@@ -84,4 +130,10 @@ export class ShoppingCartComponent implements OnInit{
       this.service.updateCartItemCount(this.cart.items.length); 
     });
   };
+
+  getImageUrl(imageName: string): string {
+    if (imageName == undefined) return 'https://i.pinimg.com/736x/a7/3c/bf/a73cbfbcf18054bf31ee42e6453c5d94.jpg';
+    
+    return this.imageService.getImageUrl(imageName);
+  }
 }

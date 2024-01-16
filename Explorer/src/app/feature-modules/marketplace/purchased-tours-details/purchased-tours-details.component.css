@@ -1,160 +1,190 @@
-
-.tour-details {
-    width: 680px;
-    display:flex;
-    gap: 20px;
-    flex-direction: column;
-    margin: 0 auto;
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #253B34;
+    height: auto;
 }
 
+.tour-card {
+    width: 680px;
+    background-color: #B6D4AF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    font-family: 'Poppins', sans-serif;
+}
 
-th{
-    width: 340px;
-    text-align: center;
+.tour-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative; 
+    border-bottom: 2px solid #E67840; 
+    padding-bottom: 10px;
+}
+
+.top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tour-title {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px; 
+    padding-top: 2vh;
+}
+
+.tour-price {
+    font-size: 18px;
+    color: white;
+    background-color: #E67840;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    align-self: flex-end;
+    margin-bottom: 45px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tag {
+    margin-right: 5px;
+    margin-bottom: 5px;
     background-color: #E67840;
     color: white;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
 }
 
-.buttonEdit{
-    width: auto;
-    margin-left: 0px;
-    margin-bottom: 50px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
+.subtitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 4vh;
+    font-family: 'Poppins', sans-serif;
 }
 
-.buttonBack{
-    width: auto;
-    margin-left: 0px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
+.detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 
-.buttonDelete{
-    width: auto;
-    margin-left: 170px;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-
-td{
-    width: 340px;
-    text-align: center;
-
-}
-.cardcp{
-    width: 600px;
-    display:flex;
-    column-gap: 150px;
-    flex-direction: row;
-    justify-content:justify;
-    background-color: #B6D4AF;
-
-}
-
-.cps2{
-font-weight: 1000;
-}
-
-.cps1{
-    width: 150px;
-}
-#tour-title{
-    font-size: 24px;
+.detail-label {
+    flex-basis: 30%; 
+    margin-right: 2%;
     font-weight: bold;
 }
 
-#tour-details{
-    padding-top: 25px;
-    padding-left: 25px;
+.detail-value {
+    flex-basis: 68%;
+    word-wrap: break-word;
 }
 
-
-
-
-.mapa{
-    width: 680px;
-    height: 400px;
+.checkpoint-list {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
 }
 
-p{
-    margin: 0 auto;
-    font-size: 4vh;
-  color:#E67840;
-  padding: 1% 2.5%; 
-  
-}
-
-.subtitle{
-    font-size: 2vh;
-  color:#E67840;
-  font-style: bold;
-
-}
-
-.cppi{
-    width: 80px;
-    height: 90px;
-    text-align: left;
-    border: 2px solid #3B846B;
-
-}
-
-.cpp{
-    width: 200px;
-    text-align: left;
- 
-}
-.routingButton{
-    width: 680px;
-    display:flex;
-    gap: 15px;
-    flex-direction: row;
+.routing-button {
+    display: flex;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
-.navButton{
-    width: auto;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color: #3B846B;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
-}
-.shopButton{
-    width: auto;
-    margin-bottom: 15px;
-    padding: 0px 10px;
-    width: 120px;
-    font-size: 100%; 
-    color:#fff;
-    background-color:#E67840;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 100px;
-    cursor: pointer;
+.checkpoint-card {
+    display: flex;
+    background-color: #F7F6DC;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.checkpoint-card .details {
+    flex: 1;
+    padding: 15px;
+}
+
+.checkpoint-card .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.checkpoint-card .detail-label,
+.checkpoint-card .detail-value {
+    width: 48%;
+}
+
+.checkpoint-card .picture-container img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.check-point-name {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #E67840;
+    padding-bottom: 5px;
+}
+
+.equipment-list {
+    margin-top: 20px; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equipment-item {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    background-color: #F7F6DC;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; 
+    flex-basis: 100%;
+    white-space: nowrap;
+}
+
+.equipment-item .detail-label {
+    font-weight: bold;
+}
+
+.equipment-item .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.equipment-item .detail-value {
+    flex-basis: 68%;
+}
+
+
+.navButtonBack{
+    background-color: #F7F6DC;
+}
+
+.navButtonStart{
+    background-color: #253B34;
+    color: #F7F6DC;
+}

@@ -1,6 +1,5 @@
 <div id="map-objects">
-    <p>Map Objects</p>
-    <hr>
+    <h1>Map Objects</h1>
     <div id="map-object-details">
         <div>
             <table>
@@ -25,7 +24,7 @@
                         <td>{{ mapObject.description }}</td>
                         <td>
                             <picture>
-                                <img [src]="mapObject.pictureURL" alt="Map Object image" width="100" height="100">
+                                <img [src]="getImageUrl(mapObject.pictureURL)" alt="Map Object image" width="100" height="100">
                             </picture>
                         </td>
                         <td colspan="2">

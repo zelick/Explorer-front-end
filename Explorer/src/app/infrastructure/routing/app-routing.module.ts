@@ -29,7 +29,7 @@ import { CheckpointRequestReviewComponent } from 'src/app/feature-modules/admini
 import { BlogPostTableComponent } from 'src/app/feature-modules/blog/blog-post-table/blog-post-table.component';
 import { BlogPostComponent } from 'src/app/feature-modules/blog/blog-post/blog-post.component';
 import { BlogPostManagementComponent } from 'src/app/feature-modules/blog/blog-post-management/blog-post-management.component';
-import { SimulatorComponent } from 'src/app/feature-modules/marketplace/simulator/simulator.component';
+import { SimulatorComponent } from 'src/app/feature-modules/tour-execution/simulator/simulator.component';
 import { SocialProfileComponent } from 'src/app/feature-modules/user-social-profile/social-profile/social-profile.component';
 import { ObjectRequestReviewComponent } from 'src/app/feature-modules/administration/object-request-review/object-request-review/object-request-review.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
@@ -60,23 +60,28 @@ import { CreateCouponFormComponent } from 'src/app/feature-modules/marketplace/c
 import { ViewCouponAuthorComponent } from 'src/app/feature-modules/marketplace/view-coupon-author/view-coupon-author.component';
 import { TouristEncounterFormComponent } from 'src/app/feature-modules/encounters/tourist-encounter-form/tourist-encounter-form.component'; 
 import { EncounterRequestComponent } from 'src/app/feature-modules/encounters/encounter-request/encounter-request.component';
+import { TourRecommendationsComponent } from 'src/app/feature-modules/tour-execution/tour-recommendations/tour-recommendations.component';
+import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
+import { CheckpointStatisticsComponent } from 'src/app/feature-modules/tour-authoring/checkpoint-statistics/checkpoint-statistics.component';
+import { TouristCurrentPositionComponent } from 'src/app/feature-modules/tourist-current-position/tourist-current-position.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password/reset-password.component';
+import { VerificationSuccessComponent } from '../auth/verification-success/verification-success.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'reset-password/:secureToken', component: ResetPasswordComponent},
   { path: 'my-profile', 
     component: MyProfileComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'profile-info', pathMatch: 'full'}, 
-      // TODO -> administrator should open accounts first
+      { path: '', redirectTo: 'notifications', pathMatch: 'full'}, 
       //ADMIN
       { path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
       { path: 'grade-review', component: GradeReviewComponent, canActivate: [AuthGuard], },
       { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
-      { path: 'object-request-review', component: ObjectRequestReviewComponent, canActivate: [AuthGuard]},
       { path: 'checkpoint-request-review', component: CheckpointRequestReviewComponent, canActivate: [AuthGuard]},
 
       //TOURIST and AUTHOR
@@ -88,7 +93,6 @@ const routes: Routes = [
       { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard], },
       { path: 'tour-overview', component: TourOverviewComponent, canActivate:[AuthGuard]},
       { path: 'tour-overview-details/:id', component:TourOverviewDetailsComponent, canActivate: [AuthGuard]},
-      { path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard] },
       { path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard] },
       { path: 'tour-bundles', component: TourBundleTableComponent, canActivate:[AuthGuard] },
       //{ path: 'purchased-tours-details/:id', component: PurchasedToursDetailsComponent, canActivate: [AuthGuard] },
@@ -117,6 +121,8 @@ const routes: Routes = [
       { path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard] },
       { path: 'sales-form/:id', component: SaleFormComponent, canActivate: [AuthGuard],},
       { path: 'sales', component: SaleComponent, canActivate: [AuthGuard], },
+      { path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
+      { path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
 
       //ALL USERS
       { path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard] },
@@ -132,8 +138,6 @@ const routes: Routes = [
   {path: 'clubMembershipRequests/:id', component: ClubMembershipRequestComponent},
   {path: 'profile-info', component: ProfileAdministrationComponent},
   {path: 'accounts', component: AccountsManagementComponent, canActivate: [AuthGuard],},
-  {path: 'reported-issues', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
-  {path: 'reported-issues/:id', component: ReportedIssuesComponent, canActivate: [AuthGuard],},
   {path: 'reporting-issues', component: ReportingIssueComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent, canActivate: [AuthGuard]},
   {path: 'map-object', component: MapObjectComponent, canActivate: [AuthGuard]},
@@ -148,7 +152,6 @@ const routes: Routes = [
   {path: 'tour-details/:id', component: TourDetailsComponent, canActivate: [AuthGuard]},
   {path: 'blogs', component: BlogPostTableComponent, canActivate: [AuthGuard]},
   {path: 'blogs/:id', component: BlogPostComponent, canActivate: [AuthGuard]},
-  {path: 'my-blogs', component: BlogPostManagementComponent, canActivate: [AuthGuard]},
   {path: 'club-members/:id', component: ClubMembersComponent},
   {path: 'invitations', component: ClubInvitationsComponent},
   {path: 'tour-rating', component: TourRatingComponent, canActivate: [AuthGuard]},
@@ -159,7 +162,6 @@ const routes: Routes = [
   {path: 'tour-overview',component:TourOverviewComponent,canActivate:[AuthGuard]},
   {path: 'tour-overview-details/:id',component:TourOverviewDetailsComponent,canActivate:[AuthGuard]},
   {path: 'tour-rating-form', component: TourRatingFormComponent, canActivate: [AuthGuard]},
-  {path: 'simulator', component: SimulatorComponent, canActivate:[AuthGuard]},
   {path: 'social-profile', component: SocialProfileComponent, canActivate:[AuthGuard]},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'purchased-tours', component: PurchasedToursComponent, canActivate: [AuthGuard]},
@@ -185,6 +187,12 @@ const routes: Routes = [
   {path: 'view-coupons', component: ViewCouponAuthorComponent, canActivate: [AuthGuard]},
   {path: 'tourist-encounter-form', component: TouristEncounterFormComponent, canActivate: [AuthGuard],},
   {path: 'encounter-request', component: EncounterRequestComponent, canActivate: [AuthGuard]},
+  {path: 'tour-recommendation/:id', component: TourRecommendationsComponent, canActivate: [AuthGuard]},
+  {path: 'tour-statistics', component: TourStatisticsComponent, canActivate: [AuthGuard], },
+  {path: 'tour-checkpoint-statistics/:id', component: CheckpointStatisticsComponent, canActivate: [AuthGuard]},
+  {path: 'current-location',component:TouristCurrentPositionComponent,canActivate:[AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
+  {path: 'verification-success', component: VerificationSuccessComponent}
 ];
 
 @NgModule({

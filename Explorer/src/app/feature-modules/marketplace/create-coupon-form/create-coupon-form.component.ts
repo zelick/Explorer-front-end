@@ -59,4 +59,8 @@ export class CreateCouponFormComponent implements OnInit{
         this.selectedTourId = selectedTourId;
     }
 
+    cancelUpdate() {
+      this.router.navigate([`/view-coupons`]);
+    } 
+
 }

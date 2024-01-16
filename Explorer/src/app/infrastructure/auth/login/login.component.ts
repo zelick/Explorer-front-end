@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../model/login.model';
 import { Observable } from 'rxjs';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'xp-login',
@@ -13,7 +14,15 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
 
   isVerified: Observable<boolean>
+  user:User|undefined;
+  sentEmail: boolean = false
+  enterUsername: boolean = false
+  forgottenPassword: boolean = false
 
+  forgotPassword(): void {
+    //event.preventDefault();
+    
+  }
   constructor(
     private authService: AuthService,
     private router: Router
@@ -32,24 +41,55 @@ export class LoginComponent {
     };
 
     if (this.loginForm.valid) {
-      this.authService.isUserVerified(this.loginForm.value.username || "").subscribe((isVerified: boolean) => {
-        if (isVerified) {
           this.authService.login(login).subscribe({
             next: () => {
-              this.router.navigate(['/']);
+
+              this.authService.user$.subscribe(user => {
+                this.user = user;
+                console.log("Ulogovani turista je")
+                console.log(this.user)
+                if(this.user.role==="tourist")
+                {
+                  this.router.navigate(['current-location']);
+                }else{
+                  this.router.navigate(['/']);
+                }
+              })
+
+             
             },
             error: (error)=>{
             console.error('Login failed:', error); // Log the error for debugging
-            alert('Incorrect username or password!');
+            alert('Incorrect username or password or user is not verified!');
+            this.forgottenPassword = true;
           }
           });
         } else {
           // Korisnik nije verifikovan, obradite ovaj slučaj
         }
-      });
+  }
+
+  sendEmail(event: Event): void {
+    event.preventDefault();
+    const eneteredUsername = this.loginForm.value.username || ""
+    
+    if(eneteredUsername === ""){
+      this.enterUsername = true;
+      this.sentEmail = false;
+      alert("Please, enter your username and then click the forgot password link.")
     }
-    else{
-      alert('Please fill in both username and password.');
+    else {
+      this.authService.sendPasswordResetEmail(eneteredUsername).subscribe({
+        next: (result: boolean) => {
+            this.sentEmail = true;
+            this.enterUsername = false;
+            alert("We have sent you an email containing a link, through which you can reset your password. This link expires in next two hours.")
+        },
+        error: () => {
+            // Handle errors
+        }
+    });
     }
   }
+
 }

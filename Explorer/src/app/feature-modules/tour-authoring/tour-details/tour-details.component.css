@@ -4,14 +4,35 @@
     gap: 20px;
     flex-direction: column;
     margin: 0 auto;
+
 }
 
 
+
+.tour-details-table{
+    background-color:  #B6D4AF;
+}
+
+.title{
+    color: #1e6149;
+    font-size: 6vh;
+    font-size: 700;
+}
+
+.tour-div{
+    background-image: url('./login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 1550px;
+}
+
 th{
-    width: 340px;
+    width: 250px;
+    height: 35px;
     text-align: center;
-    background-color: #E67840;
-    color: white;
+    background-color:#3B846B;
+    color: black;
+    font-size: 2.3vh;
 }
 
 .buttonEdit{
@@ -56,7 +77,6 @@ th{
 
 .buttonDelete{
     width: auto;
-    margin-left: 170px;
     margin-bottom: 15px;
     padding: 0px 10px;
     width: 120px;
@@ -92,17 +112,19 @@ th{
     cursor: pointer;
 }
 td{
-    width: 340px;
+    width: 450px;
     text-align: center;
-
+    font-size: 2.1vh;
+    font-weight: 500;
 }
 .cardcp{
-    width: 800px;
+    width: 733px;
     display:flex;
     column-gap: 50px;
     flex-direction: row;
     justify-content:justify;
-    background-color: #B6D4AF;
+    background-color:  #B6D4AF;
+    border-radius: 5px;
 
 }
 
@@ -120,7 +142,7 @@ color:#3B846B
 }
 
 .cps1{
-    width: 350px;
+    width: 300px;
     margin-left: 15px;
 }
 #tour-title{
@@ -135,8 +157,14 @@ color:#3B846B
 
 
 .mapa{
-    width: 1300px;
-    height: 400px;
+    margin-left: -400px;
+    width: 1500px;
+    height: 500px;
+    background-color: rgb(37, 60, 53, 0.8);
+}
+
+.mapspan{
+    font-size: 3vh;
 }
 
 p{
@@ -148,7 +176,7 @@ p{
 }
 
 .subtitle{
-    font-size: 2vh;
+    font-size: 4vh;
   color:#E67840;
   font-style: bold;
 
@@ -162,23 +190,20 @@ img{
 .cpmp{
     font-size: 7vh;
     text-align: right;
-    margin-left: 125px;
+    margin-left: 50px;
     margin-top: 60px;
 }
 .cpp{
-    width: 200px;
+    width: 150px;
     text-align: left;
      border: #3B846B solid 5px;
+     border-radius: 15px;
 
 }
 .routingButton{
-    width: 1200;
-    display:flex;
-    margin-right: 60px;
-    margin-left: 60px;
-    gap: 15px;
-    flex-direction: row;
-    justify-content: space-between;
+    width: 1500px;
+
+    background-color: rgb(37, 60, 53, 0.8);
 }
 .secretdiv{
     background-color: #B6D4AF;
@@ -203,6 +228,10 @@ img{
     height: 30px;
 
 }
+.secretb:hover{
+    background-color: #0d4b36;
+
+}
 .nextbtn{
     margin-bottom: 0.5cm;
     font-size: 100%; 
@@ -213,6 +242,11 @@ img{
     cursor: pointer;
     width: 25px;
     height: 20px;
+
+}
+
+.nextbtn:hover{
+    background-color: #053423;
 
 }
 .secret-span{
@@ -228,14 +262,8 @@ textarea {
     resize: none;
     margin-left: 10px;
   }
-.managing-tour-div{
-    width: 200px;
-    height: 200px;
-    border: 2px solid #E67840;
-    margin: 50px auto;
-    margin-top:190px;
-    background-color: #B6D4AF;
-    text-align: center;
+.managing-tour-div{   
+        margin: 20px auto;
 }
 
 .tour-div{
@@ -245,9 +273,7 @@ textarea {
 }
 
 .checkpoint-div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    width: 500px;
 }
 
 .managing-transport-div{
@@ -283,4 +309,187 @@ textarea {
     border-color:#E67840;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+}
+
+.tacp{
+    width: 8cm;
+
+}
+
+.backButton{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color: #E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+.deleteButton{
+    width: auto;
+    margin-left: 240px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+.editButton{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+.archiveButton{
+    width: auto;
+    margin-left: 500px;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+
+.archiveButton:hover{
+    background-color: #dc4900;
+
+}
+
+.backButton:hover{
+    background-color: #dc4900;
+
+}
+
+.editButton:hover{
+    background-color: #dc4900;
+
+}
+
+.buttonTourStatistics:hover{
+    background-color: #dc4900;
+
+}
+
+.deleteButton:hover{
+    background-color: #dc4900;
+
+}
+
+.infodiv{
+    margin-left: -400px;
+    width: 1500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.linfo{
+    background-color: rgb(37, 60, 53, 0.8);
+    border: #1e6149 solid 3px;
+    border-radius: 10px;
+    width: 700px;
+}
+
+.transportth{
+    background-color: #62b598;
+}
+
+.descriptiontd{
+    height: 150px;
+    border-top: #E67840 solid 0.5px;
+
+}
+
+.equipmentdiv{
+    background-color: rgb(37, 60, 53, 0.8);
+    width: 800px;
+    height: 600px;
+    border: #1e6149 solid 3px;
+    border-radius: 10px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.equipmentth{
+    background-color:#d5e8d1;
+}
+.equipmentthd{
+    background-color: #d5e8d1;
+    width: 400px;
+}
+.tablecards{
+    border-top: #E67840 solid 0.5px; ;
+}
+
+select{
+    width: 100;
+    background-color:#d5e8d1 ;
+}
+
+.transportationspan{
+    color: #E67840;
+    font-size: 400;
+}
+
+.buttonTourStatistics{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+.buttonTourStatistics2{
+    width: auto;
+    padding: 0px 10px;
+    width: 120px;
+    font-size: 100%; 
+    color:#fff;
+    background-color:#E67840;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+    cursor: hand;
+}
+.p{
+    text-align: center;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scroller::-webkit-scrollbar-thumb {
+    background-color: #E67840; /* Color of the thumb */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute;
+    left: 5px; 
+  }
+  
+  .scroller::-webkit-scrollbar-track {
+    background-color: #B6D4AF; /* Color of the track */
+    border-radius: 10px;
+    position: absolute;
+    left: 5px; 
+  }
+.scroller{
+    overflow-y: auto;
+    height: 100%;
+    position: relative;
 }

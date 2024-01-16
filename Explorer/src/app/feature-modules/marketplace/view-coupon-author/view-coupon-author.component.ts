@@ -28,6 +28,7 @@ export class ViewCouponAuthorComponent implements OnInit{
   isGlobal: boolean = false;
   selectedTourId: number | null;
   selectedCoupon: Coupon | undefined;
+  isEditing: boolean = false;
   
 
   ngOnInit(): void {
@@ -58,6 +59,8 @@ export class ViewCouponAuthorComponent implements OnInit{
   }
 
   editCoupon(coupon: Coupon): void {
+    this.isEditing = true;
+
     this.selectedCoupon = coupon;
 
     this.discountPercentage = coupon.discountPercentage;
@@ -86,11 +89,23 @@ export class ViewCouponAuthorComponent implements OnInit{
         this.selectedTourId = null;
         this.getCoupons();
       });
+      this.isEditing = false;
     }
   }
 
   onCreateCoupnClick(): void {
     this.router.navigate([`/create-coupon`]);
   }
+
+  getGlobalStatusText(isGlobal: boolean, tourId: number): string {
+    if (!isGlobal)
+    return 'Coupon for tour ' + this.tours.filter(t => t.id == tourId)[0].name;
+  else
+    return 'Global coupon';
+  }
+
+  cancelUpdate() {
+    this.isEditing = false;
+  } 
 
 }

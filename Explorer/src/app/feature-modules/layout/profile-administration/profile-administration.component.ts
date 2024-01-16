@@ -1,10 +1,12 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProfileInfo } from '../model/profileInfo.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { ImageService } from 'src/app/shared/image/image.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Tourist } from '../model/tourist.model';
 
 @Component({
   selector: 'xp-profile-administration',
@@ -20,20 +22,28 @@ export class ProfileAdministrationComponent implements OnInit{
     private router: Router
   ) {}
 
-  isEditing = false;
+  isEditing = true;
+  isTourist = false;
+  showForm = false;
+  user: User; //logged
+  currentUser: ProfileInfo; //profile;
+  tourist: Tourist;
 
   startEditing() {
-    this.isEditing = true;
+    this.isEditing = true; //izbaci
+    this.showForm = true;
   }
 
   saveChanges() {
-    if (this.profileInfoForm.valid) {
+    /*if (this.profileInfoForm.valid) {
       this.isEditing = false; 
-    }
+    }*/
     this.edit()
+    this.showForm = false;
   }
 
   ngOnInit(): void {
+    this.checkUserRole();
     this.layoutService.fetchCurrentUser().subscribe((user) => {
       this.profileInfoForm.patchValue({
         id: user.id,
@@ -45,10 +55,60 @@ export class ProfileAdministrationComponent implements OnInit{
         biography: user.biography,
         motto: user.motto,
       });
-      
+      this.currentUser = user;
+      //console.log(this.currentUser);
       this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
     });
+
+    if(this.user?.role === 'administrator'){
+      this.layoutService.fetchCurrentAdmin().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
+    else{
+      this.layoutService.fetchCurrentUser().subscribe((user) => {
+        this.profileInfoForm.patchValue({
+          id: user.id,
+          userId: user.userId,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          profilePictureUrl: this.imageService.getImageUrl(user.profilePictureUrl),
+          biography: user.biography,
+          motto: user.motto,
+        });
+        
+        this.selectedImage = this.imageService.getImageUrl(user.profilePictureUrl);
+      });
+    }
   }
+
+  checkUserRole(){
+    this.authService.user$.subscribe(user => {
+      this.user = user; 
+      if(this.user.role === "tourist"){
+        this.isTourist = true;
+        this.findTourist(user.id)
+      }
+    });
+  }
+
+  findTourist(userId: number){
+    this.layoutService.getTourist(userId).subscribe((result) => {
+        this.tourist = result;
+    });
+  } 
   
   profileInfoForm = new FormGroup({
     id: new FormControl(-1, [Validators.required]),
@@ -105,12 +165,29 @@ export class ProfileAdministrationComponent implements OnInit{
         }
       });
 
+    
     if (this.profileInfoForm.valid) {
+      this.currentUser = profileInfo;
       this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
         next: () => {
-          this.router.navigate(['home']);
+          //this.router.navigate(['home']);
+          window.location.reload(); //ucitaj ponovo stranicu refresh, izmeni
         },
       });
+      if(this.user?.role === 'administrator'){
+        this.layoutService.saveNewAdminInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
+      else{
+        this.layoutService.saveNewInfo(profileInfo, formData).subscribe({
+          next: () => {
+            this.router.navigate(['home']);
+          },
+        });
+      }
     }
   }
   }
@@ -141,5 +218,9 @@ export class ProfileAdministrationComponent implements OnInit{
     } else {
       this.selectedImage = null;
     }
+  }
+
+  createEncounter():void {
+    this.router.navigate(['tourist-encounter-form']);
   }
 }

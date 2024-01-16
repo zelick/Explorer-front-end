@@ -9,7 +9,7 @@ export interface Checkpoint{
     latitude: number,
     name: string,
     description: string,
-    pictures: string[],
+    pictures?: string[],
     requiredTimeInSeconds: number,
     checkpointSecret?:CheckpointSecret,
     currentPicture:number,
