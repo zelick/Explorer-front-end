@@ -1,9 +1,11 @@
 <div id="preference-form">
     <form [formGroup]="preferenceForm">
         <div id="preference-form-details">
-            <table>
+            <hr width="100%">
+            Select your preferred tour difficulty
+            <table class="pref-table">
                 <tr>
-                    <td>Difficulty</td>
+                    <td>Difficulty: </td>
                     <td>
                        
                     <select formControlName="difficulty">
@@ -15,43 +17,50 @@
                     
                 </tr>
             </table>
-            
-            <div class="radio-button-div">
-                <label class="radio-label">Walk</label> 
-                <mat-radio-group formControlName="walk">
-                    <label *ngFor="let walk of [0, 1, 2, 3]" class="radio-label">
-                      <mat-radio-button [value]="walk">{{ walk }}</mat-radio-button>
-                    </label>
-                </mat-radio-group>
-            </div>
-            
-            <div class="radio-button-div">
-                <label class="radio-label">Bike</label> 
-                <mat-radio-group formControlName="bike">
-                    <label *ngFor="let bike of [0, 1, 2, 3]" class="radio-label">
-                      <mat-radio-button [value]="bike">{{ bike }}</mat-radio-button>
-                    </label>
-                </mat-radio-group>    
-            </div>
-            
-            <div class="radio-button-div">
-                <label class="radio-label">Car</label> 
-                <mat-radio-group formControlName="car">
-                    <label *ngFor="let car of [0, 1, 2, 3]" class="radio-label">
-                      <mat-radio-button [value]="car">{{ car }}</mat-radio-button>
-                    </label>
-                </mat-radio-group>    
-            </div>
-
-            <div class="radio-button-div">
-                <label class="radio-label">Boat</label> 
-                <mat-radio-group formControlName="boat">
-                    <label *ngFor="let boat of [0, 1, 2, 3]" class="radio-label">
-                      <mat-radio-button [value]="boat">{{ boat }}</mat-radio-button>
-                    </label>
-                </mat-radio-group>    
-            </div>
-            
+            <hr width="100%">
+            Rate the modes of transportation from 1 to 3 according to your preferences
+            <table>
+                <tr>
+                    <td>Walk:</td>
+                    <td>
+                        <input type="radio" formControlName="walk" value="1" [checked]="preferenceForm.get('walk')?.value === 1"> 1
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="walk" value="2" [checked]="preferenceForm.get('walk')?.value === 2"> 2
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="walk" value="3" [checked]="preferenceForm.get('walk')?.value === 3"> 3
+                    </td>
+                </tr>
+                <tr>
+                    <td>Car:</td>
+                    <td>
+                        <input type="radio" formControlName="car" value="1"> 1
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="car" value="2"> 2
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="car" value="3"> 3
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>Bike:</td>
+                    <td>
+                        <input type="radio" formControlName="bike" value="1"> 1
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="bike" value="2"> 2
+                    </td>
+                    <td>
+                        <input type="radio" formControlName="bike" value="3"> 3
+                    </td>
+                    
+                </tr>
+            </table>
+            <hr width="100%">
+            Add tags according to your preferences
             <form [formGroup]="tagForm">
                 <div>
                     <table>

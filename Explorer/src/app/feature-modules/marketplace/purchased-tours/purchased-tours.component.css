@@ -43,10 +43,11 @@ h1{
 }
 
 .tour-container {
+    min-height: calc(100vh - 180px);
     display: flex;
     flex-wrap: wrap;
     left: auto;
-    width: auto;
+    width: 90%;
     padding-left: auto;
     padding-right: auto;
     right: auto;
@@ -75,7 +76,7 @@ h1{
     border-radius: 5px;
     margin-bottom: 0px;
     width: 31.5%;
-    min-width: 32vh;
+    min-width: 45vh;
     max-width: 50vh;
     height: 54vh;
     max-height: 400px;
