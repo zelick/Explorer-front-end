@@ -12,6 +12,17 @@ p {
     font-size: 20px;
 }
 
+h1{
+    font-size: 28px;
+    font-weight: 600;
+    color: #E67840;
+    text-shadow: 0 0 2px #E67840;
+    position: absolute;
+    left: 80px;
+    top: 18px;
+    margin-bottom: 50px;
+}
+
 table {
     border-collapse: collapse;
     font-size: 0.9em;
@@ -20,6 +31,7 @@ table {
     overflow-y: auto;
     margin-right: 10px;
     border: 1px solid #E67840;
+    padding: 10px;
 }
 
 thead tr {
@@ -74,8 +86,7 @@ tbody tr.active-row {
 .details {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Center vertically within the flex container */
-
+    align-items: center;
 }
 
 .post-content {
